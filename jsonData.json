@@ -1,0 +1,11 @@
+{"months_temperature" : [
+    {
+        "system" : "gRPC",
+        "num" : 39
+    },{
+        "system" : "REST",
+        "num" : 50
+    }
+]
+
+}

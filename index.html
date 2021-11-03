@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>STT 관리자페이지</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="assets/images/logo.ico">
+    <!-- FontAwesome JS-->
+    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-inner"></div>
+
+        <div class="nav-bar">
+            <i class="bar t"></i>
+            <i class="bar m"></i>
+            <i class="bar b"></i>
+        </div>
+
+        <div class="side-menu">
+            <div class="side-menu-inner">
+                <div class="logo-branding">
+                    <img class="logo-area" src="assets/images/nav_logo.png" alt="logo">
+                </div>
+
+                <nav class="nav-main">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
+                                <span class="nav-txt">Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div id="cont" class="rounded-lg p1rem">
+            <h1 class="container-tit">Dashboard</h1>
+            <div class="box-wrap shadow-xs">
+                <div class="box-inner">
+                    <div class="box-tit json-tit1">server : <span></span></div>
+                    <div class="box-date json-time1"></div>                    
+                    <div class="update">3m update</div>
+                    <div class="box-body">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Charts JS -->
+    <script src="assets/plugins/chart.js/chart.min.js"></script>
+    <script src="assets/plugins/chart.js/chartjs-plugin-datalabels.js"></script>
+    <!-- <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc.1/dist/chartjs-plugin-datalabels.min.js"
+        integrity="sha256-Oq8QGQ+hs3Sw1AeP0WhZB7nkjx6F1LxsX6dCAsyAiA4=" crossorigin="anonymous"></script> -->
+    <script src="assets/js/charts-custom.js"></script>
+    <!-- <script type="text/javascript">
+        Chart.plugins.register({
+            afterDatasetsDraw: function (chart) {
+                var ctx = chart.ctx;
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (!meta.hidden) {
+                        meta.data.forEach(function (element, index) {
+                            // Draw the text in black, with the specified font
+                            ctx.fillStyle = '#5d6778';
+                            var fontSize = 15;
+                            var fontStyle = 'bold';
+                            var fontFamily = 'NotoSnsKR';
+                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+                            // Just naively convert to string for now
+                            var dataString = dataset.data[index].toString();
+                            // Make sure alignment settings are correct
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            var padding = 5;
+                            var position = element.tooltipPosition();
+                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                        });
+                    }
+                });
+            }
+        });
+
+    </script> -->
+
+    <!-- layout.js -->
+    <script src="assets/js/layout.js"></script>
+</body>
+
+</html>
