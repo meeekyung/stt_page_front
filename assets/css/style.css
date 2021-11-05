@@ -4,7 +4,7 @@
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
-body{background-color: #f5f6fe;font-family: 'NotoSnsKR';color: #333;}
+html, body{background-color: #f5f6fe;font-family: 'Roboto', 'NotoSnsKR', Arial, Helvetica, sans-serif;color: #5d6778;}
 a{text-decoration: none;}
 
 /* header */
@@ -62,10 +62,10 @@ a{text-decoration: none;}
 .box-tit{
     padding: 1rem;
     box-sizing: border-box;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #E6E9ED;
     text-align: left;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
 }
 .box-date{
     position: absolute;

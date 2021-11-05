@@ -31,7 +31,7 @@ chartUpdate(function () {
             {
               label: "server" + data.server_id,
               data: [grpcData, restData],
-              backgroundColor: ["#009FF3", "#00C0E0"],
+              backgroundColor: ["#00BCEB", "#00A0E8"],
               barPercentage: 0.3,
             },
           ],
@@ -39,16 +39,40 @@ chartUpdate(function () {
         options: {
           responsive: true,
           legend: {
-            display: false,
+            display: false
           },
           scales: {
+            xAxes: [
+              {
+                display: true,
+                ticks: {
+                  min: 0,
+                  max: 100,
+                  stepSize: 20,
+                  fontColor : "#5d6778",
+						      fontSize : 12,
+                  defaultFontFamily: "Roboto"
+                },
+                gridLines:{
+                  color: '#eaeaea',
+                  lineWidth: 0.5
+                },
+              },
+            ],
             yAxes: [
               {
                 display: true,
                 ticks: {
                   min: 0,
-                  max: 50,
-                  stepSize: 10,
+                  max: 100,
+                  stepSize: 20,
+                  fontColor : "#5d6778",
+						      fontSize : 12,
+                  defaultFontFamily: "Roboto",
+                },
+                gridLines:{
+                  color: '#eaeaea',
+                  lineWidth: 0.5
                 },
               },
             ],
@@ -65,15 +89,44 @@ chartUpdate(function () {
             {
               label: "total",
               data: [totalData, allTotal],
-              backgroundColor: ["#0475DF", "rgb(238, 238, 238)"],
+              backgroundColor: ["#00D4D6", "rgb(238, 238, 238)"],
               barPercentage: 0.3,
             },
           ],
         },
         options: {
+          plugins: {
+            datalabels: {
+              display: true,
+              backgroundColor: '#ccc',
+              borderRadius: 3,
+              font: {
+                color: 'red',
+                weight: 'bold',
+              }
+            },
+            doughnutlabel: {
+              labels: [{
+                text: '550',
+                font: {
+                  size: 20,
+                  weight: 'bold'
+                }
+              }, {
+                text: 'total'
+              }]
+            }
+          },
+          animation: {
+            duration: 0
+          },
           responsive: true,
           legend: {
             display: true,
+            labels: {
+              fontColor: '#5d6778',
+              defaultFontFamily: "Roboto"
+          },
           },
           scales: {
             yAxes: [

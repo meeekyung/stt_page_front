@@ -56,6 +56,36 @@ table {
 	clear: both;
 }
 
+@font-face {  font-family: 'Roboto';  font-style: normal;  font-weight: 100;
+src: url(../webfonts/Roboto-Thin.woff2) format('woff2'),
+		url(../webfonts/Roboto-Thin.woff) format('woff'),
+		url(../webfonts/Roboto-Thin.otf) format('opentype');
+	
+	}
+@font-face {  font-family: 'Roboto';  font-style: normal;  font-weight: 300;
+src: url(../webfonts/Roboto-Light.woff2) format('woff2'),
+		url(../webfonts/Roboto-Light.woff) format('woff'),
+		url(../webfonts/Roboto-Light.otf) format('opentype');
+	}
+
+@font-face {   font-family: 'Roboto';   font-style: normal;   font-weight: 400;
+	src: url(../webfonts/Roboto-Regular.woff2) format('woff2'),
+		url(../webfonts/Roboto-Regular.woff) format('woff'),
+		url(../webfonts/Roboto-Regular.otf) format('opentype'); 
+	}
+
+@font-face {   font-family: 'Roboto';   font-style: normal;   font-weight: 500;
+	src: url(../webfonts/Roboto-Medium.woff2) format('woff2'),
+		url(../webfonts/Roboto-Medium.woff) format('woff'),
+		url(../webfonts/Roboto-Medium.otf) format('opentype'); 
+	}
+
+@font-face {   font-family: 'Roboto';   font-style: normal;   font-weight: 700;
+	src: url(../webfonts/Roboto-Bold.woff2) format('woff2'),
+		url(../webfonts/Roboto-Bold.woff) format('woff'),
+		url(../webfonts/Roboto-Bold.otf) format('opentype'); 
+	}
+
 @font-face {
 	font-family: 'NotoSnsKR';
 	font-weight: 300;
@@ -91,3 +121,5 @@ table {
 		url(../webfonts/NotoSansKR-Bold.woff) format('woff'),
 		url(../webfonts/NotoSansKR-Bold.otf) format('opentype');
 	}
+
+

@@ -42,10 +42,6 @@ startInterval(function () {
       //서버 타이틀
       const getTile01 = document.querySelector(".json-tit1>span");
       getTile01.innerHTML = json.server_id;
-
-      //날짜 및 시간
-      const getDate01 = document.querySelector(".json-time1");
-      getDate01.innerHTML = json.date;
     },
     error: function () {
       console.log("서버와의 접속이 실패되었습니다.");
