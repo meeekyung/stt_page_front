@@ -22,8 +22,7 @@ xmlhttp.onreadystatechange = function () {
           {
             label: "서버 1",
             data: [grpcData, restData],
-            backgroundColor: ["rgb(79, 120, 224)", "rgb(125, 214, 249)"],
-            barPercentage: 0.3,
+            backgroundColor: ["rgb(79, 120, 224)", "rgb(125, 214, 249)"]
           },
         ],
       },
@@ -32,6 +31,7 @@ xmlhttp.onreadystatechange = function () {
         legend: {
           display: false,
         },
+        cutoutPercentage: 80,
         scales: {
           yAxes: [
             {

@@ -1,7 +1,9 @@
 $(function () {
   //nav 클릭시 배경색, 글자색 변경 이벤트
-  $(".nav-link").on("click", function () {
-    $(".nav-link").addClass("active");
+  $(document).on("click", ".nav-link", function () {
+    console.log("ddd");
+    $(this).addClass("active");
+    //$(this).parents().siblings().children().removeClass("active");
   });
 
   //nav 메뉴 동적이벤트
@@ -15,36 +17,40 @@ $(function () {
         $(".logo-area")
           .attr("src", "assets/images/nav_logo_action.png")
           .css({ width: "30px" });
+          $(".container").css({width: "100%"});
       }, 400);
     } else {
       $(".logo-area")
         .attr("src", "assets/images/nav_logo.png")
         .css({ width: "190px" });
       $(".side-menu-inner").animate({ width: "250px" }, 400);
-      $(".nav-bar").animate({ left: "265px" }, 400);
+      $(".nav-bar").animate({ left: "265px" }, 400);      
+      $(".container").css({width: "calc(100% - 250px"});
     }
   });
 });
 
-function startInterval(fn, delay) {
-  fn();
-  setInterval(fn, delay);
-}
 
-startInterval(function () {
-  $.ajax({
-    url: "http://192.168.20.193:55535/channels/server-info",
-    method: "GET",
-    dataType: "JSON",
-    success: function (json) {
-      console.log("서버와의 접속에 성공하였습니다.");
+// //dashboard - 채널상태 그래프 출력
+// function startInterval(fn, delay) {
+//   fn();
+//   setInterval(fn, delay);
+// }
 
-      //서버 타이틀
-      const getTile01 = document.querySelector(".json-tit1>span");
-      getTile01.innerHTML = json.server_id;
-    },
-    error: function () {
-      console.log("서버와의 접속이 실패되었습니다.");
-    },
-  });
-}, 30000);
+// startInterval(function () {
+//   $.ajax({
+//     url: "http://192.168.20.194:55532/monitor/server-info",
+//     method: "GET",
+//     dataType: "JSON",
+//     success: function (json) {
+//       console.log("서버와의 접속에 성공하였습니다.");
+
+//       //서버 타이틀
+//       const getTile01 = document.querySelector(".json-tit1>span");
+//       getTile01.innerHTML = json[0].server_id;
+//     },
+//     error: function () {
+//       console.log("서버와의 접속이 실패되었습니다.");
+//     },
+//   });
+// }, 30000);

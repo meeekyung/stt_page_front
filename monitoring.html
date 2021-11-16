@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>STT 관리자페이지</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="assets/images/logo.ico">
+
+    <!-- FontAwesome JS-->
+    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-inner"></div>
+
+        <div class="nav-bar">
+            <i class="bar t"></i>
+            <i class="bar m"></i>
+            <i class="bar b"></i>
+        </div>
+
+        <div class="side-menu">
+            <div class="side-menu-inner">
+                <div class="logo-branding">
+                    <img class="logo-area" src="assets/images/nav_logo.png" alt="logo">
+                </div>
+
+                <nav class="nav-main">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
+                                <span class="nav-txt">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="monitoring.html" class="nav-link active">
+                                <span class="nav-icon"><i class="fas fa-desktop fa-lg"></i></span>
+                                <span class="nav-txt">monitoring</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="speechToText.html" class="nav-link">
+                                <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
+                                <span class="nav-txt">Speech To Text</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="monitoring-cont">
+            <div class="cont-tit-area">
+                <h3 class="cont-subtit">Monitoring</h3>
+                <p class="cont-subtxt">실시간으로 채널 모니터링을 합니다.</p>
+            </div>
+
+            <div class="tab-area">
+                <div class="tab-bg"></div>
+                <ul class="tab-list">
+                    <li id="allTab" class="tab tab-on">전체<span class="tab-close">X</span></li>
+                    <li id="grpcTab" class="tab">gRPC<span class="tab-close">X</span></li>
+                    <li id="restTab" class="tab">REST<span class="tab-close">X</span></li>
+                </ul>
+            </div>
+
+            <div class="channel-area">
+                <!-- <div  class="channel-box channel-counsel">
+                    <div class="channel-tit"></div>
+                    <div class="channel-img-area counsel-icon">
+                        <div class="channel-img counsel-icon-img"></div>
+                    </div>
+                    <div class="channel-status-txt">상담중</div>
+                    <div class="channerl-sever-txt" id="channelSeverName">gRPC</div>
+                </div> -->
+                <div id="channelBox" class="channel-box channel-wait">
+                    <div class="channel-tit" id="channelNum"></div>
+                    <div class="channel-img-area wait-icon">
+                        <div class="channel-img wait-icon-img"></div>
+                    </div>
+                    <div class="channel-status-txt">대기중</div>
+                    <div class="channel-sever-txt" id="channelSeverName"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- monitoring.js -->
+    <script src="assets/js/monitoring.js"></script>
+
+    <!-- layout.js -->
+    <script src="assets/js/layout.js"></script>
+</body>
+
+</html>

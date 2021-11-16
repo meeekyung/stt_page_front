@@ -12,7 +12,9 @@
     <!-- FontAwesome JS-->
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/speech.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -35,7 +37,7 @@
                 <nav class="nav-main">
                     <ul class="nav-menu">
                         <li class="nav-item">
-                            <a href="dashboard.html" class="nav-link active">
+                            <a href="dashboard.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
                                 <span class="nav-txt">Dashboard</span>
                             </a>
@@ -43,11 +45,11 @@
                         <li class="nav-item">
                             <a href="monitoring.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-desktop fa-lg"></i></span>
-                                <span class="nav-txt">Monitoring</span>
+                                <span class="nav-txt">monitoring</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="speechToText.html" class="nav-link">
+                            <a href="speechToText.html" class="nav-link active">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
                                 <span class="nav-txt">Speech To Text</span>
                             </a>
@@ -57,30 +59,80 @@
             </div>
         </div>
     </header>
+
     <div class="container">
-        <div id="cont" class="rounded-lg p1rem">
-            <h1 class="container-tit">Dashboard</h1>
-            <div class="box-wrap shadow-xs">
-                <div class="box-inner">
-                    <div class="box-tit json-tit1">server - <span></span></div>
-                    <div class="box-body">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                    <div class="box-body">
-                        <canvas id="doughnutChart"></canvas>
+        <div id="speech-cont" class="rounded-lg p1rem">
+            <div class="cont-tit-area">
+                <h3 class="cont-subtit">BONAx Speech STT</h3>
+                <p class="cont-subtxt">녹취파일 재생, 텍스트를 확인할 수 있습니다.</p>
+            </div>
+
+            <div id="speechArea">
+                <div class="upload-area">
+                    <h3 class="speech-subtit">파일 업로드 및 재생</h3>
+                    <p class="speech-subtxt">16 비트 8 kHz PCM 인코딩된 음성 파일만 지원합니다.<span class="notice">※ 3분 이내 음성파일
+                            권장</span>
+                    </p>
+                    <form id="myForm" action="http://192.168.20.193:55525/api/v1/audios" enctype="multipart/form-data"
+                        method="POST">
+                        <div class="browse-Area">
+                            <input class="file-name" id="inpFile" value="파일선택" name="uploadFileName"
+                                disabled="disabled">
+                            <label for="fileIn" id="browse" class="btn-sm borwse-btn">파일찾기</label>
+                        </div>
+
+                        <button type="button" value="업로드" id="uploadBtn" class="btn-large file-btn">변환하기</button>
+                        <input type="file" id="fileIn" name="uploadFile" class="file_in upload-hidden" value="fileIn">
+                    </form>
+                </div>
+
+                <div class="ready-player-1">
+                    <audio id="audio" crossorigin preload="none">
+                        <source src="" type="audio/mpeg" id="src">
+                    </audio>
+                </div>
+
+                <div class="stt-area">
+                    <h3 class="speech-subtit stt-sont-subtit">음성인식 변환 결과</h3>
+                    <button class="btn-large stt-btn">결과보기</button>
+                    <div class="stt-txt-area">
+                        <ul class="stt-tit">
+                            <li>시간</li>
+                            <li>내용</li>
+                        </ul>
+                        <ul class="stt-cont"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="lodingArea">
+        <div class="black_bg"></div>
+        <div class="loading-box">
+            <div class="circles">
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
-    <!-- Charts JS -->
-    <!-- <script src="assets/plugins/chart.js/chart.min.js"></script> -->
-    <!-- <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script> -->
-    <!-- <script src="assets/js/charts-custom.js"></script> -->
+    <!-- speech to text js -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/green-audio-player.js"></script>
+    <script src="assets/js/speech.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new GreenAudioPlayer('.ready-player-1', { showTooltips: true, showDownloadButton: false, enableKeystrokes: true });
+        });
+    </script>
+
     <!-- <script type="text/javascript">
         Chart.plugins.register({
             afterDatasetsDraw: function (chart) {
