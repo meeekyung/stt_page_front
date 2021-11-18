@@ -22,10 +22,10 @@ $(function () {
     } else {
       $(".logo-area")
         .attr("src", "assets/images/nav_logo.png")
-        .css({ width: "190px" });
-      $(".side-menu-inner").animate({ width: "250px" }, 400);
-      $(".nav-bar").animate({ left: "265px" }, 400);      
-      $(".container").css({width: "calc(100% - 250px"});
+        .css({ width: "160px" });
+      $(".side-menu-inner").animate({ width: "200px" }, 400);
+      $(".nav-bar").animate({ left: "215px" }, 400);      
+      $(".container").css({width: "calc(100% - 200px"});
     }
   });
 });

@@ -19,7 +19,7 @@ function allList() {
         //console.log(json.length);
         if (json.length >= 0) {
           $(".channel-area").append(
-            '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '">00</div></div></div>'
+            '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '"></div></div></div>'
           );
         }
       }
@@ -27,7 +27,7 @@ function allList() {
       //모니터링 리스트에서 채널번호 및 서버이름 출력
       for (var i = 0; i < json.length; i++) {
         //채널번호 출력
-        $("#channelNum" + i).text(json[i].name);
+        $("#channelNum" + i).text('0' + json[i].name);
         //서버이름 출력
         $("#channelSeverName" + i).text(json[i].server);
       }
@@ -40,14 +40,14 @@ function allList() {
           $("#channelBox" + i)
             .removeClass("channel-wait")
             .addClass("channel-counsel");
-          $(".channel-counsel>.channel-img")
+          $(".channel-counsel .channel-img")
             .removeClass("wait-icon-img")
             .addClass("counsel-icon-img");
         } else if (dataActive == "대기 중") {
           $("#channelBox" + i)
             .removeClass("channel-counsel")
             .addClass("channel-wait");
-          $(".channel-counsel>.channel-img")
+          $("channel-counsel .channel-img")
             .removeClass("counsel-icon-img")
             .addClass("wait-icon-img");
         }
@@ -93,13 +93,7 @@ $("#allTab").on("click", function () {
           //console.log(json.length);
           if (json.length >= 0) {
             $(".channel-area").append(
-              '<div class="channel-box channel-wait" id="channelBox' +
-              i +
-              '"><div class="channel-tit" id="channelNum' +
-              i +
-              '"></div><div class="channel-img-area wait-icon"><div class="channel-img wait-icon-img"></div></div><div class="channel-status-txt">대기중</div><div class="channel-sever-txt" id="channelSeverName' +
-              i +
-              '"></div></div></div>'
+              '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '"></div></div></div>'
             );
           }
         }
@@ -107,7 +101,7 @@ $("#allTab").on("click", function () {
         //모니터링 리스트에서 채널번호 및 서버이름 출력
         for (var i = 0; i < json.length; i++) {
           //채널번호 출력
-          $("#channelNum" + i).text(json[i].name);
+          $("#channelNum" + i).text('0' + json[i].name);
           //서버이름 출력
           $("#channelSeverName" + i).text(json[i].server);
         }
@@ -120,17 +114,16 @@ $("#allTab").on("click", function () {
             $("#channelBox" + i)
               .removeClass("channel-wait")
               .addClass("channel-counsel");
-            $(".channel-counsel>.channel-img-area ")
-              .removeClass("wait-icon")
-              .addClass("counsel-icon");
-            $(".channel-counsel>.channel-status-txt").text("상담 중");
+            $(".channel-counsel .channel-img")
+              .removeClass("wait-icon-img")
+              .addClass("counsel-icon-img");
           } else if (dataActive == "대기 중") {
             $("#channelBox" + i)
               .removeClass("channel-counsel")
               .addClass("channel-wait");
-            $(".channel-counsel>.channel-img-area ")
-              .removeClass("wait-icon")
-              .addClass("counsel-icon");
+            $("channel-counsel .channel-img")
+              .removeClass("counsel-icon-img")
+              .addClass("wait-icon-img");
           }
         }
       },
@@ -174,13 +167,7 @@ $("#grpcTab").on("click", function () {
           if (json.length >= 0) {
             if (json[i].server == "gRPC")
               $(".channel-area").append(
-                '<div class="channel-box channel-wait" id="channelBox' +
-                i +
-                '"><div class="channel-tit" id="channelNum' +
-                i +
-                '"></div><div class="channel-img-area wait-icon"><div class="channel-img wait-icon-img"></div></div><div class="channel-status-txt">대기중</div><div class="channel-sever-txt" id="channelSeverName' +
-                i +
-                '"></div></div></div>'
+                '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '"></div></div></div>'
               );
           }
         }
@@ -201,17 +188,16 @@ $("#grpcTab").on("click", function () {
             $("#channelBox" + i)
               .removeClass("channel-wait")
               .addClass("channel-counsel");
-            $(".channel-counsel>.channel-img-area ")
-              .removeClass("wait-icon")
-              .addClass("counsel-icon");
-            $(".channel-counsel>.channel-status-txt").text("상담 중");
+            $(".channel-counsel .channel-img")
+              .removeClass("wait-icon-img")
+              .addClass("counsel-icon-img");
           } else if (dataActive == "대기 중") {
             $("#channelBox" + i)
               .removeClass("channel-counsel")
               .addClass("channel-wait");
-            $(".channel-counsel>.channel-img-area ")
-              .removeClass("wait-icon")
-              .addClass("counsel-icon");
+            $("channel-counsel .channel-img")
+              .removeClass("counsel-icon-img")
+              .addClass("wait-icon-img");
           }
         }
       },
@@ -255,13 +241,7 @@ $("#restTab").on("click", function () {
           if (json.length >= 0) {
             if (json[i].server == "REST")
               $(".channel-area").append(
-                '<div class="channel-box channel-wait" id="channelBox' +
-                i +
-                '"><div class="channel-tit" id="channelNum' +
-                i +
-                '"></div><div class="channel-img-area wait-icon"><div class="channel-img wait-icon-img"></div></div><div class="channel-status-txt">대기중</div><div class="channel-sever-txt" id="channelSeverName' +
-                i +
-                '"></div></div></div>'
+                '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '"></div></div></div>'
               );
           }
         }
@@ -282,17 +262,16 @@ $("#restTab").on("click", function () {
             $("#channelBox" + i)
               .removeClass("channel-wait")
               .addClass("channel-counsel");
-            $(".channel-counsel>.channel-img-area ")
-              .removeClass("wait-icon")
-              .addClass("counsel-icon");
-            $(".channel-counsel>.channel-status-txt").text("상담 중");
+            $(".channel-counsel .channel-img")
+              .removeClass("wait-icon-img")
+              .addClass("counsel-icon-img");
           } else if (dataActive == "대기 중") {
             $("#channelBox" + i)
               .removeClass("channel-counsel")
               .addClass("channel-wait");
-            $(".channel-counsel>.channel-img-area ")
-              .removeClass("wait-icon")
-              .addClass("counsel-icon");
+            $("channel-counsel .channel-img")
+              .removeClass("counsel-icon-img")
+              .addClass("wait-icon-img");
           }
         }
       },

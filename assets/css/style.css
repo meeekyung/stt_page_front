@@ -29,11 +29,11 @@ a{text-decoration: none;}
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .06);
 }
 .side-menu{position: fixed;min-height: 100vh;height: 100%;top: 0;left: 0;border-right: 1px solid #eee;}
-.side-menu-inner{width: 250px;height: 100%;position: relative;background: #fff;box-shadow: 0 8px 15px rgba(0, 0, 0, .1);overflow: hidden;}
+.side-menu-inner{width: 200px;height: 100%;position: relative;background: #fff;box-shadow: 0 8px 15px rgba(0, 0, 0, .1);overflow: hidden;}
 .logo-branding{height: 70px;padding: 15px 10px;margin-bottom: 1rem;text-align: left;}
-.logo-area{display: inline-block;width: 190px; margin-left: .3rem;}
+.logo-area{display: inline-block;width: 160px; margin-left: .3rem;}
 
-.nav-bar{width: 25px;height: 20px;position: absolute;top: 15px;left: 265px;cursor: pointer;}
+.nav-bar{width: 25px;height: 20px;position: absolute;top: 15px;left: 215px;cursor: pointer;}
 .nav-bar .bar{width: 100%;height: 3px;background: #fff;position: absolute;}
 .nav-bar .t{top: 0;}
 .nav-bar .m{top: 9px;width: 80%;}
@@ -80,15 +80,15 @@ canvas{width: 20vw;}
 .channel-area{width: 90%;height: calc(100% - 151px);margin: 0 auto;overflow: auto;}
 .channel-area::after{content: '';clear: both;display: block;}
 .channel-box{float: left;width: 85px;margin-right: 1px;margin-bottom: 20px;background: #fff;color: #5d6778;border-radius: 5px;box-shadow:  0 3px 5px rgba(0, 0, 0, .1);padding: 5px;position: relative;}
-.channel-counsel:hover{cursor: pointer;}
+.channel-counsel:hover{cursor: pointer;background: rgba(233, 252, 255, .5);}
 .channel-box:nth-child(8n){margin-right: 0;}
 .channel-wait::before{content: '';width: 4px;height: 100%;background: #9caebc;position: absolute;left: 0;top: 0;border-radius: 5px 0 0 5px;}
-.channel-counsel::before{content: '';width: 4px;height: 100%;background: #00e3de;position: absolute;left: 0;top: 0;border-radius: 5px 0 0 5px;}
+.channel-counsel::before{content: '';width: 4px;height: 100%;background: #00A0F4;position: absolute;left: 0;top: 0;border-radius: 5px 0 0 5px;}
 .channel-inner{width: 95%;margin: 0 auto;text-align: center;}
 .channel-wait div {color: #9caebc;}
-.channel-counsel div {color: #00e3de;}
+.channel-counsel div {color: #00A0F4;}
 .channel-sever-txt{text-align: left;font-size: 13px;margin-bottom: 5px;margin-left: 5px;}
-.counsel-icon{background-color: #00e3de;}
+.counsel-icon{background-color: #00A0F4;}
 .channel-img{width: 37px;height: 35px;background: url(../images/icon_v2.png) no-repeat;background-size: cover;margin: 0 auto 10px;}
 .counsel-icon-img{background-position-x: 1px;}
 .wait-icon-img{background-position-x: -36px;}
