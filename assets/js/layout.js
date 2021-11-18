@@ -17,7 +17,7 @@ $(function () {
         $(".logo-area")
           .attr("src", "assets/images/nav_logo_action.png")
           .css({ width: "30px" });
-          $(".container").css({width: "calc(100% - 60px"});
+          $(".container").css({width: "100%"});
       }, 400);
     } else {
       $(".logo-area")

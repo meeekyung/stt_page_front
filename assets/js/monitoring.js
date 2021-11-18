@@ -19,7 +19,13 @@ function allList() {
         //console.log(json.length);
         if (json.length >= 0) {
           $(".channel-area").append(
-            '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '">00</div></div></div>'
+            '<div class="channel-box channel-wait" id="channelBox' +
+            i +
+            '"><div class="channel-tit" id="channelNum' +
+            i +
+            '"></div><div class="channel-img-area wait-icon"><div class="channel-img wait-icon-img"></div></div><div class="channel-status-txt">대기중</div><div class="channel-sever-txt" id="channelSeverName' +
+            i +
+            '"></div></div></div>'
           );
         }
       }
@@ -40,16 +46,17 @@ function allList() {
           $("#channelBox" + i)
             .removeClass("channel-wait")
             .addClass("channel-counsel");
-          $(".channel-counsel>.channel-img")
-            .removeClass("wait-icon-img")
-            .addClass("counsel-icon-img");
+          $(".channel-counsel>.channel-img-area ")
+            .removeClass("wait-icon")
+            .addClass("counsel-icon");
+          $(".channel-counsel>.channel-status-txt").text("상담 중");
         } else if (dataActive == "대기 중") {
           $("#channelBox" + i)
             .removeClass("channel-counsel")
             .addClass("channel-wait");
-          $(".channel-counsel>.channel-img")
-            .removeClass("counsel-icon-img")
-            .addClass("wait-icon-img");
+          $(".channel-counsel>.channel-img-area ")
+            .removeClass("wait-icon")
+            .addClass("counsel-icon");
         }
       }
     },
@@ -72,8 +79,8 @@ $("#allTab").on("click", function () {
   grpcListstop();
   restListstop();
 
-  //tab표시
-  $("#allTab").addClass("tab-on").siblings("li").removeClass("tab-on");
+   //tab표시
+   $("#allTab").addClass("tab-on").siblings("li").removeClass("tab-on");
   //allListInterval = setInterval(function(){
   function clickAllList() {
     $.ajax({
@@ -235,8 +242,8 @@ $("#restTab").on("click", function () {
   grpcListstop();
   clickAllListstop();
 
-  //tab표시
-  $("#restTab").addClass("tab-on").siblings("li").removeClass("tab-on");
+   //tab표시
+   $("#restTab").addClass("tab-on").siblings("li").removeClass("tab-on");
   //restInterval = setInterval(function(){
   function restList() {
     $.ajax({
