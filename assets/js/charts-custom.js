@@ -80,7 +80,7 @@ chartUpdate(function () {
         },
       });
 
-      const ctx2 = document.getElementById("doughnutChart").getContext("2d");
+      const ctx2 = document.getElementById("suceessChart").getContext("2d");
       const myChart2 = new Chart(ctx2, {
         type: "doughnut",
         data: {

@@ -41,12 +41,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="monitoring.html" class="nav-link">
-                                <span class="nav-icon"><i class="fas fa-desktop fa-lg"></i></span>
-                                <span class="nav-txt">monitoring</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="speechToText.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
                                 <span class="nav-txt">STT&nbsp;TEST</span>
@@ -57,23 +51,116 @@
             </div>
         </div>
     </header>
+
     <div class="container">
         <div id="cont" class="rounded-lg p1rem">
-            <h1 class="container-tit">Dashboard</h1>
-            <div class="box-wrap shadow-xs">
-                <div class="box-inner">
-                    <div class="box-tit json-tit1">server - <span></span></div>
-                    <div class="box-body">
-                        <canvas id="barChart"></canvas>
+            <div class="cont-tit-area mb20">
+                <h3 class="cont-subtit">Dashboard</h3>
+            </div>
+            <div id="severStausArea">
+                <div class="status-box">
+                    <div class="status-box-inner onlineBg">
+                        <h3>bona-stt1</h3>
+                        <p>IP : 127.0.0.1 /<span class="etcText">STT</span></p>
                     </div>
-                    <div class="box-body">
-                        <canvas id="doughnutChart"></canvas>
+                </div>
+                <div class="status-box">
+                    <div class="status-box-inner offlineBg">
+                        <h3>bona-stt2</h3>
+                        <p>IP : 127.0.0.1 /<span class="etcText">STT</span></p>
                     </div>
+                </div>
+                <div class="status-box">
+                    <div class="status-box-inner faultBg">
+                        <h3>bona-stt3</h3>
+                        <p>IP : 127.0.0.1 /<span class="etcText">STT</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="systemArea">
+                <div class="tab-area w100p mt20">
+                    <div class="tab-bg bgTransparency mb0 bdb"></div>
+                    <ul class="tab-list">
+                        <li id="allTab" class="tab tab-on bdb">전체</li>
+                        <li id="stt1" class="tab bdb">STT1</li>
+                        <li id="stt2" class="tab bdb">STT2</li>
+                    </ul>
+                </div>
+
+                <div class="system-box">
+                    <div class="performanceArea">
+                        <h3 class="system-tit">성능지표</h3>
+                        <div class="performanceList">
+                            <div class="performance-box request-area">
+                                <img src="assets/images/ico_request.png" alt="요청건수 아이콘">
+                                <h4>요청건수</h4>
+                                <div class="request-data"></div><span>건</span>
+                            </div>
+                            <div class="performance-box suceess-area">
+                                <img src="assets/images/ico_success.png" alt="성공률 아이콘">
+                                <h4>성공률</h4>
+                                <canvas id="suceessChart"></canvas>
+                            </div>
+                            <div class="performance-box length-area">
+                                <img src="assets/images/ico_length.png" alt="음성길이 아이콘">
+                                <h4>총 음성길이</h4>
+                                <div class="length-data"></div><span>분</span>
+                            </div>
+                            <div class="performance-box speed-area">
+                                <img src="assets/images/ico_speed.png" alt="평균처리속도 아이콘">
+                                <h4>평균처리속도</h4>
+                                <div class="speed-data"></div><span>RTF</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="channelArea">
+                        <h3 class="system-tit">채널상태</h3>
+                        <div class="channelstatusList">
+                            <div class="channelstatus-box status-area">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                            <div class="channelstatus-box severchannel-area">
+                                <canvas id="serverChChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="useperArea">
+                <div class="tab-area w100p mt20">
+                    <div class="tab-bg bgTransparency mb0 bdb"></div>
+                    <ul class="tab-list">
+                        <li id="allTab" class="tab tab-on bdb">STT1</li>
+                        <li id="grpcTab" class="tab bgTransparency bdb">STT2</li>
+                        <li id="restTab" class="tab bgTransparency bdb">LB-MONI</li>
+                    </ul>
+                </div>
+
+                <div class="hwArea">
+                    <div class="hwAreaList">
+                        <div class="hw-box cpu-area">
+                            <h4>CPU 사용률</h4>
+                            <canvas id="cpuChart"></canvas>
+                        </div>
+                        <div class="hw-box memory-area">
+                            <h4>메모리 사용률</h4>
+                            <canvas id="memoryChart"></canvas>
+                        </div>
+                        <div class="hw-box disk-area">
+                            <h4>디스크 사용률</h4>
+                            <canvas id="diskChart"></canvas>
+                        </div>
+                        <div class="hw-box network-area">
+                            <h4>네트워크 사용률</h4>
+                            <canvas id="networkChart"></canvas>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
     </div>
-
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -81,7 +168,9 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="assets/plugins/chart.js/chart.min.js"></script>
     <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script>
-    <script src="assets/js/charts-custom.js"></script>
+
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/hwdata.js"></script>
     <!-- <script type="text/javascript">
         Chart.plugins.register({
             afterDatasetsDraw: function (chart) {

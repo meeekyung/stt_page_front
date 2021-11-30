@@ -9,6 +9,7 @@ a{text-decoration: none;}
 
 /* 배경색 */
 .bg-white{background-color: #fff;}
+.bgTransparency{background: transparent !important;}
 
 /* 그림자 */
 .shadow-xs{box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);}
@@ -18,6 +19,17 @@ a{text-decoration: none;}
 
 /* padding */
 .p1rem{padding: 1rem;}
+
+/* margin */
+.mb0{margin-bottom: 0px !important;}
+.mb20{margin-bottom: 20px !important;}
+.mt20{margin-top: 20px !important;}
+
+/* width */
+.w100p{width: 100% !important;}
+
+/* border */
+.bdb{border-bottom: 0 !important;}
 
 /* header */
 .header{width: 100%;height: 56px;
@@ -52,28 +64,77 @@ a{text-decoration: none;}
 .tab-area{width: 90%;margin: 0 auto;position: relative;}
 .tab-bg{width: 100%;height: 25px;background: rgba(93, 103, 120, .1);border-bottom: 1px solid #d6d8e1;margin-bottom: 30px;}
 .tab-list{position: absolute;left: 0;bottom: 0;}
-.tab-list > .tab {display: inline-block;width: auto;position: relative;height: 40px;line-height: 40px;background: #fff;padding: 0 10px;border-radius: 5px 5px 0 0;margin-right: 10px;border: 1px solid #d6d8e1;}
+.tab-list > .tab {display: inline-block;width: auto;position: relative;height: 30px;line-height: 30px;background: transparent;padding: 0 10px;border-radius: 5px 5px 0 0;margin-right: 6px;border: 1px solid #d6d8e1;font-size: 14px;}
 .tab-list > .tab:hover {font-weight: bold;cursor: pointer;}
-.tab-list > .tab > .tab-close {font-weight: bold;font-size: .8rem;margin-left: 10px;}
-.tab-list > .tab > .tab-close:hover {font-weight: bold;font-size: .8rem;margin-left: 10px;color: #52698a;}
-.tab-on::before{content: '';background: #d6d8e1;width: 5px;height: 100%;position: absolute;left: 0;border-radius: 5px 0 0 0;}
+.tab-list > .tab.tab-on{border: 0;background: #fff;}
+.tab-on::before{content: '';background: #d6d8e1;width: 100%;height: 3px;position: absolute;left: 0;top: 0;border-radius: 5px 0 0 0;}
 
 /* container */
 .container{width: calc(100% - 250px);height: calc(100% - 106px);text-align: center;display: inline-block;position: absolute;right: 0;transition: width .4s ease;}
 .container-tit{margin: 1em;text-align: left;font-size: 25px;}
-#cont{width: 80%;margin: 0 auto;text-align: center;}
+#cont{margin: 0 auto;text-align: center;}
 
 .cont-tit-area{width: 90%;border-bottom: 1px solid #ccc;margin: 50px auto;padding-bottom: 15px;text-align: left;}
 .cont-subtit {font-size: 30px;font-weight: 600;margin-right: .5em;padding-left: 15px;display: inline-block;letter-spacing: -1px;}
 .cont-subtxt {font-size: 18px;display: inline-block;letter-spacing: -1px;}
 
 /* dashboard */
-.box-wrap{display: inline-block;width: 45%;position: relative;background: #fff;border-radius: .25rem;margin-right: 2em;border: 1px solid #eee;}
-.box-inner{position: relative;}
-.box-tit{padding: 1rem;box-sizing: border-box;border-bottom: 1px solid #E6E9ED;text-align: left;font-size: 20px;font-weight: 500;}
-.box-date{position: absolute;right: 20px;top: 30px;font-size: 14px;}
-.box-body{display: flex;justify-content: center;padding: 1.5rem;box-sizing: border-box;}
-canvas{width: 20vw;}
+#severStausArea{width: 90%;margin: 0 auto 20px;text-align: left;overflow: hidden;}
+#severStausArea .status-box{width: calc(100%/8);margin-right: 10px;box-shadow: 3px 3px 5px rgba(0, 0, 0, .06);display: inline-block;text-align: left;border-radius: 3px;}
+#severStausArea .status-box .status-box-inner{width: 100%;padding: 10px 20px;color: #fff;cursor: pointer;border-radius: 3px;}
+#severStausArea .status-box .status-box-inner>h3{margin-bottom: 8px;}
+#severStausArea .status-box .status-box-inner>p{font-size: 14px;}
+.onlineBg{
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4c9fff+0,6db1ff+100 */
+    background: #4c9fff; /* Old browsers */
+    background: -moz-linear-gradient(left,  #4c9fff 0%, #6db1ff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #4c9fff 0%,#6db1ff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #4c9fff 0%,#6db1ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c9fff', endColorstr='#6db1ff',GradientType=0 ); /* IE6-9 */
+}
+.offlineBg{
+    color: #ccc !important;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eaeaea+0,eeeeee+100 */
+    background: #eaeaea; /* Old browsers */
+    background: -moz-linear-gradient(left,  #f0f0f0 0%, #eeeeee 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #f0f0f0 0%,#eeeeee 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #f0f0f0 0%,#eeeeee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
+}
+.faultBg{
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff5e79+0,ff8095+100 */
+    background: #ff5e79; /* Old browsers */
+    background: -moz-linear-gradient(left,  #ff5e79 0%, #ff8095 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #ff5e79 0%,#ff8095 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #ff5e79 0%,#ff8095 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5e79', endColorstr='#ff8095',GradientType=1 ); /* IE6-9 */
+}
+
+#systemArea, #useperArea{width: 90%;margin: 0 auto;overflow: hidden;}
+.system-box{background: #fff;padding-bottom: 1em;}
+.performanceList, .hwAreaList{display: flex;justify-content: space-around;height: 11em;padding: 0 70px;box-sizing: border-box;}
+
+.system-tit{text-align: left;padding: 20px 0 10px 30px;color: #5d6778;}
+.performance-box{width: 20%;position: relative;border: 1px solid #d6d8e1;border-radius: 5px;padding: 1em;box-sizing: border-box;margin-right: 2em;box-shadow: 3px 3px 5px rgba(25, 160, 238, .05);}
+.performance-box:last-child{margin-right: 0;}
+.performance-box>h4{font-size: 20px;padding: 20px 0;}
+.performance-box>div{font-size: 40px;letter-spacing: -1px;font-weight: normal;margin-bottom: 1em;display: inline-block;}
+.performance-box>span{font-size: 20px;font-weight: normal;margin-left: 5px;display: inline-block;}
+
+.suceess-area{flex-grow: 1;}
+.suceess-area>canvas{width: 250px;position: absolute;top: 25px;right: 40px;}
+.suceess-area>img{position: absolute;left: 50px;top: 3rem;}
+.suceess-area>h4{position: absolute;top: 4.3rem;left: 35px;}
+
+.channelstatusList{padding: 0 70px;display: flex;justify-content: space-around;align-items: center;}
+.status-area>canvas{width: 330px !important;}
+.severchannel-area>canvas{width: 450px !important;}
+
+.hwArea{background: #fff;padding-bottom: 2em;}
+.hw-box{padding: 30px 0;box-sizing: border-box;}
+.hw-box h4{font-size: 1.3rem;margin-bottom: .7em;display: inline-block;margin-right: 30px;}
+.cpu-area>canvas, .memory-area>canvas{width: 250px !important;}
+.disk-area>canvas, .network-area>canvas{width: 250px !important;}
 
 /* monitoring */
 #monitoring-cont{height: 100%;}
