@@ -18,14 +18,14 @@ socket.onmessage = function (json) {
     const boardData = JSON.parse(json.data);
 
     //요청건수 출력
-    const requestTotal = boardData.p_total.request_number;
+    const requestTotal = boardData.bona_stt_total.request_number;
     document.querySelector(".request-data").innerHTML = requestTotal;
 
     //성공률 출력 - 도넛형 차트
-    const successNum = boardData.p_total.success;
-    const failPerNum = boardData.p_total.fail;
-    const successPer = Math.trunc(100 - boardData.p_total.success / 100.); //정수만 반환
-    const failPer = boardData.p_total.fail / 100;
+    const successNum = boardData.bona_stt_total.success;
+    const failPerNum = boardData.bona_stt_total.fail;
+    const successPer = Math.trunc(100 - boardData.bona_stt_total.success / 100.); //정수만 반환
+    const failPer = boardData.bona_stt_total.fail / 100;
 
     const suceessChart = document.getElementById("suceessChart").getContext("2d");
     const myChart = new Chart(suceessChart, {
@@ -91,17 +91,17 @@ socket.onmessage = function (json) {
     });
 
     //총 음성길이 출력
-    const audioLength = boardData.p_total.audio_len;
+    const audioLength = boardData.bona_stt_total.audio_len;
     document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
     //평균처리 속도 출력
-    const averageSpeed = boardData.p_total.average_speed;
+    const averageSpeed = boardData.bona_stt_total.average_speed;
     document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
     //채널상태 - 전체(도넛형 차트)
-    const totalCh = boardData.p_total.channels.total;
-    const useCh = boardData.p_total.channels.running;
-    const useChPer = boardData.p_total.channels.running / 100;
+    const totalCh = boardData.bona_stt_total.channels.total;
+    const useCh = boardData.bona_stt_total.channels.running;
+    const useChPer = boardData.bona_stt_total.channels.running / 100;
 
     const statusChart = document.getElementById("statusChart").getContext("2d");
     const channelChart1 = new Chart(statusChart, {
@@ -166,13 +166,13 @@ socket.onmessage = function (json) {
     });
 
     //채널상태 - 서버별(누적형 막대차트)
-    const restTotal = boardData.p_total.channels.rest.total;
-    const grpcTotal = boardData.p_total.channels.grpc.total;
-    const grpcStreamTotal = boardData.p_total.channels.grpc_stream.total;
+    const restTotal = boardData.bona_stt_total.channels.rest.total;
+    const grpcTotal = boardData.bona_stt_total.channels.grpc.total;
+    const grpcStreamTotal = boardData.bona_stt_total.channels.grpc_stream.total;
 
-    const restRunning = boardData.p_total.channels.rest.running;
-    const grpcRunning = boardData.p_total.channels.grpc.running;
-    const grpcStreamRunning = boardData.p_total.channels.grpc_stream.running;
+    const restRunning = boardData.bona_stt_total.channels.rest.running;
+    const grpcRunning = boardData.bona_stt_total.channels.grpc.running;
+    const grpcStreamRunning = boardData.bona_stt_total.channels.grpc_stream.running;
 
     const serverChChart = document.getElementById("serverChChart").getContext("2d");
     const channelChart2 = new Chart(serverChChart, {
@@ -254,6 +254,7 @@ socket.onmessage = function (json) {
 //전체 tab 클릭시 데이터 변환 이벤트
 $('#allTab').off().on('click', function () {
     socket.close();
+    socketTotal.close();
     socketStt1.close();
     socketStt2.close();
 
@@ -269,14 +270,14 @@ $('#allTab').off().on('click', function () {
         const boardData = JSON.parse(json.data);
 
         //요청건수 출력
-        const requestTotal = boardData.p_total.request_number;
+        const requestTotal = boardData.bona_stt_total.request_number;
         document.querySelector(".request-data").innerHTML = requestTotal;
 
         //성공률 출력 - 도넛형 차트
-        const successNum = boardData.p_total.success;
-        const failPerNum = boardData.p_total.fail;
-        const successPer = Math.trunc(100 - boardData.p_total.success / 100.); //정수만 반환
-        const failPer = boardData.p_total.fail / 100;
+        const successNum = boardData.bona_stt_total.success;
+        const failPerNum = boardData.bona_stt_total.fail;
+        const successPer = Math.trunc(100 - boardData.bona_stt_total.success / 100.); //정수만 반환
+        const failPer = boardData.bona_stt_total.fail / 100;
 
         const suceessChart = document.getElementById("suceessChart").getContext("2d");
         const myChart = new Chart(suceessChart, {
@@ -342,17 +343,17 @@ $('#allTab').off().on('click', function () {
         });
 
         //총 음성길이 출력
-        const audioLength = boardData.p_total.audio_len;
+        const audioLength = boardData.bona_stt_total.audio_len;
         document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeed = boardData.p_total.average_speed;
+        const averageSpeed = boardData.bona_stt_total.average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalCh = boardData.p_total.channels.total;
-        const useCh = boardData.p_total.channels.running;
-        const useChPer = boardData.p_total.channels.running / 100;
+        const totalCh = boardData.bona_stt_total.channels.total;
+        const useCh = boardData.bona_stt_total.channels.running;
+        const useChPer = boardData.bona_stt_total.channels.running / 100;
 
         const statusChart = document.getElementById("statusChart").getContext("2d");
         const channelChart1 = new Chart(statusChart, {
@@ -417,13 +418,13 @@ $('#allTab').off().on('click', function () {
         });
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotal = boardData.p_total.channels.rest.total;
-        const grpcTotal = boardData.p_total.channels.grpc.total;
-        const grpcStreamTotal = boardData.p_total.channels.grpc_stream.total;
+        const restTotal = boardData.bona_stt_total.channels.rest.total;
+        const grpcTotal = boardData.bona_stt_total.channels.grpc.total;
+        const grpcStreamTotal = boardData.bona_stt_total.channels.grpc_stream.total;
 
-        const restRunning = boardData.p_total.channels.rest.running;
-        const grpcRunning = boardData.p_total.channels.grpc.running;
-        const grpcStreamRunning = boardData.p_total.channels.grpc_stream.running;
+        const restRunning = boardData.bona_stt_total.channels.rest.running;
+        const grpcRunning = boardData.bona_stt_total.channels.grpc.running;
+        const grpcStreamRunning = boardData.bona_stt_total.channels.grpc_stream.running;
 
         const serverChChart = document.getElementById("serverChChart").getContext("2d");
         const channelChart2 = new Chart(serverChChart, {
@@ -507,10 +508,11 @@ $('#allTab').off().on('click', function () {
 $('#stt1').off().on('click', function () {
     socket.close();
     socketTotal.close();
+    socketStt1.close();
     socketStt2.close();
 
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
-   
+
     const socketStt1 = new WebSocket("ws://192.168.20.194:55532/ws/performance");
 
     socketStt1.onmessage = function (json) {
@@ -760,11 +762,12 @@ $('#stt2').off().on('click', function () {
     socket.close();
     socketTotal.close();
     socketStt1.close();
+    socketStt2.close();
 
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
     const socketStt2 = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-    
+
     socketStt2.onmessage = function (json) {
         console.log('socketStt2 연결 성공!');
 
