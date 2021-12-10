@@ -25,7 +25,7 @@
             <i class="bar m"></i>
             <i class="bar b"></i>
         </div>
-
+  
         <div class="side-menu">
             <div class="side-menu-inner">
                 <div class="logo-branding">
@@ -57,25 +57,7 @@
             <div class="cont-tit-area mb20">
                 <h3 class="cont-subtit">Dashboard</h3>
             </div>
-            <div id="severStausArea">
-                <div class="status-box">
-                    <div class="status-box-inner onlineBg">
-                        <h3>bona-stt1</h3>
-                        <p>IP : 127.0.0.1 /<span class="etcText">STT</span></p>
-                    </div>
-                </div>
-                <div class="status-box">
-                    <div class="status-box-inner offlineBg">
-                        <h3>bona-stt2</h3>
-                        <p>IP : 127.0.0.1 /<span class="etcText">STT</span></p>
-                    </div>
-                </div>
-                <div class="status-box">
-                    <div class="status-box-inner faultBg">
-                        <h3>bona-stt3</h3>
-                        <p>IP : 127.0.0.1 /<span class="etcText">STT</span></p>
-                    </div>
-                </div>
+            <div id="severStausArea">                
             </div>
             
             <div id="systemArea">
@@ -93,23 +75,25 @@
                         <h3 class="system-tit">성능지표</h3>
                         <div class="performanceList">
                             <div class="performance-box request-area">
-                                <img src="assets/images/ico_request.png" alt="요청건수 아이콘">
                                 <h4>요청건수</h4>
+                                <p>단위 시간 내 수신된 요청 누적 건수</p>
                                 <div class="request-data"></div><span>건</span>
                             </div>
                             <div class="performance-box suceess-area">
-                                <img src="assets/images/ico_success.png" alt="성공률 아이콘">
                                 <h4>성공률</h4>
-                                <canvas id="suceessChart"></canvas>
+                                <p>단위 시간 내 전송한 성공/실패 누적 건수</p>
+                                <div class="success-chart">
+                                    <canvas id="suceessChart"></canvas>
+                                </div>                                
                             </div>
                             <div class="performance-box length-area">
-                                <img src="assets/images/ico_length.png" alt="음성길이 아이콘">
                                 <h4>총 음성길이</h4>
+                                <p>단위 시간 내 수신한 요청 건 기준 음성길이(초)의 누적</p>
                                 <div class="length-data"></div><span>분</span>
                             </div>
                             <div class="performance-box speed-area">
-                                <img src="assets/images/ico_speed.png" alt="평균처리속도 아이콘">
                                 <h4>평균처리속도</h4>
+                                <p>음성인식 평균 처리 속도</p>
                                 <div class="speed-data"></div><span>RTF</span>
                             </div>
                         </div>
@@ -168,11 +152,11 @@
                 <i class="fas fa-times"></i>
             </div>
             <div class="notice-error-tit">
-                <div class="norice-error-icon"></div>
-                bona-stt1 <span>MAJOR</span> Error
+                <div class="notice-error-icon"></div>
+                 <span class="notice-error-hostname"></span><span class="notice-error-level"></span> Error
             </div>
-            <p class="notice-error-txt">서버(bona-stt#1)의 CPU 사용율이 90%를 초과</p>
-            <p class="notice-error-time">2021-11-05 12:00:00</p>
+            <p class="notice-error-txt"></p>
+            <p class="notice-error-time"></p>
             <input type="button" value="확인" class="notice-error-btn">
         </div>
     </div>
@@ -183,9 +167,11 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="assets/plugins/chart.js/chart.min.js"></script>
     <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script>
-
-    <script src="assets/js/dashboard.js"></script>
+    
     <script src="assets/js/hwdata.js"></script>
+    <script src="assets/js/alarm.js"></script>
+    <script src="assets/js/serverConfig.js"></script>
+    <script src="assets/js/dashboard.js"></script>
     <!-- <script type="text/javascript">
         Chart.plugins.register({
             afterDatasetsDraw: function (chart) {

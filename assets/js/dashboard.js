@@ -1,34 +1,31 @@
 const socket = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-const socketTotal = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-const socketStt1 = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-const socketStt2 = new WebSocket("ws://192.168.20.194:55532/ws/performance");
 
 //연결설정
 socket.onopen = function (e) {
-    console.log("[open] Connection established");
+    console.log("[open] Connection established dashboard");
     console.log("Sending to server");
     socket.send("My name is John");
 };
 
 //데이터 수신 됨 - 전체 데이터를 출력해줌
 socket.onmessage = function (json) {
-    //console.log(`[message] Data received from server: ${event.data}`);
+    console.log("전체 데이터 출력!");
 
     //전체 데이터 출력
     const boardData = JSON.parse(json.data);
 
     //요청건수 출력
-    const requestTotal = boardData.bona_stt_total.request_number;
+    const requestTotal = boardData.bona_total_stt.request_number;
     document.querySelector(".request-data").innerHTML = requestTotal;
 
     //성공률 출력 - 도넛형 차트
-    const successNum = boardData.bona_stt_total.success;
-    const failPerNum = boardData.bona_stt_total.fail;
-    const successPer = Math.trunc(100 - boardData.bona_stt_total.success / 100.); //정수만 반환
-    const failPer = boardData.bona_stt_total.fail / 100;
+    const successNum = boardData.bona_total_stt.success;
+    const failPerNum = boardData.bona_total_stt.fail;
+    const successPer = Math.trunc(100 - boardData.bona_total_stt.success / 100.); //정수만 반환
+    const failPer = boardData.bona_total_stt.fail / 100;
 
     const suceessChart = document.getElementById("suceessChart").getContext("2d");
-    const myChart = new Chart(suceessChart, {
+    let myChart = new Chart(suceessChart, {
         type: 'doughnut',
         data: {
             labels: ['실패     ' + failPer + '%', '성공     ' + successPer + '%'],
@@ -50,9 +47,8 @@ socket.onmessage = function (json) {
                         {
                             text: successPer + '%',
                             font: {
-                                size: '25',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                weight: 'bold'
+                                size: '30',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
                             },
                             color: '#5d6778'
                         }
@@ -62,7 +58,8 @@ socket.onmessage = function (json) {
             animation: {
                 duration: 0
             },
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 position: 'left',
                 display: true,
@@ -74,7 +71,7 @@ socket.onmessage = function (json) {
                     padding: 15
                 },
             },
-            cutoutPercentage: 80,
+            cutoutPercentage: 90,
             scales: {
                 yAxes: [
                     {
@@ -91,23 +88,23 @@ socket.onmessage = function (json) {
     });
 
     //총 음성길이 출력
-    const audioLength = boardData.bona_stt_total.audio_len;
+    const audioLength = boardData.bona_total_stt.audio_len;
     document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
     //평균처리 속도 출력
-    const averageSpeed = boardData.bona_stt_total.average_speed;
+    const averageSpeed = boardData.bona_total_stt.average_speed;
     document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
     //채널상태 - 전체(도넛형 차트)
-    const totalCh = boardData.bona_stt_total.channels.total;
-    const useCh = boardData.bona_stt_total.channels.running;
-    const useChPer = boardData.bona_stt_total.channels.running / 100;
+    const totalCh = boardData.bona_total_stt.channels.total;
+    const useCh = boardData.bona_total_stt.channels.running;
+    const useChPer = boardData.bona_total_stt.channels.running / 100;
 
     const statusChart = document.getElementById("statusChart").getContext("2d");
-    const channelChart1 = new Chart(statusChart, {
+    let channelChart1 = new Chart(statusChart, {
         type: 'doughnut',
         data: {
-            labels: ['전체 채널 수', '사용중인 채널 수'],
+            labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
             datasets: [{
                 label: '# of Votes',
                 data: [totalCh, useCh],
@@ -127,8 +124,7 @@ socket.onmessage = function (json) {
                             text: useChPer + '%',
                             font: {
                                 size: '35',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                weight: 'bold'
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
                             },
                             color: '#5d6778'
                         }
@@ -138,7 +134,8 @@ socket.onmessage = function (json) {
             animation: {
                 duration: 0
             },
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 position: 'right',
                 display: true,
@@ -146,10 +143,10 @@ socket.onmessage = function (json) {
                     fontColor: '#5d6778',
                     fontSize: 15,
                     defaultFontFamily: "Roboto",
-                    boxWidth: 15
+                    boxWidth: 15,
                 },
             },
-            cutoutPercentage: 80,
+            cutoutPercentage: 90,
             scales: {
                 yAxes: [
                     {
@@ -166,16 +163,16 @@ socket.onmessage = function (json) {
     });
 
     //채널상태 - 서버별(누적형 막대차트)
-    const restTotal = boardData.bona_stt_total.channels.rest.total;
-    const grpcTotal = boardData.bona_stt_total.channels.grpc.total;
-    const grpcStreamTotal = boardData.bona_stt_total.channels.grpc_stream.total;
+    const restTotal = boardData.bona_total_stt.channels.rest.total;
+    const grpcTotal = boardData.bona_total_stt.channels.grpc.total;
+    const grpcStreamTotal = boardData.bona_total_stt.channels.grpc_stream.total;
 
-    const restRunning = boardData.bona_stt_total.channels.rest.running;
-    const grpcRunning = boardData.bona_stt_total.channels.grpc.running;
-    const grpcStreamRunning = boardData.bona_stt_total.channels.grpc_stream.running;
+    const restRunning = boardData.bona_total_stt.channels.rest.running;
+    const grpcRunning = boardData.bona_total_stt.channels.grpc.running;
+    const grpcStreamRunning = boardData.bona_total_stt.channels.grpc_stream.running;
 
     const serverChChart = document.getElementById("serverChChart").getContext("2d");
-    const channelChart2 = new Chart(serverChChart, {
+    let channelChart2 = new Chart(serverChChart, {
         type: "bar",
         data: {
             labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -184,13 +181,13 @@ socket.onmessage = function (json) {
                     label: "전체",
                     data: [restTotal, grpcTotal, grpcStreamTotal],
                     backgroundColor: "#05b5fc",
-                    barPercentage: 0.5,
+                    barPercentage: 0.3,
                 },
                 {
                     label: "사용 중",
                     data: [restRunning, grpcRunning, grpcStreamRunning],
                     backgroundColor: "#ffbd60",
-                    barPercentage: 0.5,
+                    barPercentage: 0.3,
                 }
             ],
         },
@@ -199,6 +196,7 @@ socket.onmessage = function (json) {
                 duration: 0
             },
             responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'right',
@@ -253,16 +251,10 @@ socket.onmessage = function (json) {
 
 //전체 tab 클릭시 데이터 변환 이벤트
 $('#allTab').off().on('click', function () {
-    socket.close();
-    socketTotal.close();
-    socketStt1.close();
-    socketStt2.close();
 
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
-    const socketTotal = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-
-    socketTotal.onmessage = function (json) {
+    socket.onmessage = function (json) {
         //console.log(`[message] Data received from server: ${event.data}`);
         console.log('socketTotal 연결 성공!');
 
@@ -270,17 +262,17 @@ $('#allTab').off().on('click', function () {
         const boardData = JSON.parse(json.data);
 
         //요청건수 출력
-        const requestTotal = boardData.bona_stt_total.request_number;
+        const requestTotal = boardData.bona_total_stt.request_number;
         document.querySelector(".request-data").innerHTML = requestTotal;
 
         //성공률 출력 - 도넛형 차트
-        const successNum = boardData.bona_stt_total.success;
-        const failPerNum = boardData.bona_stt_total.fail;
-        const successPer = Math.trunc(100 - boardData.bona_stt_total.success / 100.); //정수만 반환
-        const failPer = boardData.bona_stt_total.fail / 100;
+        const successNum = boardData.bona_total_stt.success;
+        const failPerNum = boardData.bona_total_stt.fail;
+        const successPer = Math.trunc(100 - boardData.bona_total_stt.success / 100.); //정수만 반환
+        const failPer = boardData.bona_total_stt.fail / 100;
 
         const suceessChart = document.getElementById("suceessChart").getContext("2d");
-        const myChart = new Chart(suceessChart, {
+        myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
                 labels: ['실패     ' + failPer + '%', '성공     ' + successPer + '%'],
@@ -302,9 +294,8 @@ $('#allTab').off().on('click', function () {
                             {
                                 text: successPer + '%',
                                 font: {
-                                    size: '25',
-                                    family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                    weight: 'bold'
+                                    size: '30',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
                                 },
                                 color: '#5d6778'
                             }
@@ -314,7 +305,8 @@ $('#allTab').off().on('click', function () {
                 animation: {
                     duration: 0
                 },
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: 'left',
                     display: true,
@@ -326,7 +318,7 @@ $('#allTab').off().on('click', function () {
                         padding: 15
                     },
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 90,
                 scales: {
                     yAxes: [
                         {
@@ -343,23 +335,23 @@ $('#allTab').off().on('click', function () {
         });
 
         //총 음성길이 출력
-        const audioLength = boardData.bona_stt_total.audio_len;
+        const audioLength = boardData.bona_total_stt.audio_len;
         document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeed = boardData.bona_stt_total.average_speed;
+        const averageSpeed = boardData.bona_total_stt.average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalCh = boardData.bona_stt_total.channels.total;
-        const useCh = boardData.bona_stt_total.channels.running;
-        const useChPer = boardData.bona_stt_total.channels.running / 100;
+        const totalCh = boardData.bona_total_stt.channels.total;
+        const useCh = boardData.bona_total_stt.channels.running;
+        const useChPer = boardData.bona_total_stt.channels.running / 100;
 
         const statusChart = document.getElementById("statusChart").getContext("2d");
-        const channelChart1 = new Chart(statusChart, {
+        channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수', '사용중인 채널 수'],
+                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
                 datasets: [{
                     label: '# of Votes',
                     data: [totalCh, useCh],
@@ -380,7 +372,6 @@ $('#allTab').off().on('click', function () {
                                 font: {
                                     size: '35',
                                     family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                    weight: 'bold'
                                 },
                                 color: '#5d6778'
                             }
@@ -390,7 +381,8 @@ $('#allTab').off().on('click', function () {
                 animation: {
                     duration: 0
                 },
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: 'right',
                     display: true,
@@ -401,7 +393,7 @@ $('#allTab').off().on('click', function () {
                         boxWidth: 15
                     },
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 90,
                 scales: {
                     yAxes: [
                         {
@@ -418,16 +410,16 @@ $('#allTab').off().on('click', function () {
         });
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotal = boardData.bona_stt_total.channels.rest.total;
-        const grpcTotal = boardData.bona_stt_total.channels.grpc.total;
-        const grpcStreamTotal = boardData.bona_stt_total.channels.grpc_stream.total;
+        const restTotal = boardData.bona_total_stt.channels.rest.total;
+        const grpcTotal = boardData.bona_total_stt.channels.grpc.total;
+        const grpcStreamTotal = boardData.bona_total_stt.channels.grpc_stream.total;
 
-        const restRunning = boardData.bona_stt_total.channels.rest.running;
-        const grpcRunning = boardData.bona_stt_total.channels.grpc.running;
-        const grpcStreamRunning = boardData.bona_stt_total.channels.grpc_stream.running;
+        const restRunning = boardData.bona_total_stt.channels.rest.running;
+        const grpcRunning = boardData.bona_total_stt.channels.grpc.running;
+        const grpcStreamRunning = boardData.bona_total_stt.channels.grpc_stream.running;
 
         const serverChChart = document.getElementById("serverChChart").getContext("2d");
-        const channelChart2 = new Chart(serverChChart, {
+        channelChart2 = new Chart(serverChChart, {
             type: "bar",
             data: {
                 labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -436,13 +428,13 @@ $('#allTab').off().on('click', function () {
                         label: "전체",
                         data: [restTotal, grpcTotal, grpcStreamTotal],
                         backgroundColor: "#05b5fc",
-                        barPercentage: 0.5,
+                        barPercentage: 0.3,
                     },
                     {
                         label: "사용 중",
                         data: [restRunning, grpcRunning, grpcStreamRunning],
                         backgroundColor: "#ffbd60",
-                        barPercentage: 0.5,
+                        barPercentage: 0.3,
                     }
                 ],
             },
@@ -451,6 +443,7 @@ $('#allTab').off().on('click', function () {
                     duration: 0
                 },
                 responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     display: true,
                     position: 'right',
@@ -506,16 +499,10 @@ $('#allTab').off().on('click', function () {
 
 //STT1 tab 클릭시 데이터 변환 이벤트
 $('#stt1').off().on('click', function () {
-    socket.close();
-    socketTotal.close();
-    socketStt1.close();
-    socketStt2.close();
 
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
-    const socketStt1 = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-
-    socketStt1.onmessage = function (json) {
+    socket.onmessage = function (json) {
         console.log('socketStt1 연결 성공!');
 
         //stt1 데이터 출력
@@ -523,17 +510,17 @@ $('#stt1').off().on('click', function () {
         console.log(sttData1);
 
         //요청건수 출력
-        const requestTotalStt1 = sttData1.p_stt1.request_number;
+        const requestTotalStt1 = sttData1.bona_stt1.request_number;
         document.querySelector(".request-data").innerHTML = requestTotalStt1;
 
         //성공률 출력 - 도넛형 차트
-        const successNumStt1 = sttData1.p_stt1.success;
-        const failPerNumStt1 = sttData1.p_stt1.fail;
-        const successPerStt1 = Math.trunc(100 - sttData1.p_stt1.success / 100.); //정수만 반환
-        const failPerStt1 = sttData1.p_stt1.fail / 100;
+        const successNumStt1 = sttData1.bona_stt1.success;
+        const failPerNumStt1 = sttData1.bona_stt1.fail;
+        const successPerStt1 = Math.trunc(100 - sttData1.bona_stt1.success / 100.); //정수만 반환
+        const failPerStt1 = sttData1.bona_stt1.fail / 100;
 
-        const suceessChartStt1 = document.getElementById("suceessChart").getContext("2d");
-        const myChart = new Chart(suceessChartStt1, {
+        const suceessChart = document.getElementById("suceessChart").getContext("2d");
+        myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
                 labels: ['실패     ' + failPerStt1 + '%', '성공     ' + successPerStt1 + '%'],
@@ -555,9 +542,8 @@ $('#stt1').off().on('click', function () {
                             {
                                 text: successPerStt1 + '%',
                                 font: {
-                                    size: '25',
-                                    family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                    weight: 'bold'
+                                    size: '30',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
                                 },
                                 color: '#5d6778'
                             }
@@ -567,7 +553,8 @@ $('#stt1').off().on('click', function () {
                 animation: {
                     duration: 0
                 },
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: 'left',
                     display: true,
@@ -579,7 +566,7 @@ $('#stt1').off().on('click', function () {
                         padding: 15
                     },
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 90,
                 scales: {
                     yAxes: [
                         {
@@ -596,26 +583,26 @@ $('#stt1').off().on('click', function () {
         });
 
         //총 음성길이 출력
-        const audioLengthStt1 = sttData1.p_stt1.audio_len;
+        const audioLengthStt1 = sttData1.bona_stt1.audio_len;
         document.querySelector(".length-data").innerHTML = audioLengthStt1.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeedStt1 = sttData1.p_stt1.average_speed;
+        const averageSpeedStt1 = sttData1.bona_stt1.average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeedStt1.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalChStt1 = sttData1.p_stt1.channels.total;
-        const useChStt1 = sttData1.p_stt1.channels.running;
-        const useChPerStt1 = sttData1.p_stt1.channels.running / 100;
+        const totalCh = sttData1.bona_stt1.channels.total;
+        const useCh = sttData1.bona_stt1.channels.running;
+        const useChPer = sttData1.bona_stt1.channels.running / 100;
 
-        const statusChartStt1 = document.getElementById("statusChart").getContext("2d");
-        const channelChartStt1 = new Chart(statusChartStt1, {
+        const statusChart = document.getElementById("statusChart").getContext("2d");
+        channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수', '사용중인 채널 수'],
+                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
                 datasets: [{
                     label: '# of Votes',
-                    data: [totalChStt1, useChStt1],
+                    data: [totalCh, useCh],
                     backgroundColor: [
                         '#ececec',
                         '#3adaba'
@@ -629,11 +616,10 @@ $('#stt1').off().on('click', function () {
                     doughnutlabel: {
                         labels: [
                             {
-                                text: useChPerStt1 + '%',
+                                text: useChPer + '%',
                                 font: {
                                     size: '35',
-                                    family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                    weight: 'bold'
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
                                 },
                                 color: '#5d6778'
                             }
@@ -643,7 +629,8 @@ $('#stt1').off().on('click', function () {
                 animation: {
                     duration: 0
                 },
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: 'right',
                     display: true,
@@ -654,7 +641,7 @@ $('#stt1').off().on('click', function () {
                         boxWidth: 15
                     },
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 90,
                 scales: {
                     yAxes: [
                         {
@@ -671,16 +658,16 @@ $('#stt1').off().on('click', function () {
         });
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotalStt1 = sttData1.p_stt1.channels.rest.total;
-        const grpcTotalStt1 = sttData1.p_stt1.channels.grpc.total;
-        const grpcStreamTotalStt1 = sttData1.p_stt1.channels.grpc_stream.total;
+        const restTotalStt1 = sttData1.bona_stt1.channels.rest.total;
+        const grpcTotalStt1 = sttData1.bona_stt1.channels.grpc.total;
+        const grpcStreamTotalStt1 = sttData1.bona_stt1.channels.grpc_stream.total;
 
-        const restRunningStt1 = sttData1.p_stt1.channels.rest.running;
-        const grpcRunningStt1 = sttData1.p_stt1.channels.grpc.running;
-        const grpcStreamRunningStt1 = sttData1.p_stt1.channels.grpc_stream.running;
+        const restRunningStt1 = sttData1.bona_stt1.channels.rest.running;
+        const grpcRunningStt1 = sttData1.bona_stt1.channels.grpc.running;
+        const grpcStreamRunningStt1 = sttData1.bona_stt1.channels.grpc_stream.running;
 
-        const serverChChartStt1 = document.getElementById("serverChChart").getContext("2d");
-        const channelChartStt = new Chart(serverChChartStt1, {
+        const serverChChart = document.getElementById("serverChChart").getContext("2d");
+        channelChart2 = new Chart(serverChChart, {
             type: "bar",
             data: {
                 labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -689,13 +676,13 @@ $('#stt1').off().on('click', function () {
                         label: "전체",
                         data: [restTotalStt1, grpcTotalStt1, grpcStreamTotalStt1],
                         backgroundColor: "#05b5fc",
-                        barPercentage: 0.5,
+                        barPercentage: 0.3,
                     },
                     {
                         label: "사용 중",
                         data: [restRunningStt1, grpcRunningStt1, grpcStreamRunningStt1],
                         backgroundColor: "#ffbd60",
-                        barPercentage: 0.5,
+                        barPercentage: 0.3,
                     }
                 ],
             },
@@ -704,6 +691,7 @@ $('#stt1').off().on('click', function () {
                     duration: 0
                 },
                 responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     display: true,
                     position: 'right',
@@ -759,16 +747,10 @@ $('#stt1').off().on('click', function () {
 
 //STT2 tab 클릭시 데이터 변환 이벤트
 $('#stt2').off().on('click', function () {
-    socket.close();
-    socketTotal.close();
-    socketStt1.close();
-    socketStt2.close();
 
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
-    const socketStt2 = new WebSocket("ws://192.168.20.194:55532/ws/performance");
-
-    socketStt2.onmessage = function (json) {
+    socket.onmessage = function (json) {
         console.log('socketStt2 연결 성공!');
 
         //stt2 데이터 출력
@@ -776,17 +758,17 @@ $('#stt2').off().on('click', function () {
         console.log(sttData2);
 
         //요청건수 출력
-        const requestTotalStt2 = sttData2.p_stt2.request_number;
+        const requestTotalStt2 = sttData2.bona_stt2.request_number;
         document.querySelector(".request-data").innerHTML = requestTotalStt2;
 
         //성공률 출력 - 도넛형 차트
-        const successNumStt2 = sttData2.p_stt2.success;
-        const failPerNumStt2 = sttData2.p_stt2.fail;
-        const successPerStt2 = Math.trunc(100 - sttData2.p_stt2.success / 100.); //정수만 반환
-        const failPerStt2 = sttData2.p_stt2.fail / 100;
+        const successNumStt2 = sttData2.bona_stt2.success;
+        const failPerNumStt2 = sttData2.bona_stt2.fail;
+        const successPerStt2 = Math.trunc(100 - sttData2.bona_stt2.success / 100.); //정수만 반환
+        const failPerStt2 = sttData2.bona_stt2.fail / 100;
 
-        const suceessChartStt2 = document.getElementById("suceessChart").getContext("2d");
-        const myChart = new Chart(suceessChartStt2, {
+        const suceessChart = document.getElementById("suceessChart").getContext("2d");
+        myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
                 labels: ['실패     ' + failPerStt2 + '%', '성공     ' + successPerStt2 + '%'],
@@ -808,9 +790,8 @@ $('#stt2').off().on('click', function () {
                             {
                                 text: successPerStt2 + '%',
                                 font: {
-                                    size: '25',
-                                    family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                    weight: 'bold'
+                                    size: '30',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
                                 },
                                 color: '#5d6778'
                             }
@@ -820,7 +801,8 @@ $('#stt2').off().on('click', function () {
                 animation: {
                     duration: 0
                 },
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: 'left',
                     display: true,
@@ -832,7 +814,7 @@ $('#stt2').off().on('click', function () {
                         padding: 15
                     },
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 90,
                 scales: {
                     yAxes: [
                         {
@@ -849,26 +831,26 @@ $('#stt2').off().on('click', function () {
         });
 
         //총 음성길이 출력
-        const audioLengthStt2 = sttData2.p_stt2.audio_len;
+        const audioLengthStt2 = sttData2.bona_stt2.audio_len;
         document.querySelector(".length-data").innerHTML = audioLengthStt2.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeedStt2 = sttData2.p_stt2.average_speed;
+        const averageSpeedStt2 = sttData2.bona_stt2.average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeedStt2.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalChStt2 = sttData2.p_stt2.channels.total;
-        const useChStt2 = sttData2.p_stt2.channels.running;
-        const useChPerStt2 = sttData2.p_stt2.channels.running / 100;
+        const totalCh = sttData2.bona_stt2.channels.total;
+        const useCh = sttData2.bona_stt2.channels.running;
+        const useChPer = sttData2.bona_stt2.channels.running / 100;
 
-        const statusChartStt2 = document.getElementById("statusChart").getContext("2d");
-        const channelChartStt2 = new Chart(statusChartStt2, {
+        statusChart = document.getElementById("statusChart").getContext("2d");
+        channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수', '사용중인 채널 수'],
+                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
                 datasets: [{
                     label: '# of Votes',
-                    data: [totalChStt2, useChStt2],
+                    data: [totalCh, useCh],
                     backgroundColor: [
                         '#ececec',
                         '#3adaba'
@@ -882,11 +864,10 @@ $('#stt2').off().on('click', function () {
                     doughnutlabel: {
                         labels: [
                             {
-                                text: useChPerStt2 + '%',
+                                text: useChPer + '%',
                                 font: {
                                     size: '35',
-                                    family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                    weight: 'bold'
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
                                 },
                                 color: '#5d6778'
                             }
@@ -896,7 +877,8 @@ $('#stt2').off().on('click', function () {
                 animation: {
                     duration: 0
                 },
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: 'right',
                     display: true,
@@ -907,7 +889,7 @@ $('#stt2').off().on('click', function () {
                         boxWidth: 15
                     },
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 90,
                 scales: {
                     yAxes: [
                         {
@@ -924,16 +906,16 @@ $('#stt2').off().on('click', function () {
         });
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotalStt2 = sttData2.p_stt2.channels.rest.total;
-        const grpcTotalStt2 = sttData2.p_stt2.channels.grpc.total;
-        const grpcStreamTotalStt2 = sttData2.p_stt2.channels.grpc_stream.total;
+        const restTotalStt2 = sttData2.bona_stt2.channels.rest.total;
+        const grpcTotalStt2 = sttData2.bona_stt2.channels.grpc.total;
+        const grpcStreamTotalStt2 = sttData2.bona_stt2.channels.grpc_stream.total;
 
-        const restRunningStt2 = sttData2.p_stt2.channels.rest.running;
-        const grpcRunningStt2 = sttData2.p_stt2.channels.grpc.running;
-        const grpcStreamRunningStt2 = sttData2.p_stt2.channels.grpc_stream.running;
+        const restRunningStt2 = sttData2.bona_stt2.channels.rest.running;
+        const grpcRunningStt2 = sttData2.bona_stt2.channels.grpc.running;
+        const grpcStreamRunningStt2 = sttData2.bona_stt2.channels.grpc_stream.running;
 
-        const serverChChartStt2 = document.getElementById("serverChChart").getContext("2d");
-        const channelChartStt = new Chart(serverChChartStt2, {
+        const serverChChart = document.getElementById("serverChChart").getContext("2d");
+        channelChart2 = new Chart(serverChChart, {
             type: "bar",
             data: {
                 labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -942,13 +924,13 @@ $('#stt2').off().on('click', function () {
                         label: "전체",
                         data: [restTotalStt2, grpcTotalStt2, grpcStreamTotalStt2],
                         backgroundColor: "#05b5fc",
-                        barPercentage: 0.5,
+                        barPercentage: 0.3,
                     },
                     {
                         label: "사용 중",
                         data: [restRunningStt2, grpcRunningStt2, grpcStreamRunningStt2],
                         backgroundColor: "#ffbd60",
-                        barPercentage: 0.5,
+                        barPercentage: 0.3,
                     }
                 ],
             },
@@ -957,6 +939,7 @@ $('#stt2').off().on('click', function () {
                     duration: 0
                 },
                 responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     display: true,
                     position: 'right',

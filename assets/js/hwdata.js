@@ -4,7 +4,7 @@ let socket2 = new WebSocket("ws://192.168.20.194:55532/ws/hardware-status");
 socket2.onopen = function (e) {
     console.log("[open] Connection established");
     console.log("Sending to server");
-    socket.send("My name is John");
+    socket2.send("My name is John");
 };
 
 //데이터 수신 됨
@@ -64,7 +64,7 @@ socket2.onmessage = function (json) {
                     boxWidth: 15
                 },
             },
-            cutoutPercentage: 80,
+            cutoutPercentage: 90,
             scales: {
                 yAxes: [
                     {
@@ -129,7 +129,7 @@ socket2.onmessage = function (json) {
                     boxWidth: 15
                 },
             },
-            cutoutPercentage: 80,
+            cutoutPercentage: 90,
             scales: {
                 yAxes: [
                     {
@@ -146,13 +146,14 @@ socket2.onmessage = function (json) {
     });
 
     //디스크 사용률 - 가로형 막대 차트
-    const diskUseDataRoot = hwData.message.disk[0].root;
+    console.log(hwData.message);
+    const diskUseDataRoot = hwData.message.disk[0]['/'];
     console.log('디스크 사용률' + diskUseDataRoot);
 
-    const diskUseDataHome = hwData.message.disk[1].home;
+    const diskUseDataHome = hwData.message.disk[1]['/boot'];
     console.log('디스크 사용률' + diskUseDataHome);
 
-    const diskUseData = hwData.message.disk[2].data;
+    const diskUseData = hwData.message.disk[2]['/home'];
     console.log('디스크 사용률' + diskUseData);
 
     const diskChart = document.getElementById("diskChart").getContext("2d");
@@ -214,10 +215,10 @@ socket2.onmessage = function (json) {
     });
 
     //네트워크 사용률 - 가로형 막대 차트
-    const networkUseData0 = hwData.message.network[0].eth0;
+    const networkUseData0 = hwData.message.network[0][''];
     console.log('네트워크 사용률' + networkUseData0);
 
-    const networkUseData1 = hwData.message.network[1].eth1;
+    const networkUseData1 = hwData.message.network[1][''];
     console.log('네트워크 사용률' + networkUseData1);
 
 

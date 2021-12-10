@@ -81,7 +81,7 @@ a{text-decoration: none;}
 /* dashboard */
 #severStausArea{width: 90%;margin: 0 auto 20px;text-align: left;overflow: hidden;}
 #severStausArea .status-box{width: calc(100%/8);margin-right: 10px;box-shadow: 3px 3px 5px rgba(0, 0, 0, .06);display: inline-block;text-align: left;border-radius: 3px;}
-#severStausArea .status-box .status-box-inner{width: 100%;padding: 10px 20px;color: #fff;cursor: pointer;border-radius: 3px;}
+#severStausArea .status-box .status-box-inner{width: 100%;padding: 10px 20px;color: #ccc;cursor: pointer;border-radius: 3px;}
 #severStausArea .status-box .status-box-inner>h3{margin-bottom: 8px;}
 #severStausArea .status-box .status-box-inner>p{font-size: 14px;}
 .onlineBg{
@@ -93,7 +93,6 @@ a{text-decoration: none;}
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c9fff', endColorstr='#6db1ff',GradientType=0 ); /* IE6-9 */
 }
 .offlineBg{
-    color: #ccc !important;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eaeaea+0,eeeeee+100 */
     background: #eaeaea; /* Old browsers */
     background: -moz-linear-gradient(left,  #f0f0f0 0%, #eeeeee 100%); /* FF3.6-15 */
@@ -114,17 +113,19 @@ a{text-decoration: none;}
 .system-box{background: #fff;padding-bottom: 1em;}
 .performanceList, .hwAreaList{display: flex;justify-content: space-around;height: 11em;padding: 0 70px;box-sizing: border-box;}
 
-.system-tit{text-align: left;padding: 20px 0 10px 30px;color: #5d6778;}
+.system-tit{text-align: left;padding: 20px 0 20px 30px;color: #5d6778;}
 .performance-box{width: 20%;position: relative;border: 1px solid #d6d8e1;border-radius: 5px;padding: 1em;box-sizing: border-box;margin-right: 2em;box-shadow: 3px 3px 5px rgba(25, 160, 238, .05);}
 .performance-box:last-child{margin-right: 0;}
-.performance-box>h4{font-size: 20px;padding: 20px 0;}
+.performance-box>h4{font-size: 20px;padding-bottom: 10px;text-align: left;}
+.performance-box>p{text-align: left;font-size: 15px;margin-bottom: 30px;color: #999;line-height: 1.2;word-break: keep-all;}
 .performance-box>div{font-size: 40px;letter-spacing: -1px;font-weight: normal;margin-bottom: 1em;display: inline-block;}
 .performance-box>span{font-size: 20px;font-weight: normal;margin-left: 5px;display: inline-block;}
 
 .suceess-area{flex-grow: 1;}
-.suceess-area>canvas{width: 250px;position: absolute;top: 25px;right: 40px;}
+.success-chart{position: absolute;right: 0px;top: 20px;height: 130px;}
+.suceess-area>canvas{width: 200px;position: absolute;top: 25px;right: 40px;}
 .suceess-area>img{position: absolute;left: 50px;top: 3rem;}
-.suceess-area>h4{position: absolute;top: 4.3rem;left: 35px;}
+.suceess-area>p{width: 110px;}
 
 .channelstatusList{padding: 0 70px;display: flex;justify-content: space-around;align-items: center;}
 .status-area>canvas{width: 330px !important;}
@@ -161,11 +162,12 @@ a{text-decoration: none;}
 #speechArea{width: 90%;margin: 0 auto;}
 
 /* 에러 알림 팝업 */
-.notice-error-popup{width:auto;position: fixed;right: 10px;bottom: 10px;box-shadow: 1px 3px 5px rgba(0, 0, 0, .075);}
+.notice-error-popup{width:auto;position: fixed;right: 10px;bottom: 10px;box-shadow: 1px 3px 5px rgba(0, 0, 0, .075);display: none;}
 .notice-error-popup .notice-error{width:100%;background: #f9f9f9;border: 2px solid #e95420;padding: 25px 20px 20px;border-radius: 3px;}
 .notice-error-popup .notice-error .notice-error-tit{color: #5d6778;font-size: 20px;}
-.notice-error-popup .notice-error .notice-error-tit .norice-error-icon{width: 43px;height: 37px;background: url(../images/error_icon.png) no-repeat 0 0;background-size: cover;display: inline-block;vertical-align: middle;margin-right: 10px;}
-.notice-error-popup .notice-error .notice-error-tit>span{color: #5d6778;font-weight: bold;}
+.notice-error-popup .notice-error .notice-error-tit .notice-error-icon{width: 43px;height: 37px;background: url(../images/error_icon.png) no-repeat 0 0;background-size: cover;display: inline-block;vertical-align: middle;margin-right: 10px;}
+.notice-error-popup .notice-error .notice-error-tit .notice-error-level{color: #5d6778;font-weight: bold;}
+.notice-error-popup .notice-error .notice-error-tit .notice-error-hostname{color: #5d6778;}
 .notice-error-popup .notice-error .notice-error-txt{color: #5d6778;text-align: center;margin-top: 20px;}
 .notice-error-popup .notice-error .notice-error-time{color: #5d6778;text-align: center;margin-top: 5px;}
 .notice-error-popup .notice-error .close-icon{color: #adaeaf;cursor: pointer;}
