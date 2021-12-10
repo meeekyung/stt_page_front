@@ -41,9 +41,8 @@ socket2.onmessage = function (json) {
                         {
                             text: cpuUseData + '%',
                             font: {
-                                size: '30',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                weight: 'bold'
+                                size: '28',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
                             },
                             color: '#5d6778'
                         }
@@ -106,9 +105,8 @@ socket2.onmessage = function (json) {
                         {
                             text: memoryUseData + '%',
                             font: {
-                                size: '30',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif',
-                                weight: 'bold'
+                                size: '28',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
                             },
                             color: '#5d6778'
                         }
