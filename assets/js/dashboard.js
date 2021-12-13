@@ -1,4 +1,8 @@
-const socket = new WebSocket("ws://192.168.20.194:55532/ws/performance");
+let socket = new WebSocket("ws://192.168.20.194:55532/ws/performance");
+
+let myChart = 'myChart';
+let channelChart1 = 'channelChart1';
+let channelChart2 = 'channelChart2';
 
 //연결설정
 socket.onopen = function (e) {
@@ -15,17 +19,17 @@ socket.onmessage = function (json) {
     const boardData = JSON.parse(json.data);
 
     //요청건수 출력
-    const requestTotal = boardData.bona_total_stt.request_number;
+    const requestTotal = boardData["bona-total-stt"].request_number;
     document.querySelector(".request-data").innerHTML = requestTotal;
 
     //성공률 출력 - 도넛형 차트
-    const successNum = boardData.bona_total_stt.success;
-    const failPerNum = boardData.bona_total_stt.fail;
-    const successPer = Math.trunc(100 - boardData.bona_total_stt.success / 100.); //정수만 반환
-    const failPer = boardData.bona_total_stt.fail / 100;
+    const successNum = boardData["bona-total-stt"].success;
+    const failPerNum = boardData["bona-total-stt"].fail;
+    const successPer = Math.trunc(100 - boardData["bona-total-stt"].success / 100.); //정수만 반환
+    const failPer = boardData["bona-total-stt"].fail / 100;
 
     const suceessChart = document.getElementById("suceessChart").getContext("2d");
-    let myChart = new Chart(suceessChart, {
+    myChart = new Chart(suceessChart, {
         type: 'doughnut',
         data: {
             labels: ['실패     ' + failPer + '%', '성공     ' + successPer + '%'],
@@ -88,20 +92,20 @@ socket.onmessage = function (json) {
     });
 
     //총 음성길이 출력
-    const audioLength = boardData.bona_total_stt.audio_len;
+    const audioLength = boardData["bona-total-stt"].audio_len;
     document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
     //평균처리 속도 출력
-    const averageSpeed = boardData.bona_total_stt.average_speed;
+    const averageSpeed = boardData["bona-total-stt"].average_speed;
     document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
     //채널상태 - 전체(도넛형 차트)
-    const totalCh = boardData.bona_total_stt.channels.total;
-    const useCh = boardData.bona_total_stt.channels.running;
-    const useChPer = boardData.bona_total_stt.channels.running / 100;
+    const totalCh = boardData["bona-total-stt"].channels.total;
+    const useCh = boardData["bona-total-stt"].channels.running;
+    const useChPer = boardData["bona-total-stt"].channels.running / 100;
 
     const statusChart = document.getElementById("statusChart").getContext("2d");
-    let channelChart1 = new Chart(statusChart, {
+    channelChart1 = new Chart(statusChart, {
         type: 'doughnut',
         data: {
             labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
@@ -163,16 +167,16 @@ socket.onmessage = function (json) {
     });
 
     //채널상태 - 서버별(누적형 막대차트)
-    const restTotal = boardData.bona_total_stt.channels.rest.total;
-    const grpcTotal = boardData.bona_total_stt.channels.grpc.total;
-    const grpcStreamTotal = boardData.bona_total_stt.channels.grpc_stream.total;
+    const restTotal = boardData["bona-total-stt"].channels.rest.total;
+    const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
+    const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
 
-    const restRunning = boardData.bona_total_stt.channels.rest.running;
-    const grpcRunning = boardData.bona_total_stt.channels.grpc.running;
-    const grpcStreamRunning = boardData.bona_total_stt.channels.grpc_stream.running;
+    const restRunning = boardData["bona-total-stt"].channels.rest.running;
+    const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
+    const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
 
     const serverChChart = document.getElementById("serverChChart").getContext("2d");
-    let channelChart2 = new Chart(serverChChart, {
+    channelChart2 = new Chart(serverChChart, {
         type: "bar",
         data: {
             labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -251,8 +255,9 @@ socket.onmessage = function (json) {
 
 //전체 tab 클릭시 데이터 변환 이벤트
 $('#allTab').off().on('click', function () {
-
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
+
+
 
     socket.onmessage = function (json) {
         //console.log(`[message] Data received from server: ${event.data}`);
@@ -262,17 +267,21 @@ $('#allTab').off().on('click', function () {
         const boardData = JSON.parse(json.data);
 
         //요청건수 출력
-        const requestTotal = boardData.bona_total_stt.request_number;
+        const requestTotal = boardData["bona-total-stt"].request_number;
         document.querySelector(".request-data").innerHTML = requestTotal;
 
         //성공률 출력 - 도넛형 차트
-        const successNum = boardData.bona_total_stt.success;
-        const failPerNum = boardData.bona_total_stt.fail;
-        const successPer = Math.trunc(100 - boardData.bona_total_stt.success / 100.); //정수만 반환
-        const failPer = boardData.bona_total_stt.fail / 100;
+        const successNum = boardData["bona-total-stt"].success;
+        const failPerNum = boardData["bona-total-stt"].fail;
+        const successPer = Math.trunc(100 - boardData["bona-total-stt"].success / 100.); //정수만 반환
+        const failPer = boardData["bona-total-stt"].fail / 100;
+
+        // if(myChart != undefined){
+        //     myChart.destroy();
+        // } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const suceessChart = document.getElementById("suceessChart").getContext("2d");
-        myChart = new Chart(suceessChart, {
+        let myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
                 labels: ['실패     ' + failPer + '%', '성공     ' + successPer + '%'],
@@ -333,22 +342,27 @@ $('#allTab').off().on('click', function () {
                 },
             },
         });
+        // myChart = new Chart(suceessChart, myChart);//마우스오버시 이전 데이터가 보이는 현상 제거
 
         //총 음성길이 출력
-        const audioLength = boardData.bona_total_stt.audio_len;
+        const audioLength = boardData["bona-total-stt"].audio_len;
         document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeed = boardData.bona_total_stt.average_speed;
+        const averageSpeed = boardData["bona-total-stt"].average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalCh = boardData.bona_total_stt.channels.total;
-        const useCh = boardData.bona_total_stt.channels.running;
-        const useChPer = boardData.bona_total_stt.channels.running / 100;
+        const totalCh = boardData["bona-total-stt"].channels.total;
+        const useCh = boardData["bona-total-stt"].channels.running;
+        const useChPer = boardData["bona-total-stt"].channels.running / 100;
+
+        // if(channelChart1 != undefined){
+        //     channelChart1.destroy();
+        // } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const statusChart = document.getElementById("statusChart").getContext("2d");
-        channelChart1 = new Chart(statusChart, {
+        let channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
                 labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
@@ -408,18 +422,23 @@ $('#allTab').off().on('click', function () {
                 },
             },
         });
+        // channelChart1 = new Chart(statusChart, channelChart1);//마우스오버시 이전 데이터가 보이는 현상 제거
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotal = boardData.bona_total_stt.channels.rest.total;
-        const grpcTotal = boardData.bona_total_stt.channels.grpc.total;
-        const grpcStreamTotal = boardData.bona_total_stt.channels.grpc_stream.total;
+        const restTotal = boardData["bona-total-stt"].channels.rest.total;
+        const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
+        const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
 
-        const restRunning = boardData.bona_total_stt.channels.rest.running;
-        const grpcRunning = boardData.bona_total_stt.channels.grpc.running;
-        const grpcStreamRunning = boardData.bona_total_stt.channels.grpc_stream.running;
+        const restRunning = boardData["bona-total-stt"].channels.rest.running;
+        const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
+        const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
+
+        // if(channelChart2 != undefined){
+        //     channelChart2.destroy();
+        // } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const serverChChart = document.getElementById("serverChChart").getContext("2d");
-        channelChart2 = new Chart(serverChChart, {
+        let channelChart2 = new Chart(serverChChart, {
             type: "bar",
             data: {
                 labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -494,6 +513,7 @@ $('#allTab').off().on('click', function () {
                 },
             },
         });
+        // channelChart2 = new Chart(serverChChart, channelChart2);//마우스오버시 이전 데이터가 보이는 현상 제거
     };
 });
 
@@ -510,17 +530,21 @@ $('#stt1').off().on('click', function () {
         console.log(sttData1);
 
         //요청건수 출력
-        const requestTotalStt1 = sttData1.bona_stt1.request_number;
+        const requestTotalStt1 = sttData1["bona-stt1"].request_number;
         document.querySelector(".request-data").innerHTML = requestTotalStt1;
 
         //성공률 출력 - 도넛형 차트
-        const successNumStt1 = sttData1.bona_stt1.success;
-        const failPerNumStt1 = sttData1.bona_stt1.fail;
-        const successPerStt1 = Math.trunc(100 - sttData1.bona_stt1.success / 100.); //정수만 반환
-        const failPerStt1 = sttData1.bona_stt1.fail / 100;
+        const successNumStt1 = sttData1["bona-stt1"].success;
+        const failPerNumStt1 = sttData1["bona-stt1"].fail;
+        const successPerStt1 = Math.trunc(100 - sttData1["bona-stt1"].success / 100.); //정수만 반환
+        const failPerStt1 = sttData1["bona-stt1"].fail / 100;
+
+        // if(myChart != undefined){
+        //     myChart.destroy();
+        // } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const suceessChart = document.getElementById("suceessChart").getContext("2d");
-        myChart = new Chart(suceessChart, {
+        let myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
                 labels: ['실패     ' + failPerStt1 + '%', '성공     ' + successPerStt1 + '%'],
@@ -581,22 +605,27 @@ $('#stt1').off().on('click', function () {
                 },
             },
         });
+        // myChart = new Chart(suceessChart, myChart);//마우스오버시 이전 데이터가 보이는 현상 제거
 
         //총 음성길이 출력
-        const audioLengthStt1 = sttData1.bona_stt1.audio_len;
+        const audioLengthStt1 = sttData1["bona-stt1"].audio_len;
         document.querySelector(".length-data").innerHTML = audioLengthStt1.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeedStt1 = sttData1.bona_stt1.average_speed;
+        const averageSpeedStt1 = sttData1["bona-stt1"].average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeedStt1.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalCh = sttData1.bona_stt1.channels.total;
-        const useCh = sttData1.bona_stt1.channels.running;
-        const useChPer = sttData1.bona_stt1.channels.running / 100;
+        const totalCh = sttData1["bona-stt1"].channels.total;
+        const useCh = sttData1["bona-stt1"].channels.running;
+        const useChPer = sttData1["bona-stt1"].channels.running / 100;
+
+        // if(channelChart1 != undefined){
+        //     channelChart1.destroy();
+        // } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const statusChart = document.getElementById("statusChart").getContext("2d");
-        channelChart1 = new Chart(statusChart, {
+        let channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
                 labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
@@ -656,18 +685,23 @@ $('#stt1').off().on('click', function () {
                 },
             },
         });
+        // channelChart1 = new Chart(statusChart, channelChart1);//마우스오버시 이전 데이터가 보이는 현상 제거
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotalStt1 = sttData1.bona_stt1.channels.rest.total;
-        const grpcTotalStt1 = sttData1.bona_stt1.channels.grpc.total;
-        const grpcStreamTotalStt1 = sttData1.bona_stt1.channels.grpc_stream.total;
+        const restTotalStt1 = sttData1["bona-stt1"].channels.rest.total;
+        const grpcTotalStt1 = sttData1["bona-stt1"].channels.grpc.total;
+        const grpcStreamTotalStt1 = sttData1["bona-stt1"].channels.grpc_stream.total;
 
-        const restRunningStt1 = sttData1.bona_stt1.channels.rest.running;
-        const grpcRunningStt1 = sttData1.bona_stt1.channels.grpc.running;
-        const grpcStreamRunningStt1 = sttData1.bona_stt1.channels.grpc_stream.running;
+        const restRunningStt1 = sttData1["bona-stt1"].channels.rest.running;
+        const grpcRunningStt1 = sttData1["bona-stt1"].channels.grpc.running;
+        const grpcStreamRunningStt1 = sttData1["bona-stt1"].channels.grpc_stream.running;
+
+        // if(channelChart2 != undefined){
+        //     channelChart2.destroy();
+        // } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const serverChChart = document.getElementById("serverChChart").getContext("2d");
-        channelChart2 = new Chart(serverChChart, {
+        let channelChart2 = new Chart(serverChChart, {
             type: "bar",
             data: {
                 labels: ["REST", "gRPC", "gRPC-Streaming"],
@@ -742,12 +776,12 @@ $('#stt1').off().on('click', function () {
                 },
             },
         });
+        // channelChart2 = new Chart(serverChChart, channelChart2);//마우스오버시 이전 데이터가 보이는 현상 제거
     };
 });
 
 //STT2 tab 클릭시 데이터 변환 이벤트
 $('#stt2').off().on('click', function () {
-
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
     socket.onmessage = function (json) {
@@ -758,15 +792,19 @@ $('#stt2').off().on('click', function () {
         console.log(sttData2);
 
         //요청건수 출력
-        const requestTotalStt2 = sttData2.bona_stt2.request_number;
+        const requestTotalStt2 = sttData2["bona-stt2"].request_number;
         document.querySelector(".request-data").innerHTML = requestTotalStt2;
 
         //성공률 출력 - 도넛형 차트
-        const successNumStt2 = sttData2.bona_stt2.success;
-        const failPerNumStt2 = sttData2.bona_stt2.fail;
-        const successPerStt2 = Math.trunc(100 - sttData2.bona_stt2.success / 100.); //정수만 반환
-        const failPerStt2 = sttData2.bona_stt2.fail / 100;
+        const successNumStt2 = sttData2["bona-stt2"].success;
+        const failPerNumStt2 = sttData2["bona-stt2"].fail;
+        const successPerStt2 = Math.trunc(100 - sttData2["bona-stt2"].success / 100.); //정수만 반환
+        const failPerStt2 = sttData2["bona-stt2"].fail / 100;
 
+        if(myChart != undefined){
+            myChart.destroy();
+        }//마우스오버시 이전 데이터가 보이는 현상 제거
+        
         const suceessChart = document.getElementById("suceessChart").getContext("2d");
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
@@ -829,20 +867,27 @@ $('#stt2').off().on('click', function () {
                 },
             },
         });
+        myChart = new Chart(suceessChart, myChart);//마우스오버시 이전 데이터가 보이는 현상 제거
+
+        debugger;
 
         //총 음성길이 출력
-        const audioLengthStt2 = sttData2.bona_stt2.audio_len;
+        const audioLengthStt2 = sttData2["bona-stt2"].audio_len;
         document.querySelector(".length-data").innerHTML = audioLengthStt2.toFixed(1);
 
         //평균처리 속도 출력
-        const averageSpeedStt2 = sttData2.bona_stt2.average_speed;
+        const averageSpeedStt2 = sttData2["bona-stt2"].average_speed;
         document.querySelector(".speed-data").innerHTML = averageSpeedStt2.toFixed(1); //소수점 첫째자리까지
 
         //채널상태 - 전체(도넛형 차트)
-        const totalCh = sttData2.bona_stt2.channels.total;
-        const useCh = sttData2.bona_stt2.channels.running;
-        const useChPer = sttData2.bona_stt2.channels.running / 100;
+        const totalCh = sttData2["bona-stt2"].channels.total;
+        const useCh = sttData2["bona-stt2"].channels.running;
+        const useChPer = sttData2["bona-stt2"].channels.running / 100;
 
+        if(channelChart1 != undefined){
+            channelChart1.destroy();
+        } //마우스오버시 이전 데이터가 보이는 현상 제거
+        
         statusChart = document.getElementById("statusChart").getContext("2d");
         channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
@@ -904,15 +949,20 @@ $('#stt2').off().on('click', function () {
                 },
             },
         });
+        channelChart1 = new Chart(statusChart, channelChart1);//마우스오버시 이전 데이터가 보이는 현상 제거
 
         //채널상태 - 서버별(누적형 막대차트)
-        const restTotalStt2 = sttData2.bona_stt2.channels.rest.total;
-        const grpcTotalStt2 = sttData2.bona_stt2.channels.grpc.total;
-        const grpcStreamTotalStt2 = sttData2.bona_stt2.channels.grpc_stream.total;
+        const restTotalStt2 = sttData2["bona-stt2"].channels.rest.total;
+        const grpcTotalStt2 = sttData2["bona-stt2"].channels.grpc.total;
+        const grpcStreamTotalStt2 = sttData2["bona-stt2"].channels.grpc_stream.total;
 
-        const restRunningStt2 = sttData2.bona_stt2.channels.rest.running;
-        const grpcRunningStt2 = sttData2.bona_stt2.channels.grpc.running;
-        const grpcStreamRunningStt2 = sttData2.bona_stt2.channels.grpc_stream.running;
+        const restRunningStt2 = sttData2["bona-stt2"].channels.rest.running;
+        const grpcRunningStt2 = sttData2["bona-stt2"].channels.grpc.running;
+        const grpcStreamRunningStt2 = sttData2["bona-stt2"].channels.grpc_stream.running;
+
+        if(channelChart2 != undefined){
+            channelChart2.destroy();
+        } //마우스오버시 이전 데이터가 보이는 현상 제거
 
         const serverChChart = document.getElementById("serverChChart").getContext("2d");
         channelChart2 = new Chart(serverChChart, {
@@ -990,6 +1040,7 @@ $('#stt2').off().on('click', function () {
                 },
             },
         });
+        channelChart2 = new Chart(serverChChart, channelChart2);//마우스오버시 이전 데이터가 보이는 현상 제거
     };
 });
 

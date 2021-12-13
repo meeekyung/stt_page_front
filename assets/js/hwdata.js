@@ -52,7 +52,8 @@ socket2.onmessage = function (json) {
             animation: {
                 duration: 0
             },
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 position: 'right',
                 display: true,
@@ -116,7 +117,8 @@ socket2.onmessage = function (json) {
             animation: {
                 duration: 0
             },
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 position: 'right',
                 display: true,
@@ -144,32 +146,42 @@ socket2.onmessage = function (json) {
     });
 
     //디스크 사용률 - 가로형 막대 차트
-    console.log(hwData.message);
-    const diskUseDataRoot = hwData.message.disk[0]['/'];
-    console.log('디스크 사용률' + diskUseDataRoot);
 
-    const diskUseDataHome = hwData.message.disk[1]['/boot'];
-    console.log('디스크 사용률' + diskUseDataHome);
+     //디스트 사용률 key        
+        const diskNames = hwData.disk_keys;
+        let diskNameArr = Object.values(diskNames);
 
-    const diskUseData = hwData.message.disk[2]['/home'];
-    console.log('디스크 사용률' + diskUseData);
+      //디스크 사용률 value
+        let diskValueArr = [];
+        let diskValue = hwData.message.disk;
+        diskValue.forEach((item, idx)=>{
+            diskValueArr.push(parseInt(item.key));
+        });
 
-    const diskChart = document.getElementById("diskChart").getContext("2d");
+        //backgroundColor 갯수만큼 배열
+        const diskBgN = diskNames.length;
+        let diskBgArray = [];
+        for(let i=0; i<diskBgN; i++){
+            diskBgArray.push("#5d6778");
+        }
+
+        const diskChart = document.getElementById("diskChart").getContext("2d");
     const networkChart3 = new Chart(diskChart, {
         type: "horizontalBar",
         data: {
-            labels: ["/root", "/home", "/data"],
+            labels: diskNameArr,
             datasets: [
                 {
                     label: "server",
-                    data: [diskUseDataRoot, diskUseDataHome, diskUseData],
-                    backgroundColor: ["#5d6778", "#5d6778", "#5d6778"],
+                    data: diskValueArr,
+                    backgroundColor: diskBgArray,
                     barPercentage: 0.5,
                 },
             ],
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 display: false
             },
@@ -210,32 +222,45 @@ socket2.onmessage = function (json) {
                 ],
             },
         },
-    });
+    });      
 
     //네트워크 사용률 - 가로형 막대 차트
-    const networkUseData0 = hwData.message.network[0][''];
-    console.log('네트워크 사용률' + networkUseData0);
+        //네트워크 사용률 key  
+        const networkNames = hwData.network_keys;
+        console.log(Object.values(networkNames));
+        let networkNameArr = Object.values(networkNames);
 
-    const networkUseData1 = hwData.message.network[1][''];
-    console.log('네트워크 사용률' + networkUseData1);
+        //네트워크 사용률 value
+        let networkValueArr = [];
+        let networkValue = hwData.message.network;
+        networkValue.forEach((item, idx)=>{
+            networkValueArr.push(parseInt(item.key));
+        });
 
+        //backgroundColor 갯수만큼 배열
+        const networkBgN = diskNames.length;
+        let networkBgArray = [];
+        for(let i=0; i<networkBgN; i++){
+            networkBgArray.push("#5d6778");
+        }
 
     const networkChart = document.getElementById("networkChart").getContext("2d");
     const networkChart4 = new Chart(networkChart, {
         type: "horizontalBar",
         data: {
-            labels: ["/eth0", "/eth1"],
+            labels: networkNameArr,
             datasets: [
                 {
                     label: "server",
-                    data: [networkUseData0, networkUseData1],
-                    backgroundColor: ["#5d6778", "#5d6778"],
+                    data: networkValueArr,
+                    backgroundColor: networkBgArray,
                     barPercentage: 0.5,
                 },
             ],
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 display: false
             },

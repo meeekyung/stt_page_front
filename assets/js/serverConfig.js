@@ -15,7 +15,7 @@ $.ajax({
         for(let i=0; i < json.length; i++){
             if(json.length >= 0){
                 $('#severStausArea').append(
-                    '<div class="status-box" id="statusBox'+ i +'"><div class="status-box-inner offlineBg"><h3>'+json[i].hostname+'</h3><p>'+json[i].ipaddr+'/<span class="etcText">'+json[i].role+'</span></p></div></div>'
+                    '<div class="status-box" id="statusBox'+ i +'"><div class="status-box-inner offlineBg"><h3 id="statusTit'+ i +'">'+json[i].hostname+'</h3><p>'+json[i].ipaddr+'/<span class="etcText">'+json[i].role+'</span></p></div></div>'
                 );
             }
         }

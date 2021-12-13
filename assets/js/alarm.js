@@ -54,37 +54,71 @@ socket3.onmessage = function (json) {
         console.log("CRITICAL 에러 발생");
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-43px"});
         $('.notice-error-popup .notice-error').css({"border" : "2px solid #bd362f"});
-
-        let hostnameTxt = $("#severStausArea .status-box .status-box-inner h3");
-        console.log(hostnameTxt, alarmHostname);
-        let arr = [];
-        arr[0] = hostnameTxt[0].innerText;
-        arr[1] = hostnameTxt[1].innerText;
-        arr[2] = hostnameTxt[2].innerText;
-
-        console.log(arr);
-
-        for(let i = 0;i<arr.length;i++){
-            console.log(arr[i]);
-            console.log(alarmHostname);
-        if(alarmHostname === arr[i]){
-            $('#severStausArea .statusBox[i] .status-box-inner').css({
+ 
+        let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
+        let severTitTxt = $("#" + serverTit).text();
+        let severTitHtml = $("#" + serverTit);
+        console.log(serverTit, severTitTxt);
+        
+        if(alarmHostname == severTitTxt){
+            console.log(severTitHtml.parent('.status-box-inner'));
+            severTitHtml.parents('.status-box-inner').css({
                 "background" : "#bd362f",
-                "color" : "#fff !important"
+                "color" : "#fff"
             });
         }
-    }
     }else if(alarmLevel === "MAJOR"){
         console.log("MAJOR 에러 발생");
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "0px"});
         $('.notice-error-popup .notice-error').css({"border" : "2px solid #e95420"});
+
+        let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
+        let severTitTxt = $("#" + serverTit).text();
+        let severTitHtml = $("#" + serverTit);
+        console.log(serverTit, severTitTxt);
+        
+        if(alarmHostname == severTitTxt){
+            console.log(severTitHtml.parent('.status-box-inner'));
+            severTitHtml.parents('.status-box-inner').css({
+                "background" : "#e95420",
+                "color" : "#fff"
+            });
+        }
+
     }else if(alarmLevel === "MINOR"){
         console.log("MINOR 에러 발생");
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-89px"});
         $('.notice-error-popup .notice-error').css({"border" : "2px solid #2196f3"});
+
+        let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
+        let severTitTxt = $("#" + serverTit).text();
+        let severTitHtml = $("#" + serverTit);
+        console.log(serverTit, severTitTxt);
+        
+        if(alarmHostname == severTitTxt){
+            console.log(severTitHtml.parent('.status-box-inner'));
+            severTitHtml.parents('.status-box-inner').css({
+                "background" : "#2196f3",
+                "color" : "#fff"
+            });
+        }
+
     }else if(alarmLevel === "INFO"){
         console.log("INFO 에러 발생");
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-133px"});
-        $('.notice-error-popup .notice-error').css({"border" : "2px solid #2196f3"});
+        $('.notice-error-popup .notice-error').css({"border" : "2px solid #22b24c"});
+
+        let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
+        let severTitTxt = $("#" + serverTit).text();
+        let severTitHtml = $("#" + serverTit);
+        console.log(serverTit, severTitTxt);
+        
+        if(alarmHostname == severTitTxt){
+            console.log(severTitHtml.parent('.status-box-inner'));
+            severTitHtml.parents('.status-box-inner').css({
+                "background" : "#2196f3",
+                "color" : "#fff"
+            });
+        }
     }
 };
