@@ -17,6 +17,9 @@ $.ajax({
                 $('#severStausArea').append(
                     '<div class="status-box" id="statusBox'+ i +'"><div class="status-box-inner offlineBg"><h3 id="statusTit'+ i +'">'+json[i].hostname+'</h3><p>'+json[i].ipaddr+'/<span class="etcText">'+json[i].role+'</span></p></div></div>'
                 );
+                $('#systemTab').append(
+                    '<li id="stt' + i +'" class="tab bdb">'+json[i].hostname+'</li>'
+                );
             }
         }
     },

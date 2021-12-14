@@ -25,7 +25,7 @@
             <i class="bar m"></i>
             <i class="bar b"></i>
         </div>
-  
+
         <div class="side-menu">
             <div class="side-menu-inner">
                 <div class="logo-branding">
@@ -57,16 +57,16 @@
             <div class="cont-tit-area mb20">
                 <h3 class="cont-subtit">Dashboard</h3>
             </div>
-            <div id="severStausArea">                
+            <div id="severStausArea">
             </div>
-            
+
             <div id="systemArea">
                 <div class="tab-area w100p mt20">
                     <div class="tab-bg bgTransparency mb0 bdb"></div>
-                    <ul class="tab-list">
+                    <ul class="tab-list" id="systemTab">
                         <li id="allTab" class="tab tab-on bdb">전체</li>
-                        <li id="stt1" class="tab bdb">STT1</li>
-                        <li id="stt2" class="tab bdb">STT2</li>
+                        <!-- <li id="stt1" class="tab bdb">STT1</li>
+                        <li id="stt2" class="tab bdb">STT2</li> -->
                     </ul>
                 </div>
 
@@ -84,7 +84,7 @@
                                 <p>단위 시간 내 전송한 성공/실패 누적 건수</p>
                                 <div class="success-chart">
                                     <canvas id="suceessChart"></canvas>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="performance-box length-area">
                                 <h4>총 음성길이</h4>
@@ -116,9 +116,9 @@
                 <div class="tab-area w100p mt20">
                     <div class="tab-bg bgTransparency mb0 bdb"></div>
                     <ul class="tab-list">
-                        <li id="allTab" class="tab tab-on bdb">STT1</li>
-                        <li id="grpcTab" class="tab bgTransparency bdb">STT2</li>
-                        <li id="restTab" class="tab bgTransparency bdb">LB-MONI</li>
+                        <li id="allTab" class="tab tab-on bdb">전체</li>
+                        <!-- <li id="grpcTab" class="tab bgTransparency bdb">STT2</li>
+                        <li id="restTab" class="tab bgTransparency bdb">LB-MON</li> -->
                     </ul>
                 </div>
 
@@ -140,7 +140,7 @@
                             <h4>네트워크 사용률</h4>
                             <canvas id="networkChart"></canvas>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
             </div>
             <div class="notice-error-tit">
                 <div class="notice-error-icon"></div>
-                 <span class="notice-error-hostname"></span><span class="notice-error-level"></span> Error
+                <span class="notice-error-hostname"></span><span class="notice-error-level"></span> Error
             </div>
             <p class="notice-error-txt"></p>
             <p class="notice-error-time"></p>
@@ -167,7 +167,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="assets/plugins/chart.js/chart.min.js"></script>
     <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script>
-    
+
     <script src="assets/js/hwdata.js"></script>
     <script src="assets/js/alarm.js"></script>
     <script src="assets/js/serverConfig.js"></script>

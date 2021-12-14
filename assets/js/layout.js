@@ -1,7 +1,6 @@
 $(function () {
   //nav 클릭시 배경색, 글자색 변경 이벤트
   $(document).on("click", ".nav-link", function () {
-    console.log("ddd");
     $(this).addClass("active");
     //$(this).parents().siblings().children().removeClass("active");
   });
