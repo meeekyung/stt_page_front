@@ -99,7 +99,7 @@ socket3.onmessage = function (json) {
         
         if(alarmHostname == severTitTxt){
             severTitHtml.parents('.status-box-inner').css({
-                "background" : "#2196f3",
+                "background" : "#22b24c",
                 "color" : "#fff"
             });
         }

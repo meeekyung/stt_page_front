@@ -2,7 +2,7 @@ let socket2 = new WebSocket("ws://192.168.20.194:55532/ws/hardware-status");
 
 //연결설정
 socket2.onopen = function (e) {
-    console.log("[open] Connection established");
+    console.log("[open] Connection established hwdata");
     console.log("Sending to server");
     socket2.send("My name is John");
 };
@@ -13,11 +13,9 @@ socket2.onmessage = function (json) {
 
     //전체 데이터 출력
     const hwData = JSON.parse(json.data);
-    console.log(hwData);
 
     //cpu 사용률 - 도넛형 차트
     const cpuUseData = hwData.message.cpu;
-    console.log('cpu 사용률' + cpuUseData);
 
     const cpuChart = document.getElementById("cpuChart").getContext("2d");
     const networkChart1 = new Chart(cpuChart, {
@@ -82,7 +80,6 @@ socket2.onmessage = function (json) {
 
     //메모리 사용률 - 도넛형 차트
     const memoryUseData = hwData.message.memory;
-    console.log('메모리 사용률' + memoryUseData);
 
     const memoryChart = document.getElementById("memoryChart").getContext("2d");
     const networkChart2 = new Chart(memoryChart, {
@@ -227,7 +224,6 @@ socket2.onmessage = function (json) {
     //네트워크 사용률 - 가로형 막대 차트
         //네트워크 사용률 key  
         const networkNames = hwData.network_keys;
-        console.log(Object.values(networkNames));
         let networkNameArr = Object.values(networkNames);
 
         //네트워크 사용률 value
