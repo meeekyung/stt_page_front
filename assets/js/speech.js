@@ -24,7 +24,7 @@ $(function () {
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.20.194:55532/audio",
+      url: "http://192.168.20.123:55532/audio",
       data: formData,
       processData: false,
       contentType: false,
@@ -81,7 +81,7 @@ $(".stt-btn").off().on("click", function (e) {
 function stt() {
   $.ajax({
     type: "GET",
-    url: "http://192.168.20.194:55532/audio",
+    url: "http://192.168.20.123:55532/audio",
     dataType: 'json',
     success: function (json) {
       console.log("음성인식변환 성공!!");
@@ -110,7 +110,7 @@ $("#introBtn").on("click", function () {
   var user_pw = document.getElementById("userPw").value;
 
   $.ajax({
-    url: "http://192.168.20.194:55532/users/login",
+    url: "http://192.168.20.123:55532/users/login",
     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
     type: "POST",
     data: JSON.stringify({ username: user_name, password: user_pw }),

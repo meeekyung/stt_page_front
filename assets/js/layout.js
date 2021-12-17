@@ -38,7 +38,7 @@ $(function () {
 
 // startInterval(function () {
 //   $.ajax({
-//     url: "http://192.168.20.194:55532/monitor/server-info",
+//     url: "http://192.168.20.123:55532/monitor/server-info",
 //     method: "GET",
 //     dataType: "JSON",
 //     success: function (json) {

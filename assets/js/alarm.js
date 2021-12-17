@@ -1,4 +1,4 @@
-const socket3 = new WebSocket("ws://192.168.20.194:55532/ws/alarm");
+const socket3 = new WebSocket("ws://192.168.20.123:55532/ws/alarm");
 
 //연결설정
 socket3.onopen = function (e) {

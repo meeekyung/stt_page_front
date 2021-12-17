@@ -3,7 +3,7 @@ var startInterval;
 function allList() {
   //startInterval = setInterval(function(){
   $.ajax({
-    url: "http://192.168.20.194:55532/monitor/channels",
+    url: "http://192.168.20.123:55532/monitor/channels",
     method: "GET",
     dataType: "JSON",
 
@@ -77,7 +77,7 @@ $("#allTab").on("click", function () {
   //allListInterval = setInterval(function(){
   function clickAllList() {
     $.ajax({
-      url: "http://192.168.20.194:55532/monitor/channels",
+      url: "http://192.168.20.123:55532/monitor/channels",
       method: "GET",
       dataType: "JSON",
 
@@ -152,7 +152,7 @@ $("#grpcTab").on("click", function () {
   //grpcInterval = setInterval(function(){
   function grpcList() {
     $.ajax({
-      url: "http://192.168.20.194:55532/monitor/channels",
+      url: "http://192.168.20.123:55532/monitor/channels",
       method: "GET",
       dataType: "JSON",
 
@@ -226,7 +226,7 @@ $("#restTab").on("click", function () {
   //restInterval = setInterval(function(){
   function restList() {
     $.ajax({
-      url: "http://192.168.20.194:55532/monitor/channels",
+      url: "http://192.168.20.123:55532/monitor/channels",
       method: "GET",
       dataType: "JSON",
 
