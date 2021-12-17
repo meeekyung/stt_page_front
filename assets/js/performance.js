@@ -6,6 +6,214 @@ socket.onopen = function (e) {
     socket.send("My name is John");
 };
 
+//데이터 수신이 안될 때
+document.querySelector(".request-data").innerHTML = 0;
+
+let suceessChart = document.getElementById("suceessChart").getContext("2d");
+    myChart = new Chart(suceessChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['실패     ' + 0 + '%', '성공     ' + 0 + '%'],
+            datasets: [{
+                label: '# of Votes',
+                data: [0, 0],
+                backgroundColor: [
+                    '#ececec',
+                    '#2e88de'
+                ],
+                borderWidth: 0,
+                barPercentage: 0.3,
+            }]
+        },
+        options: {
+            plugins: {
+                doughnutlabel: {
+                    labels: [
+                        {
+                            text: 0 + '%',
+                            font: {
+                                size: '30',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
+                            },
+                            color: '#5d6778'
+                        }
+                    ]
+                }
+            },
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'left',
+                display: true,
+                labels: {
+                    fontColor: '#5d6778',
+                    fontSize: 15,
+                    defaultFontFamily: "Roboto",
+                    boxWidth: 15,
+                    padding: 15
+                },
+            },
+            cutoutPercentage: 90,
+            scales: {
+                yAxes: [
+                    {
+                        display: false,
+                        ticks: {
+                            min: 0,
+                            max: 20,
+                            stepSize: 20,
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+document.querySelector(".length-data").innerHTML = 0;
+document.querySelector(".speed-data").innerHTML = 0;
+
+let statusChart = document.getElementById("statusChart").getContext("2d");
+    channelChart1 = new Chart(statusChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['전체 채널 수        ' + 0, '사용중인 채널 수     ' + 0],
+            datasets: [{
+                label: '# of Votes',
+                data: [0, 0],
+                backgroundColor: [
+                    '#ececec',
+                    '#3adaba'
+                ],
+                borderWidth: 0,
+                barPercentage: 0.3,
+            }]
+        },
+        options: {
+            plugins: {
+                doughnutlabel: {
+                    labels: [
+                        {
+                            text: 0 + '%',
+                            font: {
+                                size: '35',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
+                            },
+                            color: '#5d6778'
+                        }
+                    ]
+                }
+            },
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'right',
+                display: true,
+                labels: {
+                    fontColor: '#5d6778',
+                    fontSize: 15,
+                    defaultFontFamily: "Roboto",
+                    boxWidth: 15,
+                },
+            },
+            cutoutPercentage: 90,
+            scales: {
+                yAxes: [
+                    {
+                        display: false,
+                        ticks: {
+                            min: 0,
+                            max: 20,
+                            stepSize: 20,
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+let serverChChart = document.getElementById("serverChChart").getContext("2d");
+channelChart2 = new Chart(serverChChart, {
+    type: "bar",
+    data: {
+        labels: ["REST", "gRPC", "gRPC-Streaming"],
+        datasets: [
+            {
+                label: "전체",
+                data: [0, 0, 0],
+                backgroundColor: "#05b5fc",
+                barPercentage: 0.3,
+            },
+            {
+                label: "사용 중",
+                data: [0, 0, 0],
+                backgroundColor: "#ffbd60",
+                barPercentage: 0.3,
+            }
+        ],
+    },
+    options: {
+        animation: {
+            duration: 0
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            display: true,
+            position: 'right',
+            labels: {
+                fontColor: '#5d6778',
+                fontSize: 15,
+                defaultFontFamily: "Roboto",
+                boxWidth: 15
+            },
+        },
+        scales: {
+            xAxes: [
+                {
+                    stacked: true,
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 20,
+                        fontColor: "#5d6778",
+                        fontSize: 12,
+                        defaultFontFamily: "Roboto"
+                    },
+                    gridLines: {
+                        color: '#fff',
+                        lineWidth: 0.5
+                    },
+                },
+            ],
+            yAxes: [
+                {
+                    stacked: true,
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 20,
+                        fontColor: "#5d6778",
+                        fontSize: 12,
+                        defaultFontFamily: "Roboto",
+                    },
+                    gridLines: {
+                        color: '#fff',
+                        lineWidth: 0.5
+                    },
+                },
+            ],
+        },
+    },
+});
+
 //데이터 수신 됨 - 전체 데이터를 출력해줌
 socket.onmessage = function (json) {
     console.log("전체 데이터 출력!");
@@ -15,15 +223,18 @@ socket.onmessage = function (json) {
 
     //요청건수 출력
     const requestTotal = boardData["bona-total-stt"].request_number;
-    document.querySelector(".request-data").innerHTML = requestTotal;
+    console.log(requestTotal);
+    if(requestTotal == undefined){
+        document.querySelector(".request-data").innerHTML = 0;
+    }else{
+        document.querySelector(".request-data").innerHTML = requestTotal;
+    }    
 
     //성공률 출력 - 도넛형 차트
     const successNum = boardData["bona-total-stt"].success;
     const failPerNum = boardData["bona-total-stt"].fail;
     const successPer = boardData["bona-total-stt"].success / 100; //정수만 반환
     const failPer = boardData["bona-total-stt"].fail / 100;
-
-    console.log(successNum, failPerNum, successPer, failPer);
 
     let suceessChart = document.getElementById("suceessChart").getContext("2d");
     myChart = new Chart(suceessChart, {
