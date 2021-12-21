@@ -13,7 +13,7 @@ let suceessChart = document.getElementById("suceessChart").getContext("2d");
     myChart = new Chart(suceessChart, {
         type: 'doughnut',
         data: {
-            labels: ['실패     ' + 0 + '%', '성공     ' + 0 + '%'],
+            labels: ['실패     ' + 0 + '건', '성공     ' + 0 + '건'],
             datasets: [{
                 label: '# of Votes',
                 data: [0, 0],
@@ -233,14 +233,14 @@ socket.onmessage = function (json) {
     //성공률 출력 - 도넛형 차트
     const successNum = boardData["bona-total-stt"].success;
     const failPerNum = boardData["bona-total-stt"].fail;
-    const successPer = boardData["bona-total-stt"].success / 100; //정수만 반환
-    const failPer = boardData["bona-total-stt"].fail / 100;
+    const successPer = (boardData["bona-total-stt"].success / requestTotal * 100).toFixed(0);
+    const failPer = (boardData["bona-total-stt"].fail / requestTotal * 100).toFixed(0);
 
     let suceessChart = document.getElementById("suceessChart").getContext("2d");
     myChart = new Chart(suceessChart, {
         type: 'doughnut',
         data: {
-            labels: ['실패     ' + failPer + '%', '성공     ' + successPer + '%'],
+            labels: ['실패     ' + failPer + '건', '성공     ' + successPer + '건'],
             datasets: [{
                 label: '# of Votes',
                 data: [failPerNum, successNum],
@@ -300,7 +300,7 @@ socket.onmessage = function (json) {
     });
 
     //총 음성길이 출력
-    const audioLength = boardData["bona-total-stt"].audio_len;
+    const audioLength = boardData["bona-total-stt"].audio_len / 60;
     document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
     //평균처리 속도 출력
@@ -481,8 +481,8 @@ $('#allTab').click(function () {
         //성공률 출력 - 도넛형 차트
         const successNum = boardData["bona-total-stt"].success;
         const failPerNum = boardData["bona-total-stt"].fail;
-        const successPer = Math.trunc(100 - boardData["bona-total-stt"].success / 100.); //정수만 반환
-        const failPer = boardData["bona-total-stt"].fail / 100;
+        const successPer = (boardData["bona-total-stt"].success / requestTotal * 100).toFixed(0);
+        const failPer = (boardData["bona-total-stt"].fail / requestTotal * 100).toFixed(0);
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
@@ -492,7 +492,7 @@ $('#allTab').click(function () {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPer + '%', '성공     ' + successPer + '%'],
+                labels: ['실패     ' + failPer + '건', '성공     ' + successPer + '건'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNum, successNum],
@@ -723,7 +723,10 @@ $('#allTab').click(function () {
 });
 
 //STT0 tab 클릭시 데이터 변환 이벤트
-$(document).on('click', '#stt0', function () {
+$(document).on('click', '#stt0', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
     socket.onmessage = function (json) {
@@ -740,8 +743,8 @@ $(document).on('click', '#stt0', function () {
         //성공률 출력 - 도넛형 차트
         const successNumStt1 = sttData1["bona-stt1"].success;
         const failPerNumStt1 = sttData1["bona-stt1"].fail;
-        const successPerStt1 = Math.trunc(sttData1["bona-stt1"].success / 100.); //정수만 반환
-        const failPerStt1 = sttData1["bona-stt1"].fail / 100;
+        const successPerStt1 = (sttData1["bona-stt1"].success / requestTotalStt1 * 100).toFixed(0);
+        const failPerStt1 = (sttData1["bona-stt1"].fail / requestTotalStt1 * 100).toFixed(0);
 
         console.log(successNumStt1, failPerNumStt1, successPerStt1, failPerStt1);
 
@@ -753,7 +756,7 @@ $(document).on('click', '#stt0', function () {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPerStt1 + '%', '성공     ' + successPerStt1 + '%'],
+                labels: ['실패     ' + failPerStt1 + '건', '성공     ' + successPerStt1 + '건'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNumStt1, successNumStt1],
@@ -984,7 +987,10 @@ $(document).on('click', '#stt0', function () {
 });
 
 //STT1 tab 클릭시 데이터 변환 이벤트
-$(document).on('click', '#stt1', function () {
+$(document).on('click', '#stt1', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
     socket.onmessage = function (json) {
@@ -1001,8 +1007,8 @@ $(document).on('click', '#stt1', function () {
         //성공률 출력 - 도넛형 차트
         const successNumStt2 = sttData2["bona-stt2"].success;
         const failPerNumStt2 = sttData2["bona-stt2"].fail;
-        const successPerStt2 = Math.trunc(100 - sttData2["bona-stt2"].success / 100.); //정수만 반환
-        const failPerStt2 = sttData2["bona-stt2"].fail / 100;
+        const successPerStt2 = (sttData2["bona-stt2"].success / requestTotalStt2 * 100).toFixed(0);
+        const failPerStt2 = (sttData2["bona-stt2"].fail / requestTotalStt2 * 100).toFixed(0);
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
@@ -1012,7 +1018,7 @@ $(document).on('click', '#stt1', function () {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPerStt2 + '%', '성공     ' + successPerStt2 + '%'],
+                labels: ['실패     ' + failPerStt2 + '건', '성공     ' + successPerStt2 + '건'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNumStt2, successNumStt2],
@@ -1243,7 +1249,10 @@ $(document).on('click', '#stt1', function () {
 });
 
 //STT2 tab 클릭시 데이터 변환 이벤트
-$(document).on('click', '#stt2', function () {
+$(document).on('click', '#stt2', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
     socket.onmessage = function (json) {
@@ -1254,14 +1263,14 @@ $(document).on('click', '#stt2', function () {
         console.log(sttData3);
 
         //요청건수 출력
-        const requestTotalStt1 = sttData3["bona-stt3"].request_number;
+        const requestTotalSt3 = sttData3["bona-stt3"].request_number;
         document.querySelector(".request-data").innerHTML = requestTotalStt1;
 
         //성공률 출력 - 도넛형 차트
         const successNumStt3 = sttData3["bona-stt3"].success;
         const failPerNumStt3 = sttData3["bona-stt3"].fail;
-        const successPerStt3 = Math.trunc(sttData3["bona-stt3"].success / 100.); //정수만 반환
-        const failPerStt3 = sttData3["bona-stt3"].fail / 100;
+        const successPerStt3 = (sttData3["bona-stt3"].success / requestTotalSt3 * 100).toFixed(0);
+        const failPerStt3 = (sttData3["bona-stt3"].fail / requestTotalSt3 * 100).toFixed(0);
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
@@ -1271,7 +1280,7 @@ $(document).on('click', '#stt2', function () {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPerStt3 + '%', '성공     ' + successPerStt3 + '%'],
+                labels: ['실패     ' + failPerStt3 + '건', '성공     ' + successPerStt3 + '건'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNumStt3, successNumStt3],

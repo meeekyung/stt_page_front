@@ -250,7 +250,7 @@ const networkChart4 = new Chart(networkChart, {
 
 //데이터 수신 됨
 socket2.onmessage = function (json) {
-    $('#hw4').addClass('tab-on').siblings().removeClass('tab-on');
+    $('#hw0').addClass('tab-on').siblings().removeClass('tab-on');
     //console.log(`[message] Data received from server: ${event.data}`);
 
     //전체 데이터 출력
@@ -562,8 +562,19 @@ socket2.onmessage = function (json) {
 
 };
 
-$(document).on('click', '.tab', function () {
+$(document).on('click', '#hw0', function () {
+    $(this).addClass('tab-on').siblings().removeClass('tab-on');
+});
 
+$(document).on('click', '#hw1', function () {
+    $(this).addClass('tab-on').siblings().removeClass('tab-on');
+});
+
+$(document).on('click', '#hw2', function () {
+    $(this).addClass('tab-on').siblings().removeClass('tab-on');
+});
+
+$(document).on('click', '#hw3', function () {
     $(this).addClass('tab-on').siblings().removeClass('tab-on');
 });
 
