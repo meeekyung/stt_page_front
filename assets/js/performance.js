@@ -236,6 +236,10 @@ socket.onmessage = function (json) {
     const successPer = (boardData["bona-total-stt"].success / requestTotal * 100).toFixed(0);
     const failPer = (boardData["bona-total-stt"].fail / requestTotal * 100).toFixed(0);
 
+    //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
+    $("#suceessChart").remove();
+    $(".success-chart").append('<canvas id="suceessChart"></canvas>');
+
     let suceessChart = document.getElementById("suceessChart").getContext("2d");
     myChart = new Chart(suceessChart, {
         type: 'doughnut',
@@ -312,6 +316,10 @@ socket.onmessage = function (json) {
     const useCh = boardData["bona-total-stt"].channels.running;
     const useChPer = boardData["bona-total-stt"].channels.running / 100;
 
+    //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
+    $("#statusChart").remove();
+    $(".status-area").append('<canvas id="statusChart"></canvas>');
+
     let statusChart = document.getElementById("statusChart").getContext("2d");
     channelChart1 = new Chart(statusChart, {
         type: 'doughnut',
@@ -382,6 +390,10 @@ socket.onmessage = function (json) {
     const restRunning = boardData["bona-total-stt"].channels.rest.running;
     const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
     const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
+
+    //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
+    $("#serverChChart").remove();
+    $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
 
     let serverChChart = document.getElementById("serverChChart").getContext("2d");
     channelChart2 = new Chart(serverChChart, {
