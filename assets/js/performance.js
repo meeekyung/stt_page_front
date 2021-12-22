@@ -222,7 +222,7 @@ socket.onmessage = function (json) {
     let boardData = JSON.parse(json.data);
 
     //요청건수 출력
-    const requestTotal = boardData["bona-total-stt"].request_number;
+    let requestTotal = boardData["bona-total-stt"].request_number;
     if(requestTotal == undefined){
         document.querySelector(".request-data").innerHTML = 0;
     }else{
@@ -230,8 +230,14 @@ socket.onmessage = function (json) {
     }    
 
     //성공률 출력 - 도넛형 차트
-    const successNum = boardData["bona-total-stt"].success;
+    let successNum = boardData["bona-total-stt"].success;
     const failPerNum = boardData["bona-total-stt"].fail;
+    //건수가 0일 때(삼항연사자로 수정할 것)
+    if (requestTotal == 0){
+        requestTotal = 1;
+        successNum = 0;
+
+    }
     const successPer = (boardData["bona-total-stt"].success / requestTotal * 100).toFixed(0);
     const failPer = (boardData["bona-total-stt"].fail / requestTotal * 100).toFixed(0);
 
