@@ -149,7 +149,7 @@ a{text-decoration: none;}
 
 .hwArea{background: #fff;padding-bottom: 2em;}
 .hw-box{padding: 30px 0;box-sizing: border-box;}
-.hw-box h4{font-size: 1.3rem;margin-bottom: .7em;display: inline-block;margin-right: 30px;}
+.hw-box h4{font-size: 1.3rem;margin-bottom: .7em;display: inline-block;margin-right: 25px;}
 .cpu-area>canvas, .memory-area>canvas{width: 250px !important;}
 .disk-area>canvas, .network-area>canvas{width: 250px !important;}
 
