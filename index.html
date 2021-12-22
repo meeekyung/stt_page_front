@@ -74,26 +74,36 @@
                     <div class="performanceArea">
                         <h3 class="system-tit">성능지표</h3>
                         <div class="performanceList">
-                            <div class="performance-box request-area">
+                            <div class="performance-box request-area" title="단위 시간 내 수신된 요청 누적 건수">
                                 <h4>요청건수</h4>
-                                <p>단위 시간 내 수신된 요청 누적 건수</p>
                                 <div class="request-data"></div><span>건</span>
                             </div>
-                            <div class="performance-box suceess-area">
+                            <div class="performance-box suceess-area" title="단위 시간 내 전송한 성공/실패 누적 건수">
                                 <h4>성공률</h4>
-                                <p>단위 시간 내 전송한 성공/실패 누적 건수</p>
                                 <div class="success-chart">
                                     <canvas id="suceessChart"></canvas>
                                 </div>
+                                <ul class="lagendArea success-chart-spot">
+                                    <li>
+                                        <div class="legendBox blueBG"></div>
+                                        <span class="legend-tit">성공</span>
+                                        <span id="legendNum1"></span>
+                                        <span>건</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">실패</span>
+                                        <span id="legendNum2"></span>
+                                        <span>건</span>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="performance-box length-area">
+                            <div class="performance-box length-area" title="단위 시간 내 수신한 요청 건 기준 음성길이(초)의 누적">
                                 <h4>총 음성길이</h4>
-                                <p>단위 시간 내 수신한 요청 건 기준 음성길이(초)의 누적</p>
                                 <div class="length-data"></div><span>분</span>
                             </div>
-                            <div class="performance-box speed-area">
+                            <div class="performance-box speed-area" title="음성인식 평균 처리 속도">
                                 <h4>평균처리속도</h4>
-                                <p>음성인식 평균 처리 속도</p>
                                 <div class="speed-data"></div><span>RTF</span>
                             </div>
                         </div>
@@ -101,11 +111,40 @@
                     <div class="channelArea">
                         <h3 class="system-tit">채널상태</h3>
                         <div class="channelstatusList">
-                            <div class="channelstatus-box status-area">
-                                <canvas id="statusChart"></canvas>
+                            <div class="channel-left">
+                                <div class="channelstatus-box status-area">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                                <ul class="lagendArea status-chart-spot">
+                                    <li>
+                                        <div class="legendBox mintBG"></div>
+                                        <span class="legend-tit">전체 재널 수</span>
+                                        <span id="legendNum3"></span>
+                                        <span>개</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">사용중인 채널 수</span>
+                                        <span id="legendNum4"></span>
+                                        <span>개</span>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="channelstatus-box severchannel-area">
-                                <canvas id="serverChChart"></canvas>
+
+                            <div class="channel-right">
+                                <div class="channelstatus-box severchannel-area">
+                                    <canvas id="serverChChart"></canvas>
+                                </div>
+                                <ul class="lagendArea status-chart-spot">
+                                    <li>
+                                        <div class="legendBox skyblueBG"></div>
+                                        <span class="legend-tit">전체</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox orangeBG"></div>
+                                        <span class="legend-tit">사용중</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -134,7 +173,7 @@
                             <canvas id="diskChart"></canvas>
                         </div>
                         <div class="hw-box network-area">
-                            <h4>네트워크 사용률</h4>
+                            <h4>네트워크 속도</h4>
                             <canvas id="networkChart"></canvas>
                         </div>
                     </div>
@@ -166,10 +205,10 @@
     <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script>
 
     <script src="assets/js/hwdata.js"></script>
-    <script src="assets/js/alarm.js"></script>
     <script src="assets/js/sttConfig.js"></script>
     <script src="assets/js/performance.js"></script>
-    <script src="assets/js/hwConfig.js"></script>
+    <script src="assets/js/hwConfig.js"></script>    
+    <script src="assets/js/alarm.js"></script>
     <!-- <script type="text/javascript">
         Chart.plugins.register({
             afterDatasetsDraw: function (chart) {

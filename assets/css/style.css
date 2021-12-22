@@ -31,6 +31,17 @@ a{text-decoration: none;}
 /* border */
 .bdb{border-bottom: 0 !important;}
 
+/* legend 공통 */
+.success-chart-spot{position: absolute;top: 65px;left: 70px;}
+.status-chart-spot{position: absolute;top: 55px;right: 180px;}
+.lagendArea>li{margin-bottom: 10px;text-align: left;}
+.legendBox{width: 15px;height: 15px;display: inline-block;vertical-align: middle;margin-right: 5px;}
+.mintBG{background: #3adaba;}
+.blueBG{background: #2e88de;}
+.skyblueBG{background: #05b5fc;}
+.grayBG{background: #ececec;}
+.orangeBG{background: #ffbd60;}
+
 /* header */
 .header{width: 100%;height: 56px;
     background: #00baff; /* Old browsers */
@@ -120,7 +131,8 @@ a{text-decoration: none;}
 .performance-box:last-child{margin-right: 0;}
 .performance-box>h4{font-size: 20px;padding-bottom: 10px;text-align: left;}
 .performance-box>p{text-align: left;font-size: 15px;margin-bottom: 30px;color: #999;line-height: 1.2;word-break: keep-all;}
-.performance-box>div{font-size: 40px;letter-spacing: -1px;font-weight: normal;margin-bottom: 1em;display: inline-block;}
+.performance-box>div{font-size: 40px;letter-spacing: -1px;font-weight: normal;display: inline-block;margin-top: 0.8em;}
+.success-chart{margin-top: 0 !important;}
 .performance-box>span{font-size: 20px;font-weight: normal;margin-left: 5px;display: inline-block;}
 
 .suceess-area{flex-grow: 1;}
@@ -130,7 +142,9 @@ a{text-decoration: none;}
 .suceess-area>p{width: 110px;}
 
 .channelstatusList{padding: 0 70px;display: flex;justify-content: space-around;align-items: center;}
-.status-area>canvas{width: 330px !important;}
+.channel-left{position: relative;width: 50%;}
+.channel-right{position: relative;width: 50%;}
+.status-area{width: 50% !important;}
 .severchannel-area>canvas{width: 450px !important;}
 
 .hwArea{background: #fff;padding-bottom: 2em;}

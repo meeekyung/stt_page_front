@@ -401,9 +401,13 @@ socket2.onmessage = function (json) {
         //디스크 사용률 value
         let diskValueArr = [];
         let diskValue = hwData.message.disk;
+        console.log(diskValue);
         diskValue.forEach((item, idx) => {
-            diskValueArr.push(parseInt(item.key));
+            diskValueArr.push(parseInt(item.unit));
+            console.log(diskValueArr.push(parseInt(item.unit)));
         });
+
+        console.log(diskValueArr);
 
         //backgroundColor 갯수만큼 배열
         const diskBgN = diskNames.length;
@@ -484,7 +488,7 @@ socket2.onmessage = function (json) {
         let networkValueArr = [];
         let networkValue = hwData.message.network;
         networkValue.forEach((item, idx) => {
-            networkValueArr.push(parseInt(item.key));
+            networkValueArr.push(parseInt(item.unit));
         });
 
         //backgroundColor 갯수만큼 배열
@@ -720,8 +724,9 @@ $(document).on('click', '#hw0', function () {
             let diskValueArr = [];
             let diskValue = hwData.message.disk;
             diskValue.forEach((item, idx) => {
-                diskValueArr.push(parseInt(item.key));
+                diskValueArr.push(parseInt(item.unit));
             });
+            console.log(diskValueArr);
     
             //backgroundColor 갯수만큼 배열
             const diskBgN = diskNames.length;
@@ -802,7 +807,7 @@ $(document).on('click', '#hw0', function () {
             let networkValueArr = [];
             let networkValue = hwData.message.network;
             networkValue.forEach((item, idx) => {
-                networkValueArr.push(parseInt(item.key));
+                networkValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열
@@ -1039,7 +1044,7 @@ $(document).on('click', '#hw1', function () {
             let diskValueArr = [];
             let diskValue = hwData.message.disk;
             diskValue.forEach((item, idx) => {
-                diskValueArr.push(parseInt(item.key));
+                diskValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열
@@ -1121,7 +1126,7 @@ $(document).on('click', '#hw1', function () {
             let networkValueArr = [];
             let networkValue = hwData.message.network;
             networkValue.forEach((item, idx) => {
-                networkValueArr.push(parseInt(item.key));
+                networkValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열
@@ -1358,7 +1363,7 @@ $(document).on('click', '#hw2', function () {
             let diskValueArr = [];
             let diskValue = hwData.message.disk;
             diskValue.forEach((item, idx) => {
-                diskValueArr.push(parseInt(item.key));
+                diskValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열
@@ -1440,7 +1445,7 @@ $(document).on('click', '#hw2', function () {
             let networkValueArr = [];
             let networkValue = hwData.message.network;
             networkValue.forEach((item, idx) => {
-                networkValueArr.push(parseInt(item.key));
+                networkValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열
@@ -1677,7 +1682,7 @@ $(document).on('click', '#hw3', function () {
             let diskValueArr = [];
             let diskValue = hwData.message.disk;
             diskValue.forEach((item, idx) => {
-                diskValueArr.push(parseInt(item.key));
+                diskValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열
@@ -1759,7 +1764,7 @@ $(document).on('click', '#hw3', function () {
             let networkValueArr = [];
             let networkValue = hwData.message.network;
             networkValue.forEach((item, idx) => {
-                networkValueArr.push(parseInt(item.key));
+                networkValueArr.push(parseInt(item.unit));
             });
     
             //backgroundColor 갯수만큼 배열

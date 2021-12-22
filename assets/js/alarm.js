@@ -36,22 +36,24 @@ socket3.onmessage = function (json) {
 
     //level명 출력
     document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel;
-
+    
     //메시지 출력
     document.querySelector(".notice-error-txt").innerHTML = alarmMssg;
 
     //시간 출력
     document.querySelector(".notice-error-time").innerHTML = alarmTime;
-
+    
     //level에 따른 색상값 변경   
 
     if(alarmLevel === "CRITICAL"){
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-43px"});
         $('.notice-error-popup .notice-error').css({"border" : "2px solid #bd362f"});
- 
-        let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
+        
+        let serverTit = $('#severStausArea .status-box .status-box-inner h3').attr('id');
         let severTitTxt = $("#" + serverTit).text();
         let severTitHtml = $("#" + serverTit);
+
+        console.log(serverTit, severTitTxt, severTitHtml)
         
         if(alarmHostname == severTitTxt){
             severTitHtml.parents('.status-box-inner').css({
@@ -66,6 +68,8 @@ socket3.onmessage = function (json) {
         let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
         let severTitTxt = $("#" + serverTit).text();
         let severTitHtml = $("#" + serverTit);
+
+        console.log(serverTit);
         
         if(alarmHostname == severTitTxt){
             severTitHtml.parents('.status-box-inner').css({

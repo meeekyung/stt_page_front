@@ -47,7 +47,7 @@ let suceessChart = document.getElementById("suceessChart").getContext("2d");
             maintainAspectRatio: false,
             legend: {
                 position: 'left',
-                display: true,
+                display: false,
                 labels: {
                     fontColor: '#5d6778',
                     fontSize: 15,
@@ -113,7 +113,7 @@ let statusChart = document.getElementById("statusChart").getContext("2d");
             maintainAspectRatio: false,
             legend: {
                 position: 'right',
-                display: true,
+                display: false,
                 labels: {
                     fontColor: '#5d6778',
                     fontSize: 15,
@@ -164,7 +164,7 @@ channelChart2 = new Chart(serverChChart, {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-            display: true,
+            display: false,
             position: 'right',
             labels: {
                 fontColor: '#5d6778',
@@ -223,7 +223,6 @@ socket.onmessage = function (json) {
 
     //요청건수 출력
     const requestTotal = boardData["bona-total-stt"].request_number;
-    console.log(requestTotal);
     if(requestTotal == undefined){
         document.querySelector(".request-data").innerHTML = 0;
     }else{
@@ -235,6 +234,9 @@ socket.onmessage = function (json) {
     const failPerNum = boardData["bona-total-stt"].fail;
     const successPer = (boardData["bona-total-stt"].success / requestTotal * 100).toFixed(0);
     const failPer = (boardData["bona-total-stt"].fail / requestTotal * 100).toFixed(0);
+
+    document.querySelector("#legendNum1").innerHTML = successNum;
+    document.querySelector("#legendNum2").innerHTML = failPerNum;
 
     //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
     $("#suceessChart").remove();
@@ -278,7 +280,7 @@ socket.onmessage = function (json) {
             maintainAspectRatio: false,
             legend: {
                 position: 'left',
-                display: true,
+                display: false,
                 labels: {
                     fontColor: '#5d6778',
                     fontSize: 15,
@@ -315,6 +317,9 @@ socket.onmessage = function (json) {
     const totalCh = boardData["bona-total-stt"].channels.total;
     const useCh = boardData["bona-total-stt"].channels.running;
     const useChPer = boardData["bona-total-stt"].channels.running / 100;
+
+    document.querySelector("#legendNum3").innerHTML = totalCh;
+    document.querySelector("#legendNum4").innerHTML = useCh;
 
     //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
     $("#statusChart").remove();
@@ -358,7 +363,7 @@ socket.onmessage = function (json) {
             maintainAspectRatio: false,
             legend: {
                 position: 'right',
-                display: true,
+                display: false,
                 labels: {
                     fontColor: '#5d6778',
                     fontSize: 15,
@@ -422,7 +427,7 @@ socket.onmessage = function (json) {
             responsive: true,
             maintainAspectRatio: false,
             legend: {
-                display: true,
+                display: false,
                 position: 'right',
                 labels: {
                     fontColor: '#5d6778',
@@ -496,6 +501,9 @@ $('#allTab').click(function () {
         const successPer = (boardData["bona-total-stt"].success / requestTotal * 100).toFixed(0);
         const failPer = (boardData["bona-total-stt"].fail / requestTotal * 100).toFixed(0);
 
+        document.querySelector("#legendNum1").innerHTML = successNum;
+        document.querySelector("#legendNum2").innerHTML = failPerNum;
+
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
         $(".success-chart").append('<canvas id="suceessChart"></canvas>');
@@ -538,7 +546,7 @@ $('#allTab').click(function () {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'left',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -575,6 +583,9 @@ $('#allTab').click(function () {
         const totalCh = boardData["bona-total-stt"].channels.total;
         const useCh = boardData["bona-total-stt"].channels.running;
         const useChPer = boardData["bona-total-stt"].channels.running / 100;
+
+        document.querySelector("#legendNum3").innerHTML = totalCh;
+        document.querySelector("#legendNum4").innerHTML = useCh;
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#statusChart").remove();
@@ -618,7 +629,7 @@ $('#allTab').click(function () {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'right',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -758,7 +769,8 @@ $(document).on('click', '#stt0', function (e) {
         const successPerStt1 = (sttData1["bona-stt1"].success / requestTotalStt1 * 100).toFixed(0);
         const failPerStt1 = (sttData1["bona-stt1"].fail / requestTotalStt1 * 100).toFixed(0);
 
-        console.log(successNumStt1, failPerNumStt1, successPerStt1, failPerStt1);
+        document.querySelector("#legendNum1").innerHTML = successNumStt1;
+        document.querySelector("#legendNum2").innerHTML = failPerNumStt1;
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
@@ -802,7 +814,7 @@ $(document).on('click', '#stt0', function (e) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'left',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -839,6 +851,9 @@ $(document).on('click', '#stt0', function (e) {
         const totalCh = sttData1["bona-stt1"].channels.total;
         const useCh = sttData1["bona-stt1"].channels.running;
         const useChPer = sttData1["bona-stt1"].channels.running / 100;
+
+        document.querySelector("#legendNum3").innerHTML = totalCh;
+        document.querySelector("#legendNum4").innerHTML = useCh;
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#statusChart").remove();
@@ -882,7 +897,7 @@ $(document).on('click', '#stt0', function (e) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'right',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -1022,6 +1037,9 @@ $(document).on('click', '#stt1', function (e) {
         const successPerStt2 = (sttData2["bona-stt2"].success / requestTotalStt2 * 100).toFixed(0);
         const failPerStt2 = (sttData2["bona-stt2"].fail / requestTotalStt2 * 100).toFixed(0);
 
+        document.querySelector("#legendNum1").innerHTML = successNumStt2;
+        document.querySelector("#legendNum2").innerHTML = failPerNumStt2;
+
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
         $(".success-chart").append('<canvas id="suceessChart"></canvas>');
@@ -1064,7 +1082,7 @@ $(document).on('click', '#stt1', function (e) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'left',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -1101,6 +1119,9 @@ $(document).on('click', '#stt1', function (e) {
         const totalCh = sttData2["bona-stt2"].channels.total;
         const useCh = sttData2["bona-stt2"].channels.running;
         const useChPer = sttData2["bona-stt2"].channels.running / 100;
+
+        document.querySelector("#legendNum3").innerHTML = totalCh;
+        document.querySelector("#legendNum4").innerHTML = useCh;
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#statusChart").remove();
@@ -1144,7 +1165,7 @@ $(document).on('click', '#stt1', function (e) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'right',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -1284,6 +1305,9 @@ $(document).on('click', '#stt2', function (e) {
         const successPerStt3 = (sttData3["bona-stt3"].success / requestTotalSt3 * 100).toFixed(0);
         const failPerStt3 = (sttData3["bona-stt3"].fail / requestTotalSt3 * 100).toFixed(0);
 
+        document.querySelector("#legendNum1").innerHTML = successNumStt3;
+        document.querySelector("#legendNum2").innerHTML = failPerNumStt3;
+
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#suceessChart").remove();
         $(".success-chart").append('<canvas id="suceessChart"></canvas>');
@@ -1326,7 +1350,7 @@ $(document).on('click', '#stt2', function (e) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'left',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -1363,6 +1387,9 @@ $(document).on('click', '#stt2', function (e) {
         const totalCh = sttData3["bona-stt3"].channels.total;
         const useCh = sttData3["bona-stt3"].channels.running;
         const useChPer = sttData3["bona-stt3"].channels.running / 100;
+
+        document.querySelector("#legendNum3").innerHTML = totalCh;
+        document.querySelector("#legendNum4").innerHTML = useCh;
 
         //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
         $("#statusChart").remove();
@@ -1406,7 +1433,7 @@ $(document).on('click', '#stt2', function (e) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'right',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
