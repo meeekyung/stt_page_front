@@ -34,6 +34,7 @@ a{text-decoration: none;}
 /* legend 공통 */
 .success-chart-spot{position: absolute;top: 65px;left: 70px;}
 .status-chart-spot{position: absolute;top: 55px;right: 180px;}
+.server-chart-spot{position: absolute;top: 10px;right: 0;}
 .lagendArea>li{margin-bottom: 10px;text-align: left;}
 .legendBox{width: 15px;height: 15px;display: inline-block;vertical-align: middle;margin-right: 5px;}
 .mintBG{background: #3adaba;}
@@ -143,7 +144,7 @@ a{text-decoration: none;}
 
 .channelstatusList{padding: 0 70px;display: flex;justify-content: space-around;align-items: center;}
 .channel-left{position: relative;width: 50%;}
-.channel-right{position: relative;width: 50%;}
+.channel-right{position: relative;}
 .status-area{width: 50% !important;}
 .severchannel-area>canvas{width: 450px !important;}
 

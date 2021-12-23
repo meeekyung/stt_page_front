@@ -1,5 +1,5 @@
 $.ajax({
-    url: "http://192.168.20.123:55532/monitor/hardware-config",
+    url: "http://192.168.20.123:55532/monitor/server-config",
     method: "GET",
     dataType: "JSON",
 

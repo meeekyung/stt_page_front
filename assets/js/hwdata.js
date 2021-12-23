@@ -136,7 +136,6 @@ const networkChart3 = new Chart(diskChart, {
         labels: ["undefind"],
         datasets: [
             {
-                label: "server",
                 data: [0],
                 backgroundColor: "#5d6778",
                 barPercentage: 0.5,
@@ -195,7 +194,6 @@ const networkChart4 = new Chart(networkChart, {
         labels: ["undefind"],
         datasets: [
             {
-                label: "server",
                 data: [0],
                 backgroundColor: "#5d6778",
                 barPercentage: 0.5,
@@ -214,8 +212,8 @@ const networkChart4 = new Chart(networkChart, {
                     display: true,
                     ticks: {
                         min: 0,
-                        max: 1,
-                        stepSize: 0.2,
+                        max: 15,
+                        stepSize: 3,
                         fontColor: "#5d6778",
                         fontSize: 12,
                         defaultFontFamily: "Roboto"
@@ -270,7 +268,7 @@ socket2.onmessage = function (json) {
             data: {
                 datasets: [{
                     label: '# of Votes',
-                    data: [100, cpuUseData],
+                    data: [100 - cpuUseData, cpuUseData],
                     backgroundColor: [
                         '#ececec',
                         '#5d6778'
@@ -331,13 +329,14 @@ socket2.onmessage = function (json) {
         $(".memory-area").append('<canvas id="memoryChart"></canvas>');
 
         const memoryUseData = hwData.message.memory;
+        console.log(memoryUseData);
         const memoryChart = document.getElementById("memoryChart").getContext("2d");
         const networkChart2 = new Chart(memoryChart, {
             type: 'doughnut',
             data: {
                 datasets: [{
                     label: '# of Votes',
-                    data: [100, memoryUseData],
+                    data: [100 - memoryUseData, memoryUseData],
                     backgroundColor: [
                         '#ececec',
                         '#5d6778'
@@ -404,10 +403,7 @@ socket2.onmessage = function (json) {
         console.log(diskValue);
         diskValue.forEach((item, idx) => {
             diskValueArr.push(parseInt(item.unit));
-            console.log(diskValueArr.push(parseInt(item.unit)));
         });
-
-        console.log(diskValueArr);
 
         //backgroundColor 갯수만큼 배열
         const diskBgN = diskNames.length;
@@ -427,7 +423,6 @@ socket2.onmessage = function (json) {
                 labels: diskNameArr,
                 datasets: [
                     {
-                        label: "server",
                         data: diskValueArr,
                         backgroundColor: diskBgArray,
                         barPercentage: 0.5,
@@ -463,8 +458,8 @@ socket2.onmessage = function (json) {
                             display: true,
                             ticks: {
                                 min: 0,
-                                max: 50,
-                                stepSize: 50,
+                                max: 100,
+                                stepSize: 20,
                                 fontColor: "#5d6778",
                                 fontSize: 12,
                                 defaultFontFamily: "Roboto",
@@ -488,8 +483,9 @@ socket2.onmessage = function (json) {
         let networkValueArr = [];
         let networkValue = hwData.message.network;
         networkValue.forEach((item, idx) => {
-            networkValueArr.push(parseInt(item.unit));
+            networkValueArr.push(item.unit);
         });
+        console.log(networkValueArr)
 
         //backgroundColor 갯수만큼 배열
         const networkBgN = diskNames.length;
@@ -509,7 +505,6 @@ socket2.onmessage = function (json) {
                 labels: networkNameArr,
                 datasets: [
                     {
-                        label: "server",
                         data: networkValueArr,
                         backgroundColor: networkBgArray,
                         barPercentage: 0.5,
@@ -528,8 +523,8 @@ socket2.onmessage = function (json) {
                             display: true,
                             ticks: {
                                 min: 0,
-                                max: 1,
-                                stepSize: 0.2,
+                                max: 15,
+                                stepSize: 3,
                                 fontColor: "#5d6778",
                                 fontSize: 12,
                                 defaultFontFamily: "Roboto"
@@ -545,8 +540,8 @@ socket2.onmessage = function (json) {
                             display: true,
                             ticks: {
                                 min: 0,
-                                max: 1,
-                                stepSize: 0.2,
+                                max: 15,
+                                stepSize: 3,
                                 fontColor: "#5d6778",
                                 fontSize: 12,
                                 defaultFontFamily: "Roboto",
@@ -592,7 +587,7 @@ $(document).on('click', '#hw0', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, cpuUseData],
+                        data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -659,7 +654,7 @@ $(document).on('click', '#hw0', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, memoryUseData],
+                        data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -746,7 +741,6 @@ $(document).on('click', '#hw0', function () {
                     labels: diskNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: diskValueArr,
                             backgroundColor: diskBgArray,
                             barPercentage: 0.5,
@@ -766,7 +760,7 @@ $(document).on('click', '#hw0', function () {
                                 ticks: {
                                     min: 0,
                                     max: 50,
-                                    stepSize: 50,
+                                    stepSize: 20,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
@@ -828,7 +822,6 @@ $(document).on('click', '#hw0', function () {
                     labels: networkNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: networkValueArr,
                             backgroundColor: networkBgArray,
                             barPercentage: 0.5,
@@ -847,8 +840,8 @@ $(document).on('click', '#hw0', function () {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: 1,
-                                    stepSize: 0.2,
+                                    max: 15,
+                                    stepSize: 3,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
@@ -912,7 +905,7 @@ $(document).on('click', '#hw1', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, cpuUseData],
+                        data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -979,7 +972,7 @@ $(document).on('click', '#hw1', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, memoryUseData],
+                        data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -1065,7 +1058,6 @@ $(document).on('click', '#hw1', function () {
                     labels: diskNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: diskValueArr,
                             backgroundColor: diskBgArray,
                             barPercentage: 0.5,
@@ -1147,7 +1139,6 @@ $(document).on('click', '#hw1', function () {
                     labels: networkNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: networkValueArr,
                             backgroundColor: networkBgArray,
                             barPercentage: 0.5,
@@ -1166,8 +1157,8 @@ $(document).on('click', '#hw1', function () {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: 1,
-                                    stepSize: 0.2,
+                                    max: 15,
+                                    stepSize: 3,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
@@ -1231,7 +1222,7 @@ $(document).on('click', '#hw2', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, cpuUseData],
+                        data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -1298,7 +1289,7 @@ $(document).on('click', '#hw2', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, memoryUseData],
+                        data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -1384,7 +1375,6 @@ $(document).on('click', '#hw2', function () {
                     labels: diskNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: diskValueArr,
                             backgroundColor: diskBgArray,
                             barPercentage: 0.5,
@@ -1466,7 +1456,6 @@ $(document).on('click', '#hw2', function () {
                     labels: networkNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: networkValueArr,
                             backgroundColor: networkBgArray,
                             barPercentage: 0.5,
@@ -1485,8 +1474,8 @@ $(document).on('click', '#hw2', function () {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: 1,
-                                    stepSize: 0.2,
+                                    max: 15,
+                                    stepSize: 3,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
@@ -1550,7 +1539,7 @@ $(document).on('click', '#hw3', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, cpuUseData],
+                        data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -1617,7 +1606,7 @@ $(document).on('click', '#hw3', function () {
                 data: {
                     datasets: [{
                         label: '# of Votes',
-                        data: [100, memoryUseData],
+                        data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
                             '#5d6778'
@@ -1703,7 +1692,6 @@ $(document).on('click', '#hw3', function () {
                     labels: diskNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: diskValueArr,
                             backgroundColor: diskBgArray,
                             barPercentage: 0.5,
@@ -1785,7 +1773,6 @@ $(document).on('click', '#hw3', function () {
                     labels: networkNameArr,
                     datasets: [
                         {
-                            label: "server",
                             data: networkValueArr,
                             backgroundColor: networkBgArray,
                             barPercentage: 0.5,
@@ -1804,8 +1791,8 @@ $(document).on('click', '#hw3', function () {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: 1,
-                                    stepSize: 0.2,
+                                    max: 15,
+                                    stepSize: 3,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
