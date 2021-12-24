@@ -13,11 +13,22 @@ socket3.onopen = function (e) {
 
 //console.log(serverTit, severTitTxt, severTitHtml);
 
-let serverTit = $('#severStausArea .status-box .status-box-inner h3').getElementsByClassName();
-    // let severTitTxt = $("#" + serverTit).text();
+$(function(){
+    const serverTit0 = document.getElementsByClassName('statusTit0');
+    const serverTit1 = document.getElementsByClassName('statusTit1');
+    const serverTit2 = document.getElementsByClassName('statusTit2');
+    const serverTit3 = document.getElementsByClassName('statusTit3');
+
+    const txt0 = serverTit0.innerText;
+    const txt1 = serverTit1.innerText;
+    const txt2 = serverTit2.innerText;
+    const txt3 = serverTit3.innerText;
+//let severTitTxt = $("." + serverTit).text();
     // let severTitHtml = $("#" + serverTit);
 
-    console.log(serverTit);
+    console.log(txt0, txt1, txt2, txt3);
+    //console.log(severTitTxt);
+});
 
 //데이터 수신 됨 - 전체 데이터를 출력해줌
 socket3.onmessage = function (json) {
@@ -60,11 +71,17 @@ socket3.onmessage = function (json) {
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-43px"});
         $('.notice-error-popup .notice-error').css({"border" : "2px solid #bd362f"});
         
-        let serverTit = document.getElementsByClassName("status-box");
-        let severTitTxt = $("#" + serverTit).text();
-        let severTitHtml = $("#" + serverTit);
+        // let serverTit = document.getElementsByClassName("status-box");
+        // let severTitTxt = $("#" + serverTit).text();
+        // let severTitHtml = $("#" + serverTit);
 
-        console.log(serverTit, severTitTxt, severTitHtml);
+        // console.log(serverTit, severTitTxt, severTitHtml);
+
+        let serverTit = document.getElementsByClassName('staus-tit');
+//let severTitTxt = $("." + serverTit).text();
+    // let severTitHtml = $("#" + serverTit);
+
+    console.log(serverTit.innerText);
         
         if(alarmHostname == severTitTxt){
             severTitHtml.parents('.status-box-inner').css({

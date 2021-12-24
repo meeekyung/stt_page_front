@@ -13,7 +13,7 @@ let suceessChart = document.getElementById("suceessChart").getContext("2d");
     myChart = new Chart(suceessChart, {
         type: 'doughnut',
         data: {
-            labels: ['실패     ' + 0 + '건', '성공     ' + 0 + '건'],
+            labels: ['실패', '성공'],
             datasets: [{
                 label: '# of Votes',
                 data: [0, 0],
@@ -253,7 +253,7 @@ socket.onmessage = function (json) {
     myChart = new Chart(suceessChart, {
         type: 'doughnut',
         data: {
-            labels: ['실패     ' + failPer + '건', '성공     ' + successPer + '건'],
+            labels: ['실패', '성공'],
             datasets: [{
                 label: '# of Votes',
                 data: [failPerNum, successNum],
@@ -336,7 +336,7 @@ socket.onmessage = function (json) {
     channelChart1 = new Chart(statusChart, {
         type: 'doughnut',
         data: {
-            labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
+            labels: ['전체 채널 수', '사용중인 채널 수'],
             datasets: [{
                 label: '# of Votes',
                 data: [100 - useChPer, useChPer],
@@ -520,7 +520,7 @@ $('#allTab').click(function () {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPer + '건', '성공     ' + successPer + '건'],
+                labels: ['실패', '성공'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNum, successNum],
@@ -603,10 +603,10 @@ $('#allTab').click(function () {
         channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
+                labels: ['전체 채널 수 ', '사용중인 채널 수'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [totalCh, useCh],
+                    data: [100 - useChPer, useChPer],
                     backgroundColor: [
                         '#ececec',
                         '#3adaba'
@@ -789,7 +789,7 @@ $(document).on('click', '#stt0', function (e) {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPerStt1 + '건', '성공     ' + successPerStt1 + '건'],
+                labels: ['실패', '성공'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNumStt1, successNumStt1],
@@ -872,10 +872,10 @@ $(document).on('click', '#stt0', function (e) {
         channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
+                labels: ['전체 채널 수', '사용중인 채널 수'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [totalCh, useCh],
+                    data: [100 - useChPer, useChPer],
                     backgroundColor: [
                         '#ececec',
                         '#3adaba'
@@ -1058,7 +1058,7 @@ $(document).on('click', '#stt1', function (e) {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPerStt2 + '건', '성공     ' + successPerStt2 + '건'],
+                labels: ['실패', '성공'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNumStt2, successNumStt2],
@@ -1141,10 +1141,10 @@ $(document).on('click', '#stt1', function (e) {
         channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
+                labels: ['전체 채널 수', '사용중인 채널 수'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [totalCh, useCh],
+                    data: [100 - useChPer, useChPer],
                     backgroundColor: [
                         '#ececec',
                         '#3adaba'
@@ -1327,7 +1327,7 @@ $(document).on('click', '#stt2', function (e) {
         myChart = new Chart(suceessChart, {
             type: 'doughnut',
             data: {
-                labels: ['실패     ' + failPerStt3 + '건', '성공     ' + successPerStt3 + '건'],
+                labels: ['실패', '성공'],
                 datasets: [{
                     label: '# of Votes',
                     data: [failPerNumStt3, successNumStt3],
@@ -1410,10 +1410,10 @@ $(document).on('click', '#stt2', function (e) {
         channelChart1 = new Chart(statusChart, {
             type: 'doughnut',
             data: {
-                labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
+                labels: ['전체 채널 수', '사용중인 채널 수'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [totalCh, useCh],
+                    data: [100 - useChPer, useChPer],
                     backgroundColor: [
                         '#ececec',
                         '#3adaba'

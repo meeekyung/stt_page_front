@@ -11,8 +11,8 @@ const cpuChart = document.getElementById("cpuChart").getContext("2d");
 const networkChart1 = new Chart(cpuChart, {
     type: 'doughnut',
     data: {
+        labels: ['미사용률', '사용률'],
         datasets: [{
-            label: '# of Votes',
             data: [0, 0],
             backgroundColor: [
                 '#ececec',
@@ -44,7 +44,7 @@ const networkChart1 = new Chart(cpuChart, {
         maintainAspectRatio: false,
         legend: {
             position: 'right',
-            display: true,
+            display: false,
             labels: {
                 fontColor: '#5d6778',
                 fontSize: 15,
@@ -72,8 +72,8 @@ const memoryChart = document.getElementById("memoryChart").getContext("2d");
 const networkChart2 = new Chart(memoryChart, {
     type: 'doughnut',
     data: {
+        labels: ['미사용률', '사용률'],
         datasets: [{
-            label: '# of Votes',
             data: [0, 0],
             backgroundColor: [
                 '#ececec',
@@ -105,7 +105,7 @@ const networkChart2 = new Chart(memoryChart, {
         maintainAspectRatio: false,
         legend: {
             position: 'right',
-            display: true,
+            display: false,
             labels: {
                 fontColor: '#5d6778',
                 fontSize: 15,
@@ -266,8 +266,8 @@ socket2.onmessage = function (json) {
         const networkChart1 = new Chart(cpuChart, {
             type: 'doughnut',
             data: {
-                datasets: [{
-                    label: '# of Votes',
+                labels: ['미사용률', '사용률'],
+                datasets: [{                    
                     data: [100 - cpuUseData, cpuUseData],
                     backgroundColor: [
                         '#ececec',
@@ -299,7 +299,7 @@ socket2.onmessage = function (json) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'right',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -333,8 +333,8 @@ socket2.onmessage = function (json) {
         const networkChart2 = new Chart(memoryChart, {
             type: 'doughnut',
             data: {
+                labels: ['미사용률', '사용률'],
                 datasets: [{
-                    label: '# of Votes',
                     data: [100 - memoryUseData, memoryUseData],
                     backgroundColor: [
                         '#ececec',
@@ -366,7 +366,7 @@ socket2.onmessage = function (json) {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'right',
-                    display: true,
+                    display: false,
                     labels: {
                         fontColor: '#5d6778',
                         fontSize: 15,
@@ -581,8 +581,8 @@ $(document).on('click', '#hw0', function () {
             const networkChart1 = new Chart(cpuChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
@@ -614,7 +614,7 @@ $(document).on('click', '#hw0', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -648,8 +648,8 @@ $(document).on('click', '#hw0', function () {
             const networkChart2 = new Chart(memoryChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
@@ -681,7 +681,7 @@ $(document).on('click', '#hw0', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -897,8 +897,8 @@ $(document).on('click', '#hw1', function () {
             const networkChart1 = new Chart(cpuChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
@@ -930,7 +930,7 @@ $(document).on('click', '#hw1', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -964,8 +964,8 @@ $(document).on('click', '#hw1', function () {
             const networkChart2 = new Chart(memoryChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
@@ -997,7 +997,7 @@ $(document).on('click', '#hw1', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -1213,8 +1213,8 @@ $(document).on('click', '#hw2', function () {
             const networkChart1 = new Chart(cpuChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
@@ -1246,7 +1246,7 @@ $(document).on('click', '#hw2', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -1280,8 +1280,8 @@ $(document).on('click', '#hw2', function () {
             const networkChart2 = new Chart(memoryChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
@@ -1313,7 +1313,7 @@ $(document).on('click', '#hw2', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -1530,8 +1530,8 @@ $(document).on('click', '#hw3', function () {
             const networkChart1 = new Chart(cpuChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - cpuUseData, cpuUseData],
                         backgroundColor: [
                             '#ececec',
@@ -1563,7 +1563,7 @@ $(document).on('click', '#hw3', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
@@ -1597,8 +1597,8 @@ $(document).on('click', '#hw3', function () {
             const networkChart2 = new Chart(memoryChart, {
                 type: 'doughnut',
                 data: {
+                    labels: ['미사용률', '사용률'],
                     datasets: [{
-                        label: '# of Votes',
                         data: [100 - memoryUseData, memoryUseData],
                         backgroundColor: [
                             '#ececec',
@@ -1630,7 +1630,7 @@ $(document).on('click', '#hw3', function () {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'right',
-                        display: true,
+                        display: false,
                         labels: {
                             fontColor: '#5d6778',
                             fontSize: 15,
