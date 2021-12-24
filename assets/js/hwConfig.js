@@ -7,12 +7,12 @@ $.ajax({
         console.log("serverHW-config 접속 성공");
 
         //전체 데이터 조회
-        console.log(json);
+        //console.log(json);
 
         for(let i=0; i < json.length; i++){
             if(json.length >= 0){
                 $('#severStausArea').append(
-                    '<div class="status-box" id="statusBox'+ i +'"><div class="status-box-inner"><h3 id="statusTit'+ i +'">'+json[i].hostname+'</h3><p>'+json[i].ipaddr+'/<span class="etcText">'+json[i].role+'</span></p></div></div>'
+                    '<div class="status-box" id="statusBox'+ i +'" name="status-name"><div class="status-box-inner"><h3 class="staus-tit" id="statusTit'+ i +'">'+json[i].hostname+'</h3><p>'+json[i].ipaddr+'/<span class="etcText">'+json[i].role+'</span></p></div></div>'
                 );
                 $('#hwTab').append(
                     '<li id="hw' + i +'" class="tab bdb">'+json[i].hostname+'</li>'

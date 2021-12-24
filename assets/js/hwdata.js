@@ -329,7 +329,6 @@ socket2.onmessage = function (json) {
         $(".memory-area").append('<canvas id="memoryChart"></canvas>');
 
         const memoryUseData = hwData.message.memory;
-        console.log(memoryUseData);
         const memoryChart = document.getElementById("memoryChart").getContext("2d");
         const networkChart2 = new Chart(memoryChart, {
             type: 'doughnut',
@@ -400,7 +399,6 @@ socket2.onmessage = function (json) {
         //디스크 사용률 value
         let diskValueArr = [];
         let diskValue = hwData.message.disk;
-        console.log(diskValue);
         diskValue.forEach((item, idx) => {
             diskValueArr.push(parseInt(item.unit));
         });
@@ -485,7 +483,6 @@ socket2.onmessage = function (json) {
         networkValue.forEach((item, idx) => {
             networkValueArr.push(item.unit);
         });
-        console.log(networkValueArr)
 
         //backgroundColor 갯수만큼 배열
         const networkBgN = diskNames.length;
@@ -557,7 +554,6 @@ socket2.onmessage = function (json) {
         });
 
         $(document).on('click', '.tab', function () {
-            console.log(this);
             $(this).addClass('tab-on').siblings().removeClass('tab-on');
         });
     }
@@ -721,7 +717,6 @@ $(document).on('click', '#hw0', function () {
             diskValue.forEach((item, idx) => {
                 diskValueArr.push(parseInt(item.unit));
             });
-            console.log(diskValueArr);
 
             //backgroundColor 갯수만큼 배열
             const diskBgN = diskNames.length;
@@ -874,7 +869,6 @@ $(document).on('click', '#hw0', function () {
             });
 
             $(document).on('click', '.tab', function () {
-                console.log(this);
                 $(this).addClass('tab-on').siblings().removeClass('tab-on');
             });
         }
@@ -1191,7 +1185,6 @@ $(document).on('click', '#hw1', function () {
             });
 
             $(document).on('click', '.tab', function () {
-                console.log(this);
                 $(this).addClass('tab-on').siblings().removeClass('tab-on');
             });
         }
@@ -1825,7 +1818,6 @@ $(document).on('click', '#hw3', function () {
             });
 
             $(document).on('click', '.tab', function () {
-                console.log(this);
                 $(this).addClass('tab-on').siblings().removeClass('tab-on');
             });
         }

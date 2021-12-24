@@ -7,7 +7,7 @@ $.ajax({
         console.log("server-config 접속 성공");
 
         //전체 데이터 조회
-        console.log(json);
+        //console.log(json);
 
         //sever 데이터 출력
         $("#severStausArea").empty();

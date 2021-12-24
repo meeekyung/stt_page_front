@@ -314,7 +314,6 @@ socket.onmessage = function (json) {
 
     //총 음성길이 출력
     const audioLength = boardData["bona-total-stt"].audio_len / 60;
-    console.log(audioLength);
     document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
     //평균처리 속도 출력
@@ -340,7 +339,7 @@ socket.onmessage = function (json) {
             labels: ['전체 채널 수        ' + totalCh, '사용중인 채널 수     ' + useCh],
             datasets: [{
                 label: '# of Votes',
-                data: [totalCh, useCh],
+                data: [100 - useChPer, useChPer],
                 backgroundColor: [
                     '#ececec',
                     '#3adaba'
@@ -497,7 +496,6 @@ $('#allTab').click(function () {
 
         //전체 데이터 출력
         const boardData = JSON.parse(json.data);
-        console.log(boardData);
 
         //요청건수 출력
         const requestTotal = boardData["bona-total-stt"].request_number;
@@ -767,7 +765,6 @@ $(document).on('click', '#stt0', function (e) {
 
         //stt1 데이터 출력
         const sttData1 = JSON.parse(json.data);
-        console.log(sttData1);
 
         //요청건수 출력
         const requestTotalStt1 = sttData1["bona-stt1"].request_number;
@@ -1037,7 +1034,6 @@ $(document).on('click', '#stt1', function (e) {
 
         //stt2 데이터 출력
         const sttData2 = JSON.parse(json.data);
-        console.log(sttData2);
 
         //요청건수 출력
         const requestTotalStt2 = sttData2["bona-stt2"].request_number;
@@ -1307,7 +1303,6 @@ $(document).on('click', '#stt2', function (e) {
 
         //stt1 데이터 출력
         const sttData3 = JSON.parse(json.data);
-        console.log(sttData3);
 
         //요청건수 출력
         const requestTotalSt3 = sttData3["bona-stt3"].request_number;

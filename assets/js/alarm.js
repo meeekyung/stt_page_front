@@ -7,6 +7,18 @@ socket3.onopen = function (e) {
     socket3.send("My name is John");
 };
 
+//let serverTit = $('#severStausArea .status-box .status-box-inner h3');
+//let severTitTxt = $("#" + serverTit).text();
+//let severTitHtml = $("#" + serverTit);
+
+//console.log(serverTit, severTitTxt, severTitHtml);
+
+let serverTit = $('#severStausArea .status-box .status-box-inner h3').getElementsByClassName();
+    // let severTitTxt = $("#" + serverTit).text();
+    // let severTitHtml = $("#" + serverTit);
+
+    console.log(serverTit);
+
 //데이터 수신 됨 - 전체 데이터를 출력해줌
 socket3.onmessage = function (json) {
     //팝업창 생성
@@ -41,20 +53,14 @@ socket3.onmessage = function (json) {
     document.querySelector(".notice-error-txt").innerHTML = alarmMssg;
 
     //시간 출력
-    document.querySelector(".notice-error-time").innerHTML = alarmTime;
-
-    let serverTit = $('#severStausArea .status-box .status-box-inner h3');
-    let severTitTxt = $("#" + serverTit).text();
-    let severTitHtml = $("#" + serverTit);
-
-    console.log(serverTit, severTitTxt, severTitHtml);
+    document.querySelector(".notice-error-time").innerHTML = alarmTime;   
     
     //level에 따른 색상값 변경   
     if(alarmLevel === "CRITICAL"){
         $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-43px"});
         $('.notice-error-popup .notice-error').css({"border" : "2px solid #bd362f"});
         
-        let serverTit = $('#severStausArea .status-box .status-box-inner h3').attr('id');
+        let serverTit = document.getElementsByClassName("status-box");
         let severTitTxt = $("#" + serverTit).text();
         let severTitHtml = $("#" + serverTit);
 
