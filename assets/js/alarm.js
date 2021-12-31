@@ -1,3 +1,4 @@
+function startSocket3(){
 const socket3 = new WebSocket("ws://192.168.20.123:55532/ws/alarm");
 
 //연결설정
@@ -7,39 +8,16 @@ socket3.onopen = function (e) {
     socket3.send("My name is John");
 };
 
-//let serverTit = $('#severStausArea .status-box .status-box-inner h3');
-//let severTitTxt = $("#" + serverTit).text();
-//let severTitHtml = $("#" + serverTit);
-
-//console.log(serverTit, severTitTxt, severTitHtml);
-
-$(function(){
-    const serverTit0 = document.getElementsByClassName('statusTit0');
-    const serverTit1 = document.getElementsByClassName('statusTit1');
-    const serverTit2 = document.getElementsByClassName('statusTit2');
-    const serverTit3 = document.getElementsByClassName('statusTit3');
-
-    const txt0 = serverTit0.innerText;
-    const txt1 = serverTit1.innerText;
-    const txt2 = serverTit2.innerText;
-    const txt3 = serverTit3.innerText;
-//let severTitTxt = $("." + serverTit).text();
-    // let severTitHtml = $("#" + serverTit);
-
-    console.log(txt0, txt1, txt2, txt3);
-    //console.log(severTitTxt);
-});
-
 //데이터 수신 됨 - 전체 데이터를 출력해줌
 socket3.onmessage = function (json) {
     //팝업창 생성
     $('.notice-error-popup').slideDown();
 
     //창없애기
-    $('.close-icon, .notice-error-btn').on('click', function(){
+    $('.close-icon, .notice-error-btn').on('click', function () {
         $('.notice-error-popup').hide();
     });
-    
+
     const alarmData = JSON.parse(json.data);
 
     //서버이름
@@ -59,81 +37,115 @@ socket3.onmessage = function (json) {
 
     //level명 출력
     document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel;
-    
+
     //메시지 출력
     document.querySelector(".notice-error-txt").innerHTML = alarmMssg;
 
     //시간 출력
-    document.querySelector(".notice-error-time").innerHTML = alarmTime;   
-    
+    document.querySelector(".notice-error-time").innerHTML = alarmTime;
+
     //level에 따른 색상값 변경   
-    if(alarmLevel === "CRITICAL"){
-        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-43px"});
-        $('.notice-error-popup .notice-error').css({"border" : "2px solid #bd362f"});
+    if (alarmLevel === "CRITICAL") {
+        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-43px" });
+        $('.notice-error-popup .notice-error').css({ "border": "2px solid #bd362f" });
+
+        let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
+        let severTitHtml = $("#" + serverTit);
         
-        // let serverTit = document.getElementsByClassName("status-box");
-        // let severTitTxt = $("#" + serverTit).text();
-        // let severTitHtml = $("#" + serverTit);
-
-        // console.log(serverTit, severTitTxt, severTitHtml);
-
-        let serverTit = document.getElementsByClassName('staus-tit');
-//let severTitTxt = $("." + serverTit).text();
-    // let severTitHtml = $("#" + serverTit);
-
-    console.log(serverTit.innerText);
+            const status = document.getElementsByClassName('staus-tit');
+            for (let i = 0; i < status.length; i++) {
+                console.log(status.length);
+                console.log(document.getElementById('statusTit'+i));
+            }
+            const serverTit0 = document.getElementById('statusTit0');
+            const serverTit1 = document.getElementById('statusTit1');
+            const serverTit2 = document.getElementById('statusTit2');
+            const serverTit3 = document.getElementById('statusTit3');
         
-        if(alarmHostname == severTitTxt){
-            severTitHtml.parents('.status-box-inner').css({
-                "background" : "#bd362f",
-                "color" : "#fff"
-            });
+            const txt0 = serverTit0.innerText;
+            const txt1 = serverTit1.innerText;
+            const txt2 = serverTit2.innerText;
+            const txt3 = serverTit3.innerText;
+        
+            console.log(txt0, txt1, txt2, txt3);
+        
+            let statusArr = [txt0, txt1, txt2, txt3];
+            console.log(statusArr);
+            console.log(statusArr.indexOf(alarmHostname));
+
+        if (statusArr.indexOf(alarmHostname) === alarmHostname) {
+            severTitHtml.parents().css({
+                    "background": "#bd362f",
+                    "color": "#fff"
+                });
         }
-    }else if(alarmLevel === "MAJOR"){
-        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "0px"});
-        $('.notice-error-popup .notice-error').css({"border" : "2px solid #e95420"});
+    } else if (alarmLevel === "MAJOR") {
+        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "0px" });
+        $('.notice-error-popup .notice-error').css({ "border": "2px solid #e95420" });
 
         let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
         let severTitTxt = $("#" + serverTit).text();
         let severTitHtml = $("#" + serverTit);
 
         console.log(serverTit);
-        
-        if(alarmHostname == severTitTxt){
+
+        if (alarmHostname == severTitTxt) {
             severTitHtml.parents('.status-box-inner').css({
-                "background" : "#e95420",
-                "color" : "#fff"
+                "background": "#e95420",
+                "color": "#fff"
             });
         }
 
-    }else if(alarmLevel === "MINOR"){
-        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-89px"});
-        $('.notice-error-popup .notice-error').css({"border" : "2px solid #2196f3"});
+    } else if (alarmLevel === "MINOR") {
+        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-89px" });
+        $('.notice-error-popup .notice-error').css({ "border": "2px solid #2196f3" });
 
         let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
         let severTitTxt = $("#" + serverTit).text();
         let severTitHtml = $("#" + serverTit);
-        
-        if(alarmHostname == severTitTxt){
+
+        if (alarmHostname == severTitTxt) {
             severTitHtml.parents('.status-box-inner').css({
-                "background" : "#2196f3",
-                "color" : "#fff"
+                "background": "#2196f3",
+                "color": "#fff"
             });
         }
 
-    }else if(alarmLevel === "INFO"){
-        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({"background-position-x" : "-133px"});
-        $('.notice-error-popup .notice-error').css({"border" : "2px solid #22b24c"});
+    } else if (alarmLevel === "INFO") {
+        $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-133px" });
+        $('.notice-error-popup .notice-error').css({ "border": "2px solid #22b24c" });
 
         let serverTit = $('#severStausArea .status-box .status-box-inner>h3').attr('id');
         let severTitTxt = $("#" + serverTit).text();
         let severTitHtml = $("#" + serverTit);
-        
-        if(alarmHostname == severTitTxt){
+
+        if (alarmHostname == severTitTxt) {
             severTitHtml.parents('.status-box-inner').css({
-                "background" : "#22b24c",
-                "color" : "#fff"
+                "background": "#22b24c",
+                "color": "#fff"
             });
         }
     }
 };
+
+//연결닫힘
+socket3.onclose = function (event) {
+    if (event.wasClean) {
+        console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+    } else {
+        // e.g. server process killed or network down
+        // event.code is usually 1006 in this case
+        console.log('[close] Connection died');
+
+        socket3 = null
+        setTimeout(startSocket3, 5000);
+    }
+};
+
+//웹 소켓 오류
+socket3.onerror = function (error) {
+    console.log(`[error] ${error.message}`);
+};
+
+}
+startSocket3();

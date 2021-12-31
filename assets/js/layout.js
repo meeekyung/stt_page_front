@@ -29,7 +29,6 @@ $(function () {
   });
 });
 
-
 // //dashboard - 채널상태 그래프 출력
 // function startInterval(fn, delay) {
 //   fn();

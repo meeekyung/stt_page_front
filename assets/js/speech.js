@@ -16,7 +16,7 @@ $(document).ready(function () {
 //wav파일 재생
 $(function () {
 
-  $("#uploadBtn").click(function () {
+  $("#browse").click(function () {
 
     var form = $("#myForm")[0];
     var formData = new FormData(form);
@@ -70,7 +70,7 @@ function handleFiles(json) {
 }
 
 //음성인식 변환
-$(".stt-btn").off().on("click", function (e) {
+$("#uploadBtn").off().on("click", function (e) {
   e.preventDefault();
   console.log("클릭이벤트 시작");
   stt();
