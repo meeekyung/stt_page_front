@@ -483,6 +483,7 @@ function startSocket2() {
             networkValue.forEach((item, idx) => {
                 networkValueArr.push((item.unit/1000).toFixed(2));
             });
+            let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
             //backgroundColor 갯수만큼 배열
             const networkBgN = diskNames.length;
@@ -520,8 +521,8 @@ function startSocket2() {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: 0.01,
-                                    stepSize: 0.005,
+                                    max: networkValueArrMax,
+                                    stepSize: networkValueArrMax/5,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
@@ -798,6 +799,7 @@ function startSocket2() {
                 networkValue.forEach((item, idx) => {
                     networkValueArr.push((parseInt(item.unit/1000).toFixed(2)));
                 });
+                let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const networkBgN = diskNames.length;
@@ -835,8 +837,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 0.01,
-                                        stepSize: 0.005,
+                                        max: networkValueArrMax,
+                                        stepSize: networkValueArrMax/5,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1114,6 +1116,9 @@ function startSocket2() {
                 networkValue.forEach((item, idx) => {
                     networkValueArr.push((parseInt(item.unit/1000).toFixed(2)));
                 });
+                let networkValueArrMax = Math.max.apply(null, networkValueArr);
+                console.log(networkValueArrMax);
+
                 //backgroundColor 갯수만큼 배열
                 const networkBgN = diskNames.length;
                 let networkBgArray = [];
@@ -1150,8 +1155,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 0.01,
-                                        stepSize: 0.005,
+                                        max: networkValueArrMax,
+                                        stepSize: networkValueArrMax/5,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1429,6 +1434,7 @@ function startSocket2() {
                 networkValue.forEach((item, idx) => {
                     networkValueArr.push((parseInt(item.unit/1000).toFixed(2)));
                 });
+                let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const networkBgN = diskNames.length;
@@ -1466,8 +1472,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 0.01,
-                                        stepSize: 0.005,
+                                        max: networkValueArrMax,
+                                        stepSize: networkValueArrMax/5,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1745,6 +1751,7 @@ function startSocket2() {
                 networkValue.forEach((item, idx) => {
                     networkValueArr.push(parseInt((item.unit/1000).toFixed(2)));
                 });
+                let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const networkBgN = diskNames.length;
@@ -1782,8 +1789,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 0.01,
-                                        stepSize: 0.005,
+                                        max: networkValueArrMax,
+                                        stepSize: networkValueArrMax/5,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"

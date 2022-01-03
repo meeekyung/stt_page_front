@@ -32,7 +32,7 @@ a{text-decoration: none;}
 .bdb{border-bottom: 0 !important;}
 
 /* legend 공통 */
-.success-chart-spot{position: absolute;top: 65px;left: 70px;}
+.success-chart-spot{position: absolute;top: 65px;left: 40px;}
 .status-chart-spot{position: absolute;top: 55px;right: 180px;}
 .server-chart-spot{position: absolute;top: 10px;right: 0;}
 .lagendArea>li{margin-bottom: 10px;text-align: left;}

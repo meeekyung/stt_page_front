@@ -1,7 +1,3 @@
-$('#systemTab').append(
-    '<li id="allTab" class="tab tab-on bdb">전체</li>'
-);
-
 function sttSetinterval(fn, delay) {
     fn();
     setInterval(fn, delay);
