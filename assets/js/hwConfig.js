@@ -65,7 +65,7 @@ $(document).on('click', '.tab', function () {
         $(this).addClass('tab-on').siblings().removeClass('tab-on');
     } else {
         //반복 재시작
-        settSetinterval = setInterval(hwConfig, 5000);
+        hwSetinterval = setInterval(hwConfig, 5000);
         hwToggle = true;
 
         $(this).addClass('tab-on').siblings().removeClass('tab-on');
