@@ -213,8 +213,8 @@ function startSocket2() {
                         display: true,
                         ticks: {
                             min: 0,
-                            max: 0.01,
-                            stepSize: 0.005,
+                            max: 10,
+                            stepSize: 2,
                             fontColor: "#5d6778",
                             fontSize: 12,
                             defaultFontFamily: "Roboto"
@@ -230,8 +230,8 @@ function startSocket2() {
                         display: true,
                         ticks: {
                             min: 0,
-                            max: 1,
-                            stepSize: 0.2,
+                            max: 10,
+                            stepSize: 2,
                             fontColor: "#5d6778",
                             fontSize: 12,
                             defaultFontFamily: "Roboto",
@@ -248,7 +248,7 @@ function startSocket2() {
 
     //데이터 수신 됨
     socket2.onmessage = function (json) {
-        $('#hw0').addClass('tab-on').siblings().removeClass('tab-on');
+        // $('#hw0').addClass('tab-on').siblings().removeClass('tab-on');
         //console.log(`[message] Data received from server: ${event.data}`);
 
         //전체 데이터 출력
@@ -481,7 +481,7 @@ function startSocket2() {
             let networkValueArr = [];
             let networkValue = hwData.message.network;
             networkValue.forEach((item, idx) => {
-                networkValueArr.push((item.unit/1000).toFixed(2));
+                networkValueArr.push((item.unit).toFixed(2));
             });
             let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
@@ -521,8 +521,8 @@ function startSocket2() {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: networkValueArrMax,
-                                    stepSize: networkValueArrMax/5,
+                                    max: 10,
+                                    stepSize: 2,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
                                     defaultFontFamily: "Roboto"
@@ -562,7 +562,7 @@ function startSocket2() {
     };
 
     $(document).on('click', '#hw0', function () {
-        $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
             //console.log(`[message] Data received from server: ${event.data}`);
@@ -797,7 +797,7 @@ function startSocket2() {
                 let networkValueArr = [];
                 let networkValue = hwData.message.network;
                 networkValue.forEach((item, idx) => {
-                    networkValueArr.push((parseInt(item.unit/1000).toFixed(2)));
+                    networkValueArr.push((parseInt(item.unit).toFixed(2)));
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
@@ -837,8 +837,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: networkValueArrMax,
-                                        stepSize: networkValueArrMax/5,
+                                        max: 10,
+                                        stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -879,7 +879,7 @@ function startSocket2() {
     });
 
     $(document).on('click', '#hw1', function () {
-        $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
             //console.log(`[message] Data received from server: ${event.data}`);
@@ -1114,7 +1114,7 @@ function startSocket2() {
                 let networkValueArr = [];
                 let networkValue = hwData.message.network;
                 networkValue.forEach((item, idx) => {
-                    networkValueArr.push((parseInt(item.unit/1000).toFixed(2)));
+                    networkValueArr.push((parseInt(item.unit).toFixed(2)));
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
                 console.log(networkValueArrMax);
@@ -1155,8 +1155,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: networkValueArrMax,
-                                        stepSize: networkValueArrMax/5,
+                                        max: 10,
+                                        stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1197,7 +1197,7 @@ function startSocket2() {
     });
 
     $(document).on('click', '#hw2', function () {
-        $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
             //console.log(`[message] Data received from server: ${event.data}`);
@@ -1432,7 +1432,7 @@ function startSocket2() {
                 let networkValueArr = [];
                 let networkValue = hwData.message.network;
                 networkValue.forEach((item, idx) => {
-                    networkValueArr.push((parseInt(item.unit/1000).toFixed(2)));
+                    networkValueArr.push((parseInt(item.unit).toFixed(2)));
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
@@ -1472,8 +1472,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: networkValueArrMax,
-                                        stepSize: networkValueArrMax/5,
+                                        max: 10,
+                                        stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1514,7 +1514,7 @@ function startSocket2() {
     });
 
     $(document).on('click', '#hw3', function () {
-        $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
             //console.log(`[message] Data received from server: ${event.data}`);
@@ -1749,7 +1749,7 @@ function startSocket2() {
                 let networkValueArr = [];
                 let networkValue = hwData.message.network;
                 networkValue.forEach((item, idx) => {
-                    networkValueArr.push(parseInt((item.unit/1000).toFixed(2)));
+                    networkValueArr.push(parseInt((item.unit).toFixed(2)));
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
@@ -1789,8 +1789,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: networkValueArrMax,
-                                        stepSize: networkValueArrMax/5,
+                                        max: 10,
+                                        stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"

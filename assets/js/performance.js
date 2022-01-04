@@ -489,7 +489,7 @@ function startSocket() {
     //전체 tab 클릭시 데이터 변환 이벤트
     $('#allTab').click(function () {
 
-        //$(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
             //console.log(`[message] Data received from server: ${event.data}`);
@@ -759,7 +759,7 @@ function startSocket() {
         e.preventDefault();
         e.stopPropagation();
 
-        //$(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
             console.log('socketStt1 연결 성공!');
@@ -1028,7 +1028,7 @@ function startSocket() {
         e.preventDefault();
         e.stopPropagation();
 
-        //$(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
             console.log('socketStt2 연결 성공!');
@@ -1297,7 +1297,7 @@ function startSocket() {
         e.preventDefault();
         e.stopPropagation();
 
-        //$(this).addClass('tab-on').siblings().removeClass('tab-on');
+        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
             console.log('bona-stt3 연결 성공!');
