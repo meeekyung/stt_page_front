@@ -8,243 +8,245 @@ function startSocket2() {
         socket2.send("My name is John");
     };
 
-    const cpuChart = document.getElementById("cpuChart").getContext("2d");
-    const networkChart1 = new Chart(cpuChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['미사용률', '사용률'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: [
-                    '#ececec',
-                    '#5d6778'
-                ],
-                borderWidth: 0,
-                barPercentage: 0.3,
-            }]
-        },
-        options: {
-            plugins: {
-                doughnutlabel: {
-                    labels: [
+    function onSet() {
+        const cpuChart = document.getElementById("cpuChart").getContext("2d");
+        const networkChart1 = new Chart(cpuChart, {
+            type: 'doughnut',
+            data: {
+                labels: ['미사용률', '사용률'],
+                datasets: [{
+                    data: [0, 0],
+                    backgroundColor: [
+                        '#ececec',
+                        '#5d6778'
+                    ],
+                    borderWidth: 0,
+                    barPercentage: 0.3,
+                }]
+            },
+            options: {
+                plugins: {
+                    doughnutlabel: {
+                        labels: [
+                            {
+                                text: 0 + '%',
+                                font: {
+                                    size: '28',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
+                                },
+                                color: '#5d6778'
+                            }
+                        ]
+                    }
+                },
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'right',
+                    display: false,
+                    labels: {
+                        fontColor: '#5d6778',
+                        fontSize: 15,
+                        defaultFontFamily: "Roboto",
+                        boxWidth: 15
+                    },
+                },
+                cutoutPercentage: 90,
+                scales: {
+                    yAxes: [
                         {
-                            text: 0 + '%',
-                            font: {
-                                size: '28',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif'
+                            display: false,
+                            ticks: {
+                                min: 0,
+                                max: 20,
+                                stepSize: 20,
                             },
-                            color: '#5d6778'
-                        }
-                    ]
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-                display: false,
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15
+                        },
+                    ],
                 },
             },
-            cutoutPercentage: 90,
-            scales: {
-                yAxes: [
-                    {
-                        display: false,
-                        ticks: {
-                            min: 0,
-                            max: 20,
-                            stepSize: 20,
-                        },
-                    },
-                ],
-            },
-        },
-    });
+        });
 
-    const memoryChart = document.getElementById("memoryChart").getContext("2d");
-    const networkChart2 = new Chart(memoryChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['미사용률', '사용률'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: [
-                    '#ececec',
-                    '#5d6778'
-                ],
-                borderWidth: 0,
-                barPercentage: 0.3,
-            }]
-        },
-        options: {
-            plugins: {
-                doughnutlabel: {
-                    labels: [
+        const memoryChart = document.getElementById("memoryChart").getContext("2d");
+        const networkChart2 = new Chart(memoryChart, {
+            type: 'doughnut',
+            data: {
+                labels: ['미사용률', '사용률'],
+                datasets: [{
+                    data: [0, 0],
+                    backgroundColor: [
+                        '#ececec',
+                        '#5d6778'
+                    ],
+                    borderWidth: 0,
+                    barPercentage: 0.3,
+                }]
+            },
+            options: {
+                plugins: {
+                    doughnutlabel: {
+                        labels: [
+                            {
+                                text: 0 + '%',
+                                font: {
+                                    size: '28',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
+                                },
+                                color: '#5d6778'
+                            }
+                        ]
+                    }
+                },
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'right',
+                    display: false,
+                    labels: {
+                        fontColor: '#5d6778',
+                        fontSize: 15,
+                        defaultFontFamily: "Roboto",
+                        boxWidth: 15
+                    },
+                },
+                cutoutPercentage: 90,
+                scales: {
+                    yAxes: [
                         {
-                            text: 0 + '%',
-                            font: {
-                                size: '28',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif'
+                            display: false,
+                            ticks: {
+                                min: 0,
+                                max: 20,
+                                stepSize: 20,
                             },
-                            color: '#5d6778'
-                        }
-                    ]
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-                display: false,
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15
+                        },
+                    ],
                 },
             },
-            cutoutPercentage: 90,
-            scales: {
-                yAxes: [
-                    {
-                        display: false,
-                        ticks: {
-                            min: 0,
-                            max: 20,
-                            stepSize: 20,
-                        },
-                    },
-                ],
-            },
-        },
-    });
+        });
 
-    const diskChart = document.getElementById("diskChart").getContext("2d");
-    const networkChart3 = new Chart(diskChart, {
-        type: "horizontalBar",
-        data: {
-            labels: ["undefind"],
-            datasets: [
-                {
-                    data: [0],
-                    backgroundColor: "#5d6778",
-                    barPercentage: 0.5,
+        const diskChart = document.getElementById("diskChart").getContext("2d");
+        const networkChart3 = new Chart(diskChart, {
+            type: "horizontalBar",
+            data: {
+                labels: ["undefind"],
+                datasets: [
+                    {
+                        data: [0],
+                        backgroundColor: "#5d6778",
+                        barPercentage: 0.5,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
                 },
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false
+                scales: {
+                    xAxes: [
+                        {
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 50,
+                                stepSize: 50,
+                                fontColor: "#5d6778",
+                                fontSize: 12,
+                                defaultFontFamily: "Roboto"
+                            },
+                            gridLines: {
+                                color: '#fff',
+                                lineWidth: 0.5
+                            },
+                        },
+                    ],
+                    yAxes: [
+                        {
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 50,
+                                stepSize: 50,
+                                fontColor: "#5d6778",
+                                fontSize: 12,
+                                defaultFontFamily: "Roboto",
+                            },
+                            gridLines: {
+                                color: '#fff',
+                                lineWidth: 0.5
+                            },
+                        },
+                    ],
+                },
             },
-            scales: {
-                xAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 50,
-                            stepSize: 50,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto"
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-                yAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 50,
-                            stepSize: 50,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto",
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-            },
-        },
-    });
+        });
 
-    const networkChart = document.getElementById("networkChart").getContext("2d");
-    const networkChart4 = new Chart(networkChart, {
-        type: "horizontalBar",
-        data: {
-            labels: ["undefind"],
-            datasets: [
-                {
-                    data: [0],
-                    backgroundColor: "#5d6778",
-                    barPercentage: 0.5,
+        const networkChart = document.getElementById("networkChart").getContext("2d");
+        const networkChart4 = new Chart(networkChart, {
+            type: "horizontalBar",
+            data: {
+                labels: ["undefind"],
+                datasets: [
+                    {
+                        data: [0],
+                        backgroundColor: "#5d6778",
+                        barPercentage: 0.5,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
                 },
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false
+                scales: {
+                    xAxes: [
+                        {
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 10,
+                                stepSize: 2,
+                                fontColor: "#5d6778",
+                                fontSize: 12,
+                                defaultFontFamily: "Roboto"
+                            },
+                            gridLines: {
+                                color: '#fff',
+                                lineWidth: 0.5
+                            },
+                        },
+                    ],
+                    yAxes: [
+                        {
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 10,
+                                stepSize: 2,
+                                fontColor: "#5d6778",
+                                fontSize: 12,
+                                defaultFontFamily: "Roboto",
+                            },
+                            gridLines: {
+                                color: '#fff',
+                                lineWidth: 0.5
+                            },
+                        },
+                    ],
+                },
             },
-            scales: {
-                xAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 10,
-                            stepSize: 2,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto"
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-                yAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 10,
-                            stepSize: 2,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto",
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-            },
-        },
-    });
+        });
+    }
 
     //데이터 수신 됨
     socket2.onmessage = function (json) {
@@ -483,7 +485,8 @@ function startSocket2() {
             networkValue.forEach((item, idx) => {
                 networkValueArr.push((item.unit).toFixed(2));
             });
-            let networkValueArrMax = Math.max.apply(null, networkValueArr);
+            // let networkValueArrMax = Math.max.apply(null, networkValueArr);
+            console.log(networkValueArr);
 
             //backgroundColor 갯수만큼 배열
             const networkBgN = diskNames.length;
@@ -521,7 +524,7 @@ function startSocket2() {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max: 10,
+                                    max: 20,
                                     stepSize: 2,
                                     fontColor: "#5d6778",
                                     fontSize: 12,
@@ -562,6 +565,7 @@ function startSocket2() {
     };
 
     $(document).on('click', '#hw0', function () {
+        onSet();
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
@@ -755,7 +759,7 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
+                                        max: 100,
                                         stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
@@ -772,8 +776,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto",
@@ -837,7 +841,7 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 10,
+                                        max: 20,
                                         stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
@@ -879,6 +883,7 @@ function startSocket2() {
     });
 
     $(document).on('click', '#hw1', function () {
+        onSet();
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
@@ -1072,8 +1077,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1089,8 +1094,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto",
@@ -1155,7 +1160,7 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 10,
+                                        max: 20,
                                         stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
@@ -1197,6 +1202,7 @@ function startSocket2() {
     });
 
     $(document).on('click', '#hw2', function () {
+        onSet();
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
@@ -1390,8 +1396,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1407,8 +1413,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto",
@@ -1472,7 +1478,7 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 10,
+                                        max: 20,
                                         stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
@@ -1514,6 +1520,7 @@ function startSocket2() {
     });
 
     $(document).on('click', '#hw3', function () {
+        onSet();
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket2.onmessage = function (json) {
@@ -1707,8 +1714,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto"
@@ -1724,8 +1731,8 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 50,
-                                        stepSize: 50,
+                                        max: 100,
+                                        stepSize: 20,
                                         fontColor: "#5d6778",
                                         fontSize: 12,
                                         defaultFontFamily: "Roboto",
@@ -1789,7 +1796,7 @@ function startSocket2() {
                                     display: true,
                                     ticks: {
                                         min: 0,
-                                        max: 10,
+                                        max: 20,
                                         stepSize: 2,
                                         fontColor: "#5d6778",
                                         fontSize: 12,

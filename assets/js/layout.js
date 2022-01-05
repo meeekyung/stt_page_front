@@ -28,27 +28,3 @@ $(function () {
     }
   });
 });
-
-// //dashboard - 채널상태 그래프 출력
-// function startInterval(fn, delay) {
-//   fn();
-//   setInterval(fn, delay);
-// }
-
-// startInterval(function () {
-//   $.ajax({
-//     url: "http://192.168.20.123:55532/monitor/server-info",
-//     method: "GET",
-//     dataType: "JSON",
-//     success: function (json) {
-//       console.log("서버와의 접속에 성공하였습니다.");
-
-//       //서버 타이틀
-//       const getTile01 = document.querySelector(".json-tit1>span");
-//       getTile01.innerHTML = json[0].server_id;
-//     },
-//     error: function () {
-//       console.log("서버와의 접속이 실패되었습니다.");
-//     },
-//   });
-// }, 30000);

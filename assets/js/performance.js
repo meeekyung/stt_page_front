@@ -8,212 +8,214 @@ function startSocket() {
     };
 
     //데이터 수신이 안될 때
-    document.querySelector(".request-data").innerHTML = 0;
+    function earlySet() {
+        document.querySelector(".request-data").innerHTML = 0;
 
-    let suceessChart = document.getElementById("suceessChart").getContext("2d");
-    myChart = new Chart(suceessChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['실패', '성공'],
-            datasets: [{
-                label: '# of Votes',
-                data: [0, 0],
-                backgroundColor: [
-                    '#ececec',
-                    '#2e88de'
-                ],
-                borderWidth: 0,
-                barPercentage: 0.3,
-            }]
-        },
-        options: {
-            plugins: {
-                doughnutlabel: {
-                    labels: [
-                        {
-                            text: 0 + '%',
-                            font: {
-                                size: '30',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif'
-                            },
-                            color: '#5d6778'
-                        }
-                    ]
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'left',
-                display: false,
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15,
-                    padding: 15
-                },
-            },
-            cutoutPercentage: 90,
-            scales: {
-                yAxes: [
-                    {
-                        display: false,
-                        ticks: {
-                            min: 0,
-                            max: 20,
-                            stepSize: 20,
-                        },
-                    },
-                ],
-            },
-        },
-    });
-
-    document.querySelector(".length-data").innerHTML = 0;
-    document.querySelector(".speed-data").innerHTML = 0;
-
-    let statusChart = document.getElementById("statusChart").getContext("2d");
-    channelChart1 = new Chart(statusChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['전체 채널 수        ' + 0, '사용중인 채널 수     ' + 0],
-            datasets: [{
-                label: '# of Votes',
-                data: [0, 0],
-                backgroundColor: [
-                    '#ececec',
-                    '#3adaba'
-                ],
-                borderWidth: 0,
-                barPercentage: 0.3,
-            }]
-        },
-        options: {
-            plugins: {
-                doughnutlabel: {
-                    labels: [
-                        {
-                            text: 0 + '%',
-                            font: {
-                                size: '35',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif'
-                            },
-                            color: '#5d6778'
-                        }
-                    ]
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-                display: false,
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15,
-                },
-            },
-            cutoutPercentage: 90,
-            scales: {
-                yAxes: [
-                    {
-                        display: false,
-                        ticks: {
-                            min: 0,
-                            max: 20,
-                            stepSize: 20,
-                        },
-                    },
-                ],
-            },
-        },
-    });
-
-    let serverChChart = document.getElementById("serverChChart").getContext("2d");
-    channelChart2 = new Chart(serverChChart, {
-        type: "bar",
-        data: {
-            labels: ["REST", "gRPC", "gRPC-Streaming"],
-            datasets: [
-                {
-                    label: "전체",
-                    data: [0, 0, 0],
-                    backgroundColor: "#05b5fc",
+        let suceessChart = document.getElementById("suceessChart").getContext("2d");
+        myChart = new Chart(suceessChart, {
+            type: 'doughnut',
+            data: {
+                labels: ['실패', '성공'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [0, 0],
+                    backgroundColor: [
+                        '#ececec',
+                        '#2e88de'
+                    ],
+                    borderWidth: 0,
                     barPercentage: 0.3,
+                }]
+            },
+            options: {
+                plugins: {
+                    doughnutlabel: {
+                        labels: [
+                            {
+                                text: 0 + '%',
+                                font: {
+                                    size: '30',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
+                                },
+                                color: '#5d6778'
+                            }
+                        ]
+                    }
                 },
-                {
-                    label: "사용 중",
-                    data: [0, 0, 0],
-                    backgroundColor: "#ffbd60",
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'left',
+                    display: false,
+                    labels: {
+                        fontColor: '#5d6778',
+                        fontSize: 15,
+                        defaultFontFamily: "Roboto",
+                        boxWidth: 15,
+                        padding: 15
+                    },
+                },
+                cutoutPercentage: 90,
+                scales: {
+                    yAxes: [
+                        {
+                            display: false,
+                            ticks: {
+                                min: 0,
+                                max: 20,
+                                stepSize: 20,
+                            },
+                        },
+                    ],
+                },
+            },
+        });
+
+        document.querySelector(".length-data").innerHTML = 0;
+        document.querySelector(".speed-data").innerHTML = 0;
+
+        let statusChart = document.getElementById("statusChart").getContext("2d");
+        channelChart1 = new Chart(statusChart, {
+            type: 'doughnut',
+            data: {
+                labels: ['전체 채널 수        ' + 0, '사용중인 채널 수     ' + 0],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [0, 0],
+                    backgroundColor: [
+                        '#ececec',
+                        '#3adaba'
+                    ],
+                    borderWidth: 0,
                     barPercentage: 0.3,
-                }
-            ],
-        },
-        options: {
-            animation: {
-                duration: 0
+                }]
             },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false,
-                position: 'right',
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15
+            options: {
+                plugins: {
+                    doughnutlabel: {
+                        labels: [
+                            {
+                                text: 0 + '%',
+                                font: {
+                                    size: '35',
+                                    family: 'Roboto ,Arial, Helvetica, sans-serif'
+                                },
+                                color: '#5d6778'
+                            }
+                        ]
+                    }
+                },
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'right',
+                    display: false,
+                    labels: {
+                        fontColor: '#5d6778',
+                        fontSize: 15,
+                        defaultFontFamily: "Roboto",
+                        boxWidth: 15,
+                    },
+                },
+                cutoutPercentage: 90,
+                scales: {
+                    yAxes: [
+                        {
+                            display: false,
+                            ticks: {
+                                min: 0,
+                                max: 20,
+                                stepSize: 20,
+                            },
+                        },
+                    ],
                 },
             },
-            scales: {
-                xAxes: [
+        });
+
+        let serverChChart = document.getElementById("serverChChart").getContext("2d");
+        channelChart2 = new Chart(serverChChart, {
+            type: "bar",
+            data: {
+                labels: ["REST", "gRPC", "gRPC-Streaming"],
+                datasets: [
                     {
-                        stacked: true,
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 100,
-                            stepSize: 20,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto"
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
+                        label: "전체",
+                        data: [0, 0, 0],
+                        backgroundColor: "#05b5fc",
+                        barPercentage: 0.3,
                     },
-                ],
-                yAxes: [
                     {
-                        stacked: true,
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 100,
-                            stepSize: 20,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto",
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
+                        label: "사용 중",
+                        data: [0, 0, 0],
+                        backgroundColor: "#ffbd60",
+                        barPercentage: 0.3,
+                    }
                 ],
             },
-        },
-    });
+            options: {
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                        fontColor: '#5d6778',
+                        fontSize: 15,
+                        defaultFontFamily: "Roboto",
+                        boxWidth: 15
+                    },
+                },
+                scales: {
+                    xAxes: [
+                        {
+                            stacked: true,
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 100,
+                                stepSize: 20,
+                                fontColor: "#5d6778",
+                                fontSize: 12,
+                                defaultFontFamily: "Roboto"
+                            },
+                            gridLines: {
+                                color: '#fff',
+                                lineWidth: 0.5
+                            },
+                        },
+                    ],
+                    yAxes: [
+                        {
+                            stacked: true,
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 100,
+                                stepSize: 20,
+                                fontColor: "#5d6778",
+                                fontSize: 12,
+                                defaultFontFamily: "Roboto",
+                            },
+                            gridLines: {
+                                color: '#fff',
+                                lineWidth: 0.5
+                            },
+                        },
+                    ],
+                },
+            },
+        });
+    }
 
     //데이터 수신 됨 - 전체 데이터를 출력해줌
     socket.onmessage = function (json) {
@@ -488,7 +490,7 @@ function startSocket() {
 
     //전체 tab 클릭시 데이터 변환 이벤트
     $('#allTab').click(function () {
-
+        earlySet();
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
@@ -759,6 +761,8 @@ function startSocket() {
         e.preventDefault();
         e.stopPropagation();
 
+        earlySet();
+
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
@@ -1028,6 +1032,8 @@ function startSocket() {
         e.preventDefault();
         e.stopPropagation();
 
+        earlySet();
+
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
         socket.onmessage = function (json) {
@@ -1296,6 +1302,8 @@ function startSocket() {
     $(document).on('click', '#stt2', function (e) {
         e.preventDefault();
         e.stopPropagation();
+
+        earlySet();
 
         // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 

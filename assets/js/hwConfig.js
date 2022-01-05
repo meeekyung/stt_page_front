@@ -14,7 +14,7 @@ function hwConfig() {
             $('#severStausArea').empty();
             $('#hwTab').empty();
             $('#hwTab').append(
-                '<li id="hw1" class="tab tab-on bdb">bona-lbmon1a</li>'
+                '<li id="hw0" class="tab tab-on bdb">bona-lbmon1a</li>'
             );
 
             for (let i = 1; i < json.length; i++) {
@@ -31,7 +31,6 @@ function hwConfig() {
                         '<div class="status-box" id="statusBox' + i + '"><div class="status-box-inner"><h3 name="status-name" class="staus-tit" id="statusTit' + i + '">' + json[i].hostname + '</h3><p>' + json[i].ipaddr + '/<span class="etcText">' + json[i].role + '</span></p></div></div>'
                     );
                 }
-
 
                 //서버 상태에 따른 배경색상값 변환
                 const statusValue = json[i].status;
