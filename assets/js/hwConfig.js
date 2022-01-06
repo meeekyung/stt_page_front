@@ -35,9 +35,11 @@ function hwConfig() {
                 //서버 상태에 따른 배경색상값 변환
                 const statusValue = json[i].status;                
                 if (statusValue == 1) {
-                    $("#statusBox"+i).addClass("onlineBg").siblings().removeClass('onlineBg');
+                    console.log(statusValue);
+                    $("#statusBox"+i).addClass("onlineBg");
                 } else if (statusValue == 0) {
-                    $("#statusBox"+i).addClass("offlineBg").siblings().removeClass('onlineBg');
+                    console.log(statusValue);
+                    $("#statusBox"+i).addClass("offlineBg");
                 }
             }
         },

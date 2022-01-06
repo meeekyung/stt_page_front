@@ -12,14 +12,14 @@ function sttConfig() {
             //console.log(json);
 
             //server 데이터 출력    
-            $('#systemTab').empty();
-            $('#systemTab').append(
-                '<li id="allTab" class="tab tab-on bdb">전체</li>'
-            );
+            $('#systemTabs').empty();
+            // $('#systemTab').append(
+            //     '<li id="allTab" class="tab tab-on bdb">전체</li>'
+            // );
 
             for (let i = 0; i < json.length; i++) {
                 if (json.length >= 0) {
-                    $('#systemTab').append(
+                    $('#systemTabs').append(
                         '<li id="stt' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
                     );
                 }
@@ -46,11 +46,14 @@ $(document).on('click', '.tab', function () {
         sttToggle = false;
 
         $(this).addClass('tab-on').siblings().removeClass('tab-on');
-    }else{
+        $(this).addClass('tab-on').parent().siblings().children().removeClass('tab-on');
+    } else {
         //반복 재시작
         sttSetinterval = setInterval(sttConfig, 5000);
         sttToggle = true;
-
+        
+        console.log(this);
         $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        $(this).addClass('tab-on').parent().siblings().children().removeClass('tab-on');
     }
 });
