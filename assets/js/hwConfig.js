@@ -33,11 +33,11 @@ function hwConfig() {
                 }
 
                 //서버 상태에 따른 배경색상값 변환
-                const statusValue = json[i].status;
+                const statusValue = json[i].status;                
                 if (statusValue == 1) {
-                    $(".status-box").addClass("onlineBg").siblings().removeClass('offlineBg');
+                    $("#statusBox"+i).addClass("onlineBg").siblings().removeClass('onlineBg');
                 } else if (statusValue == 0) {
-                    $(".status-box").addClass("offlineBg").siblings().removeClass('onlineBg');
+                    $("#statusBox"+i).addClass("offlineBg").siblings().removeClass('onlineBg');
                 }
             }
         },
