@@ -1,3 +1,7 @@
+$('#hwTab').append(
+    '<li id="hw0" class="tab tab-on bdb">bona-lbmon1a</li>'
+);
+
 //ajax 호출
 function hwConfig() {
     $.ajax({
@@ -12,14 +16,11 @@ function hwConfig() {
             //console.log(json);
 
             $('#severStausArea').empty();
-            $('#hwTab').empty();
-            $('#hwTab').append(
-                '<li id="hw0" class="tab tab-on bdb">bona-lbmon1a</li>'
-            );
+            $('#hwTabs').empty();
 
             for (let i = 1; i < json.length; i++) {
                 if (json.length >= 0) {
-                    $('#hwTab').append(
+                    $('#hwTabs').append(
                         '<li id="hw' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
                     );
                 }
@@ -33,13 +34,11 @@ function hwConfig() {
                 }
 
                 //서버 상태에 따른 배경색상값 변환
-                const statusValue = json[i].status;                
+                const statusValue = json[i].status;
                 if (statusValue == 1) {
-                    console.log(statusValue);
-                    $("#statusBox"+i).addClass("onlineBg");
+                    $("#statusBox" + i).addClass("onlineBg");
                 } else if (statusValue == 0) {
-                    console.log(statusValue);
-                    $("#statusBox"+i).addClass("offlineBg");
+                    $("#statusBox" + i).addClass("offlineBg");
                 }
             }
         },
@@ -64,11 +63,13 @@ $(document).on('click', '.tab', function () {
         hwToggle = false;
 
         $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        $(this).addClass('tab-on').parent().siblings().children().removeClass('tab-on');
     } else {
         //반복 재시작
-        hwSetinterval = setInterval(hwConfig, 5000);
+        //hwSetinterval = setInterval(hwConfig, 5000);
         hwToggle = true;
 
         $(this).addClass('tab-on').siblings().removeClass('tab-on');
+        $(this).addClass('tab-on').parent().siblings().children().removeClass('tab-on');
     }
 });

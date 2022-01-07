@@ -1,3 +1,8 @@
+//server 데이터 출력    
+$('#systemTab').append(
+    '<li id="allTab" class="tab tab-on bdb">전체</li>'
+);
+
 //ajax 호출
 function sttConfig() {
     $.ajax({
@@ -13,9 +18,6 @@ function sttConfig() {
 
             //server 데이터 출력    
             $('#systemTabs').empty();
-            // $('#systemTab').append(
-            //     '<li id="allTab" class="tab tab-on bdb">전체</li>'
-            // );
 
             for (let i = 0; i < json.length; i++) {
                 if (json.length >= 0) {
@@ -49,11 +51,10 @@ $(document).on('click', '.tab', function () {
         $(this).addClass('tab-on').parent().siblings().children().removeClass('tab-on');
     } else {
         //반복 재시작
-        sttSetinterval = setInterval(sttConfig, 5000);
+        //sttSetinterval = setInterval(sttConfig, 5000);
         sttToggle = true;
-        
-        console.log(this);
-        $(this).addClass('tab-on').siblings().removeClass('tab-on');
+
+        $(this).addClass('tab-on').siblings().removeClass('tab-on');        
         $(this).addClass('tab-on').parent().siblings().children().removeClass('tab-on');
     }
 });

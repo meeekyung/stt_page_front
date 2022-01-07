@@ -16,7 +16,7 @@ $(document).ready(function () {
 //wav파일 재생
 $(function () {
 
-  $("#browse").click(function () {
+  $("#uploadBtn").click(function () {
 
     var form = $("#myForm")[0];
     var formData = new FormData(form);

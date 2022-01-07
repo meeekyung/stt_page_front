@@ -67,7 +67,7 @@
                 <div class="tab-area w100p mt20">
                     <div class="tab-bg bgTransparency mb0 bdb"></div>
                     <ul class="tab-list" id="systemTab">
-                        <li id="allTab" class="tab tab-on bdb">전체</li>
+                        <!-- <li id="allTab" class="tab tab-on bdb">전체</li> -->
                         <!-- <li id="stt1" class="tab bdb">STT1</li>
                         <li id="stt2" class="tab bdb">STT2</li> -->
                     </ul>
@@ -159,6 +159,7 @@
                 <div class="tab-area w100p mt20">
                     <div class="tab-bg bgTransparency mb0 bdb"></div>
                     <ul class="tab-list" id="hwTab"></ul>
+                    <ul class="tab-list" id="hwTabs" style="left: 120px;"></ul>
                 </div>
 
                 <div class="hwArea">
@@ -192,10 +193,10 @@
             </div>
             <div class="notice-error-tit">
                 <div class="notice-error-icon"></div>
-                <span class="notice-error-hostname"> </span>&nbsp;<span class="notice-error-level"> </span> Error
+                <span class="notice-error-level"> </span> Warning
             </div>
             <p class="notice-error-txt"></p>
-            <p class="notice-error-time"></p>
+            <span class="notice-error-hostname"></span>&nbsp;<p class="notice-error-time"></p>
             <input type="button" value="확인" class="notice-error-btn">
         </div>
     </div>
