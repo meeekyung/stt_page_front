@@ -32,8 +32,10 @@ function startSocket3() {
         //시간
         let alarmTime = alarmData.logtime;
 
+        console.log(alarmHostname, alarmLevel, alarmMssg, alarmTime);
+
         //호스트네임 출력
-        document.querySelector(".notice-error-tit .notice-error-hostname").innerHTML = alarmHostname;
+        document.querySelector(".notice-error .notice-error-hostname").innerHTML = alarmHostname;
 
         //level명 출력
         document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel;
