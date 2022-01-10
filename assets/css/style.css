@@ -179,15 +179,16 @@ a{text-decoration: none;}
 #speechArea{width: 90%;margin: 0 auto;}
 
 /* 에러 알림 팝업 */
-.notice-error-popup{width:auto;position: fixed;right: 10px;bottom: 10px;box-shadow: 1px 3px 5px rgba(0, 0, 0, .075);display: none;}
-.notice-error-popup .notice-error{width:100%;background: #f9f9f9;border: 2px solid #e95420;padding: 25px 20px 20px;border-radius: 3px;}
-.notice-error-popup .notice-error .notice-error-tit{color: #5d6778;font-size: 20px;}
-.notice-error-popup .notice-error .notice-error-tit .notice-error-icon{width: 43px;height: 37px;background: url(../images/error_icon.png) no-repeat 0 0;background-size: cover;display: inline-block;vertical-align: middle;margin-right: 10px;}
+.notice-error-popup{width:auto;position: fixed;right: 10px;bottom: 10px;box-shadow: 3px 5px 5px rgba(0, 0, 0, .075);display: none;}
+.notice-error-popup .notice-error{width:100%;background: #f9f9f9;border-top: 10px solid;border-image-slice: 1 !important;padding: 25px 20px 20px;border-radius: 3px;}
+.notice-error-popup .notice-error .notice-error-tit{color: #5d6778;font-size: 20px;text-align: center;}
+.notice-error-popup .notice-error .notice-error-tit .notice-error-icon{width: 43px;height: 37px;background: url(../images/error_icon.png) no-repeat 0 0;background-size: cover;display: block;margin: 0 auto 10px;vertical-align: middle;}
 .notice-error-popup .notice-error .notice-error-tit .notice-error-level{color: #5d6778;font-weight: bold;}
-.notice-error-popup .notice-error .notice-error-tit .notice-error-hostname{color: #5d6778;}
+.notice-error-popup .notice-error .notice-error-hostname{font-weight: 900;}
 .notice-error-popup .notice-error .notice-error-txt{color: #5d6778;text-align: center;margin-top: 20px;}
-.notice-error-popup .notice-error .notice-error-time{color: #5d6778;text-align: center;margin-top: 5px;}
+.notice-error-popup .notice-error .notice-error-bottom-txt{text-align: center;margin-top: 10px;}
+.notice-error-popup .notice-error .notice-error-time{color: #5d6778;text-align: center;margin-top: 5px;display: inline-block;}
 .notice-error-popup .notice-error .close-icon{color: #adaeaf;cursor: pointer;}
-.notice-error-popup .notice-error .fa-times{position: absolute;right: 10px;top: 10px;}
+.notice-error-popup .notice-error .fa-times{position: absolute;right: 10px;top: 20px;}
 .notice-error-popup .notice-error .notice-error-btn{text-align: center;background: #adaeaf;border: 0;color: #fff;border-radius: 3px;padding: 5px 15px;margin: 0 auto;display: inherit;margin-top: 20px;cursor: pointer;vertical-align: middle;}
 .notice-error-popup .notice-error .notice-error-btn:hover{font-weight: bold;}

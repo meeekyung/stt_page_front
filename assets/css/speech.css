@@ -67,7 +67,7 @@ input[type="file"] {position: absolute; width: 1px; height: 1px; padding: 0; mar
 #audio {width: 100%; background: #f1f3f4; margin: 1em auto 2em;}
 
 .stt-area {width: 100%; position: relative;}
-.stt-sont-subtit {width: calc(100% - 104px); margin-bottom: 0 !important;text-align: left;}
+.stt-sont-subtit {width: 100%;margin-bottom: 0 !important;text-align: left;}
 .stt-btn {border: 1px solid #30911a; padding: .3em 1em;
     background-image: linear-gradient(#6bc756, #3cb521 50%, #37a71e);
 }

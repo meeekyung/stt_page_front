@@ -222,7 +222,8 @@ function startSocket() {
 
         //전체 데이터 출력
         let boardData = JSON.parse(json.data);
-        console.log(boardData);
+        //console.log(boardData);
+
         //json key 가져오기
         const dataKey = Object.keys(boardData);
         //console.log(dataKey);
@@ -491,6 +492,8 @@ function startSocket() {
         }
 
         $(document).on('click', '#allTab', function (e) {        
+            e.preventDefault();
+
             if (dataKey[2] == "bona-total-stt") {
 
                 //전체 tab 클릭시 데이터 변환 이벤트
@@ -763,7 +766,9 @@ function startSocket() {
         });
 
         $(document).on('click', '#stt0', function (e) {
-            if (dataKey[1] == "bona-stt1") {
+            e.preventDefault();
+
+            if (dataKey[0] == "bona-stt1") {
                 //STT0 tab 클릭시 데이터 변환 이벤트
                 earlySet();
 
@@ -1032,7 +1037,9 @@ function startSocket() {
         });
 
         $(document).on('click', '#stt1', function (e) {
-            if (dataKey[0] == "bona-stt2") {
+            e.preventDefault();
+
+            if (dataKey[1] == "bona-stt2") {
                 //STT1 tab 클릭시 데이터 변환 이벤트
                 earlySet();
 

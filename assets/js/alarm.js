@@ -30,15 +30,10 @@ function startSocket3() {
         let alarmMssg = alarmData.message;
 
         //시간
-        let alarmTime = alarmData.logtime;
-
-        console.log(alarmHostname, alarmLevel, alarmMssg, alarmTime);
+        let alarmTime = alarmData.logtime.slice(0, 19);
 
         //호스트네임 출력
-        document.querySelector(".notice-error .notice-error-hostname").innerHTML = alarmHostname;
-
-        //level명 출력
-        document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel;
+        document.querySelector(".notice-error-hostname").innerHTML = alarmHostname;
 
         //메시지 출력
         document.querySelector(".notice-error-txt").innerHTML = alarmMssg;
@@ -47,9 +42,13 @@ function startSocket3() {
         document.querySelector(".notice-error-time").innerHTML = alarmTime;
 
         //level에 따른 색상값 변경   
-        if (alarmLevel === "CRITICAL") {            
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-43px" });
-            $('.notice-error-popup .notice-error').css({ "border": "2px solid #bd362f" });
+        if (alarmLevel === "CRITICAL") {
+            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "0" });
+            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #ef7e78, #bd362f)" });
+            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #ef7e78, #bd362f)" });
+
+            //level명 출력
+            document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel + " Warning";
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
@@ -67,8 +66,12 @@ function startSocket3() {
                 }
             }
         } else if (alarmLevel === "MAJOR") {
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "0px" });
-            $('.notice-error-popup .notice-error').css({ "border": "2px solid #e95420" });
+            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-47px" });
+            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #f39d7f, #e95420)" });
+            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #f39d7f, #e95420)" });
+
+            //level명 출력
+            document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel + " Warning";
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
@@ -87,8 +90,12 @@ function startSocket3() {
             }
 
         } else if (alarmLevel === "MINOR") {
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-89px" });
-            $('.notice-error-popup .notice-error').css({ "border": "2px solid #f9a825" });
+            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-94px" });
+            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #ffc973, #f9a825)" });
+            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #ffc973, #f9a825)" });
+
+            //level명 출력
+            document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel + " Warning";
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
@@ -107,8 +114,11 @@ function startSocket3() {
             }
 
         } else if (alarmLevel === "INFO") {
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-133px" });
-            $('.notice-error-popup .notice-error').css({ "border": "2px solid #22b24c" });
+            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-141px" });
+            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #50d276, #22b24c)" });
+            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #50d276, #22b24c)" });
+
+            document.querySelector(".notice-error-tit .notice-error-level").innerText = "Notice"
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
