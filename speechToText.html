@@ -43,12 +43,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="monitoring.html" class="nav-link">
-                                <span class="nav-icon"><i class="fas fa-desktop fa-lg"></i></span>
-                                <span class="nav-txt">monitoring</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="speechToText.html" class="nav-link active">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
                                 <span class="nav-txt">STT TEST</span>
@@ -73,7 +67,7 @@
                     <p class="speech-subtxt">16 비트 8 kHz PCM 인코딩된 음성 파일만 지원합니다.<span class="notice">※ 3분 이내 음성파일
                             권장</span>
                     </p>
-                    <form id="myForm" action="http://192.168.20.193:55525/api/v1/audios" enctype="multipart/form-data"
+                    <form id="myForm" action="http://192.168.20.123:55532/audio" enctype="multipart/form-data"
                         method="POST">
                         <div class="browse-Area">
                             <input class="file-name" id="inpFile" value="파일선택" name="uploadFileName"
@@ -94,7 +88,7 @@
 
                 <div class="stt-area">
                     <h3 class="speech-subtit stt-sont-subtit">음성인식 변환 결과</h3>
-                    <button class="btn-large stt-btn">결과보기</button>
+                    <!-- <button class="btn-large stt-btn">결과보기</button> -->
                     <div class="stt-txt-area">
                         <ul class="stt-tit">
                             <li>시간</li>
@@ -116,6 +110,23 @@
                 <i></i>
             </div>
             <p>Loading...</p>
+        </div>
+    </div>
+
+    <div class="notice-error-popup">
+        <div class="notice-error">
+            <div class="close-icon">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="notice-error-tit">
+                <div class="notice-error-icon"></div>
+                <span class="notice-error-level"> </span>
+            </div>
+            <p class="notice-error-txt"></p>
+            <div class="notice-error-bottom-txt">
+                <span class="notice-error-hostname"></span>/<p class="notice-error-time"></p>
+            </div>            
+            <input type="button" value="확인" class="notice-error-btn">
         </div>
     </div>
 
@@ -165,6 +176,7 @@
 
     <!-- layout.js -->
     <script src="assets/js/layout.js"></script>
+    <script src="assets/js/alarm.js"></script>
 </body>
 
 </html>

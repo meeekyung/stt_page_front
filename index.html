@@ -7,13 +7,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
 
     <link rel="shortcut icon" href="assets/images/logo.ico">
     <!-- FontAwesome JS-->
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=20211227">
 </head>
 
 <body>
@@ -41,15 +44,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="monitoring.html" class="nav-link">
-                                <span class="nav-icon"><i class="fas fa-desktop fa-lg"></i></span>
-                                <span class="nav-txt">Monitoring</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="speechToText.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
-                                <span class="nav-txt">STT TEST</span>
+                                <span class="nav-txt">STT&nbsp;TEST</span>
                             </a>
                         </li>
                     </ul>
@@ -57,62 +54,170 @@
             </div>
         </div>
     </header>
+
     <div class="container">
         <div id="cont" class="rounded-lg p1rem">
-            <h1 class="container-tit">Dashboard</h1>
-            <div class="box-wrap shadow-xs">
-                <div class="box-inner">
-                    <div class="box-tit json-tit1">server - <span></span></div>
-                    <div class="box-body">
-                        <canvas id="barChart"></canvas>
+            <div class="cont-tit-area mb20">
+                <h3 class="cont-subtit">Dashboard</h3>
+            </div>
+            <div id="severStausArea">
+            </div>
+
+            <div id="systemArea">
+                <div class="tab-area w100p mt20">
+                    <div class="tab-bg bgTransparency mb0 bdb"></div>
+                    <ul class="tab-list" id="systemTab">
+                        <!-- <li id="allTab" class="tab tab-on bdb">전체</li> -->
+                        <!-- <li id="stt1" class="tab bdb">STT1</li>
+                        <li id="stt2" class="tab bdb">STT2</li> -->
+                    </ul>
+                    <ul class="tab-list" id="systemTabs" style="left: 53px;"></ul>
+                </div>
+
+                <div class="system-box">
+                    <div class="performanceArea">
+                        <h3 class="system-tit">성능지표</h3>
+                        <div class="performanceList">
+                            <div class="performance-box request-area" title="단위 시간 내 수신된 요청 누적 건수">
+                                <h4>요청건수</h4>
+                                <div class="request-data"></div><span>건</span>
+                            </div>
+                            <div class="performance-box suceess-area" title="단위 시간 내 전송한 성공/실패 누적 건수">
+                                <h4>성공률</h4>
+                                <div class="success-chart">
+                                    <canvas id="suceessChart"></canvas>
+                                </div>
+                                <ul class="lagendArea success-chart-spot">
+                                    <li>
+                                        <div class="legendBox blueBG"></div>
+                                        <span class="legend-tit">성공</span>
+                                        <span id="legendNum1"></span>
+                                        <span>건</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">실패</span>
+                                        <span id="legendNum2"></span>
+                                        <span>건</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="performance-box length-area" title="단위 시간 내 수신한 요청 건 기준 음성길이(초)의 누적">
+                                <h4>총 음성길이</h4>
+                                <div class="length-data"></div><span>분</span>
+                            </div>
+                            <div class="performance-box speed-area" title="음성인식 평균 처리 속도">
+                                <h4>평균처리속도</h4>
+                                <div class="speed-data"></div><span>RTF</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="box-body">
-                        <canvas id="doughnutChart"></canvas>
+                    <div class="channelArea">
+                        <h3 class="system-tit">채널상태</h3>
+                        <div class="channelstatusList">
+                            <div class="channel-left">
+                                <div class="channelstatus-box status-area">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                                <ul class="lagendArea status-chart-spot">
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">전체 재널 수</span>
+                                        <span id="legendNum3"></span>
+                                        <span>개</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox mintBG"></div>
+                                        <span class="legend-tit">사용중인 채널 수</span>
+                                        <span id="legendNum4"></span>
+                                        <span>개</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="channel-right">
+                                <div class="channelstatus-box severchannel-area">
+                                    <canvas id="serverChChart"></canvas>
+                                </div>
+                                <ul class="lagendArea server-chart-spot">
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">미사용</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox mintBG"></div>
+                                        <span class="legend-tit">사용중</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="useperArea">
+                <div class="tab-area w100p mt20">
+                    <div class="tab-bg bgTransparency mb0 bdb"></div>
+                    <ul class="tab-list" id="hwTab"></ul>
+                    <ul class="tab-list" id="hwTabs" style="left: 120px;"></ul>
+                </div>
+
+                <div class="hwArea">
+                    <div class="hwAreaList">
+                        <div class="hw-box cpu-area">
+                            <h4>CPU 사용률</h4>
+                            <canvas id="cpuChart"></canvas>
+                        </div>
+                        <div class="hw-box memory-area">
+                            <h4>메모리 사용률</h4>
+                            <canvas id="memoryChart"></canvas>
+                        </div>
+                        <div class="hw-box disk-area">
+                            <h4>디스크 사용률(%)</h4>
+                            <canvas id="diskChart"></canvas>
+                        </div>
+                        <div class="hw-box network-area">
+                            <h4>네트워크 속도(MB/s)</h4>
+                            <canvas id="networkChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="notice-error-popup">
+        <div class="notice-error">
+            <div class="close-icon">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="notice-error-tit">
+                <div class="notice-error-icon"></div>
+                <span class="notice-error-level"> </span>
+            </div>
+            <p class="notice-error-txt"></p>
+            <div class="notice-error-bottom-txt">
+                <span class="notice-error-hostname"></span>/<p class="notice-error-time"></p>
+            </div>            
+            <input type="button" value="확인" class="notice-error-btn">
+        </div>
+    </div>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <!-- Charts JS -->
-    <!-- <script src="assets/plugins/chart.js/chart.min.js"></script> -->
-    <!-- <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script> -->
-    <!-- <script src="assets/js/charts-custom.js"></script> -->
-    <!-- <script type="text/javascript">
-        Chart.plugins.register({
-            afterDatasetsDraw: function (chart) {
-                var ctx = chart.ctx;
-                chart.data.datasets.forEach(function (dataset, i) {
-                    var meta = chart.getDatasetMeta(i);
-                    if (!meta.hidden) {
-                        meta.data.forEach(function (element, index) {
-                            // Draw the text in black, with the specified font
-                            ctx.fillStyle = '#5d6778';
-                            var fontSize = 15;
-                            var fontStyle = 'bold';
-                            var fontFamily = 'NotoSnsKR';
-                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-                            // Just naively convert to string for now
-                            var dataString = dataset.data[index].toString();
-                            // Make sure alignment settings are correct
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            var padding = 5;
-                            var position = element.tooltipPosition();
-                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
-                        });
-                    }
-                });
-            }
-        });
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="assets/plugins/chart.js/chart.min.js"></script>
+    <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script>
 
-    </script> -->
+    <script src="assets/js/hwdata.js?v=20211227"></script>
+    <script src="assets/js/sttConfig.js?v=20211227"></script>
+    <script src="assets/js/performance.js?v=20211227"></script>
+    <script src="assets/js/hwConfig.js?v=20211227"></script>
+    <script src="assets/js/alarm.js?v=20211227"></script>
 
     <!-- layout.js -->
-    <script src="assets/js/layout.js"></script>
+    <script src="assets/js/layout.js?v=20211227"></script>
 </body>
 
 </html>
