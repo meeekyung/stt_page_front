@@ -15,7 +15,7 @@ function startSocket3() {
 
         //창없애기
         $('.close-icon, .notice-error-btn').on('click', function () {
-            $('.notice-error-popup').hide();
+            $('.notice-error-popup').slideUp(800);
         });
 
         const alarmData = JSON.parse(json.data);
@@ -147,9 +147,6 @@ function startSocket3() {
                     "background": "#4c9fff",
                     "color": "#fff"
                 });
-
-                //팝업창 생성
-                $('.notice-error-popup').slideUp();
             }
         }
     };
