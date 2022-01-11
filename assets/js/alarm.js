@@ -60,7 +60,7 @@ function startSocket3() {
 
                 if (statusTit == alarmHostname) {
                     $('#' + statusTitHtml).parent().parent().css({
-                        "background": "#bd362f",
+                        "background": "#bd362f !important",
                         "color": "#fff"
                     });
                 }
@@ -134,6 +134,22 @@ function startSocket3() {
                         "color": "#fff"
                     });
                 }
+            }
+        } else if (alarmLevel === "CLEAR") {
+
+            const status = document.getElementsByClassName('staus-tit');
+
+            for (let i = 0; i < status.length; i++) {
+                let statusTitHtml = document.querySelector('#statusTit' + i).getAttribute('id');
+                console.log(statusTitHtml);
+
+                $('#' + statusTitHtml).parent().parent().css({
+                    "background": "#4c9fff",
+                    "color": "#fff"
+                });
+
+                //팝업창 생성
+                $('.notice-error-popup').slideUp();
             }
         }
     };

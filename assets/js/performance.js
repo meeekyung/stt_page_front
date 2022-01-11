@@ -1,7 +1,7 @@
 function startSocket() {
     let socket = new WebSocket("ws://192.168.20.123:55532/ws/performance");
 
-    let test;
+    let performanceData;
 
     //연결설정
     socket.onopen = function (e) {
@@ -236,7 +236,7 @@ function startSocket() {
         let stt2 = dataKey[1];
         let total = dataKey[2];
 
-        if (test == stt1) {
+        if (performanceData == stt1) {
             console.log("stt1클릭이벤트가 계속 실행되어야함");
             earlySet();
             // $(this).addClass('tab-on').siblings().removeClass('tab-on');
@@ -496,7 +496,7 @@ function startSocket() {
                 },
             });
         }
-        else if (test == stt2) {
+        else if (performanceData == stt2) {
             console.log("stt2클릭이벤트가 계속 실행되어야함");
 
             earlySet();
@@ -761,7 +761,7 @@ function startSocket() {
             });
 
         }
-        else if (test == total) {
+        else if (performanceData == total) {
             console.log("total클릭이벤트가 계속 실행되어야함");
             earlySet();
             // $(this).addClass('tab-on').siblings().removeClass('tab-on');
@@ -1290,25 +1290,24 @@ function startSocket() {
     $(document).on('click', '#allTab', function (e) {
         e.preventDefault();
 
-        test = "bona-total-stt";
+        performanceData = "bona-total-stt";
     });
 
     //#stt0탭 클릭 시 stt1 데이터가 출력되야함
     $(document).on('click', '#stt0', function (e) {
         e.preventDefault();
 
-        test = "bona-stt1";
+        performanceData = "bona-stt1";
     });
 
     //#stt1탭 클릭 시 stt2 데이터가 출력되야함
     $(document).on('click', '#stt1', function (e) {
         e.preventDefault();
 
-        test = "bona-stt2";
+        performanceData = "bona-stt2";
     });
 
     //연결닫힘
-
     socket.onclose = function (event) {
         if (event.wasClean) {
             console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
