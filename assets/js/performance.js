@@ -251,7 +251,6 @@ function startSocket() {
             let bunmo = (successNumStt1 + failPerNumStt1) ? (successNumStt1 + failPerNumStt1) : 1;
 
             const successPerStt1 = Math.floor(boardData["bona-stt1"].success / bunmo * 100);
-            console.log(successPerStt1);
             const failPerStt1 = (boardData["bona-stt1"].fail / bunmo * 100).toFixed(0);
 
             document.querySelector("#legendNum1").innerHTML = successNumStt1;
@@ -1123,7 +1122,6 @@ function startSocket() {
             const totalCh = boardData["bona-total-stt"].channels.total;
             const useCh = boardData["bona-total-stt"].channels.running;
             const useChPer = ((boardData["bona-total-stt"].channels.running / totalCh) * 100).toFixed(0);
-            console.log(useChPer)
 
             document.querySelector("#legendNum3").innerHTML = totalCh;
             document.querySelector("#legendNum4").innerHTML = useCh;
