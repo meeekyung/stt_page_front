@@ -1,6 +1,8 @@
 function startSocket3() {
     const socket3 = new WebSocket("ws://192.168.20.123:55532/ws/alarm");
 
+    let num = 0;
+
     //연결설정
     socket3.onopen = function (e) {
         console.log("[open] Connection established");
@@ -30,22 +32,28 @@ function startSocket3() {
         function createPopup() {
             console.log('notice-error-popup 생성');
 
-            let num = 1;
+            num++;
 
-                    $('.notice-error-popup-wrap').append('<div class="notice-error-popup" id="noticeError' + num+ '"><div class="notice-error"><div class="close-icon"><i class="fas fa-times"></i></div><div class="notice-error-tit"><div class="notice-error-icon"></div><span class="notice-error-level">'+alarmLevel + " Warning"+'</span></div><p class="notice-error-txt">'+alarmMssg+'</p><div class="notice-error-bottom-txt"><span class="notice-error-hostname">'+alarmHostname+'</span><p class="notice-error-time">'+alarmTime+'</p></div><input type="button" value="확인" class="notice-error-btn"></div></div>')
-                    $('.notice-error-popup').css({ 'display': 'block' });
+            if (num < 21) {
 
-                    i++;
+                $('.notice-error-popup-wrap').append('<div class="notice-error-popup" id="noticeError' + num + '"><div class="notice-error"><div class="close-icon"><i class="fas fa-times"></i></div><div class="notice-error-tit"><div class="notice-error-icon"></div><span class="notice-error-level">' + alarmLevel + " Warning" + '</span></div><p class="notice-error-txt">' + alarmMssg + '</p><div class="notice-error-bottom-txt"><span class="notice-error-hostname">' + alarmHostname + '</span><p class="notice-error-time">' + alarmTime + '</p></div><input type="button" value="확인" class="notice-error-btn"></div></div>')
+                $('#noticeError' + num).css({
+                    'display': 'block',
+                    'z-index': num,
+                    'bottom': num + 9 * num,
+                    'right': num + 9 * num
+                });
+            }
         }
 
         //level에 따른 색상값 변경   
         if (alarmLevel === "CRITICAL") {
             //팝업창 생성
-            createPopup();
+            createPopup(num);
 
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "4px" });
-            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #ef7e78, #bd362f)" });
-            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #ef7e78, #bd362f)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-tit').children('.notice-error-icon').css({ "background-position-x": "4px" });
+            $('#noticeError' + num).children('.notice-error').css({ "border-image": "linear-gradient(to right, #ef7e78, #bd362f)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-btn').css({ "background": "linear-gradient(to right, #ef7e78, #bd362f)" });
 
             //level명 출력
             //document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel + " Warning";
@@ -65,13 +73,14 @@ function startSocket3() {
                     });
                 }
             }
-        } else if (alarmLevel === "MAJOR") {
+        }
+        if (alarmLevel === "MAJOR") {
             //팝업창 생성
-            createPopup();
-            
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-36px" });
-            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #f39d7f, #e95420)" });
-            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #f39d7f, #e95420)" });
+            createPopup(num);
+
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-tit').children('.notice-error-icon').css({ "background-position-x": "-36px" });
+            $('#noticeError' + num).children('.notice-error').css({ "border-image": "linear-gradient(to right, #f39d7f, #e95420)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-btn').css({ "background": "linear-gradient(to right, #f39d7f, #e95420)" });
 
             //level명 출력
             //document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel + " Warning";
@@ -92,13 +101,14 @@ function startSocket3() {
                 }
             }
 
-        } else if (alarmLevel === "MINOR") {
+        }
+        if (alarmLevel === "MINOR") {
             //팝업창 생성
-            createPopup();
+            createPopup(num);
 
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-74px" });
-            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #ffc973, #f9a825)" });
-            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #ffc973, #f9a825)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-tit').children('.notice-error-icon').css({ "background-position-x": "-74px" });
+            $('#noticeError' + num).children('.notice-error').css({ "border-image": "linear-gradient(to right, #ffc973, #f9a825)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-btn').css({ "background": "linear-gradient(to right, #ffc973, #f9a825)" });
 
             //level명 출력
             //document.querySelector(".notice-error-tit .notice-error-level").innerHTML = alarmLevel + " Warning";
@@ -119,15 +129,16 @@ function startSocket3() {
                 }
             }
 
-        } else if (alarmLevel === "INFO") {
+        }
+        if (alarmLevel === "INFO") {
             //팝업창 생성
-            createPopup();
+            createPopup(num);
 
-            $('.notice-error-popup .notice-error .notice-error-tit .notice-error-icon').css({ "background-position-x": "-114px" });
-            $('.notice-error-popup .notice-error').css({ "border-image": "linear-gradient(to right, #50d276, #22b24c)" });
-            $('.notice-error-popup .notice-error .notice-error-btn').css({ "background": "linear-gradient(to right, #50d276, #22b24c)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-tit').children('.notice-error-icon').css({ "background-position-x": "-114px" });
+            $('#noticeError' + num).children('.notice-error').css({ "border-image": "linear-gradient(to right, #50d276, #22b24c)" });
+            $('#noticeError' + num).children('.notice-error').children('.notice-error-btn').css({ "background": "linear-gradient(to right, #50d276, #22b24c)" });
 
-            //document.querySelector(".notice-error-tit .notice-error-level").innerText = "Notice"
+            document.querySelector(".notice-error-tit .notice-error-level").innerText = "Notice"
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
@@ -144,7 +155,8 @@ function startSocket3() {
                     });
                 }
             }
-        } else if (alarmLevel === "CLEAR") {
+        }
+        if (alarmLevel === "CLEAR") {
 
             const status = document.getElementsByClassName('staus-tit');
 
@@ -158,13 +170,13 @@ function startSocket3() {
                 });
             }
         }
-    };
 
-    //창없애기
-    $(document).on('click', '.close-icon, .notice-error-btn', function () {
-        console.log('확인버튼 클릭');
-        $('.notice-error-popup').slideUp().remove();
-    });
+        $('.notice-error-btn, .notice-error').on('click', function () {
+            console.log($(this).parent().parent());
+            $(this).parent().parent().slideUp();
+            $(this).parent().parent().remove();
+        });
+    };
 
     //연결닫힘
     socket3.onclose = function (event) {
