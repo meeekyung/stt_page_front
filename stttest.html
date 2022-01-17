@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="speechToText.html" class="nav-link active">
+                            <a href="stttest.html" class="nav-link active">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
                                 <span class="nav-txt">STT TEST</span>
                             </a>
@@ -76,7 +76,7 @@
                         </div>
 
                         <button type="button" value="업로드" id="uploadBtn" class="btn-large file-btn">변환하기</button>
-                        <input type="file" id="fileIn" name="uploadFile" class="file_in upload-hidden" value="fileIn">
+                        <input type="file" id="fileIn" name="uploadFile" class="file_in upload-hidden" value="fileIn" onchange="checkFile(this)">
                     </form>
                 </div>
 
@@ -124,8 +124,9 @@
             </div>
             <p class="notice-error-txt"></p>
             <div class="notice-error-bottom-txt">
-                <span class="notice-error-hostname"></span>/<p class="notice-error-time"></p>
-            </div>            
+                <span class="notice-error-hostname"></span>
+                <p class="notice-error-time"></p>
+            </div>
             <input type="button" value="확인" class="notice-error-btn">
         </div>
     </div>
