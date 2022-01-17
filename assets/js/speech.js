@@ -15,13 +15,12 @@ $(document).ready(function () {
 
 //wav파일 확장자 검사
 function checkFile(f){
-
 	// files 로 해당 파일 정보 얻기.
 	var file = f.files;
 	// file[0].name 은 파일명 입니다.
 	// 정규식으로 확장자 체크
 	if(!/\.(wav)$/i.test(file[0].name)){
-    alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원한다.\n\n현재 파일 : ' + file[0].name);
+    alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원합니다.\n\n현재 파일 : ' + file[0].name);
   }
 	// 체크를 통과했다면 종료.
 	else return;
@@ -44,7 +43,7 @@ $(function () {
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.20.123:55532/audio",
+      url: "http://192.168.20.124:55532/audio",
       data: formData,
       processData: false,
       contentType: false,
@@ -63,22 +62,8 @@ $(function () {
         handleFiles(json);
         document.getElementById("uploadBtn").addEventListener("change", handleFiles, false);
 
-        console.log(json.text);
-        console.log(json.text.length);
-
         //음성인식 변환 결과 출력
         sttTextPrint(json);
-        let textInput = setInterval(sttTextPrint, 500);
-        let textToggle = true;
-
-        if (i == json.text.length) {
-            clearInterval(textInput);
-            textToggle = false;
-        } else {
-          sttTextPrint(json);
-          textInput = setInterval(sttTextPrint, 500);
-          textToggle = true;
-        }
       },
       error: function (data) {
         console.log("업로드 실패");
@@ -107,10 +92,18 @@ function handleFiles(json) {
 
 //음성인식 텍스트 출력
 function sttTextPrint(json) {  
-  let i = 0;
-  $(".stt-cont").append('<ol class="stt-content"><li class="sttTimeTxt">' + json.text[i].startSecond + '</li><li class="sttTimeCont">' + json.text[i].text + '</li></ol>');
-  i++;
-  $(".stt-cont").scrollTop($(".stt-cont")[0].scrollHeight);
+  
+  var i = 0;
+
+        textInput = setInterval(function(){
+          if(i==json.text.length){
+            clearInterval(textInput);
+          }else{
+            $(".stt-cont").append('<ol class="stt-content"><li class="sttTimeTxt">' + json.text[i].startSecond + '</li><li class="sttTimeCont">' + json.text[i].text + '</li></ol>');
+            i++;
+          }
+          $(".stt-cont").scrollTop($(".stt-cont")[0].scrollHeight);
+        },500);
 }
 
 //로그인 버튼 클릭 시 화면전환
@@ -119,7 +112,7 @@ $("#introBtn").on("click", function () {
   var user_pw = document.getElementById("userPw").value;
 
   $.ajax({
-    url: "http://192.168.20.123:55532/users/login",
+    url: "http://192.168.20.124:55532/users/login",
     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
     type: "POST",
     data: JSON.stringify({ username: user_name, password: user_pw }),

@@ -171,7 +171,7 @@ function startSocket3() {
             }
         }
 
-        $('.notice-error-btn, .notice-error').on('click', function () {
+        $('.notice-error-btn').on('click', function () {
             console.log($(this).parent().parent());
             $(this).parent().parent().slideUp();
             $(this).parent().parent().remove();
