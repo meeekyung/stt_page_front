@@ -18,11 +18,6 @@ sttSetinterval(function () {
         dataType: "JSON",
 
         success: function (json) {
-            console.log("server-config 접속 성공");
-
-            //전체 데이터 조회
-            //console.log(json);
-
             if ($(lastSeleted).hasClass('tab-on') === true) {
                 $(lastSeleted).addClass('tab-on');
             } else {
@@ -39,7 +34,6 @@ sttSetinterval(function () {
             }
         },
         error: function () {
-            console.log("server-config 접속 실패");
         }
     });
 }, 5000);
@@ -47,8 +41,6 @@ sttSetinterval(function () {
 $(document).on('click', '.tab', function () {
     let selecGetId = $(this).attr('id');
     let selecGetIdTxt = '#' + selecGetId;
-
-    console.log(selecGetIdTxt);
 
     lastSeleted = selecGetIdTxt;
 

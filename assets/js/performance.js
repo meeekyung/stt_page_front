@@ -5,9 +5,7 @@ function startSocket() {
 
     //연결설정
     socket.onopen = function (e) {
-        console.log("[open] Connection established dashboard");
-        console.log("Sending to server");
-        socket.send("My name is John");
+        socket.send("[open] Connection established dashboard");
     };
 
     //데이터 수신이 안될 때
@@ -222,22 +220,17 @@ function startSocket() {
 
     //데이터 수신 됨 - 전체 데이터를 출력해줌
     socket.onmessage = function (json) {
-
         //전체 데이터 출력
         let boardData = JSON.parse(json.data);
-        //console.log(boardData);
 
         //json key 가져오기
         const dataKey = Object.keys(boardData);
-        //console.log(dataKey);
-        //console.log(dataKey[2] == "bona-stt2");
 
         let stt1 = dataKey[0];
         let stt2 = dataKey[1];
         let total = dataKey[2];
 
         if (performanceData == stt1) {
-            console.log("stt1클릭이벤트가 계속 실행되어야함");
             earlySet();
             // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
@@ -496,11 +489,8 @@ function startSocket() {
             });
         }
         else if (performanceData == stt2) {
-            console.log("stt2클릭이벤트가 계속 실행되어야함");
-
             earlySet();
             // $(this).addClass('tab-on').siblings().removeClass('tab-on');
-            console.log('socketStt2 연결 성공!');
 
             //stt2 데이터 출력
             const boardData2 = JSON.parse(json.data);
@@ -761,7 +751,6 @@ function startSocket() {
 
         }
         else if (performanceData == total) {
-            console.log("total클릭이벤트가 계속 실행되어야함");
             earlySet();
             // $(this).addClass('tab-on').siblings().removeClass('tab-on');
             //전체 데이터 출력
@@ -1022,8 +1011,6 @@ function startSocket() {
             });
         }
         else {
-            console.log("클릭이벤트가 아닐때 계속 실행되어야함");
-
             //요청건수 출력
             let requestTotal = boardData["bona-total-stt"].request_number;
             if (requestTotal == undefined) {

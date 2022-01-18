@@ -17,11 +17,6 @@ hwSetinterval(function () {
         dataType: "JSON",
 
         success: function (json) {
-            console.log("serverHW-config 접속 성공");
-
-            //전체 데이터 조회
-            //console.log(json);
-
             if ($(lasthwSelect).hasClass('tab-on') === true) {
                 $(lasthwSelect).addClass('tab-on');
             } else {
@@ -54,8 +49,7 @@ hwSetinterval(function () {
                 }
             }
         },
-        error: function () {
-            console.log("seserverHWrver-config 접속 실패");
+        error: function () {           
         }
     });
 }, 5000);
@@ -64,8 +58,6 @@ hwSetinterval(function () {
 $(document).on('click', '.tab', function () {
     let hwselecGetId = $(this).attr('id');
     let hwselecGetIdTxt = '#' + hwselecGetId;
-
-    console.log(hwselecGetIdTxt);
 
     lasthwSelect = hwselecGetIdTxt;
 

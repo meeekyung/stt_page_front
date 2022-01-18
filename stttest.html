@@ -129,36 +129,6 @@
         });
     </script>
 
-    <!-- <script type="text/javascript">
-        Chart.plugins.register({
-            afterDatasetsDraw: function (chart) {
-                var ctx = chart.ctx;
-                chart.data.datasets.forEach(function (dataset, i) {
-                    var meta = chart.getDatasetMeta(i);
-                    if (!meta.hidden) {
-                        meta.data.forEach(function (element, index) {
-                            // Draw the text in black, with the specified font
-                            ctx.fillStyle = '#5d6778';
-                            var fontSize = 15;
-                            var fontStyle = 'bold';
-                            var fontFamily = 'NotoSnsKR';
-                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-                            // Just naively convert to string for now
-                            var dataString = dataset.data[index].toString();
-                            // Make sure alignment settings are correct
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            var padding = 5;
-                            var position = element.tooltipPosition();
-                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
-                        });
-                    }
-                });
-            }
-        });
-
-    </script> -->
-
     <!-- layout.js -->
     <script src="assets/js/layout.js"></script>
     <script src="assets/js/alarm.js"></script>

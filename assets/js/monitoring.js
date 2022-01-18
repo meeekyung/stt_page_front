@@ -8,15 +8,10 @@ function allList() {
     dataType: "JSON",
 
     success: function (json) {
-      console.log("모니터링 리스트 출력에 성공하였습니다.");
-
-      //console.log(json);
-
       $(".channel-area").empty(); //append로 출력된 내용을 지워주는 역할
 
       //모니터링 목록(우선, 대기중) 출력
       for (var i = 0; i < json.length; i++) {
-        //console.log(json.length);
         if (json.length >= 0) {
           $(".channel-area").append(
             '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '"></div></div></div>'
@@ -54,7 +49,6 @@ function allList() {
       }
     },
     error: function () {
-      console.log("모니터링 리스트 출력에 실패하였습니다.");
     },
   });
   //}, 3000);  
@@ -82,15 +76,10 @@ $("#allTab").on("click", function () {
       dataType: "JSON",
 
       success: function (json) {
-        console.log("전체 리스트 출력에 성공하였습니다.");
-
-        //console.log(json);
-
         $(".channel-area").empty(); //append로 출력된 내용을 지워주는 역할
 
         //모니터링 목록(우선, 대기중) 출력
         for (var i = 0; i < json.length; i++) {
-          //console.log(json.length);
           if (json.length >= 0) {
             $(".channel-area").append(
               '<div id="channelBox' + i + '" class="channel-box channel-wait"><div class="channel-inner"><div class="channel-sever-txt" id="channelSeverName' + i + '"></div><div class="channel-img wait-icon-img"></div><div class="channel-tit" id="channelNum' + i + '"></div></div></div>'
@@ -128,7 +117,6 @@ $("#allTab").on("click", function () {
         }
       },
       error: function () {
-        console.log("전체 리스트 출력에 실패하였습니다.");
       },
     });
     //}, 3000);
@@ -157,13 +145,10 @@ $("#grpcTab").on("click", function () {
       dataType: "JSON",
 
       success: function (json) {
-        console.log("gRPC 리스트 출력에 성공하였습니다.");
-
         $(".channel-area").empty(); //append로 출력된 내용을 지워주는 역할
 
         //모니터링 목록(우선, 대기중) 출력
         for (var i = 0; i < json.length; i++) {
-          //console.log(json.length);
           if (json.length >= 0) {
             if (json[i].server == "gRPC")
               $(".channel-area").append(
@@ -202,7 +187,6 @@ $("#grpcTab").on("click", function () {
         }
       },
       error: function () {
-        console.log("gRPC 리스트 출력에 실패하였습니다.");
       },
     });
     //}, 3000); 
@@ -231,13 +215,10 @@ $("#restTab").on("click", function () {
       dataType: "JSON",
 
       success: function (json) {
-        console.log("REST 리스트 출력에 성공하였습니다.");
-
         $(".channel-area").empty(); //append로 출력된 내용을 지워주는 역할
 
         //모니터링 목록(우선, 대기중) 출력
         for (var i = 0; i < json.length; i++) {
-          //console.log(json.length);
           if (json.length >= 0) {
             if (json[i].server == "REST")
               $(".channel-area").append(
@@ -276,7 +257,6 @@ $("#restTab").on("click", function () {
         }
       },
       error: function () {
-        console.log("REST 리스트 출력에 실패하였습니다.");
       },
     });
     //}, 3000); 

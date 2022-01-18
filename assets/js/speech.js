@@ -17,8 +17,6 @@ $(document).ready(function () {
 function checkFile(f) {
   // files 로 해당 파일 정보 얻기.
   var file = f.files;
-  console.log(file);
-
   var form = $("#myForm")[0];
   var formData = new FormData(form);
   formData.append("file", $("input[name=uploadFile]")[0].files[0]);
@@ -31,10 +29,8 @@ function checkFile(f) {
     contentType: false,
     dataType: 'json',
     success: function (json) {
-      console.log("형식이 아닌 파일 업로드..");      
     },
     error: function (json) {
-      console.log("형식이 아닌 파일 업로드 실패");
       alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원합니다.\n\n현재 파일 : ' + file[0].name);
       form.reset();
     }
@@ -78,8 +74,6 @@ $(function () {
         $('.black_bg, .loading-box').hide();
       },
       success: function (json) {
-        console.log("업로드 성공!!");
-
         $('#uploadBtn').text('변환완료');
         $('.progressContaine').hide();
         handleFiles(json);
@@ -89,7 +83,6 @@ $(function () {
         sttTextPrint(json);
       },
       error: function (data) {
-        console.log("업로드 실패");
       }
     });
 
@@ -108,7 +101,6 @@ $(function () {
 //audio 업로드 이벤트
 function handleFiles(json) {
   var files = json.url;
-  console.log(files);
   $("#src").attr("src", files);
   document.getElementById("audio").load();
 }
@@ -140,13 +132,10 @@ $("#introBtn").on("click", function () {
     type: "POST",
     data: JSON.stringify({ username: user_name, password: user_pw }),
     success: function (data) {
-      console.log("로그인 성공");
-
       $("#loginArea").hide();
       $("#sttArea").show();
     },
     error: function (data) {
-      console.log("로그인 실패");
       alert("아이디 또는 비밀번호 오류입니다.")
     },
   });

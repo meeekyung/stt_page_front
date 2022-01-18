@@ -5,9 +5,9 @@ function startSocket3() {
 
     //연결설정
     socket3.onopen = function (e) {
-        console.log("[open] Connection established");
-        console.log("Sending to server alarm");
-        socket3.send("My name is John");
+        //console.log("[open] Connection established");
+        //console.log("Sending to server alarm");
+        socket3.send("Sending to server alarm");
     };
 
     //데이터 수신 됨 - 전체 데이터를 출력해줌
@@ -30,8 +30,6 @@ function startSocket3() {
 
         //alarm 데이터 출력 함수
         function createPopup() {
-            console.log('notice-error-popup 생성');
-
             num++;
 
             if (num < 21) {
@@ -60,11 +58,8 @@ function startSocket3() {
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
-                console.log(status.length);
                 let statusTit = document.querySelector('#statusTit' + i).innerHTML;
-                console.log(statusTit);
                 let statusTitHtml = document.querySelector('#statusTit' + i).getAttribute('id');
-                console.log(statusTitHtml);
 
                 if (statusTit == alarmHostname) {
                     $('#' + statusTitHtml).parent().parent().css({
@@ -87,11 +82,8 @@ function startSocket3() {
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
-                console.log(status.length);
                 let statusTit = document.querySelector('#statusTit' + i).innerHTML;
-                console.log(statusTit);
                 let statusTitHtml = document.querySelector('#statusTit' + i).getAttribute('id');
-                console.log(statusTitHtml);
 
                 if (statusTit == alarmHostname) {
                     $('#' + statusTitHtml).parent().parent().css({
@@ -115,11 +107,8 @@ function startSocket3() {
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
-                console.log(status.length);
                 let statusTit = document.querySelector('#statusTit' + i).innerHTML;
-                console.log(statusTit);
                 let statusTitHtml = document.querySelector('#statusTit' + i).getAttribute('id');
-                console.log(statusTitHtml);
 
                 if (statusTit == alarmHostname) {
                     $('#' + statusTitHtml).parent().parent().css({
@@ -142,11 +131,8 @@ function startSocket3() {
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {
-                console.log(status.length);
                 let statusTit = document.querySelector('#statusTit' + i).innerHTML;
-                console.log(statusTit);
                 let statusTitHtml = document.querySelector('#statusTit' + i).getAttribute('id');
-                console.log(statusTitHtml);
 
                 if (statusTit == alarmHostname) {
                     $('#' + statusTitHtml).parent().parent().css({
@@ -162,7 +148,6 @@ function startSocket3() {
 
             for (let i = 0; i < status.length; i++) {
                 let statusTitHtml = document.querySelector('#statusTit' + i).getAttribute('id');
-                console.log(statusTitHtml);
 
                 $('#' + statusTitHtml).parent().parent().css({
                     "background": "#4c9fff",
@@ -172,7 +157,6 @@ function startSocket3() {
         }
 
         $('.notice-error-btn').on('click', function () {
-            console.log($(this).parent().parent());
             $(this).parent().parent().slideUp();
             $(this).parent().parent().remove();
         });
