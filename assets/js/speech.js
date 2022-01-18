@@ -14,21 +14,44 @@ $(document).ready(function () {
 });
 
 //wav파일 확장자 검사
-function checkFile(f){
-	// files 로 해당 파일 정보 얻기.
-	var file = f.files;
-	// file[0].name 은 파일명 입니다.
-	// 정규식으로 확장자 체크
-	if(!/\.(wav)$/i.test(file[0].name)){
+function checkFile(f) {
+  // files 로 해당 파일 정보 얻기.
+  var file = f.files;
+  console.log(file);
+
+  var form = $("#myForm")[0];
+  var formData = new FormData(form);
+  formData.append("file", $("input[name=uploadFile]")[0].files[0]);
+
+  $.ajax({
+    type: "POST",
+    url: "http://192.168.20.124:55532/audio",
+    data: formData,
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    success: function (json) {
+      console.log("형식이 아닌 파일 업로드..");      
+    },
+    error: function (json) {
+      console.log("형식이 아닌 파일 업로드 실패");
+      alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원합니다.\n\n현재 파일 : ' + file[0].name);
+      form.reset();
+    }
+  });
+
+  // file[0].name 은 파일명 입니다.
+  // 정규식으로 확장자 체크
+  if (!/\.(wav)$/i.test(file[0].name)) {
     alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원합니다.\n\n현재 파일 : ' + file[0].name);
-  }
-	// 체크를 통과했다면 종료.
-	else return;
+  } 
+  // 체크를 통과했다면 종료.
+  else return;
   fileReset();
 }
 
 //input[type="file"] 입력필드 리셋
-function fileReset(f){
+function fileReset(f) {
   $('#fileIn').val('');
 }
 
@@ -91,19 +114,19 @@ function handleFiles(json) {
 }
 
 //음성인식 텍스트 출력
-function sttTextPrint(json) {  
-  
+function sttTextPrint(json) {
+
   var i = 0;
 
-        textInput = setInterval(function(){
-          if(i==json.text.length){
-            clearInterval(textInput);
-          }else{
-            $(".stt-cont").append('<ol class="stt-content"><li class="sttTimeTxt">' + json.text[i].startSecond + '</li><li class="sttTimeCont">' + json.text[i].text + '</li></ol>');
-            i++;
-          }
-          $(".stt-cont").scrollTop($(".stt-cont")[0].scrollHeight);
-        },500);
+  textInput = setInterval(function () {
+    if (i == json.text.length) {
+      clearInterval(textInput);
+    } else {
+      $(".stt-cont").append('<ol class="stt-content"><li class="sttTimeTxt">' + json.text[i].startSecond + '</li><li class="sttTimeCont">' + json.text[i].text + '</li></ol>');
+      i++;
+    }
+    $(".stt-cont").scrollTop($(".stt-cont")[0].scrollHeight);
+  }, 500);
 }
 
 //로그인 버튼 클릭 시 화면전환
