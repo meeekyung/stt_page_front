@@ -957,7 +957,7 @@ function startSocket() {
                         {
                             label: "미사용",
                             data: [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning],
-                            backgroundColor: "#05b5fc",
+                            backgroundColor: "#ececec",
                             barPercentage: 0.3,
                         }
                     ],

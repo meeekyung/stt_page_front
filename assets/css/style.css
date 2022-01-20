@@ -195,5 +195,60 @@ a{text-decoration: none;}
 
 /* width 1700 이하일때 */
 @media screen and (max-width: 1700px){
-    
+    .success-chart{right: -50px;}
+    .status-chart-spot{right: 120px;}
+}
+/* width 1550 이하일때 */
+@media screen and (max-width: 1550px){
+    .success-chart{right: -65px;}
+    .status-chart-spot{right: 70px;}
+}
+/* width 1440 이하일때 */
+@media screen and (max-width: 1500px){
+    .success-chart-spot{left: 25px;}
+    .success-chart{top: 30px;height: 110px;}
+}
+/* width 1430 이하일때 */
+@media screen and (max-width: 1430px){
+    .system-box{font-size: .9rem;}
+    .performance-box>h4{font-size: 18px;}
+    .performance-box>div{font-size: 30px;margin-top: 1em;}
+    .success-chart{right: -90px;height: 90px;}
+    .status-chart-spot{right: 40px;}
+    .status-area{position: relative;left: -40px;}
+    .cpu-area>canvas, .memory-area>canvas{width: 200px !important;}
+    .hw-box h4{font-size: 1.1rem;margin-right: 0;margin-bottom: 1em;}
+}
+/* width 1300 이하일때 */
+@media screen and (max-width: 1300px){
+    .performance-box>h4{text-align: center;}
+    .success-chart-spot{display: none;}
+    .success-chart{right: -45px;height: 110px;margin-top: 15px !important;}
+    .status-area{width: 60% !important;top: -10px;right: 0;}
+    .status-chart-spot{top: 50px;right: 20px;}
+    #statusChart{margin-top: 15px;}
+    .performance-box>div{height: 100px;}
+    .severchannel-area>canvas{width: 400px !important;}
+    .disk-area>canvas, .network-area>canvas{width: 230px !important;}
+}
+/* width 1200 이하일때 */
+@media screen and (max-width: 1200px){
+    .performance-box>div{margin-top: 1.2em;}
+    .success-chart{right: -60px;}
+    .status-area{width: 50% !important;top: -20px;}
+    .severchannel-area>canvas{width: 350px !important;}
+    .status-chart-spot{top: 50px;right: 20px;}
+    .cpu-area>canvas, .memory-area>canvas{width: 180px !important;}
+    .disk-area>canvas, .network-area>canvas{width: 200px !important;}
+}
+/* width 1140px 이하일때 */
+@media screen and (max-width: 1140px) {
+    .success-chart{right: -73px;}
+    .status-chart-spot{right: 0;}
+    .performance-box>div{margin-top: 1.4em;}
+    .performance-box>h4{font-size: 15px;}
+    .performance-box>div{font-size: 25px;}
+    .severchannel-area>canvas{width: 330px !important;}
+    .cpu-area>canvas, .memory-area>canvas{width: 160px !important;}
+    .disk-area>canvas, .network-area>canvas{width: 180px !important;}
 }
