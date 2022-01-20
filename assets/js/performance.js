@@ -251,6 +251,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#suceessChart").remove();
+            $(".success-chart").empty();
             $(".success-chart").append('<canvas id="suceessChart"></canvas>');
 
             const suceessChart = document.getElementById("suceessChart").getContext("2d");
@@ -334,6 +335,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#statusChart").remove();
+            $('.status-area').empty();
             $(".status-area").append('<canvas id="statusChart"></canvas>');
 
             const statusChart = document.getElementById("statusChart").getContext("2d");
@@ -409,6 +411,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#serverChChart").remove();
+            $(".severchannel-area").empty();
             $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
 
             const serverChChart = document.getElementById("serverChChart").getContext("2d");
@@ -512,6 +515,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#suceessChart").remove();
+            $(".success-chart").empty();
             $(".success-chart").append('<canvas id="suceessChart"></canvas>');
 
             const suceessChart = document.getElementById("suceessChart").getContext("2d");
@@ -595,6 +599,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#statusChart").remove();
+            $('.status-area').empty();
             $(".status-area").append('<canvas id="statusChart"></canvas>');
 
             statusChart = document.getElementById("statusChart").getContext("2d");
@@ -670,6 +675,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#serverChChart").remove();
+            $(".severchannel-area").empty();
             $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
 
             const serverChChart = document.getElementById("serverChChart").getContext("2d");
@@ -773,6 +779,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#suceessChart").remove();
+            $(".success-chart").empty();
             $(".success-chart").append('<canvas id="suceessChart"></canvas>');
 
             const suceessChart = document.getElementById("suceessChart").getContext("2d");
@@ -856,6 +863,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#statusChart").remove();
+            $('.status-area').empty();
             $(".status-area").append('<canvas id="statusChart"></canvas>');
 
             const statusChart = document.getElementById("statusChart").getContext("2d");
@@ -931,6 +939,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#serverChChart").remove();
+            $(".severchannel-area").empty();
             $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
 
             const serverChChart = document.getElementById("serverChChart").getContext("2d");
@@ -1032,6 +1041,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#suceessChart").remove();
+            $(".success-chart").empty();
             $(".success-chart").append('<canvas id="suceessChart"></canvas>');
 
             let suceessChart = document.getElementById("suceessChart").getContext("2d");
@@ -1115,6 +1125,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#statusChart").remove();
+            $('.status-area').empty();
             $(".status-area").append('<canvas id="statusChart"></canvas>');
 
             let statusChart = document.getElementById("statusChart").getContext("2d");
@@ -1190,6 +1201,7 @@ function startSocket() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#serverChChart").remove();
+            $(".severchannel-area").empty();
             $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
 
             let serverChChart = document.getElementById("serverChChart").getContext("2d");

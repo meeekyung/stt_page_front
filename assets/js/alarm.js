@@ -156,7 +156,7 @@ function startSocket3() {
             }
         }
 
-        $('.notice-error-btn').on('click', function () {
+        $('.notice-error-btn, .close-icon>svg').on('click', function () {
             $(this).parent().parent().slideUp();
             $(this).parent().parent().remove();
         });

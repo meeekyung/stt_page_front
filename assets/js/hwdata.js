@@ -263,6 +263,7 @@ function startSocket2() {
             //cpu 사용률 - 도넛형 차트
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#cpuChart").remove();
+            $('.cpu-area .chartjs-size-monitor').remove();
             $(".cpu-area").append('<canvas id="cpuChart"></canvas>');
 
             const cpuUseData = hwData.message.cpu;
@@ -330,6 +331,7 @@ function startSocket2() {
             //메모리 사용률 - 도넛형 차트
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#memoryChart").remove();
+            $('.memory-area .chartjs-size-monitor').remove();
             $(".memory-area").append('<canvas id="memoryChart"></canvas>');
 
             const memoryUseData = hwData.message.memory;
@@ -416,6 +418,7 @@ function startSocket2() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#diskChart").remove();
+            $('.disk-area .chartjs-size-monitor').remove();
             $(".disk-area").append('<canvas id="diskChart"></canvas>');
 
             const diskChart = document.getElementById("diskChart").getContext("2d");
@@ -498,6 +501,7 @@ function startSocket2() {
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
             $("#networkChart").remove();
+            $('.network-area .chartjs-size-monitor').remove();
             $(".network-area").append('<canvas id="networkChart"></canvas>');
 
             const networkChart = document.getElementById("networkChart").getContext("2d");
@@ -566,6 +570,7 @@ function startSocket2() {
                 //cpu 사용률 - 도넛형 차트
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
                 $("#cpuChart").remove();
+                $(".cpu-area .chartjs-size-monitor").remove();
                 $(".cpu-area").append('<canvas id="cpuChart"></canvas>');
 
                 const cpuUseData = hwData.message.cpu;
@@ -633,6 +638,7 @@ function startSocket2() {
                 //메모리 사용률 - 도넛형 차트
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
                 $("#memoryChart").remove();
+                $(".memory-area .chartjs-size-monitor").remove();
                 $(".memory-area").append('<canvas id="memoryChart"></canvas>');
 
                 const memoryUseData = hwData.message.memory;
@@ -719,6 +725,7 @@ function startSocket2() {
 
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
                 $("#diskChart").remove();
+                $(".disk-area .chartjs-size-monitor").remove();
                 $(".disk-area").append('<canvas id="diskChart"></canvas>');
 
                 const diskChart = document.getElementById("diskChart").getContext("2d");
@@ -801,6 +808,7 @@ function startSocket2() {
 
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
                 $("#networkChart").remove();
+                $(".network-area .chartjs-size-monitor").remove();
                 $(".network-area").append('<canvas id="networkChart"></canvas>');
 
                 const networkChart = document.getElementById("networkChart").getContext("2d");
