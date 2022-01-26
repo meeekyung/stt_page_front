@@ -1,5 +1,5 @@
 function startSocket3() {
-    const socket3 = new WebSocket("ws://192.168.20.123:55532/ws/alarm");
+    const socket3 = new WebSocket("ws://"+ url123 +"/ws/alarm");
 
     let num = 0;
 

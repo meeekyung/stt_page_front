@@ -31,7 +31,6 @@ $(function () {
   //scroll 시 햄버거 버튼 색상 변경
   $(window).on('scroll', function () {
     let scroll = $('html, body').scrollTop();
-    console.log(scroll);
 
     if (scroll < 60) {
       $('.nav-bar').css({ 'z-index': 9999 });

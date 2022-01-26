@@ -13,7 +13,7 @@ function sttSetinterval(fn, delay) {
 //ajax 호출
 sttSetinterval(function () {
     $.ajax({
-        url: "http://192.168.20.123:55532/monitor/stt-config",
+        url: "http://"+url123+"/monitor/stt-config",
         method: "GET",
         dataType: "JSON",
 
@@ -34,6 +34,7 @@ sttSetinterval(function () {
             }
         },
         error: function () {
+            
         }
     });
 }, 5000);

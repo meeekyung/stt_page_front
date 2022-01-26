@@ -1,5 +1,5 @@
 function startSocket() {
-    let socket = new WebSocket("ws://192.168.20.123:55532/ws/performance");
+    let socket = new WebSocket("ws://"+url123+"/ws/performance");
 
     let performanceData;
 

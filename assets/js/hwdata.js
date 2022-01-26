@@ -1,5 +1,9 @@
+const url123 ="192.168.20.123:55532";
+const url124 ="192.168.20.124:55532";
+const url194 ="192.168.20.194:55532";
+
 function startSocket2() {
-    let socket2 = new WebSocket("ws://192.168.20.123:55532/ws/hardware-status");
+    let socket2 = new WebSocket("ws://"+ url123 +"/ws/hardware-status");
 
     let hardwareData;
 
@@ -713,8 +717,9 @@ function startSocket2() {
                 let diskValueArr = [];
                 let diskValue = hwData.message.disk;
                 diskValue.forEach((item, idx) => {
-                    diskValueArr.push(parseInt(item.unit).toFixed(2));
+                    diskValueArr.push((item.unit).toFixed(2));
                 });
+                console.log(diskValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const diskBgN = diskNames.length;
@@ -795,7 +800,7 @@ function startSocket2() {
                 let networkValueArr = [];
                 let networkValue = hwData.message.network;
                 networkValue.forEach((item, idx) => {
-                    networkValueArr.push((parseInt(item.unit).toFixed(2)));
+                    networkValueArr.push(((item.unit).toFixed(2)));
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
@@ -829,6 +834,11 @@ function startSocket2() {
                         maintainAspectRatio: false,
                         legend: {
                             display: false
+                        },
+                        plugins:{
+                            tooltip:{
+                                intersect : false
+                            }
                         },
                         scales: {
                             xAxes: [

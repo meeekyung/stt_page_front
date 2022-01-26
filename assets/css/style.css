@@ -125,7 +125,7 @@ a{text-decoration: none;}
 
 #systemArea, #useperArea{width: 90%;margin: 0 auto;overflow: hidden;}
 .system-box{background: #fff;padding-bottom: 1em;}
-.performanceList, .hwAreaList{display: flex;justify-content: space-around;height: 11em;padding: 0 70px;box-sizing: border-box;}
+.performanceList, .hwAreaList{display: flex;justify-content: space-around;height: 11em;padding: 0 30px;box-sizing: border-box;}
 
 .system-tit{text-align: left;padding: 20px 0 20px 30px;color: #5d6778;}
 .performance-box{width: 20%;position: relative;border: 1px solid #d6d8e1;border-radius: 5px;padding: 1em;box-sizing: border-box;margin-right: 2em;box-shadow: 3px 3px 5px rgba(25, 160, 238, .05);}
@@ -145,14 +145,15 @@ a{text-decoration: none;}
 .channelstatusList{padding: 0 70px;display: flex;justify-content: space-around;align-items: center;}
 .channel-left{position: relative;width: 50%;}
 .channel-right{position: relative;}
-.status-area{width: 50% !important;}
+/* .status-area{width: 50% !important;} */
+.status-area{position: relative;left: -140px;}
 .severchannel-area>canvas{width: 450px !important;}
 
 .hwArea{background: #fff;padding-bottom: 2em;}
 .hw-box{padding: 30px 0;box-sizing: border-box;}
 .hw-box h4{font-size: 1.3rem;margin-bottom: .7em;display: inline-block;margin-right: 25px;}
-.cpu-area>canvas, .memory-area>canvas{width: 250px !important;}
-.disk-area>canvas, .network-area>canvas{width: 250px !important;}
+.cpu-area>canvas, .memory-area>canvas{width: 100% !important;}
+.disk-area>canvas, .network-area>canvas{width: 100% !important;}
 
 /* monitoring */
 #monitoring-cont{height: 100%;}
@@ -213,10 +214,9 @@ a{text-decoration: none;}
     .system-box{font-size: .9rem;}
     .performance-box>h4{font-size: 18px;}
     .performance-box>div{font-size: 30px;margin-top: 1em;}
-    .success-chart{right: -90px;height: 90px;}
+    .success-chart{top: 20px;}
     .status-chart-spot{right: 40px;}
     .status-area{position: relative;left: -40px;}
-    .cpu-area>canvas, .memory-area>canvas{width: 200px !important;}
     .hw-box h4{font-size: 1.1rem;margin-right: 0;margin-bottom: 1em;}
 }
 /* width 1300 이하일때 */
@@ -224,22 +224,19 @@ a{text-decoration: none;}
     .performance-box>h4{text-align: center;}
     .success-chart-spot{display: none;}
     .success-chart{right: -45px;height: 110px;margin-top: 15px !important;}
-    .status-area{width: 60% !important;top: -10px;right: 0;}
+    /* .status-area{width: 60% !important;top: -10px;right: 0;} */
     .status-chart-spot{top: 50px;right: 20px;}
     #statusChart{margin-top: 15px;}
     .performance-box>div{height: 100px;}
     .severchannel-area>canvas{width: 400px !important;}
-    .disk-area>canvas, .network-area>canvas{width: 230px !important;}
 }
 /* width 1200 이하일때 */
 @media screen and (max-width: 1200px){
     .performance-box>div{margin-top: 1.2em;}
     .success-chart{right: -60px;}
-    .status-area{width: 50% !important;top: -20px;}
+    /* .status-area{width: 50% !important;top: -20px;} */
     .severchannel-area>canvas{width: 350px !important;}
     .status-chart-spot{top: 50px;right: 20px;}
-    .cpu-area>canvas, .memory-area>canvas{width: 180px !important;}
-    .disk-area>canvas, .network-area>canvas{width: 200px !important;}
 }
 /* width 1140px 이하일때 */
 @media screen and (max-width: 1140px) {
@@ -249,6 +246,28 @@ a{text-decoration: none;}
     .performance-box>h4{font-size: 15px;}
     .performance-box>div{font-size: 25px;}
     .severchannel-area>canvas{width: 330px !important;}
-    .cpu-area>canvas, .memory-area>canvas{width: 160px !important;}
-    .disk-area>canvas, .network-area>canvas{width: 180px !important;}
+}
+/* width 1095px 이하일때 */
+@media screen and (max-width: 1095px) {
+    .performanceList{flex-flow: wrap;height: auto;justify-content: flex-start;}
+    .performance-box{width: 40%;margin-bottom: 10px;}
+    .performance-box:last-child{width: 50%;}
+    .performance-box:nth-child(2){margin-right: 0;}
+    #useperArea{overflow: visible;}
+    .hwAreaList{flex-flow: wrap;height: 100%;}
+    .hw-box{width: 40%;height: 100%;}
+    .hwArea{height: 100%;}
+}
+/* width 850px 이하일때 */
+@media screen and (max-width: 850px) {
+    .performance-box{width: 100%;margin-right: 0;}
+    .performance-box:nth-child(2){margin-right: 0;}
+    .performance-box:last-child{width: 100%;}
+    .channelstatusList{flex-flow: wrap;}
+    .channel-left{width: 100%;}
+    .hw-box{width: 100%;}
+}
+/* width 700px 이하일때 */
+@media screen and (max-width: 700px) {
+    .performanceList, .hwAreaList{padding: 0 20px;}
 }
