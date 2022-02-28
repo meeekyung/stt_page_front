@@ -123,7 +123,7 @@ function startSocket() {
                         defaultFontFamily: "Roboto",
                         boxWidth: 15,
                     },
-                },
+                },  
                 cutoutPercentage: 90,
                 scales: {
                     yAxes: [

@@ -1,5 +1,5 @@
 function startSocket3() {
-    const socket3 = new WebSocket("ws://"+ url123 +"/ws/alarm");
+    const socket3 = new WebSocket("ws://" + url123 + "/ws/alarm");
 
     let num = 0;
 
@@ -33,8 +33,12 @@ function startSocket3() {
             num++;
 
             if (num < 21) {
+                if (alarmData.level === "INFO") {
+                    $('.notice-error-popup-wrap').append('<div class="notice-error-popup" id="noticeError' + num + '"><div class="notice-error"><div class="close-icon"><i class="fas fa-times"></i></div><div class="notice-error-tit"><div class="notice-error-icon"></div><span class="notice-error-level">' + alarmLevel + '</span></div><p class="notice-error-txt">' + alarmMssg + '</p><div class="notice-error-bottom-txt"><span class="notice-error-hostname">' + alarmHostname + '</span><p class="notice-error-time">' + alarmTime + '</p></div><input type="button" value="확인" class="notice-error-btn"></div></div>');
+                } else {
+                    $('.notice-error-popup-wrap').append('<div class="notice-error-popup" id="noticeError' + num + '"><div class="notice-error"><div class="close-icon"><i class="fas fa-times"></i></div><div class="notice-error-tit"><div class="notice-error-icon"></div><span class="notice-error-level">' + alarmLevel + " Warning" + '</span></div><p class="notice-error-txt">' + alarmMssg + '</p><div class="notice-error-bottom-txt"><span class="notice-error-hostname">' + alarmHostname + '</span><p class="notice-error-time">' + alarmTime + '</p></div><input type="button" value="확인" class="notice-error-btn"></div></div>');
+                }
 
-                $('.notice-error-popup-wrap').append('<div class="notice-error-popup" id="noticeError' + num + '"><div class="notice-error"><div class="close-icon"><i class="fas fa-times"></i></div><div class="notice-error-tit"><div class="notice-error-icon"></div><span class="notice-error-level">' + alarmLevel + " Warning" + '</span></div><p class="notice-error-txt">' + alarmMssg + '</p><div class="notice-error-bottom-txt"><span class="notice-error-hostname">' + alarmHostname + '</span><p class="notice-error-time">' + alarmTime + '</p></div><input type="button" value="확인" class="notice-error-btn"></div></div>')
                 $('#noticeError' + num).css({
                     'display': 'block',
                     'z-index': num,
@@ -44,8 +48,25 @@ function startSocket3() {
             }
         }
 
+        //확인버튼 또는 엑스 클릭시 위치변경
+        $('.notice-error-btn').on('click', function () {
+            let current_btn = $(this).parents().parents();
+            current_btn.css({
+                'bottom': num - 9 * num,
+                'right': num - 9 * num
+            });
+        });
+
+        $('.close-icon>svg').on('click', function(){
+            let current_close = $(this).parents().parents().parents();
+            current_close.css({
+                'bottom': num - 9 * num,
+                'right': num - 9 * num
+            });
+        });
+
         //level에 따른 색상값 변경   
-        if (alarmLevel === "CRITICAL") {
+        if (alarmData.level === "CRITICAL") {
             //팝업창 생성
             createPopup(num);
 
@@ -69,7 +90,7 @@ function startSocket3() {
                 }
             }
         }
-        if (alarmLevel === "MAJOR") {
+        if (alarmData.level === "MAJOR") {
             //팝업창 생성
             createPopup(num);
 
@@ -94,7 +115,7 @@ function startSocket3() {
             }
 
         }
-        if (alarmLevel === "MINOR") {
+        if (alarmData.level === "MINOR") {
             //팝업창 생성
             createPopup(num);
 
@@ -119,15 +140,13 @@ function startSocket3() {
             }
 
         }
-        if (alarmLevel === "INFO") {
+        if (alarmData.level === "INFO") {
             //팝업창 생성
             createPopup(num);
 
             $('#noticeError' + num).children('.notice-error').children('.notice-error-tit').children('.notice-error-icon').css({ "background-position-x": "-114px" });
             $('#noticeError' + num).children('.notice-error').css({ "border-image": "linear-gradient(to right, #50d276, #22b24c)" });
             $('#noticeError' + num).children('.notice-error').children('.notice-error-btn').css({ "background": "linear-gradient(to right, #50d276, #22b24c)" });
-
-            document.querySelector(".notice-error-tit .notice-error-level").innerText = "Notice"
 
             const status = document.getElementsByClassName('staus-tit');
             for (let i = 0; i < status.length; i++) {

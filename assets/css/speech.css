@@ -1,6 +1,6 @@
 html, body {font-family: 'KoPub Dotum';}
 body {background: #f6f7fb; color: #555;}
-
+  
 #wrap {width: 100%;}
 
 /* 공통 */
@@ -33,7 +33,7 @@ body {background: #f6f7fb; color: #555;}
 .cont-title>p {font-size: 18px; display: inline-block; letter-spacing: -1px;}
 .notice {font-size: 15px; margin-left: 10px; color: red;}
 
-#loginArea {width: 30%;margin: 120px auto 0;text-align: center;position: relative;z-index: 999;}
+#loginArea {width: 25%;margin: 120px auto 0;text-align: center;position: relative;z-index: 999;}
 .login-img {width: 80px;height: 80px;border-radius: 50%;box-shadow: 3px 3px 3px rgba(0, 0, 0, .06);position: relative;display: inline-block;margin-bottom: 1em;
     background: #3a7bd5; /* Old browsers */
     background: -moz-linear-gradient(top, #3a7bd5 0%, #00baff 100%); /* FF3.6-15 */
@@ -46,8 +46,10 @@ body {background: #f6f7fb; color: #555;}
 .login_tit {color: #555;font-size: 30px;margin-bottom: 1em;}
 input:focus {outline: none;border: 1px solid #0af;box-shadow: 0 0 5px rgba(0, 170, 255, .5);}
 .text_in {width: 100%;height: 45px;line-height: 45px;background: #fff;padding: .5rem .75rem;box-sizing: border-box;border: 1px solid #ccc;border-radius: 5px;margin-bottom: 1em;font-size: 16px;color: #555;}
-.lntro-btn {width: 100%;height: 45px;background: #2393e5;color: #fff;border: 0;font-size: 20px;padding: .5rem .75rem;box-sizing: border-box;border-radius: 5px;box-shadow: 3px 3px 3px rgba(0, 0, 0, .1);cursor: pointer;}
+.lntro-btn {width: 100%;height: 55px;background: #2393e5;color: #fff;border: 0;font-size: 20px;padding: .5rem .75rem;box-sizing: border-box;border-radius: 5px;box-shadow: 3px 3px 3px rgba(0, 0, 0, .1);cursor: pointer;}
 .lntro-btn:hover {background: #2087d1;box-shadow: 3px 3px 3px rgba(0, 0, 0, .15);}
+.login_logo{width: 50%;margin: 1.5em auto 0;}
+.login_logo>img{max-width: 100%;}
 
 .upload-area {margin-top: 37px;text-align: left;}
 .speech-subtit {font-size: 24px; margin-bottom: 15px; display: inline-block;}
@@ -61,7 +63,7 @@ form {position: relative;}
     background-image: linear-gradient(#64b1f6, #3399f3 50%, #2f8de0);transition: all .5s ease;}
 .borwse-btn {width: 85px; height: 35px; background-image: linear-gradient(#edeff2, #e9ecef 60%, #dbdee1); border: 1px solid #edeff2; font-size: 14px; color: #555; position: absolute; right: 10px; top: 10px; box-shadow: none; line-height: 18px;text-align: center;}
 .borwse-btn:hover {font-weight: bold; border: 1px solid #ccc;}
-.file-btn:hover {border: 1px solid #2673b6; background-image: linear-gradient(#61a8e7, #2f8de0 50%, #2b82ce);}
+/* .file-btn:hover {border: 1px solid #2673b6; background-image: linear-gradient(#61a8e7, #2f8de0 50%, #2b82ce);} */
 input[type="file"] {position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
 
 #audio {width: 100%; background: #f1f3f4; margin: 1em auto 2em;}
@@ -98,4 +100,18 @@ input[type="file"] {position: absolute; width: 1px; height: 1px; padding: 0; mar
 @keyframes scaleBounce{
 	from {transform:scale(.7)}
 	to {transform:scale(1.3)}
+}
+
+/* width 1044px 이하일때 */
+@media screen and (max-width: 1044px) {
+    .speech-subtxt{margin-bottom: 20px;}
+}
+/* width 887px 이하일때 */
+@media screen and (max-width: 887px) {
+    .cont-subtxt{padding: 15px 0 0 15px;}
+    .notice{margin-left: 0;display: block;padding-top: 5px;}
+}
+/* width 800px 이하일때 */
+@media screen and (max-width: 800px) {
+    .notice{margin-left: 10px;display: inline-block;}
 }

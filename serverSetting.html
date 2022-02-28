@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>STT 관리자페이지</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+
+    <link rel="shortcut icon" href="assets/images/logo.ico">
+    <!-- FontAwesome JS-->
+    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+    <script src="https://kit.fontawesome.com/bc60315972.js" crossorigin="anonymous"></script>
+    <!-- jqGrid -->
+    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/ui.jqgrid.css">
+    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/addons/ui.multiselect.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=20211227">
+</head>
+
+<body class="wrap">
+    <header class="header">
+        <div class="header-inner"></div>
+
+        <div class="nav-bar">
+            <i class="bar t"></i>
+            <i class="bar m"></i>
+            <i class="bar b"></i>
+        </div>
+
+        <div class="logout-area">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Logout</p>
+        </div>
+
+        <div class="side-menu">
+            <div class="side-menu-inner">
+                <div class="logo-branding">
+                    <img class="logo-area" src="assets/images/nav_logo.png" alt="logo">
+                </div>
+
+                <nav class="nav-main">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link active">
+                                <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
+                                <span class="nav-txt">대시보드</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="stttest.html" class="nav-link">
+                                <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
+                                <span class="nav-txt">음성인식 결과</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-setting">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <span class="nav-icon setting-icon"><i class="fa-solid fa-gear"></i></span>
+                                <span class="nav-txt">설정</span>
+                                <i class="fa-solid fa-angle-down nav-arrow"></i>
+                            </a>
+                            <!-- 설정의 하위메뉴 -->
+                            <ol class="nav-subMenu">
+                                <li>
+                                    <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-subLink">시스템 설정</a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="cont" class="rounded-lg p1rem">
+            <div class="cont-tit-area mb20">
+                <h3 class="cont-subtit">시스템 설정</h3>
+
+                <div class="serverTab-area">
+                    <ul>
+                        <li class="servertab1">
+                            <a href="serverSetting.html" style="background: #19a0ee;color: #fff;">서버정보</a>
+                        </li>
+                        <li class="servertab2">
+                            <a href="alarmSetting.html">알람설정</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="setArea">
+                <div class="set-box">
+                    <h3 class="set-tit">서버 설정</h3>
+
+                    <div class="set-btn">
+                        <ul>
+                            <li class="userT-look">조회</li>
+                            <li class="userT-add">추가</li>
+                            <li class="userT-change">변경</li>
+                            <li class="userT-delete">삭제</li>
+                        </ul>
+                    </div>
+
+                    <table id="serverGrid"></table>
+                    <div id="serverGridpager"></div>
+                </div>
+            </div>
+            <!-- 추가 버튼 클릭 시 팝업 -->
+            <div id="userAddPopup">
+                <div class="bg_black"></div>
+                <div class="add-area">
+                    <div class="addH">
+                        <h3>변경</h3>
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="add-cont">
+                        <div class="add_in">
+                            <input type="text" name="servername" id="serverName" placeholder="서버명">
+                        </div>
+                        <div class="add_in">
+                            <input type="text" name="hostname" id="hostName" placeholder="호스트명">
+                        </div>
+                        <div class="add_in">
+                            <input type="text" name="severrole" id="severRole" placeholder="role">
+                        </div>
+                        <div class="add_in">
+                            <input type="text" name="ipaddr" id="ipAddr" placeholder="IP주소">
+                        </div>
+                    </div>
+                    <div class="add-btn-area">
+                        <input type="button" value="닫기" class="btn close-btn">
+                        <input type="button" value="추가" class="btn add-btn">
+                    </div>
+                </div>
+            </div>
+            <!-- 변경 버튼 클릭 시 팝업 -->
+            <div id="userChPopup">
+                <div class="bg_black"></div>
+                <div class="add-area">
+                    <div class="addH">
+                        <h3>변경</h3>
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="add-cont">
+                        <div class="add_in">
+                            <input type="text" name="servername2" id="serverName2" placeholder="서버명">
+                        </div>
+                        <div class="add_in">
+                            <input type="text" name="hostname2" id="hostName2" placeholder="호스트명">
+                        </div>
+                        <div class="add_in">
+                            <input type="text" name="severrole2" id="severRole2" placeholder="role">
+                        </div>
+                        <div class="add_in">
+                            <input type="text" name="ipaddr2" id="ipAddr2" placeholder="IP주소">
+                        </div>
+                    </div>
+                    <div class="add-btn-area">
+                        <input type="button" value="닫기" class="btn close-btn">
+                        <input type="button" value="변경" class="btn change-btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="notice-error-popup-wrap"></div>
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jqGrid -->
+    <script src="assets/plugins/jqGrid-master/js/jquery.jqGrid.min.js"></script>
+    <script src="assets/plugins/jqGrid-master/js/i18n/grid.locale-en.js"></script>
+    <script src="assets/js/serverGrid.js?v=20211227"></script>
+
+    <!-- layout.js -->
+    <script src="assets/js/layout.js?v=20211227"></script>
+</body>
+
+</html>

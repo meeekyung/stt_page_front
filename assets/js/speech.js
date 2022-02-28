@@ -4,6 +4,7 @@ const url194 ="192.168.20.194:55532";
 
 //첫화면 로딩시 변환하기 버튼 비활성화 및 audio ui 비활성화
 $('#uploadBtn').addClass('file-btn_off');
+$('#uploadBtn').attr('disabled',true);
 $('.ready-player-1').hide();
 
 //input[type="file"] style  
@@ -125,6 +126,7 @@ $(function () {
 
     //파일찾기를 클릭하면 변환하기 버튼 및 audio ui 활성화
     $('#uploadBtn').removeClass('file-btn_off');
+    $('#uploadBtn').removeAttr('disabled');
     $('.green-audio-player').fadeIn();
   });
 });

@@ -254,6 +254,8 @@ function startSocket2() {
         });
     }
 
+    onSet();
+
     //데이터 수신 됨
     socket2.onmessage = function (json) {
         //전체 데이터 출력
@@ -611,7 +613,7 @@ function startSocket2() {
                         animation: {
                             duration: 0
                         },
-                        responsive: true,
+                        responsive: false,
                         maintainAspectRatio: false,
                         legend: {
                             position: 'right',
@@ -679,7 +681,7 @@ function startSocket2() {
                         animation: {
                             duration: 0
                         },
-                        responsive: true,
+                        responsive: false,
                         maintainAspectRatio: false,
                         legend: {
                             position: 'right',
@@ -719,7 +721,6 @@ function startSocket2() {
                 diskValue.forEach((item, idx) => {
                     diskValueArr.push((item.unit).toFixed(2));
                 });
-                console.log(diskValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const diskBgN = diskNames.length;
@@ -747,7 +748,7 @@ function startSocket2() {
                         ],
                     },
                     options: {
-                        responsive: true,
+                        responsive: false,
                         maintainAspectRatio: false,
                         legend: {
                             display: false
@@ -830,7 +831,7 @@ function startSocket2() {
                         ],
                     },
                     options: {
-                        responsive: true,
+                        responsive: false,
                         maintainAspectRatio: false,
                         legend: {
                             display: false
