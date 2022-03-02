@@ -61,11 +61,21 @@
                                 <span class="nav-txt">음성인식 결과</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="serviceStatics.html" class="nav-link">
-                                <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+                        <li class="nav-item nav-static">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <span class="nav-icon static-icon"><i class="fa-solid fa-chart-line"></i></span>
                                 <span class="nav-txt">통계</span>
+                                <i class="fa-solid fa-angle-down nav-arrow"></i>
                             </a>
+                            <!-- 통계의 하위메뉴 -->
+                            <ol class="nav-subMenu">
+                                <li>
+                                    <a href="serviceStatics.html" class="nav-subLink">서비스통계</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-subLink">시스템 통계</a>
+                                </li>
+                            </ol>
                         </li>
                         <li class="nav-item nav-setting">
                             <a href="javascript:void(0);" class="nav-link">
@@ -79,7 +89,7 @@
                                     <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
                                 </li>
                                 <li>
-                                    <a href="" class="nav-subLink">시스템 설정</a>
+                                    <a href="#" class="nav-subLink">시스템 설정</a>
                                 </li>
                             </ol>
                         </li>
@@ -92,7 +102,7 @@
     <div class="container">
         <div id="cont" class="rounded-lg p1rem">
             <div class="cont-tit-area mb20">
-                <h3 class="cont-subtit">통계</h3>
+                <h3 class="cont-subtit">서비스 통계</h3>
             </div>
 
             <div id="searchRequire">
@@ -109,14 +119,14 @@
                         </div>
                         <div class="search-subcont tenant-area">
                             <h5 class="search-cont-tit">테넌트</h5>
-                            <input type="text" name="tenantName" id="tenantName" class="w150 text_in" placeholder="Tenant">
+                            <input type="text" name="tenantName" id="tenantName" class="w150 text_in" placeholder="ex) broadcns">
                         </div>
                         <div class="search-subcont server-area">
                             <h5 class="search-cont-tit">서버별</h5>
-                            <input type="text" name="serverName" id="serverName" class="w150 text_in" placeholder="Server">
+                            <input type="text" name="serverName" id="serverName" class="w150 text_in" placeholder="ex) bona-stt1">
                         </div>
                         <div class="search-subcont time-area">
-                            <h5 class="search-cont-tit">시간단위</h5>
+                            <h5 class="search-cont-tit">단위시간</h5>
                             <select name="timeType" id="timeType" class="w150 select_in">
                                 <option value="minute">분</option>
                                 <option value="hour">시간</option>
@@ -132,8 +142,8 @@
             <div id="searchResult">
                 <h3 class="search-tit">검색결과</h3>
                 <div class="searchBox searchRBox">
-                    <table id="searchGrid"></table>
-                    <div id="searchGridpager"></div>
+                    <table id="serviceGrid"></table>
+                    <div id="serviceGridpager"></div>
                     <input type="button" value="EXCEL 변환" class="btn execl-btn">
                 </div>
             </div>
@@ -148,7 +158,7 @@
     <!-- jqGrid -->
     <script src="assets/plugins/jqGrid-master/js/jquery.jqGrid.min.js"></script>
     <script src="assets/plugins/jqGrid-master/js/i18n/grid.locale-en.js"></script>
-    <script src="assets/js/searchGrid.js?v=20211227"></script>
+    <script src="assets/js/serviceGrid.js?v=20211227"></script>
 
     <!-- jquery-ui -->
     <script src="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>

@@ -15,9 +15,13 @@
     <!-- FontAwesome JS-->
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <script src="https://kit.fontawesome.com/bc60315972.js" crossorigin="anonymous"></script>
+    <!-- jquery-ui -->
+    <link rel="stylesheet" href="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui.css" type="text/css">
+    <link rel="stylesheet" href="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui-custom.css"
+        type="text/css">
     <!-- jqGrid -->
-    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/ui.jqgrid.css">
-    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/addons/ui.multiselect.css">
+    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/ui.jqgrid.css" type="text/css">
+    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/addons/ui.multiselect.css" type="text/css">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css?v=20211227">
@@ -58,11 +62,21 @@
                                 <span class="nav-txt">음성인식 결과</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="voiceStatics.html" class="nav-link">
-                                <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+                        <li class="nav-item nav-static">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <span class="nav-icon static-icon"><i class="fa-solid fa-chart-line"></i></span>
                                 <span class="nav-txt">통계</span>
+                                <i class="fa-solid fa-angle-down nav-arrow"></i>
                             </a>
+                            <!-- 통계의 하위메뉴 -->
+                            <ol class="nav-subMenu">
+                                <li>
+                                    <a href="serviceStatics.html" class="nav-subLink">서비스통계</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-subLink">시스템 통계</a>
+                                </li>
+                            </ol>
                         </li>
                         <li class="nav-item nav-setting">
                             <a href="javascript:void(0);" class="nav-link">
@@ -76,7 +90,7 @@
                                     <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
                                 </li>
                                 <li>
-                                    <a href="" class="nav-subLink">시스템 설정</a>
+                                    <a href="#" class="nav-subLink">시스템 설정</a>
                                 </li>
                             </ol>
                         </li>
@@ -89,13 +103,22 @@
     <div class="container">
         <div id="cont" class="rounded-lg p1rem">
             <div class="cont-tit-area mb20">
-                <h3 class="cont-subtit">통계</h3>
+                <h3 class="cont-subtit">시스템 통계</h3>
             </div>
 
             <div id="searchRequire">
                 <h3 class="search-tit">검색조건</h3>
                 <div class="searchBox">
                     <div class="search-cont">
+                        <div class="search-subcont systemType-area">
+                            <h5 class="search-cont-tit">시스템유형</h5>
+                            <select name="systemType" id="systemType" class="w150 select_in">
+                                <option value="cpumemory">CPU/메모리</option>
+                                <option value="network">네트워크</option>
+                                <option value="disk">DISK</option>
+                                <option value="channel">채널</option>
+                            </select>
+                        </div>
                         <div class="search-subcont date-area">
                             <h5 class="search-cont-tit">기간</h5>
                             <div class="date-input">
@@ -104,17 +127,14 @@
                                 <input type="text" name="endDate" id="endDate" class="w150 text_in in_calendar">
                             </div>
                         </div>
-                        <div class="search-subcont tenant-area">
-                            <h5 class="search-cont-tit">테넌트</h5>
-                            <input type="text" name="tenantName" id="tenantName" class="w150 text_in" placeholder="Tenant">
-                        </div>
                         <div class="search-subcont server-area">
                             <h5 class="search-cont-tit">서버별</h5>
-                            <input type="text" name="serverName" id="serverName" class="w150 text_in" placeholder="Server">
+                            <input type="text" name="serverName" id="serverName" class="w150 text_in"
+                                placeholder="ex) bona-stt1">
                         </div>
                         <div class="search-subcont time-area">
-                            <h5 class="search-cont-tit">시간단위</h5>
-                            <select name="timeType" id="timeType" class="w150 select_in">
+                            <h5 class="search-cont-tit">단위시간</h5>
+                            <select name="timeType" id="timeType" class="w100 select_in">
                                 <option value="minute">분</option>
                                 <option value="hour">시간</option>
                                 <option value="day">일</option>
@@ -127,10 +147,12 @@
             </div>
 
             <div id="searchResult">
-                <div class="search-tit">검색결과</div>
+                <h3 class="search-tit">검색결과</h3>
                 <div class="searchBox searchRBox">
-                    <table id="searchGrid"></table>
-                    <div id="searchGridpager"></div>
+                    <div class="systemStatics-area">
+                        <table id="systemGrid"></table>
+                        <div id="systemGridpager"></div>
+                    </div>
                     <input type="button" value="EXCEL 변환" class="btn execl-btn">
                 </div>
             </div>
@@ -145,7 +167,10 @@
     <!-- jqGrid -->
     <script src="assets/plugins/jqGrid-master/js/jquery.jqGrid.min.js"></script>
     <script src="assets/plugins/jqGrid-master/js/i18n/grid.locale-en.js"></script>
-    <script src="assets/js/searchGrid.js?v=20211227"></script>
+    <script src="assets/js/systemGrid.js?v=20211227"></script>
+
+    <!-- jquery-ui -->
+    <script src="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>

@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#userGrid").width();
 
     $("#userGrid").jqGrid({
-        url: "http://192.168.20.194:55532/users/list",
+        url: "http://192.168.20.203:55532/users/list",
         datatype: "json",
         mtype: "get",
         colNames: cnames,
@@ -85,7 +85,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.20.194:55532/users?ids=" + selRowIdsJoin,
+            url: "http://192.168.20.203:55532/users?ids=" + selRowIdsJoin,
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
@@ -111,7 +111,7 @@ $(function () {
         $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
 
         $.ajax({
-            url: "http://192.168.20.194:55532/users/signup",
+            url: "http://192.168.20.203:55532/users/signup",
             contentType: "application/json; charset=UTF-8",
             method: "POST",
             dataType: "JSON",
@@ -154,7 +154,7 @@ $(function () {
             let radioSms2 = $('input:radio[name="smsnoti2"]:checked').val();
 
             $.ajax({
-                url: "http://192.168.20.194:55532/users/" + selRowIds + "/update",
+                url: "http://192.168.20.203:55532/users/" + selRowIds + "/update",
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
                 dataType: "JSON",

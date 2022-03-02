@@ -60,14 +60,14 @@ $(window).resize(function () {
 
 //설정 메뉴 클릭 시 하위메뉴 보이게(아코디언)
 let onOff = true;
-$('.nav-setting').on('click', function () {
+$('.nav-setting, .nav-static').on('click', function () {
   onOff = !onOff;
   if (!onOff) {
     $('.nav-subMenu').slideDown();
-    $('.nav-setting a .fa-angle-down').attr('class', 'fa-solid fa-angle-up nav-arrow');
+    $('.nav-setting a .fa-angle-down, .nav-static a .fa-angle-down').attr('class', 'fa-solid fa-angle-up nav-arrow');
   } else {
     $('.nav-subMenu').slideUp();
-    $('.nav-setting a .fa-angle-up').attr('class', 'fa-solid fa-angle-down nav-arrow');
+    $('.nav-setting a .fa-angle-up, .nav-static a .fa-angle-up').attr('class', 'fa-solid fa-angle-down nav-arrow');
   }
 });
 

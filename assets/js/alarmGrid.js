@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#alarmGrid").width();
 
     $("#alarmGrid").jqGrid({
-        url: "http://192.168.20.194:55532/monitor/alarm",
+        url: "http://192.168.20.203:55532/monitor/alarm",
         datatype: "json",
         mtype: "get",
         //headers: { "Authorization": 'Bearer ' + localStorage.getItem("token") }, 
