@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/css/style.css?v=20211227">
 </head>
 
-<body>
+<body class="wrap">
     <header class="header">
         <div class="header-inner"></div>
 
@@ -28,6 +28,11 @@
             <i class="bar t"></i>
             <i class="bar m"></i>
             <i class="bar b"></i>
+        </div>
+
+        <div class="logout-area">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Logout</p>
         </div>
 
         <div class="side-menu">
@@ -53,7 +58,7 @@
                         <li class="nav-item nav-setting">
                             <a href="javascript:void(0);" class="nav-link">
                                 <span class="nav-icon setting-icon"><i class="fa-solid fa-gear"></i></span>
-                                <span class="nav-txt">설정</span>
+                                <span class="nav-txt">설정</span>                                
                                 <i class="fa-solid fa-angle-down nav-arrow"></i>
                             </a>
                             <!-- 설정의 하위메뉴 -->
@@ -62,7 +67,7 @@
                                     <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
                                 </li>
                                 <li>
-                                    <a href="" class="nav-subLink">시스템 설정</a>
+                                    <a href="serverSetting.html" class="nav-subLink">시스템 설정</a>
                                 </li>
                             </ol>
                         </li>
@@ -75,7 +80,7 @@
     <div class="container">
         <div id="cont" class="rounded-lg p1rem">
             <div class="cont-tit-area mb20">
-                <h3 class="cont-subtit">Dashboard</h3>
+                <h3 class="cont-subtit">대시보드</h3>
             </div>
             <div id="severStausArea">
             </div>
@@ -176,7 +181,7 @@
                 <div class="tab-area w100p mt20">
                     <div class="tab-bg bgTransparency mb0 bdb"></div>
                     <ul class="tab-list" id="hwTab"></ul>
-                    <ul class="tab-list" id="hwTabs"></ul>
+                    <ul class="tab-list" id="hwTabs" style="left: 120px;"></ul>
                 </div>
 
                 <div class="hwArea">
@@ -203,7 +208,7 @@
         </div>
     </div>
 
-    <div class="notice-error-popup-wrap"></div>
+    <div class="notice-error-popup-wrap"></div> 
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -217,21 +222,10 @@
     <script src="assets/js/performance.js?v=20211227"></script>
     <script src="assets/js/hwConfig.js?v=20211227"></script>
     <script src="assets/js/alarm.js?v=20211227"></script>
+    <script src="assets/js/login.js?v=20220223"></script>
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>
-    <script>
-        function Frameset(page) {
-            framecode = "<frameset rows='1*'>"
-                + "<frame name=main src='" + page + "'>"
-                + "</frameset>";
-
-            //page = window.open("");
-            //page.document.open();
-            document.write(framecode);
-            document.close();
-        }
-    </script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#serverGrid").width();
 
     $("#serverGrid").jqGrid({
-        url: "http://192.168.20.203:55532/monitor/server-config",
+        url: "http://192.168.20.194:55532/monitor/server-config",
         datatype: "json",
         mtype: "get",
         colNames: cnames,
@@ -80,7 +80,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.20.203:55532/monitor/server-config/delete?hostname=" + setDarrJoin,
+            url: "http://192.168.20.194:55532/monitor/server-config/delete?hostname=" + setDarrJoin,
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
@@ -105,7 +105,7 @@ $(function () {
         $("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
 
         $.ajax({
-            url: "http://192.168.20.203:55532/monitor/server-config",
+            url: "http://192.168.20.194:55532/monitor/server-config",
             contentType: "application/json; charset=UTF-8",
             method: "POST",
             dataType: "JSON",
@@ -161,7 +161,7 @@ $(function () {
             let ipAddr2 = document.getElementById("ipAddr2").value;
 
             $.ajax({
-                url: "http://192.168.20.203:55532/monitor/server-config/" + setCharr[1],
+                url: "http://192.168.20.194:55532/monitor/server-config/" + setCharr[1],
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
                 dataType: "JSON",

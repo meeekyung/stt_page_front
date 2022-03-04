@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#searchGrid").width();
 
     $("#searchGrid").jqGrid({
-        url: "http://192.168.20.203:55532/users/list",
+        url: "http://192.168.20.194:55532/users/list",
         datatype: "json",
         mtype: "get",
         //data: JSON.stringify({ id: user_name, password: user_pw }),

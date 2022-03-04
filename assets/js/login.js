@@ -5,7 +5,7 @@ $("#introBtn").on("click", function () {
     var user_pw = document.getElementById("userPw").value;
 
     $.ajax({
-        url: "http://192.168.20.203:55532/users/login",
+        url: "http://192.168.20.194:55532/users/login",
         contentType: "application/json; charset=UTF-8",
         type: "POST",
         headers: { Authorization: "bearer " + localStorage.getItem("token") },

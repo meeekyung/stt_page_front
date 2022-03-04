@@ -22,7 +22,7 @@ $(function () {
             $(".searchRBox").addClass('searchBox');
 
             $("#systemGrid").jqGrid({
-                url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                url: `http://192.168.20.194:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
                 datatype: "json",
                 mtype: "get",
                 colNames: systemCnames,
@@ -63,7 +63,7 @@ $(function () {
             $(".searchRBox").addClass('searchBox');
 
             $("#systemGrid").jqGrid({
-                url: `http://192.168.20.203:55532/monitor/static/resources/networks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                url: `http://192.168.20.194:55532/monitor/static/resources/networks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
                 datatype: "json",
                 mtype: "get",
                 colNames: networkCnames,
@@ -104,7 +104,7 @@ $(function () {
             $(".searchRBox").addClass('searchBox');
 
             $("#systemGrid").jqGrid({
-                url: `http://192.168.20.203:55532/monitor/static/resources/disks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                url: `http://192.168.20.194:55532/monitor/static/resources/disks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
                 datatype: "json",
                 mtype: "get",
                 colNames: diskCnames,
@@ -145,7 +145,7 @@ $(function () {
             $(".searchRBox").addClass('searchBox');
 
             $("#systemGrid").jqGrid({
-                url: `http://192.168.20.203:55532/monitor/static/resources/channels?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                url: `http://192.168.20.194:55532/monitor/static/resources/channels?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
                 datatype: "json",
                 mtype: "get",
                 colNames: channelCnames,

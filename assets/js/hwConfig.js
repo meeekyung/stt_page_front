@@ -1,8 +1,8 @@
 let lasthwSelect;
 
-$('#hwTab').append(
-    '<li id="hw0" class="tab tab-on bdb">bona-lbmon1a</li>'
-);
+// $('#hwTab').append(
+//     '<li id="hw0" class="tab tab-on bdb">bona-lbmon1a</li>'
+// );
 
 function hwSetinterval(fn, delay) {
     fn();
@@ -12,7 +12,7 @@ function hwSetinterval(fn, delay) {
 //ajax 호출
 hwSetinterval(function () {
     $.ajax({
-        url: "http://"+ url123 +"/monitor/server-config",
+        url: "http://192.168.20.194:55532/monitor/server-config",
         method: "GET",
         dataType: "JSON",
 
@@ -22,13 +22,15 @@ hwSetinterval(function () {
             } else {
                 $('#hwTabs').empty();
                 
-                for (let i = 1; i < json.length; i++) {
+                for (let i = 0; i < json.length; i++) {
                     if (json.length >= 0) {
                         $('#hwTabs').append(
                             '<li id="hw' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
                         );
                     }
                 }
+
+                $('#hw0').addClass('tab-on');
             }
 
             $('#severStausArea').empty();            

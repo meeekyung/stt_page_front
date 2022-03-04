@@ -1,6 +1,6 @@
 const url123 ="192.168.20.123:55532";
 const url124 ="192.168.20.124:55532";
-const url194 ="192.168.20.203:55532";
+const url194 ="192.168.20.194:55532";
 
 //첫화면 로딩시 변환하기 버튼 비활성화 및 audio ui 비활성화
 $('#uploadBtn').addClass('file-btn_off');
@@ -32,7 +32,7 @@ function checkFile(f) {
 
   $.ajax({
     type: "POST",
-    url: "http://192.168.20.203:55532/audio/validation",
+    url: "http://192.168.20.194:55532/audio/validation",
     data: formData,
     processData: false,
     contentType: false,
@@ -89,7 +89,7 @@ $(function () {
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.20.203:55532/audio",
+      url: "http://192.168.20.194:55532/audio",
       data: formData,
       processData: false,
       contentType: false,
@@ -160,7 +160,7 @@ $("#introBtn").on("click", function () {
   var user_pw = document.getElementById("userPw").value;
 
   $.ajax({
-    url: "http://192.168.20.203:55532/users/login",
+    url: "http://192.168.20.194:55532/users/login",
     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
     type: "POST",
     data: JSON.stringify({ username: user_name, password: user_pw }),

@@ -1,9 +1,9 @@
 const url123 ="192.168.20.123:55532";
 const url124 ="192.168.20.124:55532";
-const url194 ="192.168.20.203:55532";
+const url194 ="192.168.20.194:55532";
 
 function startSocket2() {
-    let socket2 = new WebSocket("ws://"+ url123 +"/ws/hardware-status");
+    let socket2 = new WebSocket("ws://192.168.20.194:55532/ws/hardware-status");
 
     let hardwareData;
 
@@ -498,6 +498,8 @@ function startSocket2() {
             });
             let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
+            console.log(networkValueArr);
+
             //backgroundColor 갯수만큼 배열
             const networkBgN = diskNames.length;
             let networkBgArray = [];
@@ -569,7 +571,7 @@ function startSocket2() {
             });
         }
 
-        if (hwName == "bona-lbmon1a") {
+        if (hwName == "bona-stt2") {
             if(!flag){
                 onSet();
 
@@ -805,6 +807,8 @@ function startSocket2() {
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
 
+                //console.log(networkValueArr);
+
                 //backgroundColor 갯수만큼 배열
                 const networkBgN = diskNames.length;
                 let networkBgArray = [];
@@ -886,26 +890,27 @@ function startSocket2() {
     //#hw0탭 클릭 시 bona-lbmon1a 데이터 출력
     $(document).on('click', '#hw0', function (e) {
         e.preventDefault();
-        hardwareData = "bona-lbmon1a";
+        let tabTxt = $(this).text();
+        hardwareData = tabTxt;
     });
 
-    //#hw1탭 클릭 시 bona-lbmon1b 데이터 출력
-    $(document).on('click', '#hw1', function (e) {
-        e.preventDefault();
-        hardwareData = "bona-lbmon1b";
-    });
+    // //#hw1탭 클릭 시 bona-lbmon1b 데이터 출력
+    // $(document).on('click', '#hw1', function (e) {
+    //     e.preventDefault();
+    //     hardwareData = "bona-lbmon1b";
+    // });
 
-    //#hw2탭 클릭 시 bona-stt1 데이터 출력
-    $(document).on('click', '#hw2', function (e) {
-        e.preventDefault();
-        hardwareData = "bona-stt1";
-    });
+    // //#hw2탭 클릭 시 bona-stt1 데이터 출력
+    // $(document).on('click', '#hw2', function (e) {
+    //     e.preventDefault();
+    //     hardwareData = "bona-stt1";
+    // });
 
-    //#hw3탭 클릭 시 bona-stt2 데이터 출력
-    $(document).on('click', '#hw3', function (e) {
-        e.preventDefault();
-        hardwareData = "bona-stt2";
-    });
+    // //#hw3탭 클릭 시 bona-stt2 데이터 출력
+    // $(document).on('click', '#hw3', function (e) {
+    //     e.preventDefault();
+    //     hardwareData = "bona-stt2";
+    // });
 
     //연결닫힘
     socket2.onclose = function (event) {
