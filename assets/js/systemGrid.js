@@ -15,7 +15,7 @@ $(function () {
         console.log(systemType, startDate, endDate, serverName, timeType);
         //$("#systemGrid").jqGrid("GridUnload");        
 
-        if (systemType == "cpumemory") {
+        if (systemType == "systems") {
             //이전 데이터 초기화
             $(".systemStatics-area").remove().empty();
             $(".searchRBox").append('<div class="systemStatics-area"><table id="systemGrid"></table><div id="systemGridpager"></div></div>');
@@ -56,7 +56,7 @@ $(function () {
                 }
             });
         }
-        else if (systemType == "network") {
+        else if (systemType == "networks") {
             //이전 데이터 초기화
             $(".systemStatics-area").remove().empty();
             $(".searchRBox").append('<div class="systemStatics-area"><table id="systemGrid"></table><div id="systemGridpager"></div></div>');
@@ -97,7 +97,7 @@ $(function () {
                 }
             });
         }
-        else if (systemType == "disk") {
+        else if (systemType == "disks") {
             //이전 데이터 초기화
             $(".systemStatics-area").remove().empty();
             $(".searchRBox").append('<div class="systemStatics-area"><table id="systemGrid"></table><div id="systemGridpager"></div></div>');
@@ -138,7 +138,7 @@ $(function () {
                 }
             });
         }
-        else if (systemType == "channel") {
+        else if (systemType == "channels") {
             //이전 데이터 초기화
             $(".systemStatics-area").remove().empty();
             $(".searchRBox").append('<div class="systemStatics-area"><table id="systemGrid"></table><div id="systemGridpager"></div></div>');
@@ -199,4 +199,109 @@ $(function () {
     //종료일
     $("#endDate").datepicker().datepicker("setDate", new Date());
     $("#endDate").datepicker("option", "dateFormat", "yy-mm-dd");
+});
+
+//excel 저장
+$('.execl-btn').on('click', function () {
+
+    let systemType = document.getElementById("systemType").value;
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+    let serverName = document.getElementById("serverName").value;
+    let timeType = document.getElementById("timeType").value;
+
+    $.ajax({
+        url: `http://192.168.20.194:55532/monitor/static/resources/${systemType}?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+        contentType: "application/json; charset=UTF-8",
+        type: "GET",
+        datatype: "JSON",
+        success: function (json) {
+            console.log('excel 저장 성공');
+
+            let valArr = [];
+            let wsData = [];
+            if (systemType == 'systems') {
+                for (let i = 0; i < json.length; i++) {
+                    let val = [json[i].time, json[i].cpu_usage__sum, json[i].mem_usage__sum];
+                    valArr.push(val);
+                }
+                // 이중 배열 형태로 데이터가 들어간다.
+                let wsDataArr = ['시간', 'CPU 사용률', '메모리 사용률'];
+                // var wsData2 = [['가1' , '가2', '가3'],['나1','나2','나3']];	// 시트가 여러개인 경우
+                wsData.push(wsDataArr);
+            }
+            else if (systemType == 'networks') {
+                for (let i = 0; i < json.length; i++) {
+                    let val = [json[i].time, json[i].interface, json[i].bandwidth__sum];
+                    valArr.push(val);
+                }
+                // 이중 배열 형태로 데이터가 들어간다.
+                let wsDataArr = ['시간', '인터페이스', '네트워크 속도'];
+                // var wsData2 = [['가1' , '가2', '가3'],['나1','나2','나3']];	// 시트가 여러개인 경우
+                wsData.push(wsDataArr);
+            }
+            else if (systemType == 'disks') {
+                for (let i = 0; i < json.length; i++) {
+                    let val = [json[i].time, json[i].disk_partition, json[i].disk_usage__sum];
+                    valArr.push(val);
+                }
+                // 이중 배열 형태로 데이터가 들어간다.
+                let wsDataArr = ['시간', '파티션', '디스트 사용률'];
+                // var wsData2 = [['가1' , '가2', '가3'],['나1','나2','나3']];	// 시트가 여러개인 경우
+                wsData.push(wsDataArr);
+            }
+            else if (systemType == 'channels') {
+                for (let i = 0; i < json.length; i++) {
+                    let val = [json[i].time, json[i].total_channel__sum, json[i].channel_used__sum, json[i].channel_usage__sum, json[i].rest_usage__sum,];
+                    valArr.push(val);
+                }
+                // 이중 배열 형태로 데이터가 들어간다.
+                let wsDataArr = ['시간', '전체 채널 수', '사용중인 채널 수', '채널 사용률', 'REST 사용률'];
+                // var wsData2 = [['가1' , '가2', '가3'],['나1','나2','나3']];	// 시트가 여러개인 경우
+                wsData.push(wsDataArr);
+            }
+
+            //ArrayBuffer 만들어주는 함수
+            function s2ab(s) {
+                var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+                var view = new Uint8Array(buf);  //create uint8array as viewer
+                for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+                return buf;
+            }
+
+            // workbook 생성
+            let wb = XLSX.utils.book_new();
+
+            // sheet명 생성
+            wb.SheetNames.push("sheet 1");
+            // wb.SheetNames.push("sheet 2"); // 시트가 여러개인 경우
+
+            wsAllData = wsData.concat(valArr);
+
+            // 배열 데이터로 시트 데이터 생성
+            let ws = XLSX.utils.aoa_to_sheet(wsAllData);
+            // var ws2 = XLSX.utils.aoa_to_sheet(wsData2); 	//시트가 여러개인 경우
+
+            // 시트 데이터를 시트에 넣기 ( 시트 명이 없는 시트인경우 첫번째 시트에 데이터가 들어감 )
+            wb.Sheets["sheet 1"] = ws;
+            // wb.Sheets["sheet 2"] = ws2;	//시트가 여러개인 경우
+
+            // 엑셀 파일 쓰기
+            let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+            // 파일 다운로드
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), `시스템통계_${systemType}_excel.xlsx`);
+
+        },
+        error: function (data) {
+            console.log('excel export 실패');
+        },
+    });
+    // let wb = XLSX.utils.table_to_book(document.getElementById('gview_serviceGrid'), {sheet:"서비스 통계",raw:true});
+    // console.log(wb);
+    // XLSX.writeFile(wb, ('서비스통계.xlsx'));
+
+    function excelExport(json) {
+
+    }
 });

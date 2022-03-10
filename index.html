@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>STT 관리자페이지</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,38 +14,246 @@
     <link rel="shortcut icon" href="assets/images/logo.ico">
     <!-- FontAwesome JS-->
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+    <script src="https://kit.fontawesome.com/bc60315972.js" crossorigin="anonymous"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/speech.css?v=20211227">
     <link rel="stylesheet" href="assets/css/style.css?v=20211227">
 </head>
 
-<body>
-    <div id="wrap">
-        <div id="content">
-            <div id="cont">
-                <div id="loginArea">
-                    <div class="login-img">
-                        <div class="login-icon">
-                            <img src="assets/images/login_icon.png" alt="login-icon">
+<body class="wrap">
+    <header class="header">
+        <div class="header-inner"></div>
+
+        <div class="nav-bar">
+            <i class="bar t"></i>
+            <i class="bar m"></i>
+            <i class="bar b"></i>
+        </div>
+
+        <div class="logout-area">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Logout</p>
+        </div>
+
+        <div class="side-menu">
+            <div class="side-menu-inner">
+                <div class="logo-branding">
+                    <img class="logo-area" src="assets/images/nav_logo.png" alt="logo">
+                </div>
+
+                <nav class="nav-main">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" omClick="location.href('dashboard.html')" class="nav-link active">
+                                <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
+                                <span class="nav-txt">대시보드</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="stttest.html" class="nav-link">
+                                <span class="nav-icon stt-icon"><i
+                                        class="fa-solid fa-microphone-lines fa-lg"></i></span>
+                                <span class="nav-txt">음성인식 테스트</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-static">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <span class="nav-icon static-icon"><i class="fa-solid fa-chart-line"></i></span>
+                                <span class="nav-txt">통계</span>
+                                <i class="fa-solid fa-angle-down nav-arrow"></i>
+                            </a>
+                            <!-- 통계의 하위메뉴 -->
+                            <ol class="nav-subMenu">
+                                <li>
+                                    <a href="serviceStatics.html" class="nav-subLink">서비스통계</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-subLink">시스템 통계</a>
+                                </li>
+                            </ol>
+                        </li>
+                        <li class="nav-item nav-setting">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <span class="nav-icon setting-icon"><i class="fa-solid fa-gear"></i></span>
+                                <span class="nav-txt">설정</span>
+                                <i class="fa-solid fa-angle-down nav-arrow"></i>
+                            </a>
+                            <!-- 설정의 하위메뉴 -->
+                            <ol class="nav-subMenu">
+                                <li>
+                                    <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
+                                </li>
+                                <li>
+                                    <a href="serverSetting.html" class="nav-subLink">시스템 설정</a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="cont" class="rounded-lg p1rem">
+            <div class="cont-tit-area mb20">
+                <h3 class="cont-subtit">대시보드</h3>
+            </div>
+            <div id="severStausArea">
+            </div>
+
+            <div id="systemArea">
+                <div class="tab-area w100p mt20">
+                    <div class="tab-bg bgTransparency mb0 bdb"></div>
+                    <ul class="tab-list" id="systemTab">
+                        <!-- <li id="allTab" class="tab tab-on bdb">전체</li> -->
+                        <!-- <li id="stt1" class="tab bdb">STT1</li>
+                        <li id="stt2" class="tab bdb">STT2</li> -->
+                    </ul>
+                    <ul class="tab-list" id="systemTabs" style="left: 53px;"></ul>
+                </div>
+
+                <div class="system-box">
+                    <div class="performanceArea">
+                        <h3 class="system-tit">성능지표</h3>
+                        <div class="performanceList">
+                            <div class="performance-box request-area" title="단위 시간 내 수신된 요청 누적 건수">
+                                <h4>요청건수</h4>
+                                <div class="request-data"></div><span>건</span>
+                            </div>
+                            <div class="performance-box suceess-area" title="단위 시간 내 전송한 성공/실패 누적 건수">
+                                <h4>성공률</h4>
+                                <div class="success-chart">
+                                    <canvas id="suceessChart"></canvas>
+                                </div>
+                                <ul class="lagendArea success-chart-spot">
+                                    <li>
+                                        <div class="legendBox blueBG"></div>
+                                        <span class="legend-tit">성공</span>
+                                        <span id="legendNum1"></span>
+                                        <span>건</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">실패</span>
+                                        <span id="legendNum2"></span>
+                                        <span>건</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="performance-box length-area" title="단위 시간 내 수신한 요청 건 기준 음성길이(초)의 누적">
+                                <h4>총 음성길이</h4>
+                                <div class="length-data"></div><span>분</span>
+                            </div>
+                            <div class="performance-box speed-area" title="음성인식 평균 처리 속도">
+                                <h4>평균처리속도</h4>
+                                <div class="speed-data"></div><span>RTF</span>
+                            </div>
                         </div>
                     </div>
-                    <h2 class="login_tit">Login</h2>
-                    <input type="text" class="text_in" id="userName" placeholder="Username">
-                    <input type="password" class="text_in" id="userPw" placeholder="Password">
-                    <button id="introBtn" class="lntro-btn">Lgoin</button>
-                    <div class="login_logo">
-                        <img src="assets/images/nav_logo.png" alt="logo">
+                    <div class="channelArea">
+                        <h3 class="system-tit">채널상태</h3>
+                        <div class="channelstatusList">
+                            <div class="channel-left">
+                                <div class="channelstatus-box status-area">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                                <ul class="lagendArea status-chart-spot">
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">전체 채널 수</span>
+                                        <span id="legendNum3"></span>
+                                        <span>개</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox mintBG"></div>
+                                        <span class="legend-tit">사용중인 채널 수</span>
+                                        <span id="legendNum4"></span>
+                                        <span>개</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="channel-right">
+                                <div class="channelstatus-box severchannel-area">
+                                    <canvas id="serverChChart"></canvas>
+                                </div>
+                                <ul class="lagendArea server-chart-spot">
+                                    <li>
+                                        <div class="legendBox grayBG"></div>
+                                        <span class="legend-tit">미사용</span>
+                                    </li>
+                                    <li>
+                                        <div class="legendBox mintBG"></div>
+                                        <span class="legend-tit">사용중</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="useperArea">
+                <div class="tab-area w100p mt20">
+                    <div class="tab-bg bgTransparency mb0 bdb"></div>
+                    <ul class="tab-list" id="hwTab"></ul>
+                    <ul class="tab-list" id="hwTabs" style="left: 120px;"></ul>
+                </div>
+
+                <div class="hwArea">
+                    <div class="hwAreaList">
+                        <div class="hw-box cpu-area">
+                            <h4>CPU 사용률</h4>
+                            <canvas id="cpuChart"></canvas>
+                        </div>
+                        <div class="hw-box memory-area">
+                            <h4>메모리 사용률</h4>
+                            <canvas id="memoryChart"></canvas>
+                        </div>
+                        <div class="hw-box disk-area">
+                            <h4>디스크 사용률(%)</h4>
+                            <canvas id="diskChart"></canvas>
+                        </div>
+                        <div class="hw-box network-area">
+                            <h4>네트워크 속도(MB/s)</h4>
+                            <canvas id="networkChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="notice-error-popup-wrap"></div>
+
     <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Charts JS -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="assets/plugins/chart.js/chart.min.js"></script>
+    <script src="assets/plugins/chart.js/chartjs-plugin-doughnutlabel.js"></script>
+
+    <script src="assets/js/hwdata.js?v=20211227"></script>
+    <script src="assets/js/sttConfig.js?v=20211227"></script>
+    <script src="assets/js/performance.js?v=20211227"></script>
+    <script src="assets/js/hwConfig.js?v=20211227"></script>
+    <script src="assets/js/alarm.js?v=20211227"></script>
     <script src="assets/js/login.js?v=20220223"></script>
+
+    <!-- layout.js -->
+    <script src="assets/js/layout.js?v=20211227"></script>
+
+    <!-- token  -->
     <script>
-        $(function(){
-            history.replaceState({},null,location.pathname);
+        $(function () {
+            let tokenIs = localStorage.getItem('bearer');
+            console.log(window.localStorage.token == tokenIs);
+            if (window.localStorage.token == lst) {
+                location.href = "http://192.168.20.194";
+            } else if (window.localStorage.token !== tokenIs) {
+                location.href = "http://192.168.20.194:55532/users/login";
+            }
         });
     </script>
 </body>

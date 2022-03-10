@@ -94,6 +94,7 @@ input:focus, select:focus{
 .nav-main .nav-link:hover{color: #19a0ee;}
 .nav-main .nav-link.active{color: #19a0ee;background: rgba(25, 160, 238, .05);border-left: 3px solid #19a0ee;}
 .nav-icon{position: absolute;left: 1rem;top: .9rem;}
+.stt-icon{left: 1.2rem;top: 1rem;}
 .setting-icon{top: 1.15rem;}
 .nav-txt{margin-left: 5px;font-size: 16px;}
 .update{position: absolute;right: 20px;top: 15px;font-size: 12px;}

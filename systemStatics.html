@@ -59,7 +59,7 @@
                         <li class="nav-item">
                             <a href="stttest.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
-                                <span class="nav-txt">음성인식 결과</span>
+                                <span class="nav-txt">음성인식 테스트</span>
                             </a>
                         </li>
                         <li class="nav-item nav-static">
@@ -113,10 +113,10 @@
                         <div class="search-subcont systemType-area">
                             <h5 class="search-cont-tit">시스템유형</h5>
                             <select name="systemType" id="systemType" class="w150 select_in">
-                                <option value="cpumemory">CPU/메모리</option>
-                                <option value="network">네트워크</option>
-                                <option value="disk">DISK</option>
-                                <option value="channel">채널</option>
+                                <option value="systems">CPU/메모리</option>
+                                <option value="networks">네트워크</option>
+                                <option value="disks">DISK</option>
+                                <option value="channels">채널</option>
                             </select>
                         </div>
                         <div class="search-subcont date-area">
@@ -153,7 +153,7 @@
                         <table id="systemGrid"></table>
                         <div id="systemGridpager"></div>
                     </div>
-                    <input type="button" value="EXCEL 변환" class="btn execl-btn">
+                    <input type="button" value="EXCEL 저장" class="btn execl-btn">
                 </div>
             </div>
         </div>
@@ -171,6 +171,10 @@
 
     <!-- jquery-ui -->
     <script src="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
+
+    <!-- excel export -->
+    <script src="assets/plugins/sheetjs/xlsx.full.min.js"></script>
+    <script src="assets/plugins/FileSaver/FileSaver.min.js"></script>
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>

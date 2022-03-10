@@ -69,7 +69,7 @@ $(function () {
     $("#endDate").datepicker("option", "dateFormat", "yy-mm-dd");
 });
 
-//excel export
+//excel 저장
 $('.execl-btn').on('click', function () {
 
     let startDate = document.getElementById("startDate").value;
