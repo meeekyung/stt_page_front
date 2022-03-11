@@ -262,13 +262,13 @@ input:focus, select:focus{
 .add-btn:hover, .change-btn:hover{font-weight: bold;}
 .selbg{background: #97b8e3 !important; color: #fff !important;}
 
-.serverTab-area{display: inline-block;vertical-align: bottom;}
+/* .serverTab-area{display: inline-block;vertical-align: bottom;}
 .serverTab-area>ul{width: 100%;}
 .serverTab-area>ul::before{content: '';display: block;clear: both;}
 .serverTab-area>ul>li{background: #eee;float: left;;cursor: pointer;}
 .serverTab-area>ul>li>a{padding: 8px 20px;box-sizing: border-box;display: block;color: #5d6778;}
 .serverTab-area>ul>li:first-child a{border-radius: 3px 0 0 3px;}
-.serverTab-area>ul>li:last-child a{border-radius: 0 3px 3px 0;}
+.serverTab-area>ul>li:last-child a{border-radius: 0 3px 3px 0;} */
 
 /* 음성인식 통계 */
 #searchRequire, #searchResult{width: 90%;margin: 0 auto;}

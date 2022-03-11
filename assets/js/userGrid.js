@@ -6,6 +6,9 @@ $(function () {
         url: "http://192.168.20.194:55532/users/list",
         datatype: "json",
         mtype: "get",
+        loadBeforeSend: function (jqXHR) {
+            jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+        },
         colNames: cnames,
         colModel: [
             { name: 'name', index: 'name', width: 80, align: 'center' },
@@ -63,6 +66,7 @@ $(function () {
     $('.userT-delete').on('click', function () {
         // 선택된 row rowId를 구한다.
         let selRowIds = jQuery('#userGrid').jqGrid('getGridParam', 'selarrrow');
+        
         //배열을 텍스트로 추출
         let selRowIdsJoin = selRowIds.join('%2C');
 

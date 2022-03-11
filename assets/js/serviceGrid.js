@@ -1,4 +1,24 @@
 $(function () {
+    //서버 호출
+    $.ajax({
+        url: "http://192.168.20.194:55532/monitor/server-config",
+        method: "GET",
+        dataType: "JSON",
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        success: function (json) {
+            console.log('서버타입 호출 성공');
+            for (let i = 0; i < json.length; i++) {
+                if (json.length >= 0) {
+                    $('#serverName').append(
+                        '<option value="' + json[i].hostname + '">' + json[i].hostname + '</option>'
+                    );
+                }
+            }
+        },
+        error: function () {
+        }
+    });
+
     let cnames = ['시간', '요청건수', '성공건수', '실패건수', '음성길이', '음성처리시간', '평균처리속도'];
     let outerwidth = $("#serviceGrid").width();
 
@@ -10,10 +30,16 @@ $(function () {
         let serverName = document.getElementById("serverName").value;
         let timeType = document.getElementById("timeType").value;
 
+        //console.log(startDate,endDate,tenantName,serverName,timeType);
+
         $("#serviceGrid").jqGrid({
             url: `http://192.168.20.194:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
             datatype: "json",
             mtype: "get",
+            //headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+            loadBeforeSend: function (jqXHR) {
+                jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+            },
             //data: JSON.stringify({ id: user_name, password: user_pw }),
             colNames: cnames,
             colModel: [
@@ -81,6 +107,7 @@ $('.execl-btn').on('click', function () {
     $.ajax({
         url: `http://192.168.20.194:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
         contentType: "application/json; charset=UTF-8",
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         type: "GET",
         datatype: "JSON",
         success: function (json) {

@@ -47,30 +47,47 @@
                 <nav class="nav-main">
                     <ul class="nav-menu">
                         <li class="nav-item">
-                            <a href="dashboard.html" class="nav-link active">
+                            <a href="#" omClick="location.href('dashboard.html')" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
                                 <span class="nav-txt">대시보드</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="stttest.html" class="nav-link">
-                                <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
-                                <span class="nav-txt">음성인식 결과</span>
+                                <span class="nav-icon stt-icon"><i
+                                        class="fa-solid fa-microphone-lines fa-lg"></i></span>
+                                <span class="nav-txt">음성인식 테스트</span>
                             </a>
                         </li>
-                        <li class="nav-item nav-setting">
+                        <li class="nav-item nav-static">
                             <a href="javascript:void(0);" class="nav-link">
+                                <span class="nav-icon static-icon"><i class="fa-solid fa-chart-line"></i></span>
+                                <span class="nav-txt">통계</span>
+                                <i class="fa-solid fa-angle-down nav-arrow"></i>
+                            </a>
+                            <!-- 통계의 하위메뉴 -->
+                            <ol class="nav-subMenu static-subMenu">
+                                <li>
+                                    <a href="serviceStatics.html" class="nav-subLink">서비스통계</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-subLink">시스템 통계</a>
+                                </li>
+                            </ol>
+                        </li>
+                        <li class="nav-item nav-setting">
+                            <a href="javascript:void(0);" class="nav-link active">
                                 <span class="nav-icon setting-icon"><i class="fa-solid fa-gear"></i></span>
                                 <span class="nav-txt">설정</span>
                                 <i class="fa-solid fa-angle-down nav-arrow"></i>
                             </a>
                             <!-- 설정의 하위메뉴 -->
-                            <ol class="nav-subMenu">
+                            <ol class="nav-subMenu setting-subMenu">
                                 <li>
                                     <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
                                 </li>
                                 <li>
-                                    <a href="" class="nav-subLink">시스템 설정</a>
+                                    <a href="serverSetting.html" class="nav-subLink">시스템 설정</a>
                                 </li>
                             </ol>
                         </li>
@@ -85,7 +102,7 @@
             <div class="cont-tit-area mb20">
                 <h3 class="cont-subtit">시스템 설정</h3>
 
-                <div class="serverTab-area">
+                <!-- <div class="serverTab-area">
                     <ul>
                         <li class="servertab1">
                             <a href="serverSetting.html" style="background: #19a0ee;color: #fff;">서버정보</a>
@@ -94,13 +111,24 @@
                             <a href="alarmSetting.html">알람설정</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
+            </div>
+
+            <div class="tab-area serverTab-area">
+                <div class="tab-bg bgTransparency mb0 bdb"></div>
+                <ul class="tab-list" id="hwTab">
+                    <li class="tab tab-on bdb">
+                        <a href="serverSetting.html">서버정보</a>
+                    </li>
+                    <li class="tab bdb">
+                        <a href="alarmSetting.html">알람설정</a>
+                    </li>
+                </ul>
             </div>
 
             <div id="setArea">
                 <div class="set-box">
-                    <h3 class="set-tit">서버 설정</h3>
-
+                    <h3 class="set-tit">서버 정보</h3>
                     <div class="set-btn">
                         <ul>
                             <li class="userT-look">조회</li>

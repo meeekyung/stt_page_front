@@ -1,6 +1,6 @@
 $(function () {
     const systemCnames = ['시간', 'CPU 사용률', '메모리 사용률'];
-    const networkCnames = ['시간', '인터페이스', '네트워크 속도'];
+    const networkCnames = ['시간', '인터페이스', '네트워크 트래픽(MB/s)'];
     const diskCnames = ['시간', '파티션', '디스크 사용률'];
     const channelCnames = ['시간', '전체 채널 수', '사용중인 채널 수', '채널 사용률', 'REST 사용률'];
     const outerwidth = $("#systemGrid").width();
@@ -236,7 +236,7 @@ $('.execl-btn').on('click', function () {
                     valArr.push(val);
                 }
                 // 이중 배열 형태로 데이터가 들어간다.
-                let wsDataArr = ['시간', '인터페이스', '네트워크 속도'];
+                let wsDataArr = ['시간', '인터페이스', '네트워크 트래픽(MB/s)'];
                 // var wsData2 = [['가1' , '가2', '가3'],['나1','나2','나3']];	// 시트가 여러개인 경우
                 wsData.push(wsDataArr);
             }

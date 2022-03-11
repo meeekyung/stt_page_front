@@ -15,11 +15,12 @@ hwSetinterval(function () {
         url: "http://192.168.20.194:55532/monitor/server-config",
         method: "GET",
         dataType: "JSON",
-
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         success: function (json) {
             if ($(lasthwSelect).hasClass('tab-on') === true) {
                 $(lasthwSelect).addClass('tab-on');
             } else {
+                console.log('hwConfig 출력');
                 $('#hwTabs').empty();
                 
                 for (let i = 0; i < json.length; i++) {
@@ -37,6 +38,7 @@ hwSetinterval(function () {
 
             for (let i = 0; i < json.length; i++) {
                 if (json.length >= 0) {
+                    console.log('sttStatus 출력');
                     $('#severStausArea').append(
                         '<div class="status-box" id="statusBox' + i + '"><div class="status-box-inner"><h3 name="status-name" class="staus-tit" id="statusTit' + i + '">' + json[i].hostname + '</h3><p>' + json[i].ipaddr + '/<span class="etcText">' + json[i].role + '</span></p></div></div>'
                     );

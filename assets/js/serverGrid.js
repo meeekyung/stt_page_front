@@ -6,6 +6,9 @@ $(function () {
         url: "http://192.168.20.194:55532/monitor/server-config",
         datatype: "json",
         mtype: "get",
+        loadBeforeSend: function (jqXHR) {
+            jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+        },
         colNames: cnames,
         colModel: [
             { name: 'name', index: 'name', width: 100, align: 'center' },

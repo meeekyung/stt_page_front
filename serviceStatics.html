@@ -50,7 +50,7 @@
                 <nav class="nav-main">
                     <ul class="nav-menu">
                         <li class="nav-item">
-                            <a href="dashboard.html" class="nav-link active">
+                            <a href="dashboard.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-home fa-lg"></i></span>
                                 <span class="nav-txt">대시보드</span>
                             </a>
@@ -58,17 +58,17 @@
                         <li class="nav-item">
                             <a href="stttest.html" class="nav-link">
                                 <span class="nav-icon"><i class="fas fa-headset fa-lg"></i></span>
-                                <span class="nav-txt">음성인식 결과</span>
+                                <span class="nav-txt">음성인식 테스트</span>
                             </a>
                         </li>
                         <li class="nav-item nav-static">
-                            <a href="javascript:void(0);" class="nav-link">
+                            <a href="javascript:void(0);" class="nav-link active">
                                 <span class="nav-icon static-icon"><i class="fa-solid fa-chart-line"></i></span>
                                 <span class="nav-txt">통계</span>
                                 <i class="fa-solid fa-angle-down nav-arrow"></i>
                             </a>
                             <!-- 통계의 하위메뉴 -->
-                            <ol class="nav-subMenu">
+                            <ol class="nav-subMenu static-subMenu">
                                 <li>
                                     <a href="serviceStatics.html" class="nav-subLink">서비스통계</a>
                                 </li>
@@ -84,7 +84,7 @@
                                 <i class="fa-solid fa-angle-down nav-arrow"></i>
                             </a>
                             <!-- 설정의 하위메뉴 -->
-                            <ol class="nav-subMenu">
+                            <ol class="nav-subMenu setting-subMenu">
                                 <li>
                                     <a href="userSetting.html" class="nav-subLink">운영자 관리</a>
                                 </li>
@@ -123,7 +123,9 @@
                         </div>
                         <div class="search-subcont server-area">
                             <h5 class="search-cont-tit">서버별</h5>
-                            <input type="text" name="serverName" id="serverName" class="w150 text_in" placeholder="ex) bona-stt1">
+                            <select name="serverName" id="serverName" class="w150 select_in">
+                                <!-- <option value="all">All</option> -->
+                            </select>
                         </div>
                         <div class="search-subcont time-area">
                             <h5 class="search-cont-tit">단위시간</h5>

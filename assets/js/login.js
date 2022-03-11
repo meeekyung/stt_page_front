@@ -8,13 +8,13 @@ $("#introBtn").on("click", function () {
         url: "http://192.168.20.194:55532/users/login",
         contentType: "application/json; charset=UTF-8",
         type: "POST",
-        headers: { Authorization: "bearer " + localStorage.getItem("token") },
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         data: JSON.stringify({ id: user_name, password: user_pw }),
         success: function (data) {
             console.log('로그인 성공');
             let jwtToken = data.token;
-            let localToken = localStorage.getItem('bearer');
-            const dT = localStorage.setItem("bearer", data.token);
+            let localToken = localStorage.getItem('Bearer');
+            const dT = localStorage.setItem("Bearer", data.token);
             //if(jwtToken = localToken){
             location.href = "../../index.html"; //페이지 이동
             //}else{
@@ -35,12 +35,12 @@ $("#userPw").keypress(function (e) {
     }
 });
 
-// username : hyeseong45
+// username : test111
 // password : !Bcsic123
 
 $('.logout-area').on('click', function () {
     console.log('로그아웃 성공');
-    localStorage.removeItem('bearer'); //삭제
+    localStorage.removeItem('Bearer'); //삭제
     //localStorage.clear(); // 전체삭제
     location.href = "../../login.html"
 });

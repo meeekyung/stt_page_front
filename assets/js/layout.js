@@ -2,7 +2,7 @@ $(function () {
   //nav 클릭시 배경색, 글자색 변경 이벤트
   $(document).on("click", ".nav-link", function () {
     $(this).addClass("active");
-    //$(this).parents().siblings().children().removeClass("active");
+    $(this).parents().siblings().children().removeClass("active");
   });
 
   //nav 메뉴 동적이벤트
@@ -58,16 +58,29 @@ $(window).resize(function () {
   }
 });
 
-//설정 메뉴 클릭 시 하위메뉴 보이게(아코디언)
-let onOff = true;
-$('.nav-setting, .nav-static').on('click', function () {
-  onOff = !onOff;
-  if (!onOff) {
-    $('.nav-subMenu').slideDown();
-    $('.nav-setting a .fa-angle-down, .nav-static a .fa-angle-down').attr('class', 'fa-solid fa-angle-up nav-arrow');
+//통계 메뉴 클릭 시 하위메뉴 보이게(아코디언)
+let onOff1 = true;
+$('.nav-static').on('click', function () {
+  onOff1 = !onOff1;
+  if (!onOff1) {
+    $('.static-subMenu').slideDown();
+    $('.nav-static a .fa-angle-down').attr('class', 'fa-solid fa-angle-up nav-arrow');
   } else {
-    $('.nav-subMenu').slideUp();
-    $('.nav-setting a .fa-angle-up, .nav-static a .fa-angle-up').attr('class', 'fa-solid fa-angle-down nav-arrow');
+    $('.static-subMenu').slideUp();
+    $('.nav-static a .fa-angle-up').attr('class', 'fa-solid fa-angle-down nav-arrow');
+  }
+});
+
+//설정 메뉴 클릭 시 하위메뉴 보이게(아코디언)
+let onOff2 = true;
+$('.nav-setting').on('click', function () {
+  onOff2 = !onOff2;
+  if (!onOff2) {
+    $('.setting-subMenu').slideDown();
+    $('.nav-setting a .fa-angle-down').attr('class', 'fa-solid fa-angle-up nav-arrow');
+  } else {
+    $('.setting-subMenu').slideUp();
+    $('.nav-setting a .fa-angle-up').attr('class', 'fa-solid fa-angle-down nav-arrow');
   }
 });
 

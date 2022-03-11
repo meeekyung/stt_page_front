@@ -1062,4 +1062,4 @@ function startSocket() {
     };
 
 }
-startSocket();
+//startSocket();
