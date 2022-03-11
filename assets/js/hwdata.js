@@ -932,4 +932,4 @@ function startSocket2() {
     };
 
 }
-//startSocket2();
+startSocket2();

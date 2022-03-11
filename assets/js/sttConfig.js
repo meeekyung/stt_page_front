@@ -11,7 +11,7 @@ function sttSetinterval(fn, delay) {
 }
 
 //ajax 호출
-sttSetinterval(function () {
+//sttSetinterval(function () {
     $.ajax({
         url: "http://192.168.20.194:55532/monitor/server-config",
         method: "GET",
@@ -39,7 +39,7 @@ sttSetinterval(function () {
             
         }
     });
-}, 5000);
+//}, 5000);
 
 $(document).on('click', '.tab', function () {
     let selecGetId = $(this).attr('id');
