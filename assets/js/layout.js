@@ -12,6 +12,8 @@ $(function () {
     if (!onOff) {
       $(".side-menu-inner").animate({ width: "57px" }, 400);
       $(".nav-bar").animate({ left: "67px" }, 400);
+      $(".nav-txt, .nav-arrow").css({'display' : 'none'});
+      $(".nav-main .nav-link").css({'padding' : '1.8rem'});
       setTimeout(function () {
         $(".logo-area")
           .attr("src", "assets/images/nav_logo_action.png")
@@ -25,6 +27,8 @@ $(function () {
       $(".side-menu-inner").animate({ width: "200px" }, 400);
       $(".nav-bar").animate({ left: "215px" }, 400);
       $(".container").css({ width: "calc(100% - 200px)" });
+      $(".nav-txt, .nav-arrow").css({'display' : 'block'});
+      $(".nav-main .nav-link").css({'padding' : '1.2rem 1.2rem 1.2rem 3.5rem'});
     }
   });
 

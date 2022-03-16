@@ -19,62 +19,87 @@ $(function () {
         }
     });
 
-    let cnames = ['시간', '요청건수', '성공건수', '실패건수', '음성길이', '음성처리시간', '평균처리속도'];
+    let cnames = [];
     let outerwidth = $("#serviceGrid").width();
 
     $('.search-btn').on('click', function () {
 
-        let startDate = document.getElementById("startDate").value;
-        let endDate = document.getElementById("endDate").value;
+        //이전 데이터 초기화
+        $(".serviceStatics-area").remove().empty();
+        $(".searchRBox").append('<div class="serviceStatics-area"><table id="serviceGrid"></table><div id="serviceGridpager"></div></div>');
+        $(".searchRBox").addClass('searchBox');
+
+        let startDateValue = document.getElementById("startDate").value;
+        let startTimeValue = document.getElementById("startTime").value;
+        let startDate = startDateValue + ' ' + startTimeValue;
+        let endDateValue = document.getElementById("endDate").value;
+        let endTimeValue = document.getElementById("endTime").value;
+        let endDate = endDateValue + ' ' + endTimeValue;
         let tenantName = document.getElementById("tenantName").value;
         let serverName = document.getElementById("serverName").value;
         let timeType = document.getElementById("timeType").value;
 
         //console.log(startDate,endDate,tenantName,serverName,timeType);
 
-        $("#serviceGrid").jqGrid({
-            url: `http://192.168.20.194:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-            datatype: "json",
-            mtype: "get",
-            //headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-            loadBeforeSend: function (jqXHR) {
-                jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
-            },
-            //data: JSON.stringify({ id: user_name, password: user_pw }),
-            colNames: cnames,
-            colModel: [
-                { name: 'time', index: 'time', width: 50, align: 'center' },
-                { name: 'request__sum', index: 'request__sum', width: 100, align: 'center' },
-                { name: 'success__sum', index: 'success__sum', width: 100, align: 'center' },
-                { name: 'fail__sum', index: 'fail__sum', width: 100, align: 'center' },
-                { name: 'tot_audio_len__sum', index: 'tot_audio_len__sum', width: 100, align: 'center' },
-                { name: 'tot_proc_time__sum', index: 'tot_proc_time__sum', width: 100, align: 'center' },
-                { name: 'avg_rtf__sum', index: 'avg_rtf__sum', width: 100, align: 'center' }
-            ],
-            width: outerwidth,
-            autowidth: true,
-            height: 280,
-            shrinkToFit: true,
-            rowNum: 10,
-            pager: '#serviceGridpager',
-            rownumbers: true,
-            loadonce: true,
-            onSelectRow: function (rowid, status) {
-                //로우 선택시 처리하는 부분
-                let isHighlight = document.getElementsByClassName('ui-state-highlight');
-                if (isHighlight.length > 0) {
-                    $('.ui-state-highlight').addClass('selbg');
-                } else {
-                    $('.ui-state-hover, .ui-state-highlight').removeClass('selbg');
-                }
-
-                let isHover = $('tr[aria-selected="true"]');
-                console.log(isHover === true);
-                if (isHover === true) {
-                    $('.ui-state-highlight').removeClass('selbg');
-                }
+        $.ajax({
+            url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+            method: "GET",
+            dataType: "JSON",
+            success: function (json) {
+                cnamesData = [json[0].date, '테넌트명', '호스트명', '요청건수', '성공건수', '실패건수', '음성길이', '음성처리시간', '평균처리속도'];
+                cnames.push(cnamesData);
+                serviceGrid(cnamesData);
             }
         });
+
+        function serviceGrid(cnamesData) {
+
+            $("#serviceGrid").jqGrid({
+                url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                datatype: "json",
+                mtype: "get",
+                //headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+                loadBeforeSend: function (jqXHR) {
+                    jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+                },
+                //data: JSON.stringify({ id: user_name, password: user_pw }),
+                colNames: cnamesData,
+                colModel: [
+                    { name: 'time', index: 'time', width: 100, align: 'center' },
+                    { name: 'tenant', index: 'tenant', width: 50, align: 'center' },
+                    { name: 'hostname', index: 'hostname', width: 50, align: 'center' },
+                    { name: 'request__sum', index: 'request__sum', width: 50, align: 'center' },
+                    { name: 'success__sum', index: 'success__sum', width: 50, align: 'center' },
+                    { name: 'fail__sum', index: 'fail__sum', width: 50, align: 'center' },
+                    { name: 'tot_audio_len__sum', index: 'tot_audio_len__sum', width: 50, align: 'center' },
+                    { name: 'tot_proc_time__sum', index: 'tot_proc_time__sum', width: 50, align: 'center' },
+                    { name: 'avg_rtf__sum', index: 'avg_rtf__sum', width: 50, align: 'center' }
+                ],
+                width: outerwidth,
+                autowidth: true,
+                height: 280,
+                shrinkToFit: true,
+                rowNum: 10,
+                pager: '#serviceGridpager',
+                rownumbers: true,
+                loadonce: true,
+                onSelectRow: function (rowid, status) {
+                    //로우 선택시 처리하는 부분
+                    let isHighlight = document.getElementsByClassName('ui-state-highlight');
+                    if (isHighlight.length > 0) {
+                        $('.ui-state-highlight').addClass('selbg');
+                    } else {
+                        $('.ui-state-hover, .ui-state-highlight').removeClass('selbg');
+                    }
+
+                    let isHover = $('tr[aria-selected="true"]');
+                    console.log(isHover === true);
+                    if (isHover === true) {
+                        $('.ui-state-highlight').removeClass('selbg');
+                    }
+                }
+            });
+        }
     });
 
     //화면 리사이즈

@@ -11,16 +11,17 @@
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Pragma" content="no-cache">
 
-    <link rel="shortcut icon" href="assets/images/logo.ico">    
+    <link rel="shortcut icon" href="assets/images/logo.ico">
     <!-- FontAwesome JS-->
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <script src="https://kit.fontawesome.com/bc60315972.js" crossorigin="anonymous"></script>
     <!-- jquery-ui -->
-    <link rel="stylesheet" href="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui.css" type="text/css">    
-    <link rel="stylesheet" href="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui-custom.css" type="text/css">    
+    <link rel="stylesheet" href="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui.css" type="text/css">
+    <link rel="stylesheet" href="assets/plugins/jquery-ui-1.13.1/jquery-ui-1.13.1.custom/jquery-ui-custom.css"
+        type="text/css">
     <!-- jqGrid -->
     <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/ui.jqgrid.css" type="text/css">
-    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/addons/ui.multiselect.css" type="text/css">    
+    <link rel="stylesheet" href="assets/plugins/jqGrid-master/css/addons/ui.multiselect.css" type="text/css">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css?v=20211227">
@@ -112,14 +113,53 @@
                         <div class="search-subcont date-area">
                             <h5 class="search-cont-tit">기간</h5>
                             <div class="date-input">
-                                <input type="text" name="startDate" id="startDate" class="w150 text_in in_calendar">
+                                <input type="text" name="startDate" id="startDate" class="w120 text_in in_calendar">
                                 <span>~</span>
-                                <input type="text" name="endDate" id="endDate" class="w150 text_in in_calendar">
+                                <input type="text" name="endDate" id="endDate" class="w120 text_in in_calendar">
                             </div>
+                            <!-- 기간 24시간 설정 -->
+                            <select id="startTime" name="startTime" onchange="s_time_select(this)"
+                                class="form-control w70">
+                                <script>
+                                    for (i = 0; i < 48; i++) {
+                                        let hour = '';
+                                        let min = ':00';
+
+                                        if ((Math.ceil(i / 2)) < 13) {
+                                            hour = (Math.floor(i / 2));
+                                        } else {
+                                            hour = (Math.floor(i / 2));
+                                        }
+                                        if (hour < 10) {
+                                            hour = '0' + hour;
+                                        }
+                                        document.write('<option value=' + hour + min + '>' + hour + min + '</option>');
+                                    }
+                                </script>
+                            </select>
+                            <select id="endTime" name="endTime" onchange="s_time_select(this)" class="form-control w70">
+                                <script>
+                                    for (i = 0; i < 48; i++) {
+                                        let hour = '';
+                                        let min = ':00';
+
+                                        if ((Math.ceil(i / 2)) < 13) {
+                                            hour = (Math.floor(i / 2));
+                                        } else {
+                                            hour = (Math.floor(i / 2));
+                                        }
+                                        if (hour < 10) {
+                                            hour = '0' + hour;
+                                        }
+                                        document.write('<option value=' + hour + min + '>' + hour + min + '</option>');
+                                    }
+                                </script>
+                            </select>
                         </div>
                         <div class="search-subcont tenant-area">
                             <h5 class="search-cont-tit">테넌트</h5>
-                            <input type="text" name="tenantName" id="tenantName" class="w150 text_in" placeholder="ex) broadcns">
+                            <input type="text" name="tenantName" id="tenantName" class="w150 text_in"
+                                placeholder="ex) broadcns">
                         </div>
                         <div class="search-subcont server-area">
                             <h5 class="search-cont-tit">서버별</h5>
@@ -130,7 +170,7 @@
                         <div class="search-subcont time-area">
                             <h5 class="search-cont-tit">단위시간</h5>
                             <select name="timeType" id="timeType" class="w150 select_in">
-                                <option value="minute">분</option>
+                                <option value="minute">5분</option>
                                 <option value="hour">시간</option>
                                 <option value="day">일</option>
                                 <option value="month">월</option>
@@ -144,8 +184,10 @@
             <div id="searchResult">
                 <h3 class="search-tit">검색결과</h3>
                 <div class="searchBox searchRBox">
-                    <table id="serviceGrid"></table>
-                    <div id="serviceGridpager"></div>
+                    <div class="serviceStatics-area">
+                        <table id="serviceGrid"></table>
+                        <div id="serviceGridpager"></div>
+                    </div>
                     <input type="button" value="EXCEL 저장" class="btn execl-btn">
                 </div>
             </div>
