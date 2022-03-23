@@ -1,10 +1,10 @@
-const url123 ="192.168.20.123:55532";
-const url124 ="192.168.20.124:55532";
-const url194 ="192.168.20.194:55532";
+const url123 = "192.168.20.123:55532";
+const url124 = "192.168.20.124:55532";
+const url194 = "192.168.20.194:55532";
 
 //첫화면 로딩시 변환하기 버튼 비활성화 및 audio ui 비활성화
 $('#uploadBtn').addClass('file-btn_off');
-$('#uploadBtn').attr('disabled',true);
+$('#uploadBtn').attr('disabled', true);
 $('.ready-player-1').hide();
 
 //input[type="file"] style  
@@ -47,12 +47,12 @@ function checkFile(f) {
 
       let today = new Date();
       let year = today.getFullYear();
-      let month = today.getMonth()+1;
+      let month = today.getMonth() + 1;
       let date = today.getDate();
       let hours = today.getHours();
       let minutes = today.getMinutes();
       let secods = today.getSeconds();
-      let nowDate = year + '-' + month + '-' + date + ' ' +  hours + ':' + minutes + ':' + secods;
+      let nowDate = year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + secods;
 
       console.log(nowDate);
       errorData.set('json', JSON.stringify({ "logtime": nowDate }));

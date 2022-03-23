@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>STT 관리자페이지</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="assets/images/logo.ico">
+    <!-- FontAwesome JS-->
+    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+    <script src="https://kit.fontawesome.com/bc60315972.js" crossorigin="anonymous"></script>
+
+    <!-- pagination css -->
+    <link rel="stylesheet" type="text/css" href="assets/plugins/pagination/pagination.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/speech.css?v=20211227">
+    <link rel="stylesheet" href="assets/css/style.css?v=20211227">
+</head>
+
+<body>
+    <header data-include-path="header.html">
+    </header>
+
+    <div class="container">
+        <div id="speech-cont" class="rounded-lg p1rem">
+            <div class="cont-tit-area">
+                <h3 class="cont-subtit">서비스 상태 정보</h3>
+            </div>
+
+            <div id="setArea">
+                <div class="set-box">
+                    <h3 class="set-tit">컨테이너(서비스)</h3>
+
+                    <div class="status-btn">
+                        <ul>
+                            <li class="service-btn start-btn">Start</li>
+                            <li class="service-btn stop-btn">Stop</li>
+                            <li class="service-btn kil-btn">Kill</li>
+                            <li class="service-btn restart-btn">Restart</li>
+                            <li class="service-btn pause-btn">Pause</li>
+                            <li class="service-btn remove-btn">Remove</li>
+                        </ul>
+                    </div>
+                    <div class="server-table">
+                        <ul class="serverH-table">
+                            <li class="serverH-check">
+                                <input type="checkbox" name="server-check" id="serverCheck" onclick='selectAll(this)'>
+                            </li>
+                            <li class="serverH-name">이름</li>
+                            <li class="serverH-status">상태</li>
+                            <li class="serverH-images">이미지</li>                            
+                            <li class="serverH-date">기동시간</li>
+                            <li class="serverH-porte">포트</li>
+                        </ul>
+                        <div id="serverB-area">
+                            <!-- <ul class="serverB-table">
+                                <li class="serverB-check"><input type="checkbox" name="server-check" id=""></li>
+                                <li class="serverB-name">zen_pasteur</li>
+                                <li class="serverB-status">
+                                    <div class="statusBox state-running">Running</div>
+                                </li>
+                                <li class="serverB-images">zen_pasteur:1.0</li>
+                                <li class="serverB-porte">5000:5000</li>
+                                <li class="serverB-date">2022-03-14 14:17:38</li>
+                            </ul> -->
+                        </div>
+                    </div>
+                    <div id="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notice-error-popup-wrap"></div>
+
+    <!-- speech to text js -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/green-audio-player.js"></script>
+    <script src="assets/js/speech.js?v=20211227"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new GreenAudioPlayer('.ready-player-1', { showTooltips: true, showDownloadButton: false, enableKeystrokes: true });
+        });
+    </script>
+
+    <!-- header -->
+    <script src="assets/js/global.js"></script>
+
+    <!-- pagination.js -->
+    <script src="assets/plugins/pagination/pagination.min.js"></script>
+
+    <!-- layout.js -->
+    <script src="assets/js/layout.js?v=20211227"></script>
+
+    <!-- serverStatus.js  -->
+    <script src="assets/js/serverStatus.js"></script>
+
+    <!-- alarm.js -->
+    <script src="assets/js/alarm.js?v=20211227"></script>
+
+    
+</body>
+
+</html>

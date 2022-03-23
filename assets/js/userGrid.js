@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#userGrid").width();
 
     $("#userGrid").jqGrid({
-        url: "http://192.168.20.194:55532/users/list",
+        url: "http://192.168.20.203:55532/users/list",
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
@@ -27,27 +27,20 @@ $(function () {
         loadonce: true,
         onSelectRow: function (rowid, status) {
             //로우 선택시 처리하는 부분
-            let isHighlight = document.getElementsByClassName('ui-state-highlight');            
+            let isHighlight = document.getElementsByClassName('ui-state-highlight');
             if (isHighlight.length > 0) {
                 $('.ui-state-highlight').addClass('selbg');
             } else {
                 $('.ui-state-hover, .ui-state-highlight').removeClass('selbg');
             }
 
-            let isHover = $('tr[aria-selected="true"]');
-            console.log(isHover === true);
-            if (isHover === true) {
-                $('.ui-state-highlight').removeClass('selbg');
-            }
-        }
-    });
-
-    $('.selbg').on('click', function () {
-        let isHighlight = document.getElementsByClassName('ui-state-highlight');
-        if (isHighlight.length > 0) {
-            $('.ui-state-highlight').addClass('selbg');
-        } else {
-            $('.ui-state-hover').removeClass('selbg');
+            $('.selbg').on('click', function () {
+                if ($(this).hasClass('ui-state-highlight') === true) {
+                    $('.ui-state-highlight').removeClass('selbg');
+                } else if ($(this).hasClass('ui-state-highlight') === false) {
+                    $('.ui-state-highlight').addClass('selbg');
+                }
+            });
         }
     });
 
@@ -66,7 +59,7 @@ $(function () {
     $('.userT-delete').on('click', function () {
         // 선택된 row rowId를 구한다.
         let selRowIds = jQuery('#userGrid').jqGrid('getGridParam', 'selarrrow');
-        
+
         //배열을 텍스트로 추출
         let selRowIdsJoin = selRowIds.join('%2C');
 
