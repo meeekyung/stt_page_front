@@ -45,43 +45,38 @@
                             <h5 class="search-cont-tit">기간</h5>
                             <div class="date-input">
                                 <input type="text" name="startDate" id="startDate" class="w120 text_in in_calendar">
+                                <select id="startTime" name="startTime" onchange="s_time_select(this)"
+                                    class="form-control w70">
+                                    <script>
+                                        for (i = 0; i < 24; i++) {
+                                            let hour = '';
+
+                                            if (i < 24) {
+                                                hour = i;
+                                            }
+                                            if (hour < 10) {
+                                                hour = '0' + hour;
+                                            }
+                                            document.write('<option value=' + hour + '>' + hour + ' 시' + '</option>');
+                                        }
+                                    </script>
+                                </select>
                                 <span>~</span>
                                 <input type="text" name="endDate" id="endDate" class="w120 text_in in_calendar">
                             </div>
                             <!-- 기간 24시간 설정 -->
-                            <select id="startTime" name="startTime" onchange="s_time_select(this)"
-                                class="form-control w70">
-                                <script>
-                                    for (i = 0; i < 48; i++) {
-                                        let hour = '';
-                                        let min = ':00';
-
-                                        if ((Math.ceil(i / 2)) < 13) {
-                                            hour = (Math.floor(i / 2));
-                                        } else {
-                                            hour = (Math.floor(i / 2));
-                                        }
-                                        if (hour < 10) {
-                                            hour = '0' + hour;
-                                        }
-                                        document.write('<option value=' + hour + '>' + hour + '</option>');
-                                    }
-                                </script>
-                            </select>
                             <select id="endTime" name="endTime" onchange="s_time_select(this)" class="form-control w70">
                                 <script>
-                                    for (i = 0; i < 48; i++) {
+                                    for (i = 0; i < 24; i++) {
                                         let hour = '';
 
-                                        if ((Math.ceil(i / 2)) < 13) {
-                                            hour = (Math.floor(i / 2));
-                                        } else {
-                                            hour = (Math.floor(i / 2));
+                                        if (i < 24) {
+                                            hour = i;
                                         }
                                         if (hour < 10) {
                                             hour = '0' + hour;
                                         }
-                                        document.write('<option value=' + hour + '>' + hour + '</option>');
+                                        document.write('<option value=' + hour + '>' + hour + ' 시' + '</option>');
                                     }
                                 </script>
                             </select>

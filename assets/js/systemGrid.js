@@ -68,7 +68,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
-                    systemCnames = [json[0].date, '호스트명', 'CPU 사용률', '메모리 사용률'];
+                    systemCnames = ['시간', '호스트명', 'CPU 사용률', '메모리 사용률'];
                     systems(systemCnames);
                 }
             });
@@ -123,7 +123,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
-                    networkCnames = [json[0].date, '호스트명', '인터페이스', '네트워크 트래픽(MB/s)'];
+                    networkCnames = ['시간', '호스트명', '인터페이스', '네트워크 트래픽(MB/s)'];
                     networks(networkCnames);
                 }
             });
@@ -177,7 +177,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
-                    diskCnames = [json[0].date, '호스트명', '파티션', '디스크 사용률'];
+                    diskCnames = ['시간', '호스트명', '파티션', '디스크 사용률'];
                     disks(diskCnames);
                 }
             });
@@ -231,7 +231,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
-                    channelCnames = [json[0].date, '호스트명', '전체 채널 수', '사용중인 채널 수', '채널 사용률', 'REST 사용률'];
+                    channelCnames = ['시간', '호스트명', '전체 채널 수', '사용중인 채널 수', '채널 사용률', 'REST 사용률'];
                     channels(channelCnames);
                 }
             });
@@ -301,8 +301,12 @@ $(function () {
 $('.execl-btn').on('click', function () {
 
     let systemType = document.getElementById("systemType").value;
-    let startDate = document.getElementById("startDate").value;
-    let endDate = document.getElementById("endDate").value;
+    let startDateValue = document.getElementById("startDate").value;
+    let startTimeValue = document.getElementById("startTime").value;
+    let startDate = startDateValue + ' ' + startTimeValue;
+    let endDateValue = document.getElementById("endDate").value;
+    let endTimeValue = document.getElementById("endTime").value;
+    let endDate = endDateValue + ' ' + endTimeValue;
     let serverName = document.getElementById("serverName").value;
     let timeType = document.getElementById("timeType").value;
 
@@ -318,7 +322,7 @@ $('.execl-btn').on('click', function () {
             let wsData = [];
             if (systemType == 'systems') {
                 for (let i = 0; i < json.length; i++) {
-                    let val = [json[i].time, json[i].cpu_usage__sum, json[i].mem_usage__sum];
+                    let val = [json[i].time, json[i].cpu_usage__avg, json[i].mem_usage__avg];
                     valArr.push(val);
                 }
                 // 이중 배열 형태로 데이터가 들어간다.
@@ -328,7 +332,7 @@ $('.execl-btn').on('click', function () {
             }
             else if (systemType == 'networks') {
                 for (let i = 0; i < json.length; i++) {
-                    let val = [json[i].time, json[i].interface, json[i].bandwidth__sum];
+                    let val = [json[i].time, json[i].interface, json[i].bandwidth__avg];
                     valArr.push(val);
                 }
                 // 이중 배열 형태로 데이터가 들어간다.
@@ -338,7 +342,7 @@ $('.execl-btn').on('click', function () {
             }
             else if (systemType == 'disks') {
                 for (let i = 0; i < json.length; i++) {
-                    let val = [json[i].time, json[i].disk_partition, json[i].disk_usage__sum];
+                    let val = [json[i].time, json[i].disk_partition, json[i].disk_usage__avg];
                     valArr.push(val);
                 }
                 // 이중 배열 형태로 데이터가 들어간다.
@@ -348,7 +352,7 @@ $('.execl-btn').on('click', function () {
             }
             else if (systemType == 'channels') {
                 for (let i = 0; i < json.length; i++) {
-                    let val = [json[i].time, json[i].total_channel__sum, json[i].channel_used__sum, json[i].channel_usage__sum, json[i].rest_usage__sum,];
+                    let val = [json[i].time, json[i].total_channel__avg, json[i].channel_used__avg, json[i].channel_usage__avg, json[i].rest_usage__avg,];
                     valArr.push(val);
                 }
                 // 이중 배열 형태로 데이터가 들어간다.

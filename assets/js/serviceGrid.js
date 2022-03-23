@@ -46,7 +46,7 @@ $(function () {
             method: "GET",
             dataType: "JSON",
             success: function (json) {
-                cnamesData = [json[0].date, '테넌트명', '호스트명', '요청건수', '성공건수', '실패건수', '음성길이', '음성처리시간', '평균처리속도'];
+                cnamesData = ['시간', '테넌트명', '호스트명', '요청건수', '성공건수', '실패건수', '음성길이', '음성처리시간', '평균처리속도'];
                 cnames.push(cnamesData);
                 serviceGrid(cnamesData);
             }
@@ -123,14 +123,18 @@ $(function () {
 //excel 저장
 $('.execl-btn').on('click', function () {
 
-    let startDate = document.getElementById("startDate").value;
-    let endDate = document.getElementById("endDate").value;
+    let startDateValue = document.getElementById("startDate").value;
+    let startTimeValue = document.getElementById("startTime").value;
+    let startDate = startDateValue + ' ' + startTimeValue;
+    let endDateValue = document.getElementById("endDate").value;
+    let endTimeValue = document.getElementById("endTime").value;
+    let endDate = endDateValue + ' ' + endTimeValue;
     let tenantName = document.getElementById("tenantName").value;
     let serverName = document.getElementById("serverName").value;
     let timeType = document.getElementById("timeType").value;
 
     $.ajax({
-        url: `http://192.168.20.194:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+        url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
         contentType: "application/json; charset=UTF-8",
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         type: "GET",

@@ -44,6 +44,42 @@ $(function () {
         }
     });
 
+    $('#jqgh_userGrid_cb').on('click', function () {
+
+        console.log($('tr.jqgrow ui-row-ltr[aria-selected="false"]').hasClass('ui-state-highlight') === false);
+        console.log($('tr.jqgrow ui-row-ltr[aria-selected="true"]').hasClass('ui-state-highlight') === true);
+
+        if ($('tr.jqgrow ui-row-ltr[aria-selected="true"]').hasClass('ui-state-highlight') === true) {
+            console.log('dddee');
+            $('tr.jqgrow ui-row-ltr[aria-selected="true"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", false);
+                //$("#jqg_userGrid_" + id).prop("checked", true);
+                $("#jqg_userGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
+                //console.log("#jqg_userGrid_" + id);
+                //console.log($("#jqg_userGrid_" + id).parent().parent('tr'));
+            });
+        }
+        else if ($('tr.jqgrow ui-row-ltr[aria-selected="false"]').hasClass('ui-state-highlight') === false) {
+            console.log('ddd');
+            $('.tr.jqgrow ui-row-ltr[aria-selected="false"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", true);
+                $("#jqg_userGrid_" + id).prop("checked", false);
+                //$("#jqg_userGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
+                console.log("#jqg_userGrid_" + id);
+                console.log($("#jqg_userGrid_" + id).parent().parent('tr'));
+            });
+        }
+
+
+
+    });
+
     //화면 리사이즈
     $(window).on('resize.jqGrid', function () {
         $("#userGrid").jqGrid('setGridWidth', $('.set-box').width() - 150);
