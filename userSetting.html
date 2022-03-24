@@ -60,16 +60,20 @@
                     </div>
                     <div class="add-cont">
                         <div class="add_in">
-                            <input type="text" name="username" id="userName" placeholder="이름">
+                            <label class="add_in_tit" for="userId">아이디</label>
+                            <input type="text" name="userid" id="userId" placeholder="5자 이상 영문">
                         </div>
                         <div class="add_in">
-                            <input type="text" name="userid" id="userId" placeholder="아이디">
+                            <label class="add_in_tit" for="userName">이름</label>
+                            <input type="text" name="username" id="userName" placeholder="한글 이름만 유효">
                         </div>
                         <div class="add_in">
-                            <input type="text" name="userphone" id="userPhone" placeholder="전화번호">
+                            <label class="add_in_tit" for="userPw">비밀번호</label>
+                            <input type="text" name="userpw" id="userPw" placeholder="8 ~ 21자리(대소문자, 특수문자 포함)">
                         </div>
                         <div class="add_in">
-                            <input type="text" name="userpw" id="userPw" placeholder="비밀번호">
+                            <label class="add_in_tit" for="userPhone">전화번호</label>
+                            <input type="text" name="userphone" id="userPhone" placeholder="10자리 혹은 11자리의 숫자입력">
                         </div>
                         <div class="add_in">
                             <p class="sms-txt">sms 알림설정</p>
@@ -94,13 +98,16 @@
                     </div>
                     <div class="add-cont">
                         <div class="add_in">
+                            <label class="add_in_tit" for="userName2">아이디</label>
                             <input type="text" name="username2" id="userName2" placeholder="이름">
                         </div>
                         <div class="add_in">
+                            <label class="add_in_tit" for="userPhone2">전화번호</label>
                             <input type="text" name="userphone2" id="userPhone2" placeholder="전화번호">
                         </div>
                         <div class="add_in">
-                            <input type="text" name="userpw2" id="userPw2" placeholder="비밀번호">
+                            <label class="add_in_tit" for="userPw2">비밀번호</label>
+                            <input type="text" name="userpw2" id="userPw2" placeholder="8 ~ 21자리(대소문자, 특수문자 포함)">
                         </div>
                         <div class="add_in">
                             <p class="sms-txt">sms 알림설정</p>
@@ -112,6 +119,22 @@
                     <div class="add-btn-area">
                         <input type="button" value="닫기" class="btn close-btn">
                         <input type="button" value="변경" class="btn change-btn">
+                    </div>
+                </div>
+            </div>
+
+            <!-- alert -->
+            <div id="alert">
+                <div class="alert-area">
+                    <div class="alertH">
+                        <h3>알림</h3>
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="alert-cont">
+                        <p class="alert-cont-txt"></p>
+                    </div>
+                    <div class="alert-btn-area">
+                        <input type="button" value="확인" class="btn okay-btn">
                     </div>
                 </div>
             </div>
@@ -130,6 +153,9 @@
     <script src="assets/plugins/jqGrid-master/js/jquery.jqGrid.min.js"></script>
     <script src="assets/plugins/jqGrid-master/js/i18n/grid.locale-en.js"></script>
     <script src="assets/js/userGrid.js?v=20211227"></script>
+
+    <!-- login -->
+    <script src="assets/js/login.js?v=20220224"></script>
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>

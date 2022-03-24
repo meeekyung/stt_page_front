@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#userGrid").width();
 
     $("#userGrid").jqGrid({
-        url: "http://192.168.20.203:55532/users/list",
+        url: "http://192.168.20.194:55532/users/list",
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
@@ -130,28 +130,44 @@ $(function () {
         let radioSms = $('input:radio[name="smsnoti"]:checked').val();
 
         let addData = { name: userName, id: userId, phone_number: userPhone, sms_noti: radioSms }
-
-
+        console.log(addData);
 
         rowId = $("#userGrid").getGridParam("reccount"); // 페이징 처리 시 현 페이지의 Max RowId 값
-        $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
+
+        //입력값이 빈값일때
+        if ($('.add_in>input').val() == '') {
+            $('#userAddPopup').show();
+            document.getElementById("userName").focus();
+            $("#mainGrid").jqGrid("delRowData", rowId);
+        } else {
+            $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
+        }
 
         $.ajax({
             url: "http://192.168.20.194:55532/users/signup",
             contentType: "application/json; charset=UTF-8",
             method: "POST",
+            headers: { Authorization: "Bearer " + localStorage.getItem("token") },
             dataType: "JSON",
             data: JSON.stringify({ id: userId, name: userName, password: userPw, phone_number: userPhone, sms_noti: radioSms }),
             success: function (json) {
                 console.log('운영자목록 추가 성공');
                 $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
             },
-            error: function () {
+            error: function (request, status, error) {
                 console.log('운영자목록 추가 실패');
+                let err = eval("(" + request.responseText + ")");
+                $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                $('#alert').show();
             }
         });
-
+        addReset();
     });
+
+    //추가 시 input 입력값 reset
+    function addReset() {
+        $("#userName, #userId, #userPhone, #userPw").val("");
+    }
 
     //변경
     $('.userT-change').on('click', function () {
@@ -162,6 +178,9 @@ $(function () {
         if (selRowIds.length == 0) {
             alert("변경할 행을 선택하세요.");
             return;
+        } else if (selRowIds.length > 1) {
+            alert('변경할 1개의 행만 선택하세요');
+            $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
         }
 
         let selName = $("#" + selRowIds).children('td[aria-describedby="userGrid_name"]').text();
@@ -169,10 +188,13 @@ $(function () {
 
 
         //운영자관리 변경팝업 생성
-        if (selRowIds.length >= 1) {
+        if (selRowIds.length == 1) {
             $("input[name='username2']").attr("placeholder", $("input[name='username2']").val()).val(selName).focus().blur();
             $("input[name='userphone2']").attr("placeholder", $("input[name='userphone2']").val()).val(selNum).focus().blur();
+            $("input[name='userpw2']").val("");
             $('#userChPopup').show();
+        } else {
+            $('#userChPopup').hide();
         }
         //변경 버튼 클릭 시 이벤트
         $('.add-area .add-btn-area .change-btn').on('click', function () {
@@ -189,12 +211,18 @@ $(function () {
                 data: JSON.stringify({ password: userPw2, name: userName2, phone_number: userPhone2, sms_noti: radioSms2 }),
                 success: function (json) {
                     console.log('운영자목록 변경 성공');
-                    $("#userGrid").trigger("reloadGrid");
+                    $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                 },
-                error: function () {
+                error: function (request, status, error) {
                     console.log('운영자목록 변경 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
+                    $('#userChPopup').show();
                 }
             });
         });
     });
+
+
 });

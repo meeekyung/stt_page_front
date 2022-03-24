@@ -264,13 +264,17 @@ input:focus, select:focus{
 .add-btn:hover, .change-btn:hover{font-weight: bold;}
 .selbg{background: #97b8e3 !important; color: #fff !important;}
 
-/* .serverTab-area{display: inline-block;vertical-align: bottom;}
-.serverTab-area>ul{width: 100%;}
-.serverTab-area>ul::before{content: '';display: block;clear: both;}
-.serverTab-area>ul>li{background: #eee;float: left;;cursor: pointer;}
-.serverTab-area>ul>li>a{padding: 8px 20px;box-sizing: border-box;display: block;color: #5d6778;}
-.serverTab-area>ul>li:first-child a{border-radius: 3px 0 0 3px;}
-.serverTab-area>ul>li:last-child a{border-radius: 0 3px 3px 0;} */
+/* alert 창 */
+#alert{width: 35%;height: auto;position: absolute;margin: 100px auto 0;left: 0;right: 0;top: 0;z-index: 9999;display: none;}
+.alert-area{background: #fff;border-radius: 5px;position: relative;}
+.alert-area .alertH{width: 100%;border-bottom: 1px solid #ccc;position: relative;height: 45px;}
+.alert-area .alertH h3{display: inline-block;position: absolute;left: 20px;top: 13px;}
+.alert-area .alertH i{position: absolute;right: 20px;top: 13px;cursor: pointer;}
+.alert-area .alert-cont{padding: 20px 0;width: 80%;margin: 0 auto;}
+.alert-cont-txt{font-size: 15px;line-height: 1.5;color: #333;}
+.alert-btn-area{padding: 0 25px 10px 0;text-align: right;}
+.okay-btn{color: #333;border-radius: 3px;}
+.okay-btn:hover{font-weight: bold;background: #00C5A7;color: #fff;}
 
 /* 음성인식 통계 */
 #searchRequire, #searchResult{width: 90%;margin: 0 auto;}
@@ -1344,7 +1348,7 @@ select:focus {
 
 #userAddPopup,
 #userChPopup {
-  width: 250px;
+  width: 300px;
   height: auto;
   position: absolute;
   margin: 100px auto 0;
@@ -1353,6 +1357,7 @@ select:focus {
   top: 0;
   z-index: 9999;
   display: none;
+  border-radius: 3px;
 }
 .bg_black {
   width: 100%;
@@ -1371,30 +1376,38 @@ select:focus {
   width: 100%;
   border-bottom: 1px solid #ccc;
   position: relative;
-  height: 35px;
+  height: 45px;
+  background-color: #d6dbdd;
 }
 .add-area .addH h3 {
   display: inline-block;
   position: absolute;
   left: 20px;
-  top: 10px;
+  top: 13px;
 }
 .add-area .addH i {
   position: absolute;
   right: 20px;
-  top: 10px;
+  top: 13px;
   cursor: pointer;
 }
 .add-area .add-cont {
   padding: 20px 0;
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
 }
 .add-area .add-cont .add_in {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 .add-area .add-cont .add_in:last-child {
   margin-top: 10px;
+}
+.add-area .add-cont .add_in .add_in_tit{
+  display: block;
+  margin-bottom: 5px;
+  line-height: 1.1;
+  text-align: left;
+  font-weight: bold;
 }
 .add-area .add-cont .add_in input[type="text"],
 select {
@@ -1405,6 +1418,7 @@ select {
 }
 .add-area .add-cont .add_in .sms-txt {
   display: inline-block;
+  font-weight: bold;
 }
 .add-area .add-cont .add_in label input[type="radio"] {
   display: inline-block;

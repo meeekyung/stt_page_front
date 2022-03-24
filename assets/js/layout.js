@@ -12,8 +12,8 @@ $(function () {
     if (!onOff) {
       $(".side-menu-inner").animate({ width: "57px" }, 400);
       $(".nav-bar").animate({ left: "67px" }, 400);
-      $(".nav-txt, .nav-arrow").css({'display' : 'none'});
-      $(".nav-main .nav-link").css({'padding' : '1.8rem'});
+      $(".nav-txt, .nav-arrow").css({ 'display': 'none' });
+      $(".nav-main .nav-link").css({ 'padding': '1.8rem' });
       setTimeout(function () {
         $(".logo-area")
           .attr("src", "assets/images/nav_logo_action.png")
@@ -27,8 +27,8 @@ $(function () {
       $(".side-menu-inner").animate({ width: "200px" }, 400);
       $(".nav-bar").animate({ left: "215px" }, 400);
       $(".container").css({ width: "calc(100% - 200px)" });
-      $(".nav-txt, .nav-arrow").css({'display' : 'block'});
-      $(".nav-main .nav-link").css({'padding' : '1.2rem 1.2rem 1.2rem 3.5rem'});
+      $(".nav-txt, .nav-arrow").css({ 'display': 'block' });
+      $(".nav-main .nav-link").css({ 'padding': '1.2rem 1.2rem 1.2rem 3.5rem' });
     }
   });
 
@@ -94,6 +94,7 @@ $('.userT-add').on('click', function () {
 });
 $('#userAddPopup .add-area .addH i, .add-btn-area .close-btn, #userAddPopup .add-area .addH i, .add-btn-area .add-btn').on('click', function () {
   $('#userAddPopup').hide();
+  //document.getElementById("test_obj").value = '';
 });
 
 //운영자관리 변경팝업
@@ -107,15 +108,21 @@ if ($('tr').hasClass('.ui-state-highlight') === true) {
 }
 
 //서버정보, 알람설정 탭 이동
-$('.servertab1').on('click', function(e){
+$('.servertab1').on('click', function (e) {
   e.preventDefault();
-  $(this).children().css({'background':'#19a0ee', 'color':'#fff'});
-  $(this).siblings().children().css({'background':'#eee', 'color':'#5d6778'});
+  $(this).children().css({ 'background': '#19a0ee', 'color': '#fff' });
+  $(this).siblings().children().css({ 'background': '#eee', 'color': '#5d6778' });
   location.replace('../../serverSetting.html');
 });
-$('.servertab2').on('click', function(e){
+$('.servertab2').on('click', function (e) {
   e.preventDefault();
-  $(this).children().css({'background':'#19a0ee', 'color':'#fff'});
-  $(this).siblings().children().css({'background':'#eee', 'color':'#5d6778'}); 
+  $(this).children().css({ 'background': '#19a0ee', 'color': '#fff' });
+  $(this).siblings().children().css({ 'background': '#eee', 'color': '#5d6778' });
   location.replace('../../alarmSetting.html');
+});
+
+//alert 닫기 이벤트
+$('#alert .alert-area .alertH i, .alert-btn-area .okay-btn').on('click', function () {
+  $('#alert').hide();
+  $('.alert-cont-txt').empty();
 });

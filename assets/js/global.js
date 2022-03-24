@@ -79,16 +79,16 @@ window.addEventListener("load", function () {
           console.log("쿠키값 가져오기 " + getActive);
           console.log("선택한 아이디이름 " + activeId);
 
-          if (activeId == getActive) {
-            console.log(getActive);
-            $("#" + getActive).addClass("active");
-          }
+          // if (activeId == getActive) {
+          //   console.log(getActive);
+          //   $("#" + getActive).addClass("active");
+          // }
 
-          $("#" + getActive)
-            .parents()
-            .siblings()
-            .children()
-            .removeClass("active");
+          // $("#" + getActive)
+          //   .parents()
+          //   .siblings()
+          //   .children()
+          //   .removeClass("active");
 
           //nav 메뉴 동적이벤트
           let onOff = true;
