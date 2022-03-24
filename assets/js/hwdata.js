@@ -245,7 +245,7 @@ function onSet() {
 onSet();
 
 function startSocket2() {
-    let socket2 = new WebSocket("ws://192.168.20.194:55532/ws/hardware-status");
+    let socket2 = new WebSocket("ws://192.168.20.203:55532/ws/hardware-status");
 
     let hardwareData;
 

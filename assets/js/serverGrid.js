@@ -36,6 +36,33 @@ $(function () {
         }
     });
 
+    // 체크박스 전체 선택 및 해제
+    let serverOnOff = true;
+    $('#jqgh_serverGrid_cb').on('click', function () {
+
+        serverOnOff = !serverOnOff;
+        if (!serverOnOff) {
+            $('tr[aria-selected="false"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_serverGrid_" + id).parent().parent('tr').attr("aria-selected", true);
+                $("#jqg_serverGrid_" + id).prop("checked", true);
+                $("#jqg_serverGrid_" + id).parent().parent('tr').addClass('ui-state-highlight');
+            });
+        } else {
+            $('tr[aria-selected="true"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_serverGrid_" + id).parent().parent('tr').attr("aria-selected", false);
+                $("#jqg_serverGrid_" + id).prop("checked", false);
+                $("#jqg_serverGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
+            });
+        }
+
+    });
+
     //화면 리사이즈
     $(window).on('resize.jqGrid', function () {
         $("#serverGrid").jqGrid('setGridWidth', $('.set-box').width() - 150);
@@ -170,7 +197,7 @@ $(function () {
                 dataType: "JSON",
                 data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
                 success: function (json) {
-                    console.log('운영자목록 변경 성공');                    
+                    console.log('운영자목록 변경 성공');
                     alert('서버정보가 변경되었습니다');
                     $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                 },

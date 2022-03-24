@@ -36,6 +36,16 @@ $(function () {
         let serverName = document.getElementById("serverName").value;
         let timeType = document.getElementById("timeType").value;
 
+        //기간 설정 예외처리
+        let startDateLimit = startDateValue.substr(8);
+        let endDateLimit = endDateValue.substr(8);
+        if (startDateLimit > endDateLimit) {
+            alert('기간설정이 잘못되었습니다.');
+        }
+        else if (startTimeValue > endTimeValue) {
+            alert('시간설정이 잘못되었습니다.');
+        }
+
         // $.ajax({
         //     url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
         //     method: "GET",

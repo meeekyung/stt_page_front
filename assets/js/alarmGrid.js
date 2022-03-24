@@ -45,6 +45,33 @@ $(function () {
         }
     });
 
+    // 체크박스 전체 선택 및 해제
+    let alarmOnOff = true;
+    $('#jqgh_alarmGrid_cb').on('click', function () {
+
+        alarmOnOff = !alarmOnOff;
+        if (!alarmOnOff) {
+            $('tr[aria-selected="false"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_alarmGrid_" + id).parent().parent('tr').attr("aria-selected", true);
+                $("#jqg_alarmGrid_" + id).prop("checked", true);
+                $("#jqg_alarmGrid_" + id).parent().parent('tr').addClass('ui-state-highlight');
+            });
+        } else {
+            $('tr[aria-selected="true"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_alarmGrid_" + id).parent().parent('tr').attr("aria-selected", false);
+                $("#jqg_alarmGrid_" + id).prop("checked", false);
+                $("#jqg_alarmGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
+            });
+        }
+
+    });
+
     //화면 리사이즈
     $(window).on('resize.jqGrid', function () {
         $("#alarmGrid").jqGrid('setGridWidth', $('.set-box').width() - 150);

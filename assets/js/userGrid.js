@@ -44,39 +44,30 @@ $(function () {
         }
     });
 
+    // 체크박스 전체 선택 및 해제
+    let userOnOff = true;
     $('#jqgh_userGrid_cb').on('click', function () {
 
-        console.log($('tr.jqgrow ui-row-ltr[aria-selected="false"]').hasClass('ui-state-highlight') === false);
-        console.log($('tr.jqgrow ui-row-ltr[aria-selected="true"]').hasClass('ui-state-highlight') === true);
-
-        if ($('tr.jqgrow ui-row-ltr[aria-selected="true"]').hasClass('ui-state-highlight') === true) {
-            console.log('dddee');
-            $('tr.jqgrow ui-row-ltr[aria-selected="true"]').each(function () {
-                const id = $(this).attr('id');
-                console.log(id);
-
-                $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", false);
-                //$("#jqg_userGrid_" + id).prop("checked", true);
-                $("#jqg_userGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
-                //console.log("#jqg_userGrid_" + id);
-                //console.log($("#jqg_userGrid_" + id).parent().parent('tr'));
-            });
-        }
-        else if ($('tr.jqgrow ui-row-ltr[aria-selected="false"]').hasClass('ui-state-highlight') === false) {
-            console.log('ddd');
-            $('.tr.jqgrow ui-row-ltr[aria-selected="false"]').each(function () {
+        userOnOff = !userOnOff;
+        if (!userOnOff) {
+            $('tr[aria-selected="false"]').each(function () {
                 const id = $(this).attr('id');
                 console.log(id);
 
                 $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", true);
+                $("#jqg_userGrid_" + id).prop("checked", true);
+                $("#jqg_userGrid_" + id).parent().parent('tr').addClass('ui-state-highlight');
+            });
+        } else {
+            $('tr[aria-selected="true"]').each(function () {
+                const id = $(this).attr('id');
+                console.log(id);
+
+                $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", false);
                 $("#jqg_userGrid_" + id).prop("checked", false);
-                //$("#jqg_userGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
-                console.log("#jqg_userGrid_" + id);
-                console.log($("#jqg_userGrid_" + id).parent().parent('tr'));
+                $("#jqg_userGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
             });
         }
-
-
 
     });
 
@@ -87,7 +78,8 @@ $(function () {
 
     //조회
     $('.userT-look').on('click', function () {
-        $("#userGrid").trigger("reloadGrid");
+        //$("#userGrid").trigger("reloadGrid");
+        $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
         console.log('운영자 목록이 조회되었습니다.');
     });
 
@@ -139,6 +131,8 @@ $(function () {
 
         let addData = { name: userName, id: userId, phone_number: userPhone, sms_noti: radioSms }
 
+
+
         rowId = $("#userGrid").getGridParam("reccount"); // 페이징 처리 시 현 페이지의 Max RowId 값
         $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
 
@@ -150,11 +144,13 @@ $(function () {
             data: JSON.stringify({ id: userId, name: userName, password: userPw, phone_number: userPhone, sms_noti: radioSms }),
             success: function (json) {
                 console.log('운영자목록 추가 성공');
+                $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
             },
             error: function () {
                 console.log('운영자목록 추가 실패');
             }
         });
+
     });
 
     //변경
