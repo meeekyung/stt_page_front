@@ -42,23 +42,36 @@ $(function () {
         console.log(startDate, endDate, tenantName, serverName, timeType);
 
         //기간 설정 예외처리
-        let startDateLimit = startDateValue.substr(8);
-        let endDateLimit = endDateValue.substr(8);
-        if (startDateLimit > endDateLimit) {
+        let startYearLimit = startDateValue.substr(0, 3);
+        let startMonLimit = startDateValue.substr(6, 2);
+        let startDayLimit = startDateValue.substr(8);
+        let endYearLimit = endDateValue.substr(0, 3);
+        let endMonLimit = endDateValue.substr(6, 2);
+        let endDayLimit = endDateValue.substr(8);
+        if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
             alert('기간설정이 잘못되었습니다.');
+            $(".serviceStatics-area").remove().empty();
         }
         else if (startTimeValue > endTimeValue) {
             alert('시간설정이 잘못되었습니다.');
+            $(".serviceStatics-area").remove().empty();
         }
 
         $.ajax({
             url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
             method: "GET",
             dataType: "JSON",
             success: function (json) {
                 cnamesData = ['시간', '테넌트명', '호스트명', '요청건수', '성공건수', '실패건수', '음성길이', '음성처리시간', '평균처리속도'];
                 cnames.push(cnamesData);
                 serviceGrid(cnamesData);
+            },
+            error: function (request, status, error) {
+                console.log('service 통계 조회 실패');
+                let err = eval("(" + request.responseText + ")");
+                $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                $('#alert').show();
             }
         });
 
@@ -68,11 +81,9 @@ $(function () {
                 url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
                 datatype: "json",
                 mtype: "get",
-                //headers: { Authorization: "Bearer " + localStorage.getItem("token") },
                 loadBeforeSend: function (jqXHR) {
                     jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
                 },
-                //data: JSON.stringify({ id: user_name, password: user_pw }),
                 colNames: cnamesData,
                 colModel: [
                     { name: 'time', index: 'time', width: 100, align: 'center' },
@@ -146,7 +157,7 @@ $('.execl-btn').on('click', function () {
     $.ajax({
         url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
         contentType: "application/json; charset=UTF-8",
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         type: "GET",
         datatype: "JSON",
         success: function (json) {

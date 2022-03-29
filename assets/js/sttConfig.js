@@ -27,7 +27,7 @@ $.ajax({
             $('#systemTabs').empty();
 
             for (let i = 0; i < json.length; i++) {
-                if (json.length >= 0) {
+                if (json.length >= 0 && json[i].status == 1) {
                     $('#systemTabs').append(
                         '<li id="stt' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
                     );

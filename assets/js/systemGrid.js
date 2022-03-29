@@ -36,15 +36,26 @@ $(function () {
         let serverName = document.getElementById("serverName").value;
         let timeType = document.getElementById("timeType").value;
 
-        //기간 설정 예외처리
-        let startDateLimit = startDateValue.substr(8);
-        let endDateLimit = endDateValue.substr(8);
-        if (startDateLimit > endDateLimit) {
-            alert('기간설정이 잘못되었습니다.');
+        ///기간 설정 예외처리
+        let startYearLimit = startDateValue.substr(0, 4);
+        let startMonLimit = startDateValue.substr(6, 2);
+        let startDayLimit = startDateValue.substr(8);
+        let endYearLimit = endDateValue.substr(0, 4);
+        let endMonLimit = endDateValue.substr(6, 2);
+        let endDayLimit = endDateValue.substr(8);
+
+        if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
+            $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+            $('#alert').show();
+            $(".systemStatics-area").remove().empty();
         }
         else if (startTimeValue > endTimeValue) {
-            alert('시간설정이 잘못되었습니다.');
+            $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
+            $('#alert').show();
+            $(".systemStatics-area").remove().empty();
         }
+
+        //cpu 및 메모리 사용률 조회
         if (systemType == "systems") {
             //이전 데이터 초기화
             $(".systemStatics-area").remove().empty();
@@ -59,6 +70,12 @@ $(function () {
                 success: function (json) {
                     systemCnames = ['시간', '호스트명', 'CPU 사용률', '메모리 사용률'];
                     systems(systemCnames);
+                },
+                error: function (request, status, error) {
+                    console.log('cpu 및 메모리 사용률 조회 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
                 }
             });
 
@@ -66,7 +83,9 @@ $(function () {
 
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+                    loadBeforeSend: function (jqXHR) {
+                        jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+                    },
                     datatype: "json",
                     mtype: "get",
                     colNames: systemCnames,
@@ -116,13 +135,21 @@ $(function () {
                 success: function (json) {
                     networkCnames = ['시간', '호스트명', '인터페이스', '네트워크 트래픽(MB/s)'];
                     networks(networkCnames);
+                },
+                error: function (request, status, error) {
+                    console.log('networks 사용률 조회 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
                 }
             });
 
             function networks(networkCnames) {
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/networks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+                    loadBeforeSend: function (jqXHR) {
+                        jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+                    },
                     datatype: "json",
                     mtype: "get",
                     colNames: networkCnames,
@@ -172,13 +199,21 @@ $(function () {
                 success: function (json) {
                     diskCnames = ['시간', '호스트명', '파티션', '디스크 사용률'];
                     disks(diskCnames);
+                },
+                error: function (request, status, error) {
+                    console.log('disks 사용률 조회 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
                 }
             });
 
             function disks(diskCnames) {
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/disks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+                    loadBeforeSend: function (jqXHR) {
+                        jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+                    },
                     datatype: "json",
                     mtype: "get",
                     colNames: diskCnames,
@@ -228,6 +263,12 @@ $(function () {
                 success: function (json) {
                     channelCnames = ['시간', '호스트명', '전체 채널 수', '사용중인 채널 수', '채널 사용률', 'REST 사용률'];
                     channels(channelCnames);
+                },
+                error: function (request, status, error) {
+                    console.log('channels 사용률 조회 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
                 }
             });
 
@@ -235,7 +276,9 @@ $(function () {
 
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/channels?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+                    loadBeforeSend: function (jqXHR) {
+                        jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+                    },
                     datatype: "json",
                     mtype: "get",
                     colNames: channelCnames,

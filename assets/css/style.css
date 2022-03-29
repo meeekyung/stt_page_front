@@ -51,6 +51,9 @@ input:focus, select:focus{
     box-shadow: 1px 1px 3px #19a0ee65;
     outline: none;
 }
+input:disabled, select:disabled{
+  background: #eee;
+}
 
 /* legend 공통 */
 .success-chart-spot{position: absolute;top: 65px;left: 40px;}
@@ -184,7 +187,7 @@ input:focus, select:focus{
 .severchannel-area>canvas{width: 450px !important;}
 
 .hwArea{background: #fff;padding-bottom: 3em;}
-.hw-box canvas{display: inline-block !important;width: 100% !important;}
+.hw-box canvas{display: inline-block !important;/*width: 100% !important;*/}
 .hw-box{padding: 30px 0;box-sizing: border-box;width: 25%;}
 .hw-box h4{font-size: 1.3rem;margin-bottom: .7em;}
 /* .cpu-area, .memory-area{width: 10vw !important;} */
@@ -265,8 +268,9 @@ input:focus, select:focus{
 .selbg{background: #97b8e3 !important; color: #fff !important;}
 
 /* alert 창 */
-#alert{width: 35%;height: auto;position: absolute;margin: 100px auto 0;left: 0;right: 0;top: 0;z-index: 9999;display: none;}
-.alert-area{background: #fff;border-radius: 5px;position: relative;}
+#alert{width: 35%;height: auto;position: absolute;margin: 100px auto 0;left: 0;right: 0;top: 0;z-index: 99999;display: none;}
+#alert::before{content: '';width: 100%;height: 100%;background: rgba(0, 0, 0, 0.35);position: fixed;top: 0;left: 0;}
+.alert-area{background: #fff;border-radius: 5px;position: relative;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);}
 .alert-area .alertH{width: 100%;border-bottom: 1px solid #ccc;position: relative;height: 45px;}
 .alert-area .alertH h3{display: inline-block;position: absolute;left: 20px;top: 13px;}
 .alert-area .alertH i{position: absolute;right: 20px;top: 13px;cursor: pointer;}
@@ -508,24 +512,24 @@ a {
 
 /* btn */
 .btn {
-  border: 1px solid #d6dbdd;
+  border: 1px solid #ccc;
   padding: 3px 15px;
   cursor: pointer;
   background: #ffffff; /* Old browsers */
   background: -moz-linear-gradient(
     top,
     #ffffff 0%,
-    #f5f5f5 100%
+    #eee 100%
   ); /* FF3.6-15 */
   background: -webkit-linear-gradient(
     top,
     #ffffff 0%,
-    #f5f5f5 100%
+    #eee 100%
   ); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(
     to bottom,
     #ffffff 0%,
-    #f5f5f5 100%
+    #eee 100%
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-9 */
 }

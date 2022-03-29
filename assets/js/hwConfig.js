@@ -26,7 +26,7 @@ $.ajax({
             $('#hwTabs').empty();
 
             for (let i = 0; i < json.length; i++) {
-                if (json.length >= 0) {
+                if (json.length >= 0 && json[i].status == 1) {
                     $('#hwTabs').append(
                         '<li id="hw' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
                     );
