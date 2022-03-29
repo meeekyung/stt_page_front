@@ -8,7 +8,7 @@ $("#introBtn").on("click", function () {
         url: "http://192.168.20.194:55532/users/login",
         contentType: "application/json; charset=UTF-8",
         type: "POST",
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         data: JSON.stringify({ id: user_name, password: user_pw }),
         success: function (data) {
             console.log('로그인 성공');

@@ -4,6 +4,7 @@ $(function () {
 
     $("#searchGrid").jqGrid({
         url: "http://192.168.20.194:55532/users/list",
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         datatype: "json",
         mtype: "get",
         //data: JSON.stringify({ id: user_name, password: user_pw }),
@@ -50,13 +51,13 @@ $(function () {
 });
 
 //jquery-ui calendar
-$(function() {   
+$(function () {
     //시작일
-    $( "#startDate" ).datepicker().datepicker("setDate", new Date());
-    $( "#startDate" ).datepicker("option","dateFormat","yy-mm-dd");
-    $( "#startDate" ).datepicker({ minDate: 0});
+    $("#startDate").datepicker().datepicker("setDate", new Date());
+    $("#startDate").datepicker("option", "dateFormat", "yy-mm-dd");
+    $("#startDate").datepicker({ minDate: 0 });
 
     //종료일
-    $( "#endDate" ).datepicker().datepicker("setDate", new Date());
-    $( "#endDate" ).datepicker("option","dateFormat","yy-mm-dd");
+    $("#endDate").datepicker().datepicker("setDate", new Date());
+    $("#endDate").datepicker("option", "dateFormat", "yy-mm-dd");
 });

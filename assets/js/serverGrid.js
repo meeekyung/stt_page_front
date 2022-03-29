@@ -150,6 +150,7 @@ $(function () {
         $.ajax({
             url: "http://192.168.20.194:55532/monitor/server-config",
             contentType: "application/json; charset=UTF-8",
+            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
             method: "POST",
             dataType: "JSON",
             data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
@@ -229,6 +230,7 @@ $(function () {
             $.ajax({
                 url: "http://192.168.20.194:55532/monitor/server-config/" + setCharr[1],
                 contentType: "application/json; charset=UTF-8",
+                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 method: "PUT",
                 dataType: "JSON",
                 data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),

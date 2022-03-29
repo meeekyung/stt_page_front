@@ -418,7 +418,7 @@ $(function () {
 
             if (uniquealarm2TypeArr.length > 0) {
                 for (let i = 0; i < uniquealarm2TypeArr.length; i++) {
-                    $('#alarmType').append(
+                    $('#alarmTypeSel').append(
                         `<option value="${uniquealarm2TypeArr[i]}">${uniquealarm2TypeArr[i]}</option>`
                     );
                 }
@@ -438,7 +438,7 @@ $(function () {
 
             if (uniquealarm2ItemArr.length > 0) {
                 for (let i = 0; i < uniquealarm2ItemArr.length; i++) {
-                    $('#alarmItem').append(
+                    $('#alarmItemSel').append(
                         `<option value="${uniquealarm2ItemArr[i]}">${uniquealarm2ItemArr[i]}</option>`
                     );
                 }
@@ -458,7 +458,7 @@ $(function () {
 
             if (uniquealarm2Param1Arr.length > 0) {
                 for (let i = 0; i < uniquealarm2Param1Arr.length; i++) {
-                    $('#alarmParam1').append(
+                    $('#alarmParam1Sel').append(
                         `<option value="${uniquealarm2Param1Arr[i]}">${uniquealarm2Param1Arr[i]}</option>`
                     );
                 }
@@ -476,19 +476,23 @@ $(function () {
             alarm2Param2ArrSet = new Set(alarm2Param2Arr);
             const uniquealarm2Param2Arr = [...alarm2Param2ArrSet];
 
-            $('#alarmParam1').on('click', function () {
-                let alarm2Param1 = $('#alarmParam1').val();
+            $('#alarmParam1Sel').on('click', function () {
+                let alarm2Param1 = $('#alarmParam1Sel').val();
                 //console.log(alarm2Param12);
                 if (alarm2Param1 == "cpu") {
-                    $('#alarmParam2').empty();
+                    $('#alarmParam2Sel').empty();
+                    $('#alarmParam2').val("");
+                    $('#alarmParam2Sel').attr('disabled', true);
                     $('#alarmParam2').attr('disabled', true);
                 }
                 else if (alarm2Param1 == "memory") {
-                    $('#alarmParam2').empty();
+                    $('#alarmParam2Sel').empty();
+                    $('#alarmParam2').val("");
+                    $('#alarmParam2Sel').attr('disabled', true);
                     $('#alarmParam2').attr('disabled', true);
                 }
                 else if (alarm2Param1 == "disk") {
-                    $('#alarmParam2').attr('disabled', false);
+                    $('#alarmParam2Sel, #alarmParam2').attr('disabled', false);
                     //disk 중 세부항목2 배열
                     const diskParm2Arr = [];
                     if (json.length > 0) {
@@ -504,16 +508,17 @@ $(function () {
                     const uniquediskParm2Arr = [...diskParam2ArrSet];
 
                     if (uniquediskParm2Arr.length > 0) {
-                        $('#alarmParam2').empty();
+                        $('#alarmParam2').val("");
+                        $('#alarmParam2Sel, #alarmParam2').empty();
                         for (let i = 0; i < uniquediskParm2Arr.length; i++) {
-                            $('#alarmParam2').append(
+                            $('#alarmParam2Sel').append(
                                 `<option value="${uniquediskParm2Arr[i]}">${uniquediskParm2Arr[i]}</option>`
                             );
                         }
                     }
                 }
                 else if (alarm2Param1 == "network") {
-                    $('#alarmParam2').attr('disabled', false);
+                    $('#alarmParam2Sel, #alarmParam2').attr('disabled', false);
                     //disk 중 세부항목2 배열
                     const networkParm2Arr = [];
                     if (json.length > 0) {
@@ -529,15 +534,36 @@ $(function () {
                     const uniquenetworkParm2Arr = [...networkParam2ArrSet];
 
                     if (uniquenetworkParm2Arr.length > 0) {
-                        $('#alarmParam2').empty();
+                        $('#alarmParam2').val("");
+                        $('#alarmParam2Sel, #alarmParam2').empty();
                         for (let i = 0; i < uniquenetworkParm2Arr.length; i++) {
-                            $('#alarmParam2').append(
+                            $('#alarmParam2Sel').append(
                                 `<option value="${uniquenetworkParm2Arr[i]}">${uniquenetworkParm2Arr[i]}</option>`
                             );
                         }
                     }
                 }
             });
+
+            //조건 select 출력
+            alarm2bigyoArr = [];
+            if (json.length > 0) {
+                for (let i = 0; i < json.length; i++) {
+                    const alarm2bigyo = json[i].comparision;
+                    alarm2bigyoArr.push(alarm2bigyo);
+                }
+            }
+            //중복제거 후 배열출력
+            alarm2bigyoArrSet = new Set(alarm2bigyoArr);
+            const uniquealarm2bigyoArr = [...alarm2bigyoArrSet];
+
+            if (uniquealarm2bigyoArr.length > 0) {
+                for (let i = 0; i < uniquealarm2bigyoArr.length; i++) {
+                    $('#alarmBigyoSel').append(
+                        `<option value="${uniquealarm2bigyoArr[i]}">${uniquealarm2bigyoArr[i]}</option>`
+                    );
+                }
+            }
 
         },
         error: function () {
@@ -562,7 +588,7 @@ $(function () {
         }
 
         //배열을 텍스트로 추출
-        let setAlarmArr = new Array();
+        let setAlarmArr = [];
         for (let i = 0; i < selRowIds.length; i++) {
             let selid = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_id"]').text();
             let selLevel = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_level"]').text();
@@ -573,10 +599,10 @@ $(function () {
             let selParam2 = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_param2"]').text();
             let selBigyo = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_comparision"]').text();
             let selValue = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_value"]').text();
-            let selSms = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_sms_noti"]').text();
-            let selMsg = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_message"]').text();
-            console.log(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue, selSms, selMsg);
-            console.log(setAlarmArr.push(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue, selSms, selMsg));
+            //let selSms = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_sms_noti2"]').val();
+            //let selMsg = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_message"]').text();
+            console.log(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue);
+            console.log(setAlarmArr.push(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue));
             console.log(setAlarmArr);
         }
 
@@ -591,11 +617,12 @@ $(function () {
             $("input[name='alarmparam2']").attr("placeholder", $("input[name='alarmparam2']").val()).val(setAlarmArr[6]).focus().blur();
             $("input[name='alarmbigyo']").attr("placeholder", $("input[name='alarmbigyo']").val()).val(setAlarmArr[7]).focus().blur();
             $("input[name='alarmvalue2']").attr("placeholder", $("input[name='alarmvalue2']").val()).val(setAlarmArr[8]).focus().blur();
-            $("input[name='alarmsmsnoti']").attr("placeholder", $("input[name='alarmsmsnoti']").val()).val(setAlarmArr[9]).focus().blur();
+            //$("input[name='smsnoti2']").attr("placeholder", $("input[name='smsnoti2']").val()).val(setAlarmArr[9]).focus().blur();
             //$("input[name='alarmmsg']").attr("placeholder", $("input[name='alarmmsg']").val()).val(setAlarmArr[10]).focus().blur();
 
             //빈공백 제거
             let param2 = $("input[name='alarmparam2']");
+            console.log(setAlarmArr[6]);
             let alarmNull = setAlarmArr[6].trim();
             console.log(alarmNull);
             if (alarmNull == '') {
@@ -614,6 +641,7 @@ $(function () {
 
                 document.getElementById("alarmLevel").value = alarmLevelText;
             });
+
             //호스트명 변경
             $('#alarmHostnameSel').on('click', function () {
                 var target = document.getElementById("alarmHostnameSel");
@@ -621,12 +649,45 @@ $(function () {
 
                 document.getElementById("alarmHostname").value = target.options[target.selectedIndex].value;
             });
-            //호스트명 변경
-            $('#alarmHostnameSel').on('click', function () {
-                var target = document.getElementById("alarmHostnameSel");
-                const alarmHostnameText = target.options[target.selectedIndex].value;
 
-                document.getElementById("alarmHostname").value = target.options[target.selectedIndex].value;
+            //타입 변경
+            $('#alarmTypeSel').on('click', function () {
+                var target = document.getElementById("alarmTypeSel");
+                const alarmTypeText = target.options[target.selectedIndex].value;
+
+                document.getElementById("alarmType").value = target.options[target.selectedIndex].value;
+            });
+
+            //아이템 변경
+            $('#alarmItemSel').on('click', function () {
+                var target = document.getElementById("alarmItemSel");
+                const alarmItemText = target.options[target.selectedIndex].value;
+
+                document.getElementById("alarmItem").value = target.options[target.selectedIndex].value;
+            });
+
+            //세부항목1 변경
+            $('#alarmParam1Sel').on('click', function () {
+                var target = document.getElementById("alarmParam1Sel");
+                const alarmParam1Text = target.options[target.selectedIndex].value;
+
+                document.getElementById("alarmParam1").value = target.options[target.selectedIndex].value;
+            });
+
+            //세부항목2 변경
+            $('#alarmParam2Sel').on('click', function () {
+                var target = document.getElementById("alarmParam2Sel");
+                const alarmParam2Text = target.options[target.selectedIndex].value;
+
+                document.getElementById("alarmParam2").value = target.options[target.selectedIndex].value;
+            });
+
+            //조건 변경
+            $('#alarmBigyoSel').on('click', function () {
+                var target = document.getElementById("alarmBigyoSel");
+                const alarmBigyoText = target.options[target.selectedIndex].value;
+
+                document.getElementById("alarmBigyo").value = target.options[target.selectedIndex].value;
             });
         } else {
             $('#userChPopup').hide();
@@ -643,23 +704,25 @@ $(function () {
             let alarmParam2 = document.getElementById("alarmParam2").value;
             let alarmBigyo = document.getElementById("alarmBigyo").value;
             console.log(typeof alarmParam2);
-            let alarmValue = document.getElementById("alarmValue").value;
-            let alarmSmsnoti = document.getElementById("alarmSmsnoti").value;
+            let alarmValue = document.getElementById("alarmValue2").value;
+            let alarmSmsnoti2 = $('input:radio[name="smsnoti2"]:checked').val();
             //let alarmMsg = document.getElementById("alarmMsg").value;
+
+            console.log(alarmSmsnoti2);
+
+            console.log({ id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti2 });
 
             $.ajax({
                 url: "http://192.168.20.194:55532/monitor/alarm/" + setAlarmArr[0],
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
-                headers: { Authorization: "bearer " + localStorage.getItem("bearer") },
+                headers: { Authorization: "bearer " + localStorage.getItem("Bearer") },
                 dataType: "JSON",
-                data: JSON.stringify({ id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti }),
+                data: JSON.stringify({ id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti2 }),
                 success: function (json) {
-                    let localToken = localStorage.getItem('bearer');
+                    let localToken = localStorage.getItem('Bearer');
                     console.log(localToken);
-                    //localStorage.setItem("bearer", json.token);
                     console.log('알람발생조건 변경 성공');
-                    alert('알람발생조건이 변경되었습니다');
                     $("#alarmGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                 },
                 error: function (request, status, error) {

@@ -164,24 +164,25 @@
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmItem">아이템</label>
-                            <select name="alarmitem" id="alarmItem"></select>
+                            <input type="text" name="alarmitem" id="alarmItem" class="alarmchText" placeholder="아이템">
+                            <select name="alarmitemSel" id="alarmItemSel" class="alarmchSel"></select>
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmParam1">세부항목1</label>
-                            <select name="alarmparam1" id="alarmParam1"></select>
+                            <input type="text" name="alarmparam1" id="alarmParam1" class="alarmchText"
+                                placeholder="세부항목1">
+                            <select name="alarmparam1Sel" id="alarmParam1Sel" class="alarmchSel"></select>
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmParam2">세부항목2</label>
-                            <select name="alarmparam2" id="alarmParam2"></select>
+                            <input type="text" name="alarmparam2" id="alarmParam2" class="alarmchText"
+                                placeholder="세부항목2">
+                            <select name="alarmparam2Sel" id="alarmParam2Sel" class="alarmchSel"></select>
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmBigyo">조건</label>
-                            <select name="alarmbigyo" id="alarmBigyo">
-                                <option value="<">
-                                    < </option>
-                                <option value=">">></option>
-                                <option value="≥">≥</option>
-                                <option value="≤">≤</option>
+                            <input type="text" name="alarmbigyo" id="alarmBigyo" class="alarmchText" placeholder="조건">
+                            <select name="alarmbigyoSel" id="alarmBigyoSel" class="alarmchSel">
                             </select>
                         </div>
                         <div class="add_in">
@@ -190,9 +191,9 @@
                         </div>
                         <div class="add_in">
                             <p class="sms-txt">sms 알림설정</p>
-                            <label for="smsYes"><input type="radio" name="smsnoti2" id="smsYes2" value="1"
+                            <label for="smsYes2"><input type="radio" name="smsnoti2" id="smsYes2" value="1"
                                     checked>yes</label>
-                            <label for="smsNo"><input type="radio" name="smsnoti2" id="smsNo2" value="0">no</label>
+                            <label for="smsNo2"><input type="radio" name="smsnoti2" id="smsNo2" value="0">no</label>
                         </div>
                     </div>
                     <div class="add-btn-area">

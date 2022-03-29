@@ -45,28 +45,6 @@ $(function () {
         else if (startTimeValue > endTimeValue) {
             alert('시간설정이 잘못되었습니다.');
         }
-
-        // $.ajax({
-        //     url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-        //     method: "GET",
-        //     dataType: "JSON",
-        //     success: function (json) {
-        //         console.log('데이터 호출 성공');
-        //         let systemCnames = [json[0].date, 'CPU 사용률', '메모리 사용률'];
-        //         systemCnames.push(systemCnames);
-        //         systemCnames(systemCnames);
-
-        //         let networkCnames = [json[0].date, '인터페이스', '네트워크 트래픽(MB/s)'];
-        //         cnames.push(cnamesData);
-
-        //         let diskCnames = [json[0].date, '파티션', '디스크 사용률'];
-        //         cnames.push(cnamesData);
-
-        //         let channelCnames = [json[0].date, '전체 채널 수', '사용중인 채널 수', '채널 사용률', 'REST 사용률'];
-        //         cnames.push(cnamesData);
-        //     }
-        // });
-
         if (systemType == "systems") {
             //이전 데이터 초기화
             $(".systemStatics-area").remove().empty();
@@ -75,6 +53,7 @@ $(function () {
 
             $.ajax({
                 url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
@@ -87,6 +66,7 @@ $(function () {
 
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                     datatype: "json",
                     mtype: "get",
                     colNames: systemCnames,
@@ -130,6 +110,7 @@ $(function () {
 
             $.ajax({
                 url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
@@ -141,6 +122,7 @@ $(function () {
             function networks(networkCnames) {
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/networks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                     datatype: "json",
                     mtype: "get",
                     colNames: networkCnames,
@@ -184,6 +166,7 @@ $(function () {
 
             $.ajax({
                 url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
@@ -195,6 +178,7 @@ $(function () {
             function disks(diskCnames) {
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/disks?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                     datatype: "json",
                     mtype: "get",
                     colNames: diskCnames,
@@ -238,6 +222,7 @@ $(function () {
 
             $.ajax({
                 url: `http://192.168.20.203:55532/monitor/static/resources/systems?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
@@ -250,6 +235,7 @@ $(function () {
 
                 $("#systemGrid").jqGrid({
                     url: `http://192.168.20.203:55532/monitor/static/resources/channels?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                     datatype: "json",
                     mtype: "get",
                     colNames: channelCnames,
@@ -322,6 +308,7 @@ $('.execl-btn').on('click', function () {
 
     $.ajax({
         url: `http://192.168.20.203:55532/monitor/static/resources/${systemType}?time=${timeType}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         contentType: "application/json; charset=UTF-8",
         type: "GET",
         datatype: "JSON",

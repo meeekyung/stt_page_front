@@ -110,6 +110,7 @@ $(function () {
 
         $.ajax({
             url: "http://192.168.20.194:55532/users?ids=" + selRowIdsJoin,
+            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
@@ -139,9 +140,6 @@ $(function () {
             document.getElementById("userName").focus();
             $("#mainGrid").jqGrid("delRowData", rowId);
         }
-        // else {
-        //     $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
-        // }
 
         $.ajax({
             url: "http://192.168.20.194:55532/users/signup",
@@ -205,10 +203,13 @@ $(function () {
             let userPw2 = document.getElementById("userPw2").value;
             let radioSms2 = $('input:radio[name="smsnoti2"]:checked').val();
 
+            console.log(radioSms2);
+
             $('#userChPopup').show();
 
             $.ajax({
                 url: "http://192.168.20.194:55532/users/" + selRowIds + "/update",
+                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
                 dataType: "JSON",
@@ -216,6 +217,7 @@ $(function () {
                 success: function (json) {
                     console.log('운영자목록 변경 성공');
                     $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+                    $('#userChPopup').hide();
                 },
                 error: function (request, status, error) {
                     console.log('운영자목록 변경 실패');
