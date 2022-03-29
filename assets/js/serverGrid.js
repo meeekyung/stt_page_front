@@ -1,5 +1,5 @@
 $(function () {
-    let cnames = ['서버명', '호스트명', 'role', 'IP주소'];
+    let cnames = ['서버명', '호스트명', '기능', 'IP주소'];
     let outerwidth = $("#serverGrid").width();
 
     $("#serverGrid").jqGrid({
@@ -30,9 +30,17 @@ $(function () {
             let isHighlight = document.getElementsByClassName('ui-state-highlight');
             if (isHighlight.length > 0) {
                 $('.ui-state-highlight').addClass('selbg');
-            } else if (isHighlight.length < 0) {
-                $('.ui-state-hover').removeClass('selbg');
+            } else {
+                $('.ui-state-hover, .ui-state-highlight').removeClass('selbg');
             }
+
+            $('.selbg').on('click', function () {
+                if ($(this).hasClass('ui-state-highlight') === true) {
+                    $('.ui-state-highlight').removeClass('selbg');
+                } else if ($(this).hasClass('ui-state-highlight') === false) {
+                    $('.ui-state-highlight').addClass('selbg');
+                }
+            });
         }
     });
 
@@ -44,7 +52,6 @@ $(function () {
         if (!serverOnOff) {
             $('tr[aria-selected="false"]').each(function () {
                 const id = $(this).attr('id');
-                console.log(id);
 
                 $("#jqg_serverGrid_" + id).parent().parent('tr').attr("aria-selected", true);
                 $("#jqg_serverGrid_" + id).prop("checked", true);
@@ -53,7 +60,6 @@ $(function () {
         } else {
             $('tr[aria-selected="true"]').each(function () {
                 const id = $(this).attr('id');
-                console.log(id);
 
                 $("#jqg_serverGrid_" + id).parent().parent('tr').attr("aria-selected", false);
                 $("#jqg_serverGrid_" + id).prop("checked", false);
@@ -132,7 +138,14 @@ $(function () {
         let addData = { name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr }
 
         rowId = $("#serverGrid").getGridParam("reccount"); // 페이징 처리 시 현 페이지의 Max RowId 값
-        $("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
+
+        //입력값이 빈값일때
+        if ($('.add_in>input').val() == '') {
+            $('#userAddPopup').show();
+            document.getElementById("serverName").focus();
+            $("#mainGrid").jqGrid("delRowData", rowId);
+        }
+        //$("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
 
         $.ajax({
             url: "http://192.168.20.194:55532/monitor/server-config",
@@ -142,11 +155,24 @@ $(function () {
             data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
             success: function (json) {
                 console.log('서버정보목록 추가 성공');
+                $("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first');
+                console.log(addReset());
             },
-            error: function () {
+            error: function (request, status, error) {
                 console.log('서버정보목록 추가 실패');
+                let err = eval("(" + request.responseText + ")");
+                $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                $('#alert').show();
             }
         });
+    });
+
+    //추가 시 input 입력값 reset
+    function addReset() {
+        $("#serverName, #hostName, #severRole, #ipAddr").val("");
+    }
+    $('.userT-add').on('click', function () {
+        addReset();
     });
 
     //변경
@@ -160,6 +186,10 @@ $(function () {
         if (selRowIds.length == 0) {
             alert("변경할 행을 선택하세요.");
             return;
+        } else if (selRowIds.length > 1) {
+            alert('변경할 1개의 행만 선택하세요');
+            $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+            window.location.reload();
         }
 
         //배열을 텍스트로 추출
@@ -175,12 +205,16 @@ $(function () {
         }
 
         //운영자관리 변경팝업 생성
-        if (selRowIds.length >= 1) {
+        if (selRowIds.length == 1) {
             $("input[name='servername2']").attr("placeholder", $("input[name='servername2']").val()).val(setCharr[0]).focus().blur();
             $("input[name='hostname2']").attr("placeholder", $("input[name='hostname2']").val()).val(setCharr[1]).focus().blur();
+            //hostname 변경 안되게..
+            $("input[name='hostname2']").attr('disabled', true);
             $("input[name='severrole2']").attr("placeholder", $("input[name='severrole2']").val()).val(setCharr[2]).focus().blur();
             $("input[name='ipaddr2']").attr("placeholder", $("input[name='ipaddr2']").val()).val(setCharr[3]).focus().blur();
             $('#userChPopup').show();
+        } else {
+            $('#userChPopup').hide();
         }
 
         //변경 버튼 클릭 시 이벤트
@@ -189,6 +223,8 @@ $(function () {
             let hostName2 = document.getElementById("hostName2").value;
             let severRole2 = document.getElementById("severRole2").value;
             let ipAddr2 = document.getElementById("ipAddr2").value;
+
+            $('#userChPopup').show();
 
             $.ajax({
                 url: "http://192.168.20.194:55532/monitor/server-config/" + setCharr[1],
@@ -201,11 +237,16 @@ $(function () {
                     alert('서버정보가 변경되었습니다');
                     $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                 },
-                error: function () {
+                error: function (request, status, error) {
                     console.log('운영자목록 변경 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
                 }
             });
         });
     });
 
+    //페이지 전환 안되게..
+    $('.ui-pg-input').attr('disabled', true);
 });

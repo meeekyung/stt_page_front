@@ -180,17 +180,17 @@
     <!-- token  -->
     <script>
         //token 유무로 링크 이동
-        let tokenIs = localStorage.getItem('Bearer');
-        let flag = true;
-        if (window.localStorage.Bearer === tokenIs) {
-            if (!flag) {
-                location.href = "http://192.168.20.194";
-            }
-        }
-        else if (window.localStorage.Bearer !== tokenIs && tokenIs == null) {
-            flag = false;
-            location.href = "http://192.168.20.194/login";
-        }
+        // let tokenIs = localStorage.getItem('Bearer');
+        // let flag = true;
+        // if (window.localStorage.Bearer === tokenIs) {
+        //     if (!flag) {
+        //         location.href = "http://192.168.20.194";
+        //     }
+        // }
+        // else if (window.localStorage.Bearer !== tokenIs && tokenIs == null) {
+        //     flag = false;
+        //     location.href = "http://192.168.20.194/login";
+        // }
     </script>
 </body>
 

@@ -50,18 +50,18 @@ $(function () {
 
         userOnOff = !userOnOff;
         if (!userOnOff) {
+            console.log(userOnOff);
             $('tr[aria-selected="false"]').each(function () {
                 const id = $(this).attr('id');
-                console.log(id);
 
                 $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", true);
                 $("#jqg_userGrid_" + id).prop("checked", true);
                 $("#jqg_userGrid_" + id).parent().parent('tr').addClass('ui-state-highlight');
             });
         } else {
+            console.log(userOnOff);
             $('tr[aria-selected="true"]').each(function () {
                 const id = $(this).attr('id');
-                console.log(id);
 
                 $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", false);
                 $("#jqg_userGrid_" + id).prop("checked", false);
@@ -130,7 +130,6 @@ $(function () {
         let radioSms = $('input:radio[name="smsnoti"]:checked').val();
 
         let addData = { name: userName, id: userId, phone_number: userPhone, sms_noti: radioSms }
-        console.log(addData);
 
         rowId = $("#userGrid").getGridParam("reccount"); // 페이징 처리 시 현 페이지의 Max RowId 값
 
@@ -139,9 +138,10 @@ $(function () {
             $('#userAddPopup').show();
             document.getElementById("userName").focus();
             $("#mainGrid").jqGrid("delRowData", rowId);
-        } else {
-            $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
         }
+        // else {
+        //     $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
+        // }
 
         $.ajax({
             url: "http://192.168.20.194:55532/users/signup",
@@ -152,7 +152,8 @@ $(function () {
             data: JSON.stringify({ id: userId, name: userName, password: userPw, phone_number: userPhone, sms_noti: radioSms }),
             success: function (json) {
                 console.log('운영자목록 추가 성공');
-                $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+                $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
+                //$("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
             },
             error: function (request, status, error) {
                 console.log('운영자목록 추가 실패');
@@ -181,6 +182,7 @@ $(function () {
         } else if (selRowIds.length > 1) {
             alert('변경할 1개의 행만 선택하세요');
             $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+            window.location.reload();
         }
 
         let selName = $("#" + selRowIds).children('td[aria-describedby="userGrid_name"]').text();
@@ -203,6 +205,8 @@ $(function () {
             let userPw2 = document.getElementById("userPw2").value;
             let radioSms2 = $('input:radio[name="smsnoti2"]:checked').val();
 
+            $('#userChPopup').show();
+
             $.ajax({
                 url: "http://192.168.20.194:55532/users/" + selRowIds + "/update",
                 contentType: "application/json; charset=UTF-8",
@@ -218,11 +222,12 @@ $(function () {
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
-                    $('#userChPopup').show();
                 }
             });
         });
     });
 
+    //페이지 전환 안되게..
+    $('.ui-pg-input').attr('disabled', true);
 
 });

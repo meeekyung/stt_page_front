@@ -9,6 +9,14 @@ window.addEventListener("load", function () {
         if (this.readyState == 4 && this.status == 200) {
           el.outerHTML = this.responseText;
 
+          //로그아웃
+          $('.logout-area').on('click', function () {
+            console.log('로그아웃 성공');
+            localStorage.removeItem('Bearer'); //삭제
+            //localStorage.clear(); // 전체삭제
+            location.href = "../../login.html"
+          });
+
           let activeId;
           //let getActive;
 
