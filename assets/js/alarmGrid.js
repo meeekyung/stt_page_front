@@ -3,12 +3,12 @@ $(function () {
     let outerwidth = $("#alarmGrid").width();
 
     $("#alarmGrid").jqGrid({
-        url: "http://192.168.20.194:55532/monitor/alarm",
+        url: "http://192.168.20.203:55532/monitor/alarm",
         datatype: "json",
         mtype: "get",
         //headers: { "Authorization": 'Bearer ' + localStorage.getItem("token") }, 
         loadBeforeSend: function (jqXHR) {
-            const jwtToken = localStorage.getItem("bearer");
+            const jwtToken = localStorage.getItem("Bearer");
             jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
         },
         colNames: cnames,
@@ -114,7 +114,8 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.20.194:55532/monitor/alarm/delete?ids=" + selRowIdsJoin,
+            url: "http://192.168.20.203:55532/monitor/alarm/delete?ids=" + selRowIdsJoin,
+            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
@@ -128,7 +129,8 @@ $(function () {
 
     //추가 select 출력
     $.ajax({
-        url: "http://192.168.20.194:55532/monitor/alarm",
+        url: "http://192.168.20.203:55532/monitor/alarm",
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         contentType: "application/json; charset=UTF-8",
         method: "GET",
         dataType: "JSON",
@@ -332,8 +334,9 @@ $(function () {
         console.log({ level: alarmLevel2, hostname: alarmHostname2, type: alarmType2, item: alarmItem2, param1: alarmParam12, param2: alarmParam22, comparision: alarmBigyo2, value: alarmValue2, sms_noti: radioSms, message: '' });
 
         $.ajax({
-            url: "http://192.168.20.194:55532/monitor/alarm",
+            url: "http://192.168.20.203:55532/monitor/alarm",
             contentType: "application/json; charset=UTF-8",
+            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
             method: "POST",
             dataType: "JSON",
             data: JSON.stringify({ level: alarmLevel2, hostname: alarmHostname2, type: alarmType2, item: alarmItem2, param1: alarmParam12, param2: alarmParam22, comparision: alarmBigyo2, value: alarmValue2, sms_noti: radioSms }),
@@ -357,8 +360,9 @@ $(function () {
 
     //변경 select 출력
     $.ajax({
-        url: "http://192.168.20.194:55532/monitor/alarm",
+        url: "http://192.168.20.203:55532/monitor/alarm",
         contentType: "application/json; charset=UTF-8",
+        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
         method: "GET",
         dataType: "JSON",
         success: function (json) {
@@ -713,7 +717,7 @@ $(function () {
             console.log({ id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti2 });
 
             $.ajax({
-                url: "http://192.168.20.194:55532/monitor/alarm/" + setAlarmArr[0],
+                url: "http://192.168.20.203:55532/monitor/alarm/" + setAlarmArr[0],
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
                 headers: { Authorization: "bearer " + localStorage.getItem("Bearer") },

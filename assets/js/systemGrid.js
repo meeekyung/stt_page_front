@@ -44,17 +44,6 @@ $(function () {
         let endMonLimit = endDateValue.substr(6, 2);
         let endDayLimit = endDateValue.substr(8);
 
-        if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
-            $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
-            $('#alert').show();
-            $(".systemStatics-area").remove().empty();
-        }
-        else if (startTimeValue > endTimeValue) {
-            $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
-            $('#alert').show();
-            $(".systemStatics-area").remove().empty();
-        }
-
         //cpu 및 메모리 사용률 조회
         if (systemType == "systems") {
             //이전 데이터 초기화
@@ -73,9 +62,20 @@ $(function () {
                 },
                 error: function (request, status, error) {
                     console.log('cpu 및 메모리 사용률 조회 실패');
-                    let err = eval("(" + request.responseText + ")");
-                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
-                    $('#alert').show();
+                    if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else if (startTimeValue > endTimeValue) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                    }
                 }
             });
 
@@ -138,9 +138,20 @@ $(function () {
                 },
                 error: function (request, status, error) {
                     console.log('networks 사용률 조회 실패');
-                    let err = eval("(" + request.responseText + ")");
-                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
-                    $('#alert').show();
+                    if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else if (startTimeValue > endTimeValue) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                    }
                 }
             });
 
@@ -202,9 +213,20 @@ $(function () {
                 },
                 error: function (request, status, error) {
                     console.log('disks 사용률 조회 실패');
-                    let err = eval("(" + request.responseText + ")");
-                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
-                    $('#alert').show();
+                    if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else if (startTimeValue > endTimeValue) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                    }
                 }
             });
 
@@ -266,9 +288,20 @@ $(function () {
                 },
                 error: function (request, status, error) {
                     console.log('channels 사용률 조회 실패');
-                    let err = eval("(" + request.responseText + ")");
-                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
-                    $('#alert').show();
+                    if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else if (startTimeValue > endTimeValue) {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                        $(".systemStatics-area").remove().empty();
+                    }
+                    else {
+                        $('.alert-cont').append(`<p class="alert-cont-txt">설정이 잘못되었습니다.</p>`);
+                        $('#alert').show();
+                    }
                 }
             });
 

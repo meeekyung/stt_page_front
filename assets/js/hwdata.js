@@ -1,6 +1,6 @@
 const url123 = "192.168.20.123:55532";
 const url124 = "192.168.20.124:55532";
-const url194 = "192.168.20.194:55532";
+const url194 = "192.168.20.203:55532";
 
 function onSet() {
     const cpuChart = document.getElementById("cpuChart").getContext("2d");

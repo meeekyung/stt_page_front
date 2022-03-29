@@ -1,5 +1,5 @@
 function startSocket3() {
-    const socket3 = new WebSocket("ws://192.168.20.194:55532/ws/alarm");
+    const socket3 = new WebSocket("ws://192.168.20.203:55532/ws/alarm");
 
     let num = 0;
 
@@ -57,7 +57,7 @@ function startSocket3() {
             });
         });
 
-        $('.close-icon>svg').on('click', function(){
+        $('.close-icon>svg').on('click', function () {
             let current_close = $(this).parents().parents().parents();
             current_close.css({
                 'bottom': num - 9 * num,

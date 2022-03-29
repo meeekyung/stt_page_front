@@ -1,7 +1,7 @@
 $(function () {
     //서버 호출
     $.ajax({
-        url: "http://192.168.20.194:55532/monitor/server-config",
+        url: "http://192.168.20.203:55532/monitor/server-config",
         method: "GET",
         dataType: "JSON",
         headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
@@ -48,14 +48,6 @@ $(function () {
         let endYearLimit = endDateValue.substr(0, 3);
         let endMonLimit = endDateValue.substr(6, 2);
         let endDayLimit = endDateValue.substr(8);
-        if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
-            alert('기간설정이 잘못되었습니다.');
-            $(".serviceStatics-area").remove().empty();
-        }
-        else if (startTimeValue > endTimeValue) {
-            alert('시간설정이 잘못되었습니다.');
-            $(".serviceStatics-area").remove().empty();
-        }
 
         $.ajax({
             url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
@@ -69,9 +61,19 @@ $(function () {
             },
             error: function (request, status, error) {
                 console.log('service 통계 조회 실패');
-                let err = eval("(" + request.responseText + ")");
-                $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
-                $('#alert').show();
+                if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
+                    $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                    $('#alert').show();
+                    $(".serviceStatics-area").remove().empty();
+                }
+                else if (startTimeValue > endTimeValue) {
+                    $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                    $('#alert').show();
+                    $(".serviceStatics-area").remove().empty();
+                } else {
+                    $('.alert-cont').append(`<p class="alert-cont-txt">설정이 잘못되었습니다.</p>`);
+                    $('#alert').show();
+                }
             }
         });
 

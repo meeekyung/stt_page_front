@@ -12,7 +12,7 @@ function hwSetinterval(fn, delay) {
 //ajax 호출
 //hwSetinterval(function () {
 $.ajax({
-    url: "http://192.168.20.194:55532/monitor/server-config",
+    url: "http://192.168.20.203:55532/monitor/server-config",
     method: "GET",
     dataType: "JSON",
     headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },

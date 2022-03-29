@@ -3,7 +3,7 @@ $(function () {
     let outerwidth = $("#userGrid").width();
 
     $("#userGrid").jqGrid({
-        url: "http://192.168.20.194:55532/users/list",
+        url: "http://192.168.20.203:55532/users/list",
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
@@ -109,7 +109,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.20.194:55532/users?ids=" + selRowIdsJoin,
+            url: "http://192.168.20.203:55532/users?ids=" + selRowIdsJoin,
             headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
@@ -142,7 +142,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.20.194:55532/users/signup",
+            url: "http://192.168.20.203:55532/users/signup",
             contentType: "application/json; charset=UTF-8",
             method: "POST",
             headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -176,9 +176,13 @@ $(function () {
         //​ 선택된 row가 없다면 리턴
         if (selRowIds.length == 0) {
             alert("변경할 행을 선택하세요.");
+            // $('.alert-cont').append(`<p class="alert-cont-txt">변경할 행을 선택하세요.</p>`);
+            // $('#alert').show();
             return;
         } else if (selRowIds.length > 1) {
             alert('변경할 1개의 행만 선택하세요');
+            // $('.alert-cont').append(`<p class="alert-cont-txt">변경할 1개의 행만 선택하세요.</p>`);
+            // $('#alert').show();
             $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
             window.location.reload();
         }
@@ -208,7 +212,7 @@ $(function () {
             $('#userChPopup').show();
 
             $.ajax({
-                url: "http://192.168.20.194:55532/users/" + selRowIds + "/update",
+                url: "http://192.168.20.203:55532/users/" + selRowIds + "/update",
                 headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
