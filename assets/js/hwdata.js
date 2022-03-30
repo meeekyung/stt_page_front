@@ -1,248 +1,307 @@
-const url123 = "192.168.20.123:55532";
-const url124 = "192.168.20.124:55532";
-const url194 = "192.168.20.203:55532";
+let booleanValue = false;
 
-function onSet() {
-    const cpuChart = document.getElementById("cpuChart").getContext("2d");
-    const networkChart1 = new Chart(cpuChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['미사용률', '사용률'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: [
-                    '#ececec',
-                    '#5d6778'
-                ],
-                borderWidth: 0,
-                barPercentage: 0.3,
-            }]
-        },
-        options: {
-            plugins: {
-                doughnutlabel: {
-                    labels: [
-                        {
-                            text: 0 + '%',
-                            font: {
-                                size: '28',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif'
-                            },
-                            color: '#5d6778'
-                        }
-                    ]
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-                display: false,
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15
-                },
-            },
-            cutoutPercentage: 90,
-            scales: {
-                yAxes: [
-                    {
-                        display: false,
-                        ticks: {
-                            min: 0,
-                            max: 20,
-                            stepSize: 20,
-                        },
-                    },
-                ],
-            },
-        },
-    });
+// function onSet() {
+//     const cpuChart = document.getElementById("cpuChart").getContext("2d");
+//     const networkChart1 = new Chart(cpuChart, {
+//         type: 'doughnut',
+//         data: {
+//             labels: ['미사용률', '사용률'],
+//             datasets: [{
+//                 data: [0, 0],
+//                 backgroundColor: [
+//                     '#ececec',
+//                     '#5d6778'
+//                 ],
+//                 borderWidth: 0,
+//                 barPercentage: 0.3,
+//             }]
+//         },
+//         options: {
+//             plugins: {
+//                 doughnutlabel: {
+//                     labels: [
+//                         {
+//                             text: 0 + '%',
+//                             font: {
+//                                 size: '28',
+//                                 family: 'Roboto ,Arial, Helvetica, sans-serif'
+//                             },
+//                             color: '#5d6778'
+//                         }
+//                     ]
+//                 }
+//             },
+//             animation: {
+//                 duration: 0
+//             },
+//             responsive: true,
+//             maintainAspectRatio: false,
+//             legend: {
+//                 position: 'right',
+//                 display: false,
+//                 labels: {
+//                     fontColor: '#5d6778',
+//                     fontSize: 15,
+//                     defaultFontFamily: "Roboto",
+//                     boxWidth: 15
+//                 },
+//             },
+//             cutoutPercentage: 90,
+//             scales: {
+//                 yAxes: [
+//                     {
+//                         display: false,
+//                         ticks: {
+//                             min: 0,
+//                             max: 20,
+//                             stepSize: 20,
+//                         },
+//                     },
+//                 ],
+//             },
+//         },
+//     });
 
-    const memoryChart = document.getElementById("memoryChart").getContext("2d");
-    const networkChart2 = new Chart(memoryChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['미사용률', '사용률'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: [
-                    '#ececec',
-                    '#5d6778'
-                ],
-                borderWidth: 0,
-                barPercentage: 0.3,
-            }]
-        },
-        options: {
-            plugins: {
-                doughnutlabel: {
-                    labels: [
-                        {
-                            text: 0 + '%',
-                            font: {
-                                size: '28',
-                                family: 'Roboto ,Arial, Helvetica, sans-serif'
-                            },
-                            color: '#5d6778'
-                        }
-                    ]
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-                display: false,
-                labels: {
-                    fontColor: '#5d6778',
-                    fontSize: 15,
-                    defaultFontFamily: "Roboto",
-                    boxWidth: 15
-                },
-            },
-            cutoutPercentage: 90,
-            scales: {
-                yAxes: [
-                    {
-                        display: false,
-                        ticks: {
-                            min: 0,
-                            max: 20,
-                            stepSize: 20,
-                        },
-                    },
-                ],
-            },
-        },
-    });
+//     const memoryChart = document.getElementById("memoryChart").getContext("2d");
+//     const networkChart2 = new Chart(memoryChart, {
+//         type: 'doughnut',
+//         data: {
+//             labels: ['미사용률', '사용률'],
+//             datasets: [{
+//                 data: [0, 0],
+//                 backgroundColor: [
+//                     '#ececec',
+//                     '#5d6778'
+//                 ],
+//                 borderWidth: 0,
+//                 barPercentage: 0.3,
+//             }]
+//         },
+//         options: {
+//             plugins: {
+//                 doughnutlabel: {
+//                     labels: [
+//                         {
+//                             text: 0 + '%',
+//                             font: {
+//                                 size: '28',
+//                                 family: 'Roboto ,Arial, Helvetica, sans-serif'
+//                             },
+//                             color: '#5d6778'
+//                         }
+//                     ]
+//                 }
+//             },
+//             animation: {
+//                 duration: 0
+//             },
+//             responsive: true,
+//             maintainAspectRatio: false,
+//             legend: {
+//                 position: 'right',
+//                 display: false,
+//                 labels: {
+//                     fontColor: '#5d6778',
+//                     fontSize: 15,
+//                     defaultFontFamily: "Roboto",
+//                     boxWidth: 15
+//                 },
+//             },
+//             cutoutPercentage: 90,
+//             scales: {
+//                 yAxes: [
+//                     {
+//                         display: false,
+//                         ticks: {
+//                             min: 0,
+//                             max: 20,
+//                             stepSize: 20,
+//                         },
+//                     },
+//                 ],
+//             },
+//         },
+//     });
 
-    const diskChart = document.getElementById("diskChart").getContext("2d");
-    const networkChart3 = new Chart(diskChart, {
-        type: "horizontalBar",
-        data: {
-            labels: ["undefind"],
-            datasets: [
+//     const diskChart = document.getElementById("diskChart").getContext("2d");
+//     const networkChart3 = new Chart(diskChart, {
+//         type: "horizontalBar",
+//         data: {
+//             labels: ["undefind"],
+//             datasets: [
+//                 {
+//                     data: [0],
+//                     backgroundColor: "#5d6778",
+//                     barPercentage: 0.5,
+//                 },
+//             ],
+//         },
+//         options: {
+//             responsive: true,
+//             maintainAspectRatio: false,
+//             legend: {
+//                 display: false
+//             },
+//             scales: {
+//                 xAxes: [
+//                     {
+//                         display: true,
+//                         ticks: {
+//                             min: 0,
+//                             max: 50,
+//                             stepSize: 50,
+//                             fontColor: "#5d6778",
+//                             fontSize: 12,
+//                             defaultFontFamily: "Roboto"
+//                         },
+//                         gridLines: {
+//                             color: '#fff',
+//                             lineWidth: 0.5
+//                         },
+//                     },
+//                 ],
+//                 yAxes: [
+//                     {
+//                         display: true,
+//                         ticks: {
+//                             min: 0,
+//                             max: 50,
+//                             stepSize: 50,
+//                             fontColor: "#5d6778",
+//                             fontSize: 12,
+//                             defaultFontFamily: "Roboto",
+//                         },
+//                         gridLines: {
+//                             color: '#fff',
+//                             lineWidth: 0.5
+//                         },
+//                     },
+//                 ],
+//             },
+//         },
+//     });
+
+//     const networkChart = document.getElementById("networkChart").getContext("2d");
+//     const networkChart4 = new Chart(networkChart, {
+//         type: "horizontalBar",
+//         data: {
+//             labels: ["undefind"],
+//             datasets: [
+//                 {
+//                     data: [0],
+//                     backgroundColor: "#5d6778",
+//                     barPercentage: 0.5,
+//                 },
+//             ],
+//         },
+//         options: {
+//             responsive: true,
+//             maintainAspectRatio: false,
+//             legend: {
+//                 display: false
+//             },
+//             scales: {
+//                 xAxes: [
+//                     {
+//                         display: true,
+//                         ticks: {
+//                             min: 0,
+//                             max: 10,
+//                             stepSize: 2,
+//                             fontColor: "#5d6778",
+//                             fontSize: 12,
+//                             defaultFontFamily: "Roboto"
+//                         },
+//                         gridLines: {
+//                             color: '#fff',
+//                             lineWidth: 0.5
+//                         },
+//                     },
+//                 ],
+//                 yAxes: [
+//                     {
+//                         display: true,
+//                         ticks: {
+//                             min: 0,
+//                             max: 10,
+//                             stepSize: 2,
+//                             fontColor: "#5d6778",
+//                             fontSize: 12,
+//                             defaultFontFamily: "Roboto",
+//                         },
+//                         gridLines: {
+//                             color: '#fff',
+//                             lineWidth: 0.5
+//                         },
+//                     },
+//                 ],
+//             },
+//         },
+//     });
+// }
+
+// onSet();
+
+//디스크 사용률(%) 그래프
+const diskChart = document.getElementById("diskChart").getContext("2d");
+const diskChartData = {
+    type: "horizontalBar",
+    data: {
+        labels: '',
+        datasets: [
+            {
+                data: '',
+                backgroundColor: '',
+                barPercentage: 0.5,
+            },
+        ],
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [
                 {
-                    data: [0],
-                    backgroundColor: "#5d6778",
-                    barPercentage: 0.5,
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 20,
+                        fontColor: "#5d6778",
+                        fontSize: 12,
+                        defaultFontFamily: "Roboto"
+                    },
+                    gridLines: {
+                        color: '#fff',
+                        lineWidth: 0.5
+                    },
+                },
+            ],
+            yAxes: [
+                {
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 20,
+                        fontColor: "#5d6778",
+                        fontSize: 12,
+                        defaultFontFamily: "Roboto",
+                    },
+                    gridLines: {
+                        color: '#fff',
+                        lineWidth: 0.5
+                    },
                 },
             ],
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            scales: {
-                xAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 50,
-                            stepSize: 50,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto"
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-                yAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 50,
-                            stepSize: 50,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto",
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-            },
-        },
-    });
-
-    const networkChart = document.getElementById("networkChart").getContext("2d");
-    const networkChart4 = new Chart(networkChart, {
-        type: "horizontalBar",
-        data: {
-            labels: ["undefind"],
-            datasets: [
-                {
-                    data: [0],
-                    backgroundColor: "#5d6778",
-                    barPercentage: 0.5,
-                },
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            scales: {
-                xAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 10,
-                            stepSize: 2,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto"
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-                yAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 10,
-                            stepSize: 2,
-                            fontColor: "#5d6778",
-                            fontSize: 12,
-                            defaultFontFamily: "Roboto",
-                        },
-                        gridLines: {
-                            color: '#fff',
-                            lineWidth: 0.5
-                        },
-                    },
-                ],
-            },
-        },
-    });
+    },
 }
-
-onSet();
+let myDiskChart = new Chart(diskChart, diskChartData);
+console.log(diskChartData);
 
 function startSocket2() {
     let socket2 = new WebSocket("ws://192.168.20.203:55532/ws/hardware-status");
@@ -259,15 +318,13 @@ function startSocket2() {
 
     //데이터 수신 됨
     socket2.onmessage = function (json) {
-        'use strict';
         //전체 데이터 출력
         let hwData = JSON.parse(json.data);
         let hwName = hwData.hostname;
 
         if (hardwareData == hwName) {
-            'use strict';
             flag = true;
-            onSet();
+            //onSet();
 
             //cpu 사용률 - 도넛형 차트
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
@@ -405,8 +462,7 @@ function startSocket2() {
                 },
             });
 
-            //디스크 사용률 - 가로형 막대 차트
-
+            //디스크 사용률 - 가로형 막대 차트            
             //디스트 사용률 key        
             const diskNames = hwData.disk_keys;
             let diskNameArr = Object.values(diskNames);
@@ -426,67 +482,18 @@ function startSocket2() {
             }
 
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-            $("#diskChart").remove();
-            $('.disk-area .chartjs-size-monitor').remove();
-            $(".disk-area").append('<canvas id="diskChart"></canvas>');
+            // $("#diskChart").remove();
+            // $('.disk-area .chartjs-size-monitor').remove();
+            // $(".disk-area").append('<canvas id="diskChart"></canvas>');
 
-            const diskChart = document.getElementById("diskChart").getContext("2d");
-            const networkChart3 = new Chart(diskChart, {
-                type: "horizontalBar",
-                data: {
-                    labels: diskNameArr,
-                    datasets: [
-                        {
-                            data: diskValueArr,
-                            backgroundColor: diskBgArray,
-                            barPercentage: 0.5,
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        xAxes: [
-                            {
-                                display: true,
-                                ticks: {
-                                    min: 0,
-                                    max: 100,
-                                    stepSize: 20,
-                                    fontColor: "#5d6778",
-                                    fontSize: 12,
-                                    defaultFontFamily: "Roboto"
-                                },
-                                gridLines: {
-                                    color: '#fff',
-                                    lineWidth: 0.5
-                                },
-                            },
-                        ],
-                        yAxes: [
-                            {
-                                display: true,
-                                ticks: {
-                                    min: 0,
-                                    max: 100,
-                                    stepSize: 20,
-                                    fontColor: "#5d6778",
-                                    fontSize: 12,
-                                    defaultFontFamily: "Roboto",
-                                },
-                                gridLines: {
-                                    color: '#fff',
-                                    lineWidth: 0.5
-                                },
-                            },
-                        ],
-                    },
-                },
-            });
+            if (booleanValue) {
+                console.log(diskChartData.data.datasets[0].data = diskValueArr);
+            }
+            diskChartData.data.datasets[0].data = diskValueArr;
+            diskChartData.data.datasets[0].backgroundColor = diskBgArray;
+            diskChartData.data.labels = diskNameArr
+
+            myDiskChart.update();	//차트 업데이트
 
             //네트워크 사용률 - 가로형 막대 차트
             //네트워크 사용률 key  
@@ -500,8 +507,6 @@ function startSocket2() {
                 networkValueArr.push((parseInt(item.unit).toFixed(2)));
             });
             let networkValueArrMax = Math.max.apply(null, networkValueArr);
-
-            console.log(networkValueArr);
 
             //backgroundColor 갯수만큼 배열
             const networkBgN = diskNames.length;
@@ -576,7 +581,7 @@ function startSocket2() {
 
         if (hwName == "bona-stt2") {
             if (!flag) {
-                onSet();
+                //onSet();
 
                 //cpu 사용률 - 도넛형 차트
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
@@ -726,7 +731,6 @@ function startSocket2() {
                 diskValue.forEach((item, idx) => {
                     diskValueArr.push((item.unit).toFixed(2));
                 });
-                console.log(diskValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const diskBgN = diskNames.length;
@@ -892,29 +896,14 @@ function startSocket2() {
     };
 
     //#hw0탭 클릭 시 bona-lbmon1a 데이터 출력
-    $(document).on('click', '#hw0', function (e) {
+    $(document).on('click', '.tab', function (e) {
         e.preventDefault();
         let tabTxt = $(this).text();
+        if (booleanValue) {
+            console.log(tabTxt);
+        }
         hardwareData = tabTxt;
     });
-
-    // //#hw1탭 클릭 시 bona-lbmon1b 데이터 출력
-    // $(document).on('click', '#hw1', function (e) {
-    //     e.preventDefault();
-    //     hardwareData = "bona-lbmon1b";
-    // });
-
-    // //#hw2탭 클릭 시 bona-stt1 데이터 출력
-    // $(document).on('click', '#hw2', function (e) {
-    //     e.preventDefault();
-    //     hardwareData = "bona-stt1";
-    // });
-
-    // //#hw3탭 클릭 시 bona-stt2 데이터 출력
-    // $(document).on('click', '#hw3', function (e) {
-    //     e.preventDefault();
-    //     hardwareData = "bona-stt2";
-    // });
 
     //연결닫힘
     socket2.onclose = function (event) {
@@ -932,7 +921,9 @@ function startSocket2() {
 
     //웹 소켓 오류
     socket2.onerror = function (error) {
-        console.log(`[error] ${error.message}`);
+        if (booleanValue) {
+            console.log(`[error] ${error.message}`);
+        }
     };
 
 }

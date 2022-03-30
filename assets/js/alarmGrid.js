@@ -1,3 +1,5 @@
+let booleanValue = false;
+
 $(function () {
     let cnames = ['아이디', '레벨', '호스트명', '타입', '아이템', '세부항목1', '세부항목2', '조건', '수치', 'sms알림'];
     let outerwidth = $("#alarmGrid").width();
@@ -6,10 +8,9 @@ $(function () {
         url: "http://192.168.20.203:55532/monitor/alarm",
         datatype: "json",
         mtype: "get",
-        //headers: { "Authorization": 'Bearer ' + localStorage.getItem("token") }, 
         loadBeforeSend: function (jqXHR) {
-            const jwtToken = localStorage.getItem("Bearer");
-            jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+            const jwtToken = sessionStorage.getItem("Bearer");
+            jqXHR.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem("Bearer"));
         },
         colNames: cnames,
         colModel: [
@@ -49,6 +50,48 @@ $(function () {
                     $('.ui-state-highlight').addClass('selbg');
                 }
             });
+        }, onPaging: function (pgButton) {
+            let gridPage = $('#alarmGrid').getGridParam('page');
+            let totalPage = $('#sp_1_alarmGridpager').text();
+            let nowNum = $('#input_alarmGridpager .ui-pg-input').val();
+
+            if (pgButton == 'next') {
+                if (gridPage < totalPage) {
+                    gridPage += 1;
+                } else {
+                    gridPage = page;
+                }
+            } else if (pgButton == 'prev') {
+                if (gridPage > 1) {
+                    gridPage -= 1;
+                } else {
+                    gridPage = page;
+                }
+            } else if (pgButton == 'first') {
+                $('.alert-cont').append(`<p class="alert-cont-txt">첫 페이지입니다.</p>`);
+                $('#alert').show();
+                gridPage = 1;
+            } else if (pgButton == 'last') {
+                $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                $('#alert').show();
+                gridPage = totalPage;
+            } else if (pgButton == 'user') {
+                let nowPage = Number($('#input_alarmGridpager .ui-pg-input').val());
+                if (totalPage >= nowPage && nowPage > 0) {
+                    gridPage = nowPage;
+                } else {
+                    $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                    $('#alert').show();
+                    $('#input_alarmGridpager .ui-pg-input').val(gridPage);
+                    gridPage = gridPage;
+                }
+            } else if (pgButton == 'records') {
+                gridPage = 1;
+            }
+            $('#alarmGrid').setGridParam('page', gridPage);
+            // $('#alarmGrid').setGridParam({
+            //     postDate: jqGridForm.setParam()
+            // });
         }
     });
 
@@ -85,20 +128,22 @@ $(function () {
     //조회
     $('.userT-look').on('click', function () {
         $("#alarmGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
-        console.log('서버정보 목록이 조회되었습니다.');
     });
 
     //삭제
     $('.userT-delete').on('click', function () {
         // 선택된 row rowId를 구한다.
         let selRowIds = jQuery('#alarmGrid').jqGrid('getGridParam', 'selarrrow');
-        console.log(selRowIds);
+        if (booleanValue) { console.log(selRowIds) }
+
         //배열을 텍스트로 추출
         let selRowIdsJoin = selRowIds.join('%2C');
 
         // 선택된 row의 개수를 구한다.​
         let selRowIdsLength = selRowIds.length;
-        console.log(selRowIdsLength);
+        if (booleanValue) {
+            console.log(selRowIdsLength);
+        }
 
         //​ 선택된 row가 없다면 리턴
         if (selRowIds.length == 0) {
@@ -115,14 +160,14 @@ $(function () {
 
         $.ajax({
             url: "http://192.168.20.203:55532/monitor/alarm/delete?ids=" + selRowIdsJoin,
-            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
-                console.log('알람정보 목록 삭제 성공');
+                //console.log('알람정보 목록 삭제 성공');
             },
             error: function () {
-                console.log('알람정보 목록 삭제 실패');
+                //console.log('알람정보 목록 삭제 실패');
             }
         });
     });
@@ -130,12 +175,12 @@ $(function () {
     //추가 select 출력
     $.ajax({
         url: "http://192.168.20.203:55532/monitor/alarm",
-        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         contentType: "application/json; charset=UTF-8",
         method: "GET",
         dataType: "JSON",
         success: function (json) {
-            console.log('알람발생조건 select 데이터 출력 성공');
+            //console.log('알람발생조건 select 데이터 출력 성공');
             //알람레벨 select 출력
             alarmLevelArr = [];
             if (json.length > 0) {
@@ -250,7 +295,6 @@ $(function () {
 
             $('#alarmParam12').on('click', function () {
                 let alarmParam12 = $('#alarmParam12').val();
-                console.log(alarmParam12);
                 if (alarmParam12 == "cpu") {
                     $('#alarmParam22').empty();
                     $('#alarmParam22').attr('disabled', true);
@@ -313,7 +357,7 @@ $(function () {
 
         },
         error: function () {
-            console.log('알람발생조건 select 데이터 출력 실패');
+            //console.log('알람발생조건 select 데이터 출력 실패');
         }
     });
 
@@ -331,21 +375,21 @@ $(function () {
         let radioSms = $('input:radio[name="smsnoti"]:checked').val();
         let alarmMsg2 = document.getElementById("alarmMsg2");
 
-        console.log({ level: alarmLevel2, hostname: alarmHostname2, type: alarmType2, item: alarmItem2, param1: alarmParam12, param2: alarmParam22, comparision: alarmBigyo2, value: alarmValue2, sms_noti: radioSms, message: '' });
+        if (booleanValue) { console.log('추가 retrun값 : ' + { level: alarmLevel2, hostname: alarmHostname2, type: alarmType2, item: alarmItem2, param1: alarmParam12, param2: alarmParam22, comparision: alarmBigyo2, value: alarmValue2, sms_noti: radioSms, message: '' }); }
 
         $.ajax({
             url: "http://192.168.20.203:55532/monitor/alarm",
             contentType: "application/json; charset=UTF-8",
-            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "POST",
             dataType: "JSON",
             data: JSON.stringify({ level: alarmLevel2, hostname: alarmHostname2, type: alarmType2, item: alarmItem2, param1: alarmParam12, param2: alarmParam22, comparision: alarmBigyo2, value: alarmValue2, sms_noti: radioSms }),
             success: function (json) {
-                console.log('알람발생조건 추가 성공');
+                //console.log('알람발생조건 추가 성공');
                 $("#alarmGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
             },
             error: function (request, status, error) {
-                console.log('알람발생조건 추가 실패');
+                //console.log('알람발생조건 추가 실패');
                 let err = eval("(" + request.responseText + ")");
                 $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                 $('#alert').show();
@@ -362,11 +406,11 @@ $(function () {
     $.ajax({
         url: "http://192.168.20.203:55532/monitor/alarm",
         contentType: "application/json; charset=UTF-8",
-        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         method: "GET",
         dataType: "JSON",
         success: function (json) {
-            console.log('알람발생조건 변경 select 데이터 출력 성공');
+            //console.log('알람발생조건 변경 select 데이터 출력 성공');
             //알람레벨 select 출력
             alarm2LevelArr = [];
             if (json.length > 0) {
@@ -378,7 +422,6 @@ $(function () {
             //중복제거 후 배열출력
             alarm2LevelArrSet = new Set(alarm2LevelArr);
             const uniqueAlarm2LevelArr = [...alarm2LevelArrSet];
-            console.log(uniqueAlarm2LevelArr);
 
             if (uniqueAlarm2LevelArr.length > 0) {
                 for (let i = 0; i < uniqueAlarm2LevelArr.length; i++) {
@@ -571,7 +614,7 @@ $(function () {
 
         },
         error: function () {
-            console.log('알람발생조건 변경 select 데이터 출력 실패');
+            //console.log('알람발생조건 변경 select 데이터 출력 실패');
         }
     });
 
@@ -579,7 +622,6 @@ $(function () {
     $('.userT-change').on('click', function () {
         // 선택된 row rowId를 구한다.
         let selRowIds = jQuery('#alarmGrid').jqGrid('getGridParam', 'selarrrow');
-        console.log(selRowIds);
 
         //​ 선택된 row가 없다면 리턴
         if (selRowIds.length == 0) {
@@ -605,9 +647,8 @@ $(function () {
             let selValue = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_value"]').text();
             //let selSms = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_sms_noti2"]').val();
             //let selMsg = $("#" + selRowIds[i]).children('td[aria-describedby="alarmGrid_message"]').text();
-            console.log(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue);
-            console.log(setAlarmArr.push(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue));
-            console.log(setAlarmArr);
+            setAlarmArr.push(selid, selLevel, selHostname, selType, selItem, selParam1, selParam2, selBigyo, selValue);
+            if (booleanValue) { console.log('변경 팝업 텍스트값 : ' + setAlarmArr); }
         }
 
         //운영자관리 변경팝업 생성
@@ -626,9 +667,7 @@ $(function () {
 
             //빈공백 제거
             let param2 = $("input[name='alarmparam2']");
-            console.log(setAlarmArr[6]);
             let alarmNull = setAlarmArr[6].trim();
-            console.log(alarmNull);
             if (alarmNull == '') {
                 param2.attr("disabled", true);
             } else {
@@ -707,30 +746,28 @@ $(function () {
             let alarmParam1 = document.getElementById("alarmParam1").value;
             let alarmParam2 = document.getElementById("alarmParam2").value;
             let alarmBigyo = document.getElementById("alarmBigyo").value;
-            console.log(typeof alarmParam2);
             let alarmValue = document.getElementById("alarmValue2").value;
             let alarmSmsnoti2 = $('input:radio[name="smsnoti2"]:checked').val();
             //let alarmMsg = document.getElementById("alarmMsg").value;
 
-            console.log(alarmSmsnoti2);
-
-            console.log({ id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti2 });
+            if (booleanValue) {
+                console.log('변경 버튼 클릭 시 retrun값 : ' + { id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti2 });
+            }
 
             $.ajax({
                 url: "http://192.168.20.203:55532/monitor/alarm/" + setAlarmArr[0],
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
-                headers: { Authorization: "bearer " + localStorage.getItem("Bearer") },
+                headers: { Authorization: "bearer " + sessionStorage.getItem("Bearer") },
                 dataType: "JSON",
                 data: JSON.stringify({ id: alarmId, level: alarmLevel, hostname: alarmHostname, type: alarmType, item: alarmItem, param1: alarmParam1, param2: alarmParam2, comparision: alarmBigyo, value: alarmValue, sms_noti: alarmSmsnoti2 }),
                 success: function (json) {
-                    let localToken = localStorage.getItem('Bearer');
-                    console.log(localToken);
-                    console.log('알람발생조건 변경 성공');
+                    let localToken = sessionStorage.getItem('Bearer');
+                    //console.log('알람발생조건 변경 성공');
                     $("#alarmGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                 },
                 error: function (request, status, error) {
-                    console.log('알람발생조건 변경 실패');
+                    //console.log('알람발생조건 변경 실패');
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();

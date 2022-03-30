@@ -8,8 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+    <meta http-equiv="Expires" content="-1">
     <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
 
     <link rel="shortcut icon" href="assets/images/logo.ico">
     <!-- FontAwesome JS-->
@@ -36,9 +38,6 @@
                 <div class="tab-area w100p mt20">
                     <div class="tab-bg bgTransparency mb0 bdb"></div>
                     <ul class="tab-list" id="systemTab">
-                        <!-- <li id="allTab" class="tab tab-on bdb">전체</li> -->
-                        <!-- <li id="stt1" class="tab bdb">STT1</li>
-                        <li id="stt2" class="tab bdb">STT2</li> -->
                     </ul>
                     <ul class="tab-list" id="systemTabs" style="left: 53px;"></ul>
                 </div>
@@ -175,18 +174,6 @@
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>
-    <script>
-        function Frameset(page) {
-            framecode = "<frameset rows='1*'>"
-                + "<frame name=main src='" + page + "'>"
-                + "</frameset>";
-
-            //page = window.open("");
-            //page.document.open();
-            document.write(framecode);
-            document.close();
-        }
-    </script>
 </body>
 
 </html>

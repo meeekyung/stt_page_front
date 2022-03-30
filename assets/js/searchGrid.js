@@ -4,7 +4,7 @@ $(function () {
 
     $("#searchGrid").jqGrid({
         url: "http://192.168.20.203:55532/users/list",
-        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         datatype: "json",
         mtype: "get",
         //data: JSON.stringify({ id: user_name, password: user_pw }),
@@ -37,7 +37,6 @@ $(function () {
             }
 
             let isHover = $('tr[aria-selected="true"]');
-            console.log(isHover === true);
             if (isHover === true) {
                 $('.ui-state-highlight').removeClass('selbg');
             }

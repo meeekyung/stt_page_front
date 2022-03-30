@@ -1,12 +1,14 @@
+let booleanValue = false;
+
 $(function () {
     //서버 호출
     $.ajax({
         url: "http://192.168.20.203:55532/monitor/server-config",
         method: "GET",
         dataType: "JSON",
-        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         success: function (json) {
-            console.log('서버타입 호출 성공');
+            // console.log('서버타입 호출 성공');
             for (let i = 0; i < json.length; i++) {
                 if (json.length >= 0) {
                     $('#serverName').append(
@@ -39,7 +41,9 @@ $(function () {
         let serverName = document.getElementById("serverName").value;
         let timeType = document.getElementById("timeType").value;
 
-        console.log(startDate, endDate, tenantName, serverName, timeType);
+        if (booleanValue) {
+            console.log('서비스통계 retrun 값 : ' + startDate, endDate, tenantName, serverName, timeType);
+        }
 
         //기간 설정 예외처리
         let startYearLimit = startDateValue.substr(0, 3);
@@ -51,7 +55,7 @@ $(function () {
 
         $.ajax({
             url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
-            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "GET",
             dataType: "JSON",
             success: function (json) {
@@ -60,7 +64,7 @@ $(function () {
                 serviceGrid(cnamesData);
             },
             error: function (request, status, error) {
-                console.log('service 통계 조회 실패');
+                //console.log('service 통계 조회 실패');
                 if (startDayLimit > endDayLimit || startMonLimit > endMonLimit || startYearLimit > endYearLimit) {
                     $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
                     $('#alert').show();
@@ -84,7 +88,7 @@ $(function () {
                 datatype: "json",
                 mtype: "get",
                 loadBeforeSend: function (jqXHR) {
-                    jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+                    jqXHR.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem("Bearer"));
                 },
                 colNames: cnamesData,
                 colModel: [
@@ -116,7 +120,6 @@ $(function () {
                     }
 
                     let isHover = $('tr[aria-selected="true"]');
-                    console.log(isHover === true);
                     if (isHover === true) {
                         $('.ui-state-highlight').removeClass('selbg');
                     }
@@ -159,11 +162,11 @@ $('.execl-btn').on('click', function () {
     $.ajax({
         url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
         contentType: "application/json; charset=UTF-8",
-        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         type: "GET",
         datatype: "JSON",
         success: function (json) {
-            console.log('excel export 성공');
+            //console.log('excel export 성공');
 
             let valArr = [];
             for (let i = 0; i < json.length; i++) {
@@ -207,7 +210,7 @@ $('.execl-btn').on('click', function () {
 
         },
         error: function (data) {
-            console.log('excel export 실패');
+            //console.log('excel export 실패');
         },
     });
     // let wb = XLSX.utils.table_to_book(document.getElementById('gview_serviceGrid'), {sheet:"서비스 통계",raw:true});

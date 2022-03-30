@@ -1,3 +1,5 @@
+let booleanValue = false;
+
 $(function () {
     let cnames = ['이름', '아이디', '전화번호', 'sms 알림'];
     let outerwidth = $("#userGrid").width();
@@ -7,7 +9,7 @@ $(function () {
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
-            jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+            jqXHR.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem("Bearer"));
         },
         colNames: cnames,
         colModel: [
@@ -41,6 +43,43 @@ $(function () {
                     $('.ui-state-highlight').addClass('selbg');
                 }
             });
+        }, onPaging: function (pgButton) {
+            let gridPage = $('#userGrid').getGridParam('page');
+            let totalPage = $('#sp_1_gridpager').text();
+
+            if (pgButton == 'next') {
+                if (gridPage < totalPage) {
+                    gridPage += 1;
+                } else {
+                    gridPage = page;
+                }
+            } else if (pgButton == 'prev') {
+                if (gridPage > 1) {
+                    gridPage -= 1;
+                } else {
+                    gridPage = page;
+                }
+            } else if (pgButton == 'first') {
+                gridPage = 1;
+            } else if (pgButton == 'last') {
+                gridPage = totalPage;
+            } else if (pgButton == 'user') {
+                let nowPage = Number($('#input_gridpager .ui-pg-input').val());
+                if (totalPage >= nowPage && nowPage > 0) {
+                    gridPage = nowPage;
+                } else {
+                    $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                    $('#alert').show();
+                    $('#input_gridpager .ui-pg-input').val(gridPage);
+                    gridPage = gridPage;
+                }
+            } else if (pgButton == 'records') {
+                gridPage = 1;
+            }
+            $('#userGrid').setGridParam('page', gridPage);
+            // $('#alarmGrid').setGridParam({
+            //     postDate: jqGridForm.setParam()
+            // });
         }
     });
 
@@ -50,7 +89,6 @@ $(function () {
 
         userOnOff = !userOnOff;
         if (!userOnOff) {
-            console.log(userOnOff);
             $('tr[aria-selected="false"]').each(function () {
                 const id = $(this).attr('id');
 
@@ -59,7 +97,6 @@ $(function () {
                 $("#jqg_userGrid_" + id).parent().parent('tr').addClass('ui-state-highlight');
             });
         } else {
-            console.log(userOnOff);
             $('tr[aria-selected="true"]').each(function () {
                 const id = $(this).attr('id');
 
@@ -80,7 +117,7 @@ $(function () {
     $('.userT-look').on('click', function () {
         //$("#userGrid").trigger("reloadGrid");
         $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
-        console.log('운영자 목록이 조회되었습니다.');
+        //console.log('운영자 목록이 조회되었습니다.');
     });
 
     //삭제       
@@ -93,7 +130,6 @@ $(function () {
 
         // 선택된 row의 개수를 구한다.​
         let selRowIdsLength = selRowIds.length;
-        console.log(selRowIdsLength);
 
         //​ 선택된 row가 없다면 리턴
         if (selRowIds.length == 0) {
@@ -110,14 +146,14 @@ $(function () {
 
         $.ajax({
             url: "http://192.168.20.203:55532/users?ids=" + selRowIdsJoin,
-            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
-                console.log('운영자목록 삭제 성공');
+                //console.log('운영자목록 삭제 성공');
             },
             error: function () {
-                console.log('운영자목록 삭제 실패');
+                //console.log('운영자목록 삭제 실패');
             }
         });
     });
@@ -145,21 +181,25 @@ $(function () {
             url: "http://192.168.20.203:55532/users/signup",
             contentType: "application/json; charset=UTF-8",
             method: "POST",
-            headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             dataType: "JSON",
             data: JSON.stringify({ id: userId, name: userName, password: userPw, phone_number: userPhone, sms_noti: radioSms }),
             success: function (json) {
-                console.log('운영자목록 추가 성공');
-                $("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
-                //$("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+                //console.log('운영자목록 추가 성공');
+                $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+                //$("#userGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가                
             },
             error: function (request, status, error) {
-                console.log('운영자목록 추가 실패');
+                //console.log('운영자목록 추가 실패');
                 let err = eval("(" + request.responseText + ")");
                 $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                 $('#alert').show();
             }
         });
+        addReset();
+    });
+
+    $('.userT-add').on('click', function () {
         addReset();
     });
 
@@ -207,24 +247,22 @@ $(function () {
             let userPw2 = document.getElementById("userPw2").value;
             let radioSms2 = $('input:radio[name="smsnoti2"]:checked').val();
 
-            console.log(radioSms2);
-
             $('#userChPopup').show();
 
             $.ajax({
                 url: "http://192.168.20.203:55532/users/" + selRowIds + "/update",
-                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
                 dataType: "JSON",
                 data: JSON.stringify({ password: userPw2, name: userName2, phone_number: userPhone2, sms_noti: radioSms2 }),
                 success: function (json) {
-                    console.log('운영자목록 변경 성공');
+                    //console.log('운영자목록 변경 성공');
                     $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                     $('#userChPopup').hide();
                 },
                 error: function (request, status, error) {
-                    console.log('운영자목록 변경 실패');
+                    //console.log('운영자목록 변경 실패');
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
@@ -232,8 +270,4 @@ $(function () {
             });
         });
     });
-
-    //페이지 전환 안되게..
-    $('.ui-pg-input').attr('disabled', true);
-
 });

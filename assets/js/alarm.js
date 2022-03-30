@@ -3,10 +3,10 @@ function startSocket3() {
 
     let num = 0;
 
+    let booleanValue = false;
+
     //연결설정
     socket3.onopen = function (e) {
-        //console.log("[open] Connection established");
-        //console.log("Sending to server alarm");
         socket3.send("Sending to server alarm");
     };
 
@@ -184,12 +184,15 @@ function startSocket3() {
     //연결닫힘
     socket3.onclose = function (event) {
         if (event.wasClean) {
-            console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            if (booleanValue) {
+                console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            }
         } else {
             // e.g. server process killed or network down
             // event.code is usually 1006 in this case
-            console.log('[close] Connection died');
-
+            if (booleanValue) {
+                console.log('[close] Connection died');
+            }
             socket3 = null
             setTimeout(startSocket3, 5000);
         }
@@ -197,7 +200,9 @@ function startSocket3() {
 
     //웹 소켓 오류
     socket3.onerror = function (error) {
-        console.log(`[error] ${error.message}`);
+        if (booleanValue) {
+            console.log(`[error] ${error.message}`);
+        }
     };
 
 }

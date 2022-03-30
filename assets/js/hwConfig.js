@@ -1,5 +1,4 @@
 let lasthwSelect;
-
 // $('#hwTab').append(
 //     '<li id="hw0" class="tab tab-on bdb">bona-lbmon1a</li>'
 // );
@@ -15,14 +14,13 @@ $.ajax({
     url: "http://192.168.20.203:55532/monitor/server-config",
     method: "GET",
     dataType: "JSON",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     success: function (json) {
-        let localToken = localStorage.getItem('Bearer');
-        console.log(localToken);
+        let localToken = sessionStorage.getItem('Bearer');
         if ($(lasthwSelect).hasClass('tab-on') === true) {
             $(lasthwSelect).addClass('tab-on');
         } else {
-            console.log('hwConfig 출력');
+            //console.log('hwConfig 출력');
             $('#hwTabs').empty();
 
             for (let i = 0; i < json.length; i++) {
@@ -40,7 +38,7 @@ $.ajax({
 
         for (let i = 0; i < json.length; i++) {
             if (json.length >= 0) {
-                console.log('sttStatus 출력');
+                //console.log('sttStatus 출력');
                 $('#severStausArea').append(
                     '<div class="status-box" id="statusBox' + i + '"><div class="status-box-inner"><h3 name="status-name" class="staus-tit" id="statusTit' + i + '">' + json[i].hostname + '</h3><p>' + json[i].ipaddr + '/<span class="etcText">' + json[i].role + '</span></p></div></div>'
                 );

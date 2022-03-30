@@ -17,12 +17,12 @@ $.ajax({
     method: "GET",
     dataType: "JSON",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     success: function (json) {
         if ($(lastSeleted).hasClass('tab-on') === true) {
             $(lastSeleted).addClass('tab-on');
         } else {
-            console.log('sttConfig 출력');
+            //console.log('sttConfig 출력');
             //server 데이터 출력    
             $('#systemTabs').empty();
 

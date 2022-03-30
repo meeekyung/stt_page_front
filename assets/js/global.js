@@ -11,9 +11,9 @@ window.addEventListener("load", function () {
 
           //로그아웃
           $('.logout-area').on('click', function () {
-            console.log('로그아웃 성공');
-            localStorage.removeItem('Bearer'); //삭제
-            //localStorage.clear(); // 전체삭제
+            //console.log('로그아웃 성공');
+            sessionStorage.removeItem('Bearer'); //삭제
+            //sessionStorage.clear(); // 전체삭제
             location.href = "../../login.html"
           });
 
@@ -56,10 +56,8 @@ window.addEventListener("load", function () {
 
             let activeId = $(this).attr("id");
             let setActive = setCookie("activeId", activeId, 1);
-            console.log(setActive);
 
             let getActive = getCookieValue("activeId");
-            console.log(getActive);
           });
 
           const getCookieValue1 = (key) => {
@@ -84,8 +82,6 @@ window.addEventListener("load", function () {
           };
 
           getActive = getCookieValue1("activeId");
-          console.log("쿠키값 가져오기 " + getActive);
-          console.log("선택한 아이디이름 " + activeId);
 
           // if (activeId == getActive) {
           //   console.log(getActive);
@@ -192,13 +188,13 @@ window.addEventListener("load", function () {
 });
 
 //token 유무로 링크 이동
-// let tokenIs = localStorage.getItem("Bearer");
-// let flag = true;
-// if (window.localStorage.Bearer === tokenIs) {
-//   if (!flag) {
-//     location.href = "http://192.168.20.203";
-//   }
-// } else if (window.localStorage.Bearer !== tokenIs && tokenIs == null) {
-//   flag = false;
-//   location.href = "http://192.168.20.203/login";
-// }
+let tokenIs = sessionStorage.getItem("Bearer");
+let flag = true;
+if (window.sessionStorage.Bearer === tokenIs) {
+  if (!flag) {
+    location.href = "http://192.168.20.203";
+  }
+} else if (window.sessionStorage.Bearer !== tokenIs && tokenIs == null) {
+  flag = false;
+  location.href = "http://192.168.20.203/login";
+}

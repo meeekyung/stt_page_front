@@ -33,7 +33,7 @@ function checkFile(f) {
   $.ajax({
     type: "POST",
     url: "http://192.168.20.203:55532/audio/validation",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     data: formData,
     processData: false,
     contentType: false,
@@ -71,7 +71,7 @@ $(function () {
     $.ajax({
       type: "POST",
       url: "http://192.168.20.203:55532/audio",
-      headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
       data: formData,
       processData: false,
       contentType: false,
@@ -145,7 +145,7 @@ $("#introBtn").on("click", function () {
     url: "http://192.168.20.203:55532/users/login",
     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
     type: "POST",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     data: JSON.stringify({ username: user_name, password: user_pw }),
     success: function (data) {
       $("#loginArea").hide();

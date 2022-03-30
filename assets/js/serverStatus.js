@@ -1,9 +1,11 @@
+let booleanValue = false;
+
 // 서비스 상태정보 데이터 출력
 $.ajax({
   url: "http://192.168.20.203:55532/containers",
   method: "GET",
   dataType: "JSON",
-  headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+  headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
   success: function (json) {
     $("#serverB-area").empty();
 
@@ -42,7 +44,6 @@ function selectAll(selectAll) {
   const checkboxes = document.getElementsByName("server-check");
 
   checkboxes.forEach((checkbox) => {
-    console.log(checkbox);
     checkbox.checked = selectAll.checked;
   });
 }
@@ -51,15 +52,15 @@ function statusRestart() {
   $.ajax({
     url: "http://192.168.20.203:55532/containers",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "GET",
     dataType: "JSON",
     success: function (json) {
-      console.log("서버정보 다시 조회 성공");
+      //console.log("서버정보 다시 조회 성공");
       window.location.reload();
     },
     error: function (request, status, error) {
-      console.log("서버정보 다시 조회 실패");
+      //console.log("서버정보 다시 조회 실패");
     },
   });
 }
@@ -80,17 +81,17 @@ $(".start-btn").on("click", function () {
   $.ajax({
     url: "http://192.168.20.203:55532/containers/start",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
     dataType: "JSON",
     data: JSON.stringify({
       names: checkedArr,
     }),
     success: function (json) {
-      console.log("서버정보 Start 성공");
+      //console.log("서버정보 Start 성공");
     },
     error: function (request, status, error) {
-      console.log("서버정보 Start 실패");
+      //console.log("서버정보 Start 실패");
     },
   });
   statusRestart();
@@ -110,17 +111,17 @@ $(".stop-btn").on("click", function () {
   $.ajax({
     url: "http://192.168.20.203:55532/containers/stop",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
     dataType: "JSON",
     data: JSON.stringify({
       names: checkedArr,
     }),
     success: function (json) {
-      console.log("서버정보 Stop 성공");
+      //console.log("서버정보 Stop 성공");
     },
     error: function (request, status, error) {
-      console.log("서버정보 Stop 실패");
+      //console.log("서버정보 Stop 실패");
     },
   });
   statusRestart();
@@ -140,17 +141,17 @@ $(".kil-btn").on("click", function () {
   $.ajax({
     url: "http://192.168.20.203:55532/containers/kill",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
     dataType: "JSON",
     data: JSON.stringify({
       names: checkedArr,
     }),
     success: function (json) {
-      console.log("서버정보 kill 성공");
+      //console.log("서버정보 kill 성공");
     },
     error: function (request, status, error) {
-      console.log("서버정보 kill 실패");
+      //console.log("서버정보 kill 실패");
     },
   });
   statusRestart();
@@ -170,17 +171,17 @@ $(".restart-btn").on("click", function () {
   $.ajax({
     url: "http://192.168.20.203:55532/containers/restart",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
     dataType: "JSON",
     data: JSON.stringify({
       names: checkedArr,
     }),
     success: function (json) {
-      console.log("서버정보 restart 성공");
+      //console.log("서버정보 restart 성공");
     },
     error: function (request, status, error) {
-      console.log("서버정보 restart 실패");
+      //console.log("서버정보 restart 실패");
     },
   });
   statusRestart();
@@ -200,7 +201,7 @@ $(".pause-btn").on("click", function () {
   $.ajax({
     url: "http://192.168.20.203:55532/containers/pause",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
     dataType: "JSON",
     data: JSON.stringify({
@@ -230,17 +231,17 @@ $(".remove-btn").on("click", function () {
   $.ajax({
     url: "http://192.168.20.203:55532/containers/remove",
     contentType: "application/json; charset=UTF-8",
-    headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
     dataType: "JSON",
     data: JSON.stringify({
       names: checkedArr,
     }),
     success: function (json) {
-      console.log("서버정보 remove 성공");
+      //console.log("서버정보 remove 성공");
     },
     error: function (request, status, error) {
-      console.log("서버정보 remove 실패");
+      //console.log("서버정보 remove 실패");
     },
   });
   statusRestart();

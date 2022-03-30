@@ -265,6 +265,7 @@ function startSocket() {
       const suceessChart = document
         .getElementById("suceessChart")
         .getContext("2d");
+
       myChart = new Chart(suceessChart, {
         type: "doughnut",
         data: {
@@ -325,6 +326,8 @@ function startSocket() {
           },
         },
       });
+
+
 
       //총 음성길이 출력
       const audioLengthStt2 = boardData2["bona-stt2"].audio_len / 60;
@@ -1110,7 +1113,9 @@ function startSocket() {
 
   //웹 소켓 오류
   socket.onerror = function (error) {
-    console.log(`[error] ${error.message}`);
+    if (booleanValue) {
+      console.log(`[error] ${error.message}`);
+    }
   };
 }
 startSocket();

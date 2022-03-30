@@ -1,3 +1,5 @@
+let booleanValue = false;
+
 $(function () {
     let cnames = ['서버명', '호스트명', '기능', 'IP주소'];
     let outerwidth = $("#serverGrid").width();
@@ -7,7 +9,7 @@ $(function () {
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
-            jqXHR.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("Bearer"));
+            jqXHR.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem("Bearer"));
         },
         colNames: cnames,
         colModel: [
@@ -77,26 +79,28 @@ $(function () {
     //조회
     $('.userT-look').on('click', function () {
         $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
-        console.log('서버정보 목록이 조회되었습니다.');
+        //console.log('서버정보 목록이 조회되었습니다.');
     });
 
     //삭제       
     $('.userT-delete').on('click', function () {
         // 선택된 row rowId를 구한다.
         let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');
-        console.log(selRowIds);
 
         //배열을 텍스트로 추출
-        var setDarr = new Array();
+        var setDarr = [];
         for (let i = 0; i < selRowIds.length; i++) {
             let selHostname = $('#' + selRowIds[i]).children('td[aria-describedby="serverGrid_hostname"]').text();
-            console.log(selHostname);
-            console.log(setDarr.push(selHostname));
-            console.log(setDarr);
+            if (booleanValue) {
+                console.log('삭제할 리스트 : ' + selHostname);
+            }
+            setDarr.push(selHostname);
         }
 
         //선택된 row rowId의 hostname을 텍스트로 추출
-        console.log(setDarr);
+        if (booleanValue) {
+            console.log('삭제할 return 값 : ' + setDarr);
+        }
         let setDarrJoin = setDarr.join('%2C');
 
         // 선택된 row의 개수를 구한다.​
@@ -117,13 +121,14 @@ $(function () {
 
         $.ajax({
             url: "http://192.168.20.203:55532/monitor/server-config/delete?hostname=" + setDarrJoin,
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
             success: function (json) {
-                console.log('서버정보목록 삭제 성공');
+                //console.log('서버정보목록 삭제 성공');
             },
             error: function () {
-                console.log('서버정보목록 삭제 실패');
+                //console.log('서버정보목록 삭제 실패');
             }
         });
     });
@@ -150,17 +155,16 @@ $(function () {
         $.ajax({
             url: "http://192.168.20.203:55532/monitor/server-config",
             contentType: "application/json; charset=UTF-8",
-            headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "POST",
             dataType: "JSON",
             data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
             success: function (json) {
-                console.log('서버정보목록 추가 성공');
+                //console.log('서버정보목록 추가 성공');
                 $("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first');
-                console.log(addReset());
             },
             error: function (request, status, error) {
-                console.log('서버정보목록 추가 실패');
+                //console.log('서버정보목록 추가 실패');
                 let err = eval("(" + request.responseText + ")");
                 $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                 $('#alert').show();
@@ -180,8 +184,7 @@ $(function () {
     $('.userT-change').on('click', function () {
 
         // 선택된 row rowId를 구한다.
-        let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');
-        console.log(selRowIds);
+        let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow'); /
 
         //​ 선택된 row가 없다면 리턴
         if (selRowIds.length == 0) {
@@ -194,15 +197,13 @@ $(function () {
         }
 
         //배열을 텍스트로 추출
-        let setCharr = new Array();
+        let setCharr = [];
         for (let i = 0; i < selRowIds.length; i++) {
             let selName = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_name"]').text();
             let selHostname = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_hostname"]').text();
             let selRole = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_role"]').text();
             let selIpaddr = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_ipaddr"]').text();
-            console.log(selName, selHostname, selRole, selIpaddr);
-            console.log(setCharr.push(selName, selHostname, selRole, selIpaddr));
-            console.log(setCharr);
+            setCharr.push(selName, selHostname, selRole, selIpaddr);
         }
 
         //운영자관리 변경팝업 생성
@@ -230,17 +231,17 @@ $(function () {
             $.ajax({
                 url: "http://192.168.20.203:55532/monitor/server-config/" + setCharr[1],
                 contentType: "application/json; charset=UTF-8",
-                headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                 method: "PUT",
                 dataType: "JSON",
                 data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
                 success: function (json) {
-                    console.log('운영자목록 변경 성공');
+                    //console.log('운영자목록 변경 성공');
                     alert('서버정보가 변경되었습니다');
                     $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                 },
                 error: function (request, status, error) {
-                    console.log('운영자목록 변경 실패');
+                    //console.log('운영자목록 변경 실패');
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
@@ -248,7 +249,4 @@ $(function () {
             });
         });
     });
-
-    //페이지 전환 안되게..
-    $('.ui-pg-input').attr('disabled', true);
 });

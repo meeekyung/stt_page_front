@@ -102,11 +102,6 @@ $('#userChPopup .add-area .addH i, .add-btn-area .close-btn, #userChPopup .add-a
   $('#userChPopup').hide();
 });
 
-//테이블 체크한 줄 배경색상변경
-if ($('tr').hasClass('.ui-state-highlight') === true) {
-  console.log('ddddd');
-}
-
 //서버정보, 알람설정 탭 이동
 $('.servertab1').on('click', function (e) {
   e.preventDefault();

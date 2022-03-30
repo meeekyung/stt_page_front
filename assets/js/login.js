@@ -8,13 +8,13 @@ $("#introBtn").on("click", function () {
         url: "http://192.168.20.203:55532/users/login",
         contentType: "application/json; charset=UTF-8",
         type: "POST",
-        headers: { Authorization: "Bearer " + localStorage.getItem("Bearer") },
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         data: JSON.stringify({ id: user_name, password: user_pw }),
         success: function (data) {
-            console.log('로그인 성공');
+            //console.log('로그인 성공');
             let jwtToken = data.token;
-            let localToken = localStorage.getItem('Bearer');
-            const dT = localStorage.setItem("Bearer", data.token);
+            let localToken = sessionStorage.getItem('Bearer');
+            const dT = sessionStorage.setItem("Bearer", data.token);
             //if(jwtToken = localToken){
             location.href = "../../index.html"; //페이지 이동
             //}else{
@@ -23,7 +23,8 @@ $("#introBtn").on("click", function () {
 
         },
         error: function (data) {
-            alert("아이디 또는 비밀번호 오류입니다.")
+            alert("아이디 또는 비밀번호 오류입니다.");
+            $('#userName').focuse();
         },
     });
 });
@@ -39,8 +40,8 @@ $("#userPw").keypress(function (e) {
 // password : !Bcsic123
 
 $('.logout-area').on('click', function () {
-    console.log('로그아웃 성공');
-    localStorage.removeItem('Bearer'); //삭제
-    //localStorage.clear(); // 전체삭제
+    //console.log('로그아웃 성공');
+    sessionStorage.removeItem('Bearer'); //삭제
+    //sessionStorage.clear(); // 전체삭제
     location.href = "../../login.html"
 });
