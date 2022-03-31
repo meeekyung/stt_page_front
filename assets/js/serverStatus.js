@@ -36,7 +36,15 @@ $.ajax({
       },
     });
   },
-  error: function () { },
+  error: function (request, status, error) {
+    console.log(request.status);
+    if (request.status == '403') {
+      //console.log('로그아웃 성공');
+      sessionStorage.removeItem('Bearer'); //삭제
+      //sessionStorage.clear(); // 전체삭제
+      location.href = "../../login.html"
+    }
+  },
 });
 
 // 체크박스 전체 선택 및 해제

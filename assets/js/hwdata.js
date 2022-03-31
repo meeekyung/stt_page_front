@@ -1,309 +1,258 @@
 let booleanValue = false;
 
-// function onSet() {
-//     const cpuChart = document.getElementById("cpuChart").getContext("2d");
-//     const networkChart1 = new Chart(cpuChart, {
-//         type: 'doughnut',
-//         data: {
-//             labels: ['미사용률', '사용률'],
-//             datasets: [{
-//                 data: [0, 0],
-//                 backgroundColor: [
-//                     '#ececec',
-//                     '#5d6778'
-//                 ],
-//                 borderWidth: 0,
-//                 barPercentage: 0.3,
-//             }]
-//         },
-//         options: {
-//             plugins: {
-//                 doughnutlabel: {
-//                     labels: [
-//                         {
-//                             text: 0 + '%',
-//                             font: {
-//                                 size: '28',
-//                                 family: 'Roboto ,Arial, Helvetica, sans-serif'
-//                             },
-//                             color: '#5d6778'
-//                         }
-//                     ]
-//                 }
-//             },
-//             animation: {
-//                 duration: 0
-//             },
-//             responsive: true,
-//             maintainAspectRatio: false,
-//             legend: {
-//                 position: 'right',
-//                 display: false,
-//                 labels: {
-//                     fontColor: '#5d6778',
-//                     fontSize: 15,
-//                     defaultFontFamily: "Roboto",
-//                     boxWidth: 15
-//                 },
-//             },
-//             cutoutPercentage: 90,
-//             scales: {
-//                 yAxes: [
-//                     {
-//                         display: false,
-//                         ticks: {
-//                             min: 0,
-//                             max: 20,
-//                             stepSize: 20,
-//                         },
-//                     },
-//                 ],
-//             },
-//         },
-//     });
-
-//     const memoryChart = document.getElementById("memoryChart").getContext("2d");
-//     const networkChart2 = new Chart(memoryChart, {
-//         type: 'doughnut',
-//         data: {
-//             labels: ['미사용률', '사용률'],
-//             datasets: [{
-//                 data: [0, 0],
-//                 backgroundColor: [
-//                     '#ececec',
-//                     '#5d6778'
-//                 ],
-//                 borderWidth: 0,
-//                 barPercentage: 0.3,
-//             }]
-//         },
-//         options: {
-//             plugins: {
-//                 doughnutlabel: {
-//                     labels: [
-//                         {
-//                             text: 0 + '%',
-//                             font: {
-//                                 size: '28',
-//                                 family: 'Roboto ,Arial, Helvetica, sans-serif'
-//                             },
-//                             color: '#5d6778'
-//                         }
-//                     ]
-//                 }
-//             },
-//             animation: {
-//                 duration: 0
-//             },
-//             responsive: true,
-//             maintainAspectRatio: false,
-//             legend: {
-//                 position: 'right',
-//                 display: false,
-//                 labels: {
-//                     fontColor: '#5d6778',
-//                     fontSize: 15,
-//                     defaultFontFamily: "Roboto",
-//                     boxWidth: 15
-//                 },
-//             },
-//             cutoutPercentage: 90,
-//             scales: {
-//                 yAxes: [
-//                     {
-//                         display: false,
-//                         ticks: {
-//                             min: 0,
-//                             max: 20,
-//                             stepSize: 20,
-//                         },
-//                     },
-//                 ],
-//             },
-//         },
-//     });
-
-//     const diskChart = document.getElementById("diskChart").getContext("2d");
-//     const networkChart3 = new Chart(diskChart, {
-//         type: "horizontalBar",
-//         data: {
-//             labels: ["undefind"],
-//             datasets: [
-//                 {
-//                     data: [0],
-//                     backgroundColor: "#5d6778",
-//                     barPercentage: 0.5,
-//                 },
-//             ],
-//         },
-//         options: {
-//             responsive: true,
-//             maintainAspectRatio: false,
-//             legend: {
-//                 display: false
-//             },
-//             scales: {
-//                 xAxes: [
-//                     {
-//                         display: true,
-//                         ticks: {
-//                             min: 0,
-//                             max: 50,
-//                             stepSize: 50,
-//                             fontColor: "#5d6778",
-//                             fontSize: 12,
-//                             defaultFontFamily: "Roboto"
-//                         },
-//                         gridLines: {
-//                             color: '#fff',
-//                             lineWidth: 0.5
-//                         },
-//                     },
-//                 ],
-//                 yAxes: [
-//                     {
-//                         display: true,
-//                         ticks: {
-//                             min: 0,
-//                             max: 50,
-//                             stepSize: 50,
-//                             fontColor: "#5d6778",
-//                             fontSize: 12,
-//                             defaultFontFamily: "Roboto",
-//                         },
-//                         gridLines: {
-//                             color: '#fff',
-//                             lineWidth: 0.5
-//                         },
-//                     },
-//                 ],
-//             },
-//         },
-//     });
-
-//     const networkChart = document.getElementById("networkChart").getContext("2d");
-//     const networkChart4 = new Chart(networkChart, {
-//         type: "horizontalBar",
-//         data: {
-//             labels: ["undefind"],
-//             datasets: [
-//                 {
-//                     data: [0],
-//                     backgroundColor: "#5d6778",
-//                     barPercentage: 0.5,
-//                 },
-//             ],
-//         },
-//         options: {
-//             responsive: true,
-//             maintainAspectRatio: false,
-//             legend: {
-//                 display: false
-//             },
-//             scales: {
-//                 xAxes: [
-//                     {
-//                         display: true,
-//                         ticks: {
-//                             min: 0,
-//                             max: 10,
-//                             stepSize: 2,
-//                             fontColor: "#5d6778",
-//                             fontSize: 12,
-//                             defaultFontFamily: "Roboto"
-//                         },
-//                         gridLines: {
-//                             color: '#fff',
-//                             lineWidth: 0.5
-//                         },
-//                     },
-//                 ],
-//                 yAxes: [
-//                     {
-//                         display: true,
-//                         ticks: {
-//                             min: 0,
-//                             max: 10,
-//                             stepSize: 2,
-//                             fontColor: "#5d6778",
-//                             fontSize: 12,
-//                             defaultFontFamily: "Roboto",
-//                         },
-//                         gridLines: {
-//                             color: '#fff',
-//                             lineWidth: 0.5
-//                         },
-//                     },
-//                 ],
-//             },
-//         },
-//     });
-// }
-
-// onSet();
-
-//디스크 사용률(%) 그래프
-const diskChart = document.getElementById("diskChart").getContext("2d");
-const diskChartData = {
-    type: "horizontalBar",
-    data: {
-        labels: '',
-        datasets: [
-            {
-                data: '',
-                backgroundColor: '',
-                barPercentage: 0.5,
-            },
-        ],
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-            display: false
-        },
-        scales: {
-            xAxes: [
-                {
-                    display: true,
-                    ticks: {
-                        min: 0,
-                        max: 100,
-                        stepSize: 20,
-                        fontColor: "#5d6778",
-                        fontSize: 12,
-                        defaultFontFamily: "Roboto"
-                    },
-                    gridLines: {
-                        color: '#fff',
-                        lineWidth: 0.5
-                    },
-                },
-            ],
-            yAxes: [
-                {
-                    display: true,
-                    ticks: {
-                        min: 0,
-                        max: 100,
-                        stepSize: 20,
-                        fontColor: "#5d6778",
-                        fontSize: 12,
-                        defaultFontFamily: "Roboto",
-                    },
-                    gridLines: {
-                        color: '#fff',
-                        lineWidth: 0.5
-                    },
-                },
-            ],
-        },
-    },
-}
-let myDiskChart = new Chart(diskChart, diskChartData);
-console.log(diskChartData);
-
 function startSocket2() {
+    //CPU 사용률(%) 도넛형 그래프
+    const cpuChart = document.getElementById("cpuChart").getContext("2d");
+    const cpuChartData = {
+        type: 'doughnut',
+        data: {
+            labels: ['미사용률', '사용률'],
+            datasets: [{
+                data: 0,
+                backgroundColor: [
+                    '#ececec',
+                    '#5d6778'
+                ],
+                borderWidth: 0,
+                barPercentage: 0.3,
+            }]
+        },
+        options: {
+            plugins: {
+                doughnutlabel: {
+                    labels: [
+                        {
+                            text: 0 + '%',
+                            font: {
+                                size: '28',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
+                            },
+                            color: '#5d6778'
+                        }
+                    ]
+                }
+            },
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'right',
+                display: false,
+                labels: {
+                    fontColor: '#5d6778',
+                    fontSize: 15,
+                    defaultFontFamily: "Roboto",
+                    boxWidth: 15
+                },
+            },
+            cutoutPercentage: 90,
+            scales: {
+                yAxes: [
+                    {
+                        display: false,
+                        ticks: {
+                            min: 0,
+                            max: 20,
+                            stepSize: 20,
+                        },
+                    },
+                ],
+            },
+        },
+    };
+    let myCpuChart = new Chart(cpuChart, cpuChartData);
+
+    //메모리 사용률(%) 도넛형 그래프
+    const memoryChart = document.getElementById("memoryChart").getContext("2d");
+    const memoryChartData = {
+        type: 'doughnut',
+        data: {
+            labels: ['미사용률', '사용률'],
+            datasets: [{
+                data: 0,
+                backgroundColor: [
+                    '#ececec',
+                    '#5d6778'
+                ],
+                borderWidth: 0,
+                barPercentage: 0.3,
+            }]
+        },
+        options: {
+            plugins: {
+                doughnutlabel: {
+                    labels: [
+                        {
+                            text: 0 + '%',
+                            font: {
+                                size: '28',
+                                family: 'Roboto ,Arial, Helvetica, sans-serif'
+                            },
+                            color: '#5d6778'
+                        }
+                    ]
+                }
+            },
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'right',
+                display: false,
+                labels: {
+                    fontColor: '#5d6778',
+                    fontSize: 15,
+                    defaultFontFamily: "Roboto",
+                    boxWidth: 15
+                },
+            },
+            cutoutPercentage: 90,
+            scales: {
+                yAxes: [
+                    {
+                        display: false,
+                        ticks: {
+                            min: 0,
+                            max: 20,
+                            stepSize: 20,
+                        },
+                    },
+                ],
+            },
+        },
+    };
+    let myMemoryChart = new Chart(memoryChart, memoryChartData);
+
+    //디스크 사용률(%) 가로형 막대그래프
+    const diskChart = document.getElementById("diskChart").getContext("2d");
+    const diskChartData = {
+        type: "horizontalBar",
+        data: {
+            labels: '',
+            datasets: [
+                {
+                    data: 0,
+                    backgroundColor: '',
+                    barPercentage: 0.5,
+                },
+            ],
+        },
+        animation: {
+            duration: 0
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [
+                    {
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            stepSize: 20,
+                            fontColor: "#5d6778",
+                            fontSize: 12,
+                            defaultFontFamily: "Roboto"
+                        },
+                        gridLines: {
+                            color: '#fff',
+                            lineWidth: 0.5
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            stepSize: 20,
+                            fontColor: "#5d6778",
+                            fontSize: 12,
+                            defaultFontFamily: "Roboto",
+                        },
+                        gridLines: {
+                            color: '#fff',
+                            lineWidth: 0.5
+                        },
+                    },
+                ],
+            },
+        },
+    }
+    let myDiskChart = new Chart(diskChart, diskChartData);
+
+    //네트워크 트래픽(MB/s) 가로형 막대그래프
+    const networkChart = document.getElementById("networkChart").getContext("2d");
+    const networkChartData = {
+        type: "horizontalBar",
+        data: {
+            labels: '',
+            datasets: [
+                {
+                    data: 0,
+                    backgroundColor: '',
+                    barPercentage: 0.5,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            animation: {
+                duration: 0
+            },
+            scales: {
+                xAxes: [
+                    {
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 20,
+                            stepSize: 2,
+                            fontColor: "#5d6778",
+                            fontSize: 12,
+                            defaultFontFamily: "Roboto"
+                        },
+                        gridLines: {
+                            color: '#fff',
+                            lineWidth: 0.5
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 1,
+                            stepSize: 0.2,
+                            fontColor: "#5d6778",
+                            fontSize: 12,
+                            defaultFontFamily: "Roboto",
+                        },
+                        gridLines: {
+                            color: '#fff',
+                            lineWidth: 0.5
+                        },
+                    },
+                ],
+            },
+        },
+    };
+    let myNetworkChart = new Chart(networkChart, networkChartData);
+
     let socket2 = new WebSocket("ws://192.168.20.203:55532/ws/hardware-status");
 
     let hardwareData;
@@ -315,7 +264,47 @@ function startSocket2() {
         socket2.send("[open] Connection established hwdata");
     };
 
+    $('#btn_test').on('click', function () {
+        //const cpuUseData1 = hwData.message.cpu;
+        // const cpuUseData2 = 100 - cpuUseData1;
+        // const cpuUseDataText = cpuUseData1 + ' %';
 
+
+        myCpuChart.data.datasets[0].data = [90, 10];
+        myCpuChart.options.plugins.doughnutlabel.labels[0].text = '10';
+
+        myDiskChart.data.datasets[0].data = [10, 20, 30];
+        if (booleanValue) {
+            console.log(myCpuChart.data.datasets[0].data);
+            console.log(myCpuChart.options.plugins.doughnutlabel.labels[0].text);
+        }
+
+        //myCpuChart.clear();
+        myCpuChart.update();
+        myDiskChart.update();
+
+    });
+
+    $('#btn_test2').on('click', function () {
+        //const cpuUseData1 = hwData.message.cpu;
+        // const cpuUseData2 = 100 - cpuUseData1;
+        // const cpuUseDataText = cpuUseData1 + ' %';
+
+
+        myCpuChart.data.datasets[0].data = [0, 100];
+        myCpuChart.options.plugins.doughnutlabel.labels[0].text = '100';
+
+        myDiskChart.data.datasets[0].data = [40, 50, 60];
+        if (booleanValue) {
+            console.log(myCpuChart.data.datasets[0].data);
+            console.log(myCpuChart.options.plugins.doughnutlabel.labels[0].text);
+        }
+
+        //myCpuChart.clear();
+        myCpuChart.update();
+        myDiskChart.update();
+
+    });
     //데이터 수신 됨
     socket2.onmessage = function (json) {
         //전체 데이터 출력
@@ -328,139 +317,28 @@ function startSocket2() {
 
             //cpu 사용률 - 도넛형 차트
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-            $("#cpuChart").remove();
-            $('.cpu-area .chartjs-size-monitor').remove();
-            $(".cpu-area").append('<canvas id="cpuChart"></canvas>');
+            const cpuUseData1 = hwData.message.cpu;
+            const cpuUseData2 = 100 - cpuUseData1;
+            const cpuUseDataText = cpuUseData1 + ' %';
 
-            const cpuUseData = hwData.message.cpu;
-            const cpuChart = document.getElementById("cpuChart").getContext("2d");
-            const networkChart1 = new Chart(cpuChart, {
-                type: 'doughnut',
-                data: {
-                    labels: ['미사용률', '사용률'],
-                    datasets: [{
-                        data: [100 - cpuUseData, cpuUseData],
-                        backgroundColor: [
-                            '#ececec',
-                            '#5d6778'
-                        ],
-                        borderWidth: 0,
-                        barPercentage: 0.3,
-                    }]
-                },
-                options: {
-                    plugins: {
-                        doughnutlabel: {
-                            labels: [
-                                {
-                                    text: cpuUseData + '%',
-                                    font: {
-                                        size: '28',
-                                        family: 'Roboto ,Arial, Helvetica, sans-serif'
-                                    },
-                                    color: '#5d6778'
-                                }
-                            ]
-                        }
-                    },
-                    animation: {
-                        duration: 0
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        position: 'right',
-                        display: false,
-                        labels: {
-                            fontColor: '#5d6778',
-                            fontSize: 15,
-                            defaultFontFamily: "Roboto",
-                            boxWidth: 15
-                        },
-                    },
-                    cutoutPercentage: 90,
-                    scales: {
-                        yAxes: [
-                            {
-                                display: false,
-                                ticks: {
-                                    min: 0,
-                                    max: 20,
-                                    stepSize: 20,
-                                },
-                            },
-                        ],
-                    },
-                },
-            });
+            myCpuChart.data.datasets[0].data = [100 - cpuUseData1, cpuUseData1];
+            myCpuChart.options.plugins.doughnutlabel.labels[0].text = cpuUseData1 + ' %';
+
+            if (booleanValue) {
+                console.log(myCpuChart.data.datasets[0].data);
+                console.log(myCpuChart.options.plugins.doughnutlabel.labels[0].text);
+            }
+
+            myCpuChart.update();
 
             //메모리 사용률 - 도넛형 차트
             //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-            $("#memoryChart").remove();
-            $('.memory-area .chartjs-size-monitor').remove();
-            $(".memory-area").append('<canvas id="memoryChart"></canvas>');
-
             const memoryUseData = hwData.message.memory;
-            const memoryChart = document.getElementById("memoryChart").getContext("2d");
-            const networkChart2 = new Chart(memoryChart, {
-                type: 'doughnut',
-                data: {
-                    labels: ['미사용률', '사용률'],
-                    datasets: [{
-                        data: [100 - memoryUseData, memoryUseData],
-                        backgroundColor: [
-                            '#ececec',
-                            '#5d6778'
-                        ],
-                        borderWidth: 0,
-                        barPercentage: 0.3,
-                    }]
-                },
-                options: {
-                    plugins: {
-                        doughnutlabel: {
-                            labels: [
-                                {
-                                    text: memoryUseData + '%',
-                                    font: {
-                                        size: '28',
-                                        family: 'Roboto ,Arial, Helvetica, sans-serif'
-                                    },
-                                    color: '#5d6778'
-                                }
-                            ]
-                        }
-                    },
-                    animation: {
-                        duration: 0
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        position: 'right',
-                        display: false,
-                        labels: {
-                            fontColor: '#5d6778',
-                            fontSize: 15,
-                            defaultFontFamily: "Roboto",
-                            boxWidth: 15
-                        },
-                    },
-                    cutoutPercentage: 90,
-                    scales: {
-                        yAxes: [
-                            {
-                                display: false,
-                                ticks: {
-                                    min: 0,
-                                    max: 20,
-                                    stepSize: 20,
-                                },
-                            },
-                        ],
-                    },
-                },
-            });
+            myMemoryChart.data.datasets[0].data = [100 - memoryUseData, memoryUseData];
+            myMemoryChart.options.plugins.doughnutlabel.labels[0].text = memoryUseData + ' %';
+
+            myMemoryChart.update();
+
 
             //디스크 사용률 - 가로형 막대 차트            
             //디스트 사용률 key        
@@ -480,11 +358,6 @@ function startSocket2() {
             for (let i = 0; i < diskBgN; i++) {
                 diskBgArray.push("#5d6778");
             }
-
-            //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-            // $("#diskChart").remove();
-            // $('.disk-area .chartjs-size-monitor').remove();
-            // $(".disk-area").append('<canvas id="diskChart"></canvas>');
 
             if (booleanValue) {
                 console.log(diskChartData.data.datasets[0].data = diskValueArr);
@@ -515,212 +388,47 @@ function startSocket2() {
                 networkBgArray.push("#5d6778");
             }
 
-            //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-            $("#networkChart").remove();
-            $('.network-area .chartjs-size-monitor').remove();
-            $(".network-area").append('<canvas id="networkChart"></canvas>');
+            if (booleanValue) {
+                console.log(diskChartData.data.datasets[0].data = networkValueArr);
+            }
+            networkChartData.data.datasets[0].data = networkValueArr;
+            networkChartData.data.datasets[0].backgroundColor = networkBgArray;
+            networkChartData.data.labels = networkNameArr
 
-            const networkChart = document.getElementById("networkChart").getContext("2d");
-            const networkChart4 = new Chart(networkChart, {
-                type: "horizontalBar",
-                data: {
-                    labels: networkNameArr,
-                    datasets: [
-                        {
-                            data: networkValueArr,
-                            backgroundColor: networkBgArray,
-                            barPercentage: 0.5,
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        xAxes: [
-                            {
-                                display: true,
-                                ticks: {
-                                    min: 0,
-                                    max: 20,
-                                    stepSize: 2,
-                                    fontColor: "#5d6778",
-                                    fontSize: 12,
-                                    defaultFontFamily: "Roboto"
-                                },
-                                gridLines: {
-                                    color: '#fff',
-                                    lineWidth: 0.5
-                                },
-                            },
-                        ],
-                        yAxes: [
-                            {
-                                display: true,
-                                ticks: {
-                                    min: 0,
-                                    max: 1,
-                                    stepSize: 0.2,
-                                    fontColor: "#5d6778",
-                                    fontSize: 12,
-                                    defaultFontFamily: "Roboto",
-                                },
-                                gridLines: {
-                                    color: '#fff',
-                                    lineWidth: 0.5
-                                },
-                            },
-                        ],
-                    },
-                },
-            });
+            myNetworkChart.update();	//차트 업데이트
+
         }
 
         if (hwName == "bona-stt2") {
             if (!flag) {
-                //onSet();
+                //onSet();   
 
                 //cpu 사용률 - 도넛형 차트
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-                $("#cpuChart").remove();
-                $(".cpu-area .chartjs-size-monitor").remove();
-                $(".cpu-area").append('<canvas id="cpuChart"></canvas>');
+                const cpuUseData1 = hwData.message.cpu;
+                const cpuUseData2 = 100 - cpuUseData1;
+                const cpuUseDataText = cpuUseData1 + ' %';
 
-                const cpuUseData = hwData.message.cpu;
-                const cpuChart = document.getElementById("cpuChart").getContext("2d");
-                const networkChart1 = new Chart(cpuChart, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['미사용률', '사용률'],
-                        datasets: [{
-                            data: [100 - cpuUseData, cpuUseData],
-                            backgroundColor: [
-                                '#ececec',
-                                '#5d6778'
-                            ],
-                            borderWidth: 0,
-                            barPercentage: 0.3,
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            doughnutlabel: {
-                                labels: [
-                                    {
-                                        text: cpuUseData + '%',
-                                        font: {
-                                            size: '28',
-                                            family: 'Roboto ,Arial, Helvetica, sans-serif'
-                                        },
-                                        color: '#5d6778'
-                                    }
-                                ]
-                            }
-                        },
-                        animation: {
-                            duration: 0
-                        },
-                        responsive: false,
-                        maintainAspectRatio: false,
-                        legend: {
-                            position: 'right',
-                            display: false,
-                            labels: {
-                                fontColor: '#5d6778',
-                                fontSize: 15,
-                                defaultFontFamily: "Roboto",
-                                boxWidth: 15
-                            },
-                        },
-                        cutoutPercentage: 90,
-                        scales: {
-                            yAxes: [
-                                {
-                                    display: false,
-                                    ticks: {
-                                        min: 0,
-                                        max: 20,
-                                        stepSize: 20,
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                });
+                myCpuChart.data.datasets[0].data = [100 - cpuUseData1, cpuUseData1];
+                myCpuChart.options.plugins.doughnutlabel.labels[0].text = cpuUseData1 + ' %';
+
+                if (booleanValue) {
+                    console.log(myCpuChart.data.datasets[0].data);
+                    console.log(myCpuChart.options.plugins.doughnutlabel.labels[0].text);
+                }
+
+                myCpuChart.update();
 
                 //메모리 사용률 - 도넛형 차트
                 //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-                $("#memoryChart").remove();
-                $(".memory-area .chartjs-size-monitor").remove();
-                $(".memory-area").append('<canvas id="memoryChart"></canvas>');
-
                 const memoryUseData = hwData.message.memory;
-                const memoryChart = document.getElementById("memoryChart").getContext("2d");
-                const networkChart2 = new Chart(memoryChart, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['미사용률', '사용률'],
-                        datasets: [{
-                            data: [100 - memoryUseData, memoryUseData],
-                            backgroundColor: [
-                                '#ececec',
-                                '#5d6778'
-                            ],
-                            borderWidth: 0,
-                            barPercentage: 0.3,
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            doughnutlabel: {
-                                labels: [
-                                    {
-                                        text: memoryUseData + '%',
-                                        font: {
-                                            size: '28',
-                                            family: 'Roboto ,Arial, Helvetica, sans-serif'
-                                        },
-                                        color: '#5d6778'
-                                    }
-                                ]
-                            }
-                        },
-                        animation: {
-                            duration: 0
-                        },
-                        responsive: false,
-                        maintainAspectRatio: false,
-                        legend: {
-                            position: 'right',
-                            display: false,
-                            labels: {
-                                fontColor: '#5d6778',
-                                fontSize: 15,
-                                defaultFontFamily: "Roboto",
-                                boxWidth: 15
-                            },
-                        },
-                        cutoutPercentage: 90,
-                        scales: {
-                            yAxes: [
-                                {
-                                    display: false,
-                                    ticks: {
-                                        min: 0,
-                                        max: 20,
-                                        stepSize: 20,
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                });
+                myMemoryChart.data.datasets[0].data = [100 - memoryUseData, memoryUseData];
+                myMemoryChart.options.plugins.doughnutlabel.labels[0].text = memoryUseData + ' %';
 
-                //디스크 사용률 - 가로형 막대 차트
+                myMemoryChart.update();
 
+
+                //디스크 사용률 - 가로형 막대 차트            
                 //디스트 사용률 key        
                 const diskNames = hwData.disk_keys;
                 let diskNameArr = Object.values(diskNames);
@@ -729,7 +437,7 @@ function startSocket2() {
                 let diskValueArr = [];
                 let diskValue = hwData.message.disk;
                 diskValue.forEach((item, idx) => {
-                    diskValueArr.push((item.unit).toFixed(2));
+                    diskValueArr.push(parseInt(item.unit).toFixed(2));
                 });
 
                 //backgroundColor 갯수만큼 배열
@@ -739,68 +447,14 @@ function startSocket2() {
                     diskBgArray.push("#5d6778");
                 }
 
-                //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-                $("#diskChart").remove();
-                $(".disk-area .chartjs-size-monitor").remove();
-                $(".disk-area").append('<canvas id="diskChart"></canvas>');
+                if (booleanValue) {
+                    console.log(diskChartData.data.datasets[0].data = diskValueArr);
+                }
+                diskChartData.data.datasets[0].data = diskValueArr;
+                diskChartData.data.datasets[0].backgroundColor = diskBgArray;
+                diskChartData.data.labels = diskNameArr
 
-                const diskChart = document.getElementById("diskChart").getContext("2d");
-                const networkChart3 = new Chart(diskChart, {
-                    type: "horizontalBar",
-                    data: {
-                        labels: diskNameArr,
-                        datasets: [
-                            {
-                                data: diskValueArr,
-                                backgroundColor: diskBgArray,
-                                barPercentage: 0.5,
-                            },
-                        ],
-                    },
-                    options: {
-                        responsive: false,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: false
-                        },
-                        scales: {
-                            xAxes: [
-                                {
-                                    display: true,
-                                    ticks: {
-                                        min: 0,
-                                        max: 100,
-                                        stepSize: 20,
-                                        fontColor: "#5d6778",
-                                        fontSize: 12,
-                                        defaultFontFamily: "Roboto"
-                                    },
-                                    gridLines: {
-                                        color: '#fff',
-                                        lineWidth: 0.5
-                                    },
-                                },
-                            ],
-                            yAxes: [
-                                {
-                                    display: true,
-                                    ticks: {
-                                        min: 0,
-                                        max: 100,
-                                        stepSize: 20,
-                                        fontColor: "#5d6778",
-                                        fontSize: 12,
-                                        defaultFontFamily: "Roboto",
-                                    },
-                                    gridLines: {
-                                        color: '#fff',
-                                        lineWidth: 0.5
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                });
+                myDiskChart.update();	//차트 업데이트
 
                 //네트워크 사용률 - 가로형 막대 차트
                 //네트워크 사용률 key  
@@ -811,11 +465,9 @@ function startSocket2() {
                 let networkValueArr = [];
                 let networkValue = hwData.message.network;
                 networkValue.forEach((item, idx) => {
-                    networkValueArr.push(((item.unit).toFixed(2)));
+                    networkValueArr.push((parseInt(item.unit).toFixed(2)));
                 });
                 let networkValueArrMax = Math.max.apply(null, networkValueArr);
-
-                //console.log(networkValueArr);
 
                 //backgroundColor 갯수만큼 배열
                 const networkBgN = diskNames.length;
@@ -824,73 +476,14 @@ function startSocket2() {
                     networkBgArray.push("#5d6778");
                 }
 
-                //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-                $("#networkChart").remove();
-                $(".network-area .chartjs-size-monitor").remove();
-                $(".network-area").append('<canvas id="networkChart"></canvas>');
+                if (booleanValue) {
+                    console.log(diskChartData.data.datasets[0].data = networkValueArr);
+                }
+                networkChartData.data.datasets[0].data = networkValueArr;
+                networkChartData.data.datasets[0].backgroundColor = networkBgArray;
+                networkChartData.data.labels = networkNameArr
 
-                const networkChart = document.getElementById("networkChart").getContext("2d");
-                const networkChart4 = new Chart(networkChart, {
-                    type: "horizontalBar",
-                    data: {
-                        labels: networkNameArr,
-                        datasets: [
-                            {
-                                data: networkValueArr,
-                                backgroundColor: networkBgArray,
-                                barPercentage: 0.5,
-                            },
-                        ],
-                    },
-                    options: {
-                        responsive: false,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: false
-                        },
-                        plugins: {
-                            tooltip: {
-                                intersect: false
-                            }
-                        },
-                        scales: {
-                            xAxes: [
-                                {
-                                    display: true,
-                                    ticks: {
-                                        min: 0,
-                                        max: 20,
-                                        stepSize: 2,
-                                        fontColor: "#5d6778",
-                                        fontSize: 12,
-                                        defaultFontFamily: "Roboto"
-                                    },
-                                    gridLines: {
-                                        color: '#fff',
-                                        lineWidth: 0.5
-                                    },
-                                },
-                            ],
-                            yAxes: [
-                                {
-                                    display: true,
-                                    ticks: {
-                                        min: 0,
-                                        max: 1,
-                                        stepSize: 0.2,
-                                        fontColor: "#5d6778",
-                                        fontSize: 12,
-                                        defaultFontFamily: "Roboto",
-                                    },
-                                    gridLines: {
-                                        color: '#fff',
-                                        lineWidth: 0.5
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                });
+                myNetworkChart.update();	//차트 업데이트
             }
         }
     };

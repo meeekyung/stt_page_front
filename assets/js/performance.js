@@ -1,4 +1,210 @@
 function startSocket() {
+  //성공률(%) 도넛형 그래프
+  const suceessChart = document.getElementById("suceessChart").getContext("2d");
+  const suceessChartData = {
+    type: "doughnut",
+    data: {
+      labels: ["실패", "성공"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: 0,
+          backgroundColor: ["#ececec", "#2e88de"],
+          borderWidth: 0,
+          barPercentage: 0.3,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        doughnutlabel: {
+          labels: [
+            {
+              text: 0 + "%",
+              font: {
+                size: "30",
+                family: "Roboto ,Arial, Helvetica, sans-serif",
+              },
+              color: "#5d6778",
+            },
+          ],
+        },
+      },
+      animation: {
+        duration: 0,
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        position: "left",
+        display: false,
+        labels: {
+          fontColor: "#5d6778",
+          fontSize: 15,
+          defaultFontFamily: "Roboto",
+          boxWidth: 15,
+          padding: 15,
+        },
+      },
+      cutoutPercentage: 90,
+      scales: {
+        yAxes: [
+          {
+            display: false,
+            ticks: {
+              min: 0,
+              max: 20,
+              stepSize: 20,
+            },
+          },
+        ],
+      },
+    },
+  };
+  let mySuceessChart = new Chart(suceessChart, suceessChartData);
+
+  //채널상태(개) 도넛형 그래프
+  const statusChart = document.getElementById("statusChart").getContext("2d");
+  const statusChartData = {
+    type: "doughnut",
+    data: {
+      labels: ["전체 채널 수", "사용중인 채널 수"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: 0,
+          backgroundColor: ["#ececec", "#3adaba"],
+          borderWidth: 0,
+          barPercentage: 0.3,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        doughnutlabel: {
+          labels: [
+            {
+              text: 0 + "%",
+              font: {
+                size: "35",
+                family: "Roboto ,Arial, Helvetica, sans-serif",
+              },
+              color: "#5d6778",
+            },
+          ],
+        },
+      },
+      animation: {
+        duration: 0,
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        position: "right",
+        display: false,
+        labels: {
+          fontColor: "#5d6778",
+          fontSize: 15,
+          defaultFontFamily: "Roboto",
+          boxWidth: 15,
+        },
+      },
+      cutoutPercentage: 90,
+      scales: {
+        yAxes: [
+          {
+            display: false,
+            ticks: {
+              min: 0,
+              max: 20,
+              stepSize: 20,
+            },
+          },
+        ],
+      },
+    },
+  };
+  let myStatusChart = new Chart(statusChart, statusChartData);
+
+  //채널상태(서버별) 누적형 막대그래프
+  const serverChChart = document.getElementById("serverChChart").getContext("2d");
+  const serverChChartData = {
+    type: "bar",
+    data: {
+      labels: ["REST", "gRPC", "gRPC-Streaming"],
+      datasets: [
+        {
+          label: "사용 중",
+          data: 0,
+          backgroundColor: "#3adaba",
+          barPercentage: 0.3,
+        },
+        {
+          label: "미사용",
+          data: 0,
+          backgroundColor: "#ececec",
+          barPercentage: 0.3,
+        },
+      ],
+    },
+    options: {
+      animation: {
+        duration: 0,
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+        position: "right",
+        labels: {
+          fontColor: "#5d6778",
+          fontSize: 15,
+          defaultFontFamily: "Roboto",
+          boxWidth: 15,
+        },
+      },
+      scales: {
+        xAxes: [
+          {
+            stacked: true,
+            display: true,
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 20,
+              fontColor: "#5d6778",
+              fontSize: 12,
+              defaultFontFamily: "Roboto",
+            },
+            gridLines: {
+              color: "#fff",
+              lineWidth: 0.5,
+            },
+          },
+        ],
+        yAxes: [
+          {
+            stacked: true,
+            display: true,
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 20,
+              fontColor: "#5d6778",
+              fontSize: 12,
+              defaultFontFamily: "Roboto",
+            },
+            gridLines: {
+              color: "#fff",
+              lineWidth: 0.5,
+            },
+          },
+        ],
+      },
+    },
+  };
+  let myServerChChart = new Chart(serverChChart, serverChChartData);
+
   let socket = new WebSocket("ws://192.168.20.203:55532/ws/performance");
 
   let performanceData;
@@ -230,7 +436,7 @@ function startSocket() {
     let total = dataKey[1];
 
     if (performanceData == stt2) {
-      earlySet();
+      //earlySet();
       // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
       //stt2 데이터 출력
@@ -243,8 +449,7 @@ function startSocket() {
       //성공률 출력 - 도넛형 차트
       const successNumStt2 = boardData2["bona-stt2"].success;
       const failPerNumStt2 = boardData2["bona-stt2"].fail;
-      let bunmo =
-        successNumStt2 + failPerNumStt2 ? successNumStt2 + failPerNumStt2 : 1;
+      let bunmo = successNumStt2 + failPerNumStt2 ? successNumStt2 + failPerNumStt2 : 1;
 
       const successPerStt2 = Math.floor(
         (boardData["bona-stt2"].success / bunmo) * 100
@@ -257,77 +462,10 @@ function startSocket() {
       document.querySelector("#legendNum1").innerHTML = successNumStt2;
       document.querySelector("#legendNum2").innerHTML = failPerNumStt2;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#suceessChart").remove();
-      $(".success-chart").empty();
-      $(".success-chart").append('<canvas id="suceessChart"></canvas>');
+      mySuceessChart.data.datasets[0].data = [failPerNumStt2, successNumStt2];
+      mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successNumStt2 + ' %';
 
-      const suceessChart = document
-        .getElementById("suceessChart")
-        .getContext("2d");
-
-      myChart = new Chart(suceessChart, {
-        type: "doughnut",
-        data: {
-          labels: ["실패", "성공"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [failPerNumStt2, successNumStt2],
-              backgroundColor: ["#ececec", "#2e88de"],
-              borderWidth: 0,
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            doughnutlabel: {
-              labels: [
-                {
-                  text: successPerStt2 + "%",
-                  font: {
-                    size: "30",
-                    family: "Roboto ,Arial, Helvetica, sans-serif",
-                  },
-                  color: "#5d6778",
-                },
-              ],
-            },
-          },
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            position: "left",
-            display: false,
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-              padding: 15,
-            },
-          },
-          cutoutPercentage: 90,
-          scales: {
-            yAxes: [
-              {
-                display: false,
-                ticks: {
-                  min: 0,
-                  max: 20,
-                  stepSize: 20,
-                },
-              },
-            ],
-          },
-        },
-      });
-
-
+      mySuceessChart.update();
 
       //총 음성길이 출력
       const audioLengthStt2 = boardData2["bona-stt2"].audio_len / 60;
@@ -350,172 +488,29 @@ function startSocket() {
       document.querySelector("#legendNum3").innerHTML = totalCh;
       document.querySelector("#legendNum4").innerHTML = useCh;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#statusChart").remove();
-      $(".status-area").empty();
-      $(".status-area").append('<canvas id="statusChart"></canvas>');
+      myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
+      myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
 
-      statusChart = document.getElementById("statusChart").getContext("2d");
-      channelChart1 = new Chart(statusChart, {
-        type: "doughnut",
-        data: {
-          labels: ["전체 채널 수", "사용중인 채널 수"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [100 - useChPer, useChPer],
-              backgroundColor: ["#ececec", "#3adaba"],
-              borderWidth: 0,
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            doughnutlabel: {
-              labels: [
-                {
-                  text: useChPer + "%",
-                  font: {
-                    size: "35",
-                    family: "Roboto ,Arial, Helvetica, sans-serif",
-                  },
-                  color: "#5d6778",
-                },
-              ],
-            },
-          },
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            position: "right",
-            display: false,
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-            },
-          },
-          cutoutPercentage: 90,
-          scales: {
-            yAxes: [
-              {
-                display: false,
-                ticks: {
-                  min: 0,
-                  max: 20,
-                  stepSize: 20,
-                },
-              },
-            ],
-          },
-        },
-      });
+      myStatusChart.update();
 
       //채널상태 - 서버별(누적형 막대차트)
       const restTotalStt2 = boardData2["bona-stt2"].channels.rest.total;
       const grpcTotalStt2 = boardData2["bona-stt2"].channels.grpc.total;
-      const grpcStreamTotalStt2 =
-        boardData2["bona-stt2"].channels.grpc_stream.total;
+      const grpcStreamTotalStt2 = boardData2["bona-stt2"].channels.grpc_stream.total;
 
       const restRunningStt2 = boardData2["bona-stt2"].channels.rest.running;
       const grpcRunningStt2 = boardData2["bona-stt2"].channels.grpc.running;
-      const grpcStreamRunningStt2 =
-        boardData2["bona-stt2"].channels.grpc_stream.running;
+      const grpcStreamRunningStt2 = boardData2["bona-stt2"].channels.grpc_stream.running;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#serverChChart").remove();
-      $(".severchannel-area").empty();
-      $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
+      myServerChChart.data.datasets[0].data = [restRunningStt2, grpcRunningStt2, grpcStreamRunningStt2];
+      myServerChChart.data.datasets[1].data = [restTotalStt2 - restRunningStt2, grpcTotalStt2 - grpcRunningStt2, grpcStreamTotalStt2 - grpcStreamRunningStt2];
 
-      const serverChChart = document
-        .getElementById("serverChChart")
-        .getContext("2d");
-      channelChart2 = new Chart(serverChChart, {
-        type: "bar",
-        data: {
-          labels: ["REST", "gRPC", "gRPC-Streaming"],
-          datasets: [
-            {
-              label: "사용 중",
-              data: [restRunningStt2, grpcRunningStt2, grpcStreamRunningStt2],
-              backgroundColor: "#3adaba",
-              barPercentage: 0.3,
-            },
-            {
-              label: "미사용",
-              data: [
-                restTotalStt2 - restRunningStt2,
-                grpcTotalStt2 - grpcRunningStt2,
-                grpcStreamTotalStt2 - grpcStreamRunningStt2,
-              ],
-              backgroundColor: "#ececec",
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: false,
-            position: "right",
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-            },
-          },
-          scales: {
-            xAxes: [
-              {
-                stacked: true,
-                display: true,
-                ticks: {
-                  min: 0,
-                  max: 100,
-                  stepSize: 20,
-                  fontColor: "#5d6778",
-                  fontSize: 12,
-                  defaultFontFamily: "Roboto",
-                },
-                gridLines: {
-                  color: "#fff",
-                  lineWidth: 0.5,
-                },
-              },
-            ],
-            yAxes: [
-              {
-                stacked: true,
-                display: true,
-                ticks: {
-                  min: 0,
-                  max: 100,
-                  stepSize: 20,
-                  fontColor: "#5d6778",
-                  fontSize: 12,
-                  defaultFontFamily: "Roboto",
-                },
-                gridLines: {
-                  color: "#fff",
-                  lineWidth: 0.5,
-                },
-              },
-            ],
-          },
-        },
-      });
-    } else if (performanceData == total) {
-      earlySet();
+      myServerChChart.update();
+
+
+    }
+    else if (performanceData == total) {
+      //earlySet();
       // $(this).addClass('tab-on').siblings().removeClass('tab-on');
       //전체 데이터 출력
       const boardData = JSON.parse(json.data);
@@ -540,74 +535,10 @@ function startSocket() {
       document.querySelector("#legendNum1").innerHTML = successNum;
       document.querySelector("#legendNum2").innerHTML = failPerNum;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#suceessChart").remove();
-      $(".success-chart").empty();
-      $(".success-chart").append('<canvas id="suceessChart"></canvas>');
+      mySuceessChart.data.datasets[0].data = [failPer, successPer];
+      mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
 
-      const suceessChart = document
-        .getElementById("suceessChart")
-        .getContext("2d");
-      myChart = new Chart(suceessChart, {
-        type: "doughnut",
-        data: {
-          labels: ["실패", "성공"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [failPerNum, successNum],
-              backgroundColor: ["#ececec", "#2e88de"],
-              borderWidth: 0,
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            doughnutlabel: {
-              labels: [
-                {
-                  text: successPer + "%",
-                  font: {
-                    size: "30",
-                    family: "Roboto ,Arial, Helvetica, sans-serif",
-                  },
-                  color: "#5d6778",
-                },
-              ],
-            },
-          },
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            position: "left",
-            display: false,
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-              padding: 15,
-            },
-          },
-          cutoutPercentage: 90,
-          scales: {
-            yAxes: [
-              {
-                display: false,
-                ticks: {
-                  min: 0,
-                  max: 20,
-                  stepSize: 20,
-                },
-              },
-            ],
-          },
-        },
-      });
+      mySuceessChart.update();
 
       //총 음성길이 출력
       const audioLength = boardData["bona-total-stt"].audio_len / 60;
@@ -628,183 +559,34 @@ function startSocket() {
       document.querySelector("#legendNum3").innerHTML = totalCh;
       document.querySelector("#legendNum4").innerHTML = useCh;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#statusChart").remove();
-      $(".status-area").empty();
-      $(".status-area").append('<canvas id="statusChart"></canvas>');
+      myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
+      myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
 
-      const statusChart = document
-        .getElementById("statusChart")
-        .getContext("2d");
-      channelChart1 = new Chart(statusChart, {
-        type: "doughnut",
-        data: {
-          labels: ["전체 채널 수 ", "사용중인 채널 수"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [100 - useChPer, useChPer],
-              backgroundColor: ["#ececec", "#3adaba"],
-              borderWidth: 0,
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            doughnutlabel: {
-              labels: [
-                {
-                  text: useChPer + "%",
-                  font: {
-                    size: "35",
-                    family: "Roboto ,Arial, Helvetica, sans-serif",
-                  },
-                  color: "#5d6778",
-                },
-              ],
-            },
-          },
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            position: "right",
-            display: false,
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-            },
-          },
-          cutoutPercentage: 90,
-          scales: {
-            yAxes: [
-              {
-                display: false,
-                ticks: {
-                  min: 0,
-                  max: 20,
-                  stepSize: 20,
-                },
-              },
-            ],
-          },
-        },
-      });
+      myStatusChart.update();
 
       //채널상태 - 서버별(누적형 막대차트)
       const restTotal = boardData["bona-total-stt"].channels.rest.total;
       const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
-      const grpcStreamTotal =
-        boardData["bona-total-stt"].channels.grpc_stream.total;
+      const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
 
       const restRunning = boardData["bona-total-stt"].channels.rest.running;
       const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
-      const grpcStreamRunning =
-        boardData["bona-total-stt"].channels.grpc_stream.running;
+      const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#serverChChart").remove();
-      $(".severchannel-area").empty();
-      $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
+      myServerChChart.data.datasets[0].data = [restRunning, grpcRunning, grpcStreamRunning];
+      myServerChChart.data.datasets[1].data = [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning];
 
-      const serverChChart = document
-        .getElementById("serverChChart")
-        .getContext("2d");
-      channelChart2 = new Chart(serverChChart, {
-        type: "bar",
-        data: {
-          labels: ["REST", "gRPC", "gRPC-Streaming"],
-          datasets: [
-            {
-              label: "사용 중",
-              data: [restRunning, grpcRunning, grpcStreamRunning],
-              backgroundColor: "#3adaba",
-              barPercentage: 0.3,
-            },
-            {
-              label: "미사용",
-              data: [
-                restTotal - restRunning,
-                grpcTotal - grpcRunning,
-                grpcStreamTotal - grpcStreamRunning,
-              ],
-              backgroundColor: "#ececec",
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: false,
-            position: "right",
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-            },
-          },
-          scales: {
-            xAxes: [
-              {
-                stacked: true,
-                display: true,
-                ticks: {
-                  min: 0,
-                  max: 100,
-                  stepSize: 20,
-                  fontColor: "#5d6778",
-                  fontSize: 12,
-                  defaultFontFamily: "Roboto",
-                },
-                gridLines: {
-                  color: "#fff",
-                  lineWidth: 0.5,
-                },
-              },
-            ],
-            yAxes: [
-              {
-                stacked: true,
-                display: true,
-                ticks: {
-                  min: 0,
-                  max: 100,
-                  stepSize: 20,
-                  fontColor: "#5d6778",
-                  fontSize: 12,
-                  defaultFontFamily: "Roboto",
-                },
-                gridLines: {
-                  color: "#fff",
-                  lineWidth: 0.5,
-                },
-              },
-            ],
-          },
-        },
-      });
-    } else {
+      myServerChChart.update();
+    }
+    else {
+      const boardData = JSON.parse(json.data);
+
       //요청건수 출력
-      let requestTotal = boardData["bona-total-stt"].request_number;
-      if (requestTotal == undefined) {
-        document.querySelector(".request-data").innerHTML = 0;
-      } else {
-        document.querySelector(".request-data").innerHTML = requestTotal;
-      }
+      const requestTotal = boardData["bona-total-stt"].request_number;
+      document.querySelector(".request-data").innerHTML = requestTotal;
 
       //성공률 출력 - 도넛형 차트
-      let successNum = boardData["bona-total-stt"].success;
+      const successNum = boardData["bona-total-stt"].success;
       const failPerNum = boardData["bona-total-stt"].fail;
       let bunmo = successNum + failPerNum ? successNum + failPerNum : 1;
 
@@ -819,74 +601,10 @@ function startSocket() {
       document.querySelector("#legendNum1").innerHTML = successNum;
       document.querySelector("#legendNum2").innerHTML = failPerNum;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#suceessChart").remove();
-      $(".success-chart").empty();
-      $(".success-chart").append('<canvas id="suceessChart"></canvas>');
+      mySuceessChart.data.datasets[0].data = [failPer, successPer];
+      mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
 
-      let suceessChart = document
-        .getElementById("suceessChart")
-        .getContext("2d");
-      myChart = new Chart(suceessChart, {
-        type: "doughnut",
-        data: {
-          labels: ["실패", "성공"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [failPerNum, successNum],
-              backgroundColor: ["#ececec", "#2e88de"],
-              borderWidth: 0,
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            doughnutlabel: {
-              labels: [
-                {
-                  text: successPer + "%",
-                  font: {
-                    size: "30",
-                    family: "Roboto ,Arial, Helvetica, sans-serif",
-                  },
-                  color: "#5d6778",
-                },
-              ],
-            },
-          },
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            position: "left",
-            display: false,
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-              padding: 15,
-            },
-          },
-          cutoutPercentage: 90,
-          scales: {
-            yAxes: [
-              {
-                display: false,
-                ticks: {
-                  min: 0,
-                  max: 20,
-                  stepSize: 20,
-                },
-              },
-            ],
-          },
-        },
-      });
+      mySuceessChart.update();
 
       //총 음성길이 출력
       const audioLength = boardData["bona-total-stt"].audio_len / 60;
@@ -894,7 +612,7 @@ function startSocket() {
 
       //평균처리 속도 출력
       const averageSpeed = boardData["bona-total-stt"].average_speed;
-      document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(2); //소수점 첫째자리까지
+      document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
       //채널상태 - 전체(도넛형 차트)
       const totalCh = boardData["bona-total-stt"].channels.total;
@@ -907,170 +625,24 @@ function startSocket() {
       document.querySelector("#legendNum3").innerHTML = totalCh;
       document.querySelector("#legendNum4").innerHTML = useCh;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#statusChart").remove();
-      $(".status-area").empty();
-      $(".status-area").append('<canvas id="statusChart"></canvas>');
+      myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
+      myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
 
-      let statusChart = document.getElementById("statusChart").getContext("2d");
-      channelChart1 = new Chart(statusChart, {
-        type: "doughnut",
-        data: {
-          labels: ["전체 채널 수", "사용중인 채널 수"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [100 - useChPer, useChPer],
-              backgroundColor: ["#ececec", "#3adaba"],
-              borderWidth: 0,
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            doughnutlabel: {
-              labels: [
-                {
-                  text: useChPer + "%",
-                  font: {
-                    size: "35",
-                    family: "Roboto ,Arial, Helvetica, sans-serif",
-                  },
-                  color: "#5d6778",
-                },
-              ],
-            },
-          },
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            position: "right",
-            display: false,
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-            },
-          },
-          cutoutPercentage: 90,
-          scales: {
-            yAxes: [
-              {
-                display: false,
-                ticks: {
-                  min: 0,
-                  max: 20,
-                  stepSize: 20,
-                },
-              },
-            ],
-          },
-        },
-      });
+      myStatusChart.update();
 
       //채널상태 - 서버별(누적형 막대차트)
       const restTotal = boardData["bona-total-stt"].channels.rest.total;
       const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
-      const grpcStreamTotal =
-        boardData["bona-total-stt"].channels.grpc_stream.total;
+      const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
 
       const restRunning = boardData["bona-total-stt"].channels.rest.running;
       const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
-      const grpcStreamRunning =
-        boardData["bona-total-stt"].channels.grpc_stream.running;
+      const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
 
-      //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
-      $("#serverChChart").remove();
-      $(".severchannel-area").empty();
-      $(".severchannel-area").append('<canvas id="serverChChart"></canvas>');
+      myServerChChart.data.datasets[0].data = [restRunning, grpcRunning, grpcStreamRunning];
+      myServerChChart.data.datasets[1].data = [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning];
 
-      let serverChChart = document
-        .getElementById("serverChChart")
-        .getContext("2d");
-      channelChart2 = new Chart(serverChChart, {
-        type: "bar",
-        data: {
-          labels: ["REST", "gRPC", "gRPC-Streaming"],
-          datasets: [
-            {
-              label: "사용 중",
-              data: [restRunning, grpcRunning, grpcStreamRunning],
-              backgroundColor: "#3adaba",
-              barPercentage: 0.3,
-            },
-            {
-              label: "미사용",
-              data: [
-                restTotal - restRunning,
-                grpcTotal - grpcRunning,
-                grpcStreamTotal - grpcStreamRunning,
-              ],
-              backgroundColor: "#ececec",
-              barPercentage: 0.3,
-            },
-          ],
-        },
-        options: {
-          animation: {
-            duration: 0,
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: false,
-            position: "right",
-            labels: {
-              fontColor: "#5d6778",
-              fontSize: 15,
-              defaultFontFamily: "Roboto",
-              boxWidth: 15,
-            },
-          },
-          scales: {
-            xAxes: [
-              {
-                stacked: true,
-                display: true,
-                ticks: {
-                  min: 0,
-                  max: 100,
-                  stepSize: 20,
-                  fontColor: "#5d6778",
-                  fontSize: 12,
-                  defaultFontFamily: "Roboto",
-                },
-                gridLines: {
-                  color: "#fff",
-                  lineWidth: 0.5,
-                },
-              },
-            ],
-            yAxes: [
-              {
-                stacked: true,
-                display: true,
-                ticks: {
-                  min: 0,
-                  max: 100,
-                  stepSize: 20,
-                  fontColor: "#5d6778",
-                  fontSize: 12,
-                  defaultFontFamily: "Roboto",
-                },
-                gridLines: {
-                  color: "#fff",
-                  lineWidth: 0.5,
-                },
-              },
-            ],
-          },
-        },
-      });
+      myServerChChart.update();
     }
   };
 
@@ -1082,9 +654,12 @@ function startSocket() {
   });
 
   //#stt0탭 클릭 시 stt1 데이터가 출력되야함
-  $(document).on("click", "#stt0", function (e) {
+  $(document).on('click', '.performanceTab', function (e) {
     e.preventDefault();
     let tabTxt = $(this).text();
+    if (booleanValue) {
+      console.log(tabTxt);
+    }
     performanceData = tabTxt;
   });
 

@@ -152,8 +152,14 @@ $(function () {
             success: function (json) {
                 //console.log('운영자목록 삭제 성공');
             },
-            error: function () {
-                //console.log('운영자목록 삭제 실패');
+            error: function (request, status, error) {
+                console.log(request.status);
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
             }
         });
     });

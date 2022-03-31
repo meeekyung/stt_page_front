@@ -29,14 +29,20 @@ $.ajax({
             for (let i = 0; i < json.length; i++) {
                 if (json.length >= 0 && json[i].status == 1) {
                     $('#systemTabs').append(
-                        '<li id="stt' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
+                        '<li id="stt' + i + '" class="performanceTab tab bdb">' + json[i].hostname + '</li>'
                     );
                 }
             }
         }
     },
-    error: function () {
-
+    error: function (request, status, error) {
+        console.log(request.status);
+        if (request.status == '403') {
+            //console.log('로그아웃 성공');
+            sessionStorage.removeItem('Bearer'); //삭제
+            //sessionStorage.clear(); // 전체삭제
+            location.href = "../../login.html"
+        }
     }
 });
 //}, 5000);

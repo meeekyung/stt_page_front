@@ -166,8 +166,14 @@ $(function () {
             success: function (json) {
                 //console.log('알람정보 목록 삭제 성공');
             },
-            error: function () {
-                //console.log('알람정보 목록 삭제 실패');
+            error: function (request, status, error) {
+                console.log(request.status);
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
             }
         });
     });
@@ -356,8 +362,14 @@ $(function () {
             });
 
         },
-        error: function () {
-            //console.log('알람발생조건 select 데이터 출력 실패');
+        error: function (request, status, error) {
+            console.log(request.status);
+            if (request.status == '403') {
+                //console.log('로그아웃 성공');
+                sessionStorage.removeItem('Bearer'); //삭제
+                //sessionStorage.clear(); // 전체삭제
+                location.href = "../../login.html"
+            }
         }
     });
 
@@ -393,6 +405,13 @@ $(function () {
                 let err = eval("(" + request.responseText + ")");
                 $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                 $('#alert').show();
+
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
             }
         });
     });
@@ -613,8 +632,14 @@ $(function () {
             }
 
         },
-        error: function () {
-            //console.log('알람발생조건 변경 select 데이터 출력 실패');
+        error: function (request, status, error) {
+            console.log(request.status);
+            if (request.status == '403') {
+                //console.log('로그아웃 성공');
+                sessionStorage.removeItem('Bearer'); //삭제
+                //sessionStorage.clear(); // 전체삭제
+                location.href = "../../login.html"
+            }
         }
     });
 
@@ -771,6 +796,13 @@ $(function () {
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
+
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        location.href = "../../login.html"
+                    }
                 }
             });
         });

@@ -17,7 +17,14 @@ $(function () {
                 }
             }
         },
-        error: function () {
+        error: function (request, status, error) {
+            console.log(request.status);
+            if (request.status == '403') {
+                //console.log('로그아웃 성공');
+                sessionStorage.removeItem('Bearer'); //삭제
+                //sessionStorage.clear(); // 전체삭제
+                location.href = "../../login.html"
+            }
         }
     });
 
@@ -118,6 +125,48 @@ $(function () {
                         if (isHover === true) {
                             $('.ui-state-highlight').removeClass('selbg');
                         }
+                    }, onPaging: function (pgButton) {
+                        let gridPage = $('#systemGrid').getGridParam('page');
+                        let totalPage = $('#sp_1_systemGridpager').text();
+                        let nowNum = $('#input_systemGridpager .ui-pg-input').val();
+
+                        if (pgButton == 'next') {
+                            if (gridPage < totalPage) {
+                                gridPage += 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'prev') {
+                            if (gridPage > 1) {
+                                gridPage -= 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'first') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">첫 페이지입니다.</p>`);
+                            $('#alert').show();
+                            gridPage = 1;
+                        } else if (pgButton == 'last') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                            $('#alert').show();
+                            gridPage = totalPage;
+                        } else if (pgButton == 'user') {
+                            let nowPage = Number($('#input_systemGridpager .ui-pg-input').val());
+                            if (totalPage >= nowPage && nowPage > 0) {
+                                gridPage = nowPage;
+                            } else {
+                                $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                                $('#alert').show();
+                                $('#input_systemGridpager .ui-pg-input').val(gridPage);
+                                gridPage = gridPage;
+                            }
+                        } else if (pgButton == 'records') {
+                            gridPage = 1;
+                        }
+                        $('#systemGrid').setGridParam('page', gridPage);
+                        // $('#alarmGrid').setGridParam({
+                        //     postDate: jqGridForm.setParam()
+                        // });
                     }
                 });
             }
@@ -192,6 +241,48 @@ $(function () {
                         if (isHover === true) {
                             $('.ui-state-highlight').removeClass('selbg');
                         }
+                    }, onPaging: function (pgButton) {
+                        let gridPage = $('#systemGrid').getGridParam('page');
+                        let totalPage = $('#sp_1_systemGridpager').text();
+                        let nowNum = $('#input_systemGridpager .ui-pg-input').val();
+
+                        if (pgButton == 'next') {
+                            if (gridPage < totalPage) {
+                                gridPage += 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'prev') {
+                            if (gridPage > 1) {
+                                gridPage -= 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'first') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">첫 페이지입니다.</p>`);
+                            $('#alert').show();
+                            gridPage = 1;
+                        } else if (pgButton == 'last') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                            $('#alert').show();
+                            gridPage = totalPage;
+                        } else if (pgButton == 'user') {
+                            let nowPage = Number($('#input_systemGridpager .ui-pg-input').val());
+                            if (totalPage >= nowPage && nowPage > 0) {
+                                gridPage = nowPage;
+                            } else {
+                                $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                                $('#alert').show();
+                                $('#input_systemGridpager .ui-pg-input').val(gridPage);
+                                gridPage = gridPage;
+                            }
+                        } else if (pgButton == 'records') {
+                            gridPage = 1;
+                        }
+                        $('#systemGrid').setGridParam('page', gridPage);
+                        // $('#alarmGrid').setGridParam({
+                        //     postDate: jqGridForm.setParam()
+                        // });
                     }
                 });
             }
@@ -266,6 +357,48 @@ $(function () {
                         if (isHover === true) {
                             $('.ui-state-highlight').removeClass('selbg');
                         }
+                    }, onPaging: function (pgButton) {
+                        let gridPage = $('#systemGrid').getGridParam('page');
+                        let totalPage = $('#sp_1_systemGridpager').text();
+                        let nowNum = $('#input_systemGridpager .ui-pg-input').val();
+
+                        if (pgButton == 'next') {
+                            if (gridPage < totalPage) {
+                                gridPage += 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'prev') {
+                            if (gridPage > 1) {
+                                gridPage -= 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'first') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">첫 페이지입니다.</p>`);
+                            $('#alert').show();
+                            gridPage = 1;
+                        } else if (pgButton == 'last') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                            $('#alert').show();
+                            gridPage = totalPage;
+                        } else if (pgButton == 'user') {
+                            let nowPage = Number($('#input_systemGridpager .ui-pg-input').val());
+                            if (totalPage >= nowPage && nowPage > 0) {
+                                gridPage = nowPage;
+                            } else {
+                                $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                                $('#alert').show();
+                                $('#input_systemGridpager .ui-pg-input').val(gridPage);
+                                gridPage = gridPage;
+                            }
+                        } else if (pgButton == 'records') {
+                            gridPage = 1;
+                        }
+                        $('#systemGrid').setGridParam('page', gridPage);
+                        // $('#alarmGrid').setGridParam({
+                        //     postDate: jqGridForm.setParam()
+                        // });
                     }
                 });
             }
@@ -343,6 +476,48 @@ $(function () {
                         if (isHover === true) {
                             $('.ui-state-highlight').removeClass('selbg');
                         }
+                    }, onPaging: function (pgButton) {
+                        let gridPage = $('#systemGrid').getGridParam('page');
+                        let totalPage = $('#sp_1_systemGridpager').text();
+                        let nowNum = $('#input_systemGridpager .ui-pg-input').val();
+
+                        if (pgButton == 'next') {
+                            if (gridPage < totalPage) {
+                                gridPage += 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'prev') {
+                            if (gridPage > 1) {
+                                gridPage -= 1;
+                            } else {
+                                gridPage = page;
+                            }
+                        } else if (pgButton == 'first') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">첫 페이지입니다.</p>`);
+                            $('#alert').show();
+                            gridPage = 1;
+                        } else if (pgButton == 'last') {
+                            $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                            $('#alert').show();
+                            gridPage = totalPage;
+                        } else if (pgButton == 'user') {
+                            let nowPage = Number($('#input_systemGridpager .ui-pg-input').val());
+                            if (totalPage >= nowPage && nowPage > 0) {
+                                gridPage = nowPage;
+                            } else {
+                                $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                                $('#alert').show();
+                                $('#input_systemGridpager .ui-pg-input').val(gridPage);
+                                gridPage = gridPage;
+                            }
+                        } else if (pgButton == 'records') {
+                            gridPage = 1;
+                        }
+                        $('#systemGrid').setGridParam('page', gridPage);
+                        // $('#alarmGrid').setGridParam({
+                        //     postDate: jqGridForm.setParam()
+                        // });
                     }
                 });
             }

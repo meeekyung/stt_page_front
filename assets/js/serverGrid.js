@@ -43,6 +43,48 @@ $(function () {
                     $('.ui-state-highlight').addClass('selbg');
                 }
             });
+        }, onPaging: function (pgButton) {
+            let gridPage = $('#serverGrid').getGridParam('page');
+            let totalPage = $('#sp_1_serverGridpager').text();
+            let nowNum = $('#input_serverGridpager .ui-pg-input').val();
+
+            if (pgButton == 'next') {
+                if (gridPage < totalPage) {
+                    gridPage += 1;
+                } else {
+                    gridPage = page;
+                }
+            } else if (pgButton == 'prev') {
+                if (gridPage > 1) {
+                    gridPage -= 1;
+                } else {
+                    gridPage = page;
+                }
+            } else if (pgButton == 'first') {
+                $('.alert-cont').append(`<p class="alert-cont-txt">첫 페이지입니다.</p>`);
+                $('#alert').show();
+                gridPage = 1;
+            } else if (pgButton == 'last') {
+                $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                $('#alert').show();
+                gridPage = totalPage;
+            } else if (pgButton == 'user') {
+                let nowPage = Number($('#input_serverGridpager .ui-pg-input').val());
+                if (totalPage >= nowPage && nowPage > 0) {
+                    gridPage = nowPage;
+                } else {
+                    $('.alert-cont').append(`<p class="alert-cont-txt">존재하지 않는 페이지입니다!</p>`);
+                    $('#alert').show();
+                    $('#input_serverGridpager .ui-pg-input').val(gridPage);
+                    gridPage = gridPage;
+                }
+            } else if (pgButton == 'records') {
+                gridPage = 1;
+            }
+            $('#serverGrid').setGridParam('page', gridPage);
+            // $('#alarmGrid').setGridParam({
+            //     postDate: jqGridForm.setParam()
+            // });
         }
     });
 
@@ -127,8 +169,14 @@ $(function () {
             success: function (json) {
                 //console.log('서버정보목록 삭제 성공');
             },
-            error: function () {
-                //console.log('서버정보목록 삭제 실패');
+            error: function (request, status, error) {
+                console.log(request.status);
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
             }
         });
     });
@@ -168,6 +216,13 @@ $(function () {
                 let err = eval("(" + request.responseText + ")");
                 $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                 $('#alert').show();
+
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
             }
         });
     });
@@ -184,7 +239,7 @@ $(function () {
     $('.userT-change').on('click', function () {
 
         // 선택된 row rowId를 구한다.
-        let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow'); /
+        let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');
 
         //​ 선택된 row가 없다면 리턴
         if (selRowIds.length == 0) {
@@ -245,6 +300,13 @@ $(function () {
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
+
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        location.href = "../../login.html"
+                    }
                 }
             });
         });
