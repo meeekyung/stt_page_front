@@ -40,25 +40,25 @@ function checkFile(f) {
     dataType: 'json',
     success: function (json) {
     },
-    error: ffunction(request, status, error) {
-    console.log(request.status);
-    if(request.status == '403') {
-    //console.log('로그아웃 성공');
-    sessionStorage.removeItem('Bearer'); //삭제
-    //sessionStorage.clear(); // 전체삭제
-    location.href = "../../login.html"
-  }
-}
+    error: function (request, status, error) {
+      console.log(request.status);
+      if (request.status == '403') {
+        //console.log('로그아웃 성공');
+        sessionStorage.removeItem('Bearer'); //삭제
+        //sessionStorage.clear(); // 전체삭제
+        location.href = "../../login.html"
+      }
+    }
   });
 
-// file[0].name 은 파일명 입니다.
-// 정규식으로 확장자 체크
-if (!/\.(wav)$/i.test(file[0].name)) {
-  alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원합니다.\n\n현재 파일 : ' + file[0].name);
-}
-// 체크를 통과했다면 종료.
-else return;
-fileReset();
+  // file[0].name 은 파일명 입니다.
+  // 정규식으로 확장자 체크
+  if (!/\.(wav)$/i.test(file[0].name)) {
+    alert('8kHz, 16bit PCM으로 인코딩된, 90초 이하의 WAV 파일만 지원합니다.\n\n현재 파일 : ' + file[0].name);
+  }
+  // 체크를 통과했다면 종료.
+  else return;
+  fileReset();
 }
 
 //input[type="file"] 입력필드 리셋

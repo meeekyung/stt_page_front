@@ -47,6 +47,17 @@ $.ajax({
   },
 });
 
+//row 클릭 시 선택되도록..
+$(document).on('click', '.serverB-table', function () {
+  const checkedBool = $(this).children('.serverB-check').children().is(':checked');
+  console.log(checkedBool);
+  if (!checkedBool) {
+    $(this).children('.serverB-check').children().prop('checked', true);
+  } else {
+    $(this).children('.serverB-check').children().prop('checked', false);
+  }
+});
+
 // 체크박스 전체 선택 및 해제
 function selectAll(selectAll) {
   const checkboxes = document.getElementsByName("server-check");
@@ -74,7 +85,6 @@ function statusRestart() {
 }
 
 const checkedArr = [];
-
 //start 버튼 클릭 이벤트
 $(".start-btn").on("click", function () {
   $(`input:checkbox[name='server-check']:checked`).each(function () {

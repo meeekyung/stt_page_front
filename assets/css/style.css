@@ -1691,7 +1691,16 @@ select:focus {
   position: relative;
   background: #fff;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+/* 스크롤바 숨기기 */
+.side-menu-inner {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.side-menu-inner::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 .logo-branding {
   height: 70px;
