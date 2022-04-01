@@ -179,198 +179,224 @@ $(function () {
     });
 
     //추가 select 출력
-    $.ajax({
-        url: "http://192.168.20.203:55532/monitor/alarm",
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-        contentType: "application/json; charset=UTF-8",
-        method: "GET",
-        dataType: "JSON",
-        success: function (json) {
-            //console.log('알람발생조건 select 데이터 출력 성공');
-            //알람레벨 select 출력
-            alarmLevelArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarmLevel = json[i].level;
-                    alarmLevelArr.push(alarmLevel);
-                }
-            }
-            //중복제거 후 배열출력
-            alarmLevelArrSet = new Set(alarmLevelArr);
-            const uniqueAlarmLevelArr = [...alarmLevelArrSet];
+    $('.userT-add').on('click', function () {
+        $(".add_in select option:eq(0)").prop("selected", false);
+        $("#alarmParam22").attr("disabled", true);
+        $("#alarmValue2").val("");
 
-            if (uniqueAlarmLevelArr.length > 0) {
-                for (let i = 0; i < uniqueAlarmLevelArr.length; i++) {
-                    $('#alarmLevel2').append(
-                        `<option value="${uniqueAlarmLevelArr[i]}">${uniqueAlarmLevelArr[i]}</option>`
-                    );
+        $.ajax({
+            url: "http://192.168.20.203:55532/monitor/alarm",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+            contentType: "application/json; charset=UTF-8",
+            method: "GET",
+            dataType: "JSON",
+            success: function (json) {
+                //console.log('알람발생조건 select 데이터 출력 성공');
+                //알람레벨 select 출력
+                alarmLevelArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmLevel = json[i].level;
+                        alarmLevelArr.push(alarmLevel);
+                    }
                 }
-            }
+                //중복제거 후 배열출력
+                alarmLevelArrSet = new Set(alarmLevelArr);
+                const uniqueAlarmLevelArr = [...alarmLevelArrSet];
 
-            //호스트명 select 출력
-            alarmHostnameArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarmHostname = json[i].hostname;
-                    alarmHostnameArr.push(alarmHostname);
+                if (uniqueAlarmLevelArr.length > 0) {
+                    for (let i = 0; i < uniqueAlarmLevelArr.length; i++) {
+                        $('#alarmLevel2').append(
+                            `<option value="${uniqueAlarmLevelArr[i]}">${uniqueAlarmLevelArr[i]}</option>`
+                        );
+                    }
                 }
-            }
-            //중복제거 후 배열출력
-            alarmHostnameArrSet = new Set(alarmHostnameArr);
-            const uniqueAlarmHostnameArr = [...alarmHostnameArrSet];
 
-            if (uniqueAlarmHostnameArr.length > 0) {
-                for (let i = 0; i < uniqueAlarmHostnameArr.length; i++) {
-                    $('#alarmHostname2').append(
-                        `<option value="${uniqueAlarmHostnameArr[i]}">${uniqueAlarmHostnameArr[i]}</option>`
-                    );
+                //호스트명 select 출력
+                alarmHostnameArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmHostname = json[i].hostname;
+                        alarmHostnameArr.push(alarmHostname);
+                    }
                 }
-            }
+                //중복제거 후 배열출력
+                alarmHostnameArrSet = new Set(alarmHostnameArr);
+                const uniqueAlarmHostnameArr = [...alarmHostnameArrSet];
 
-            //타입 select 출력
-            alarmTypeArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarmType = json[i].type;
-                    alarmTypeArr.push(alarmType);
+                if (uniqueAlarmHostnameArr.length > 0) {
+                    for (let i = 0; i < uniqueAlarmHostnameArr.length; i++) {
+                        $('#alarmHostname2').append(
+                            `<option value="${uniqueAlarmHostnameArr[i]}">${uniqueAlarmHostnameArr[i]}</option>`
+                        );
+                    }
                 }
-            }
-            //중복제거 후 배열출력
-            alarmTypeArrSet = new Set(alarmTypeArr);
-            const uniqueAlarmTypeArr = [...alarmTypeArrSet];
 
-            if (uniqueAlarmTypeArr.length > 0) {
-                for (let i = 0; i < uniqueAlarmTypeArr.length; i++) {
-                    $('#alarmType2').append(
-                        `<option value="${uniqueAlarmTypeArr[i]}">${uniqueAlarmTypeArr[i]}</option>`
-                    );
+                //타입 select 출력
+                alarmTypeArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmType = json[i].type;
+                        alarmTypeArr.push(alarmType);
+                    }
                 }
-            }
+                //중복제거 후 배열출력
+                alarmTypeArrSet = new Set(alarmTypeArr);
+                const uniqueAlarmTypeArr = [...alarmTypeArrSet];
 
-            //아이템 select 출력
-            alarmItemArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarmItem = json[i].item;
-                    alarmItemArr.push(alarmItem);
+                if (uniqueAlarmTypeArr.length > 0) {
+                    for (let i = 0; i < uniqueAlarmTypeArr.length; i++) {
+                        $('#alarmType2').append(
+                            `<option value="${uniqueAlarmTypeArr[i]}">${uniqueAlarmTypeArr[i]}</option>`
+                        );
+                    }
                 }
-            }
-            //중복제거 후 배열출력
-            alarmItemArrSet = new Set(alarmItemArr);
-            const uniqueAlarmItemArr = [...alarmItemArrSet];
 
-            if (uniqueAlarmItemArr.length > 0) {
-                for (let i = 0; i < uniqueAlarmItemArr.length; i++) {
-                    $('#alarmItem2').append(
-                        `<option value="${uniqueAlarmItemArr[i]}">${uniqueAlarmItemArr[i]}</option>`
-                    );
+                //아이템 select 출력
+                alarmItemArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmItem = json[i].item;
+                        alarmItemArr.push(alarmItem);
+                    }
                 }
-            }
+                //중복제거 후 배열출력
+                alarmItemArrSet = new Set(alarmItemArr);
+                const uniqueAlarmItemArr = [...alarmItemArrSet];
 
-            //세부항목1 select 출력
-            alarmParam1Arr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarmParam1 = json[i].param1;
-                    alarmParam1Arr.push(alarmParam1);
+                if (uniqueAlarmItemArr.length > 0) {
+                    for (let i = 0; i < uniqueAlarmItemArr.length; i++) {
+                        $('#alarmItem2').append(
+                            `<option value="${uniqueAlarmItemArr[i]}">${uniqueAlarmItemArr[i]}</option>`
+                        );
+                    }
                 }
-            }
-            //중복제거 후 배열출력
-            alarmParam1ArrSet = new Set(alarmParam1Arr);
-            const uniqueAlarmParam1Arr = [...alarmParam1ArrSet];
 
-            if (uniqueAlarmParam1Arr.length > 0) {
-                for (let i = 0; i < uniqueAlarmParam1Arr.length; i++) {
-                    $('#alarmParam12').append(
-                        `<option value="${uniqueAlarmParam1Arr[i]}">${uniqueAlarmParam1Arr[i]}</option>`
-                    );
+                //세부항목1 select 출력
+                alarmParam1Arr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmParam1 = json[i].param1;
+                        alarmParam1Arr.push(alarmParam1);
+                    }
                 }
-            }
+                //중복제거 후 배열출력
+                alarmParam1ArrSet = new Set(alarmParam1Arr);
+                const uniqueAlarmParam1Arr = [...alarmParam1ArrSet];
 
-            //세부항목2 disable -> able 이벤트
-            alarmParam2Arr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarmParam2 = json[i].param2;
-                    alarmParam2Arr.push(alarmParam2);
+                if (uniqueAlarmParam1Arr.length > 0) {
+                    for (let i = 0; i < uniqueAlarmParam1Arr.length; i++) {
+                        $('#alarmParam12').append(
+                            `<option value="${uniqueAlarmParam1Arr[i]}">${uniqueAlarmParam1Arr[i]}</option>`
+                        );
+                    }
                 }
-            }
-            //중복제거 후 배열출력
-            alarmParam2ArrSet = new Set(alarmParam2Arr);
-            const uniqueAlarmParam2Arr = [...alarmParam2ArrSet];
 
-            $('#alarmParam12').on('click', function () {
-                let alarmParam12 = $('#alarmParam12').val();
-                if (alarmParam12 == "cpu") {
-                    $('#alarmParam22').empty();
-                    $('#alarmParam22').attr('disabled', true);
+                //세부항목2 disable -> able 이벤트
+                alarmParam2Arr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmParam2 = json[i].param2;
+                        alarmParam2Arr.push(alarmParam2);
+                    }
                 }
-                else if (alarmParam12 == "memory") {
-                    $('#alarmParam22').empty();
-                    $('#alarmParam22').attr('disabled', true);
-                }
-                else if (alarmParam12 == "disk") {
-                    $('#alarmParam22').attr('disabled', false);
-                    //disk 중 세부항목2 배열
-                    const diskParm2Arr = [];
-                    if (json.length > 0) {
-                        for (let i = 0; i < json.length; i++) {
-                            if (json[i].param1 == "disk") {
-                                const diskParam2 = json[i].param2;
-                                diskParm2Arr.push(diskParam2);
+                //중복제거 후 배열출력
+                alarmParam2ArrSet = new Set(alarmParam2Arr);
+                const uniqueAlarmParam2Arr = [...alarmParam2ArrSet];
+
+                $('#alarmParam12').on('click', function () {
+                    let alarmParam12 = $('#alarmParam12').val();
+                    if (alarmParam12 == "cpu") {
+                        $('#alarmParam22').empty();
+                        $('#alarmParam22').attr('disabled', true);
+                    }
+                    else if (alarmParam12 == "memory") {
+                        $('#alarmParam22').empty();
+                        $('#alarmParam22').attr('disabled', true);
+                    }
+                    else if (alarmParam12 == "disk") {
+                        $('#alarmParam22').attr('disabled', false);
+                        //disk 중 세부항목2 배열
+                        const diskParm2Arr = [];
+                        if (json.length > 0) {
+                            for (let i = 0; i < json.length; i++) {
+                                if (json[i].param1 == "disk") {
+                                    const diskParam2 = json[i].param2;
+                                    diskParm2Arr.push(diskParam2);
+                                }
+                            }
+                        }
+                        //중복제거 후 배열출력
+                        diskParam2ArrSet = new Set(diskParm2Arr);
+                        const uniquediskParm2Arr = [...diskParam2ArrSet];
+
+                        if (uniquediskParm2Arr.length > 0) {
+                            $('#alarmParam22').empty();
+                            for (let i = 0; i < uniquediskParm2Arr.length; i++) {
+                                $('#alarmParam22').append(
+                                    `<option value="${uniquediskParm2Arr[i]}">${uniquediskParm2Arr[i]}</option>`
+                                );
                             }
                         }
                     }
-                    //중복제거 후 배열출력
-                    diskParam2ArrSet = new Set(diskParm2Arr);
-                    const uniquediskParm2Arr = [...diskParam2ArrSet];
-
-                    if (uniquediskParm2Arr.length > 0) {
-                        $('#alarmParam22').empty();
-                        for (let i = 0; i < uniquediskParm2Arr.length; i++) {
-                            $('#alarmParam22').append(
-                                `<option value="${uniquediskParm2Arr[i]}">${uniquediskParm2Arr[i]}</option>`
-                            );
+                    else if (alarmParam12 == "network") {
+                        $('#alarmParam22').attr('disabled', false);
+                        //disk 중 세부항목2 배열
+                        const networkParm2Arr = [];
+                        if (json.length > 0) {
+                            for (let i = 0; i < json.length; i++) {
+                                if (json[i].param1 == "network") {
+                                    const networkParam2 = json[i].param2;
+                                    networkParm2Arr.push(networkParam2);
+                                }
+                            }
                         }
-                    }
-                }
-                else if (alarmParam12 == "network") {
-                    $('#alarmParam22').attr('disabled', false);
-                    //disk 중 세부항목2 배열
-                    const networkParm2Arr = [];
-                    if (json.length > 0) {
-                        for (let i = 0; i < json.length; i++) {
-                            if (json[i].param1 == "network") {
-                                const networkParam2 = json[i].param2;
-                                networkParm2Arr.push(networkParam2);
+                        //중복제거 후 배열출력
+                        networkParam2ArrSet = new Set(networkParm2Arr);
+                        const uniquenetworkParm2Arr = [...networkParam2ArrSet];
+
+                        if (uniquenetworkParm2Arr.length > 0) {
+                            $('#alarmParam22').empty();
+                            for (let i = 0; i < uniquenetworkParm2Arr.length; i++) {
+                                $('#alarmParam22').append(
+                                    `<option value="${uniquenetworkParm2Arr[i]}">${uniquenetworkParm2Arr[i]}</option>`
+                                );
                             }
                         }
                     }
-                    //중복제거 후 배열출력
-                    networkParam2ArrSet = new Set(networkParm2Arr);
-                    const uniquenetworkParm2Arr = [...networkParam2ArrSet];
+                });
 
-                    if (uniquenetworkParm2Arr.length > 0) {
-                        $('#alarmParam22').empty();
-                        for (let i = 0; i < uniquenetworkParm2Arr.length; i++) {
-                            $('#alarmParam22').append(
-                                `<option value="${uniquenetworkParm2Arr[i]}">${uniquenetworkParm2Arr[i]}</option>`
-                            );
-                        }
+                //조건 select 출력
+                alarmbigyoArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarmbigyo = json[i].comparision;
+                        alarmbigyoArr.push(alarmbigyo);
                     }
                 }
-            });
+                //중복제거 후 배열출력
+                alarmbigyoArrSet = new Set(alarmbigyoArr);
+                const uniquealarmbigyoArr = [...alarmbigyoArrSet];
 
-        },
-        error: function (request, status, error) {
-            console.log(request.status);
-            if (request.status == '403') {
-                //console.log('로그아웃 성공');
-                sessionStorage.removeItem('Bearer'); //삭제
-                //sessionStorage.clear(); // 전체삭제
-                location.href = "../../login.html"
+                if (uniquealarmbigyoArr.length > 0) {
+                    for (let i = 0; i < uniquealarmbigyoArr.length; i++) {
+                        $('#alarmBigyo2').append(
+                            `<option value="${uniquealarmbigyoArr[i]}">${uniquealarmbigyoArr[i]}</option>`
+                        );
+                    }
+                }
+
+            },
+            error: function (request, status, error) {
+                console.log(request.status);
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
             }
-        }
+        });
     });
 
     //추가
@@ -414,233 +440,6 @@ $(function () {
                 }
             }
         });
-    });
-
-    $('.userT-add').on('click', function () {
-        $(".add_in select option:eq(0)").prop("selected", false);
-        $("#alarmValue2").val("");
-    });
-
-    //변경 select 출력
-    $.ajax({
-        url: "http://192.168.20.203:55532/monitor/alarm",
-        contentType: "application/json; charset=UTF-8",
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-        method: "GET",
-        dataType: "JSON",
-        success: function (json) {
-            //console.log('알람발생조건 변경 select 데이터 출력 성공');
-            //알람레벨 select 출력
-            alarm2LevelArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2Level = json[i].level;
-                    alarm2LevelArr.push(alarm2Level);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2LevelArrSet = new Set(alarm2LevelArr);
-            const uniqueAlarm2LevelArr = [...alarm2LevelArrSet];
-
-            if (uniqueAlarm2LevelArr.length > 0) {
-                for (let i = 0; i < uniqueAlarm2LevelArr.length; i++) {
-                    $('#alarmLevelSel').append(
-                        `<option value="${uniqueAlarm2LevelArr[i]}">${uniqueAlarm2LevelArr[i]}</option>`
-                    );
-                }
-            }
-
-            //호스트명 select 출력
-            alarm2HostnameArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2Hostname = json[i].hostname;
-                    alarm2HostnameArr.push(alarm2Hostname);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2HostnameArrSet = new Set(alarm2HostnameArr);
-            const uniquealarm2HostnameArr = [...alarm2HostnameArrSet];
-
-            if (uniquealarm2HostnameArr.length > 0) {
-                for (let i = 0; i < uniquealarm2HostnameArr.length; i++) {
-                    $('#alarmHostnameSel').append(
-                        `<option value="${uniquealarm2HostnameArr[i]}">${uniquealarm2HostnameArr[i]}</option>`
-                    );
-                }
-            }
-
-            //타입 select 출력
-            alarm2TypeArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2Type = json[i].type;
-                    alarm2TypeArr.push(alarm2Type);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2TypeArrSet = new Set(alarm2TypeArr);
-            const uniquealarm2TypeArr = [...alarm2TypeArrSet];
-
-            if (uniquealarm2TypeArr.length > 0) {
-                for (let i = 0; i < uniquealarm2TypeArr.length; i++) {
-                    $('#alarmTypeSel').append(
-                        `<option value="${uniquealarm2TypeArr[i]}">${uniquealarm2TypeArr[i]}</option>`
-                    );
-                }
-            }
-
-            //아이템 select 출력
-            alarm2ItemArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2Item = json[i].item;
-                    alarm2ItemArr.push(alarm2Item);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2ItemArrSet = new Set(alarm2ItemArr);
-            const uniquealarm2ItemArr = [...alarm2ItemArrSet];
-
-            if (uniquealarm2ItemArr.length > 0) {
-                for (let i = 0; i < uniquealarm2ItemArr.length; i++) {
-                    $('#alarmItemSel').append(
-                        `<option value="${uniquealarm2ItemArr[i]}">${uniquealarm2ItemArr[i]}</option>`
-                    );
-                }
-            }
-
-            //세부항목1 select 출력
-            alarm2Param1Arr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2Param1 = json[i].param1;
-                    alarm2Param1Arr.push(alarm2Param1);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2Param1ArrSet = new Set(alarm2Param1Arr);
-            const uniquealarm2Param1Arr = [...alarm2Param1ArrSet];
-
-            if (uniquealarm2Param1Arr.length > 0) {
-                for (let i = 0; i < uniquealarm2Param1Arr.length; i++) {
-                    $('#alarmParam1Sel').append(
-                        `<option value="${uniquealarm2Param1Arr[i]}">${uniquealarm2Param1Arr[i]}</option>`
-                    );
-                }
-            }
-
-            //세부항목2 disable -> able 이벤트
-            alarm2Param2Arr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2Param2 = json[i].param2;
-                    alarm2Param2Arr.push(alarm2Param2);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2Param2ArrSet = new Set(alarm2Param2Arr);
-            const uniquealarm2Param2Arr = [...alarm2Param2ArrSet];
-
-            $('#alarmParam1Sel').on('click', function () {
-                let alarm2Param1 = $('#alarmParam1Sel').val();
-                //console.log(alarm2Param12);
-                if (alarm2Param1 == "cpu") {
-                    $('#alarmParam2Sel').empty();
-                    $('#alarmParam2').val("");
-                    $('#alarmParam2Sel').attr('disabled', true);
-                    $('#alarmParam2').attr('disabled', true);
-                }
-                else if (alarm2Param1 == "memory") {
-                    $('#alarmParam2Sel').empty();
-                    $('#alarmParam2').val("");
-                    $('#alarmParam2Sel').attr('disabled', true);
-                    $('#alarmParam2').attr('disabled', true);
-                }
-                else if (alarm2Param1 == "disk") {
-                    $('#alarmParam2Sel, #alarmParam2').attr('disabled', false);
-                    //disk 중 세부항목2 배열
-                    const diskParm2Arr = [];
-                    if (json.length > 0) {
-                        for (let i = 0; i < json.length; i++) {
-                            if (json[i].param1 == "disk") {
-                                const diskParam2 = json[i].param2;
-                                diskParm2Arr.push(diskParam2);
-                            }
-                        }
-                    }
-                    //중복제거 후 배열출력
-                    diskParam2ArrSet = new Set(diskParm2Arr);
-                    const uniquediskParm2Arr = [...diskParam2ArrSet];
-
-                    if (uniquediskParm2Arr.length > 0) {
-                        $('#alarmParam2').val("");
-                        $('#alarmParam2Sel, #alarmParam2').empty();
-                        for (let i = 0; i < uniquediskParm2Arr.length; i++) {
-                            $('#alarmParam2Sel').append(
-                                `<option value="${uniquediskParm2Arr[i]}">${uniquediskParm2Arr[i]}</option>`
-                            );
-                        }
-                    }
-                }
-                else if (alarm2Param1 == "network") {
-                    $('#alarmParam2Sel, #alarmParam2').attr('disabled', false);
-                    //disk 중 세부항목2 배열
-                    const networkParm2Arr = [];
-                    if (json.length > 0) {
-                        for (let i = 0; i < json.length; i++) {
-                            if (json[i].param1 == "network") {
-                                const networkParam2 = json[i].param2;
-                                networkParm2Arr.push(networkParam2);
-                            }
-                        }
-                    }
-                    //중복제거 후 배열출력
-                    networkParam2ArrSet = new Set(networkParm2Arr);
-                    const uniquenetworkParm2Arr = [...networkParam2ArrSet];
-
-                    if (uniquenetworkParm2Arr.length > 0) {
-                        $('#alarmParam2').val("");
-                        $('#alarmParam2Sel, #alarmParam2').empty();
-                        for (let i = 0; i < uniquenetworkParm2Arr.length; i++) {
-                            $('#alarmParam2Sel').append(
-                                `<option value="${uniquenetworkParm2Arr[i]}">${uniquenetworkParm2Arr[i]}</option>`
-                            );
-                        }
-                    }
-                }
-            });
-
-            //조건 select 출력
-            alarm2bigyoArr = [];
-            if (json.length > 0) {
-                for (let i = 0; i < json.length; i++) {
-                    const alarm2bigyo = json[i].comparision;
-                    alarm2bigyoArr.push(alarm2bigyo);
-                }
-            }
-            //중복제거 후 배열출력
-            alarm2bigyoArrSet = new Set(alarm2bigyoArr);
-            const uniquealarm2bigyoArr = [...alarm2bigyoArrSet];
-
-            if (uniquealarm2bigyoArr.length > 0) {
-                for (let i = 0; i < uniquealarm2bigyoArr.length; i++) {
-                    $('#alarmBigyoSel').append(
-                        `<option value="${uniquealarm2bigyoArr[i]}">${uniquealarm2bigyoArr[i]}</option>`
-                    );
-                }
-            }
-
-        },
-        error: function (request, status, error) {
-            console.log(request.status);
-            if (request.status == '403') {
-                //console.log('로그아웃 성공');
-                sessionStorage.removeItem('Bearer'); //삭제
-                //sessionStorage.clear(); // 전체삭제
-                location.href = "../../login.html"
-            }
-        }
     });
 
     //변경
@@ -761,6 +560,239 @@ $(function () {
             $('#userChPopup').hide();
         }
 
+        //변경 select 출력
+        $.ajax({
+            url: "http://192.168.20.203:55532/monitor/alarm",
+            contentType: "application/json; charset=UTF-8",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+            method: "GET",
+            dataType: "JSON",
+            success: function (json) {
+                //console.log('알람발생조건 변경 select 데이터 출력 성공');
+                //알람레벨 select 출력
+                alarm2LevelArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2Level = json[i].level;
+                        alarm2LevelArr.push(alarm2Level);
+                    }
+                }
+                //중복제거 후 배열출력
+                alarm2LevelArrSet = new Set(alarm2LevelArr);
+                const uniqueAlarm2LevelArr = [...alarm2LevelArrSet];
+
+                if (uniqueAlarm2LevelArr.length > 0) {
+                    for (let i = 0; i < uniqueAlarm2LevelArr.length; i++) {
+                        $('#alarmLevelSel').append(
+                            `<option value="${uniqueAlarm2LevelArr[i]}">${uniqueAlarm2LevelArr[i]}</option>`
+                        );
+                    }
+                }
+
+                //호스트명 select 출력
+                alarm2HostnameArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2Hostname = json[i].hostname;
+                        alarm2HostnameArr.push(alarm2Hostname);
+                    }
+                }
+                //중복제거 후 배열출력
+                alarm2HostnameArrSet = new Set(alarm2HostnameArr);
+                const uniquealarm2HostnameArr = [...alarm2HostnameArrSet];
+
+                if (uniquealarm2HostnameArr.length > 0) {
+                    for (let i = 0; i < uniquealarm2HostnameArr.length; i++) {
+                        $('#alarmHostnameSel').append(
+                            `<option value="${uniquealarm2HostnameArr[i]}">${uniquealarm2HostnameArr[i]}</option>`
+                        );
+                    }
+                }
+
+                //타입 select 출력
+                alarm2TypeArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2Type = json[i].type;
+                        alarm2TypeArr.push(alarm2Type);
+                    }
+                }
+                //중복제거 후 배열출력
+                alarm2TypeArrSet = new Set(alarm2TypeArr);
+                const uniquealarm2TypeArr = [...alarm2TypeArrSet];
+
+                if (uniquealarm2TypeArr.length > 0) {
+                    for (let i = 0; i < uniquealarm2TypeArr.length; i++) {
+                        $('#alarmTypeSel').append(
+                            `<option value="${uniquealarm2TypeArr[i]}">${uniquealarm2TypeArr[i]}</option>`
+                        );
+                    }
+                }
+
+                //아이템 select 출력
+                alarm2ItemArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2Item = json[i].item;
+                        alarm2ItemArr.push(alarm2Item);
+                    }
+                }
+                //중복제거 후 배열출력
+                alarm2ItemArrSet = new Set(alarm2ItemArr);
+                const uniquealarm2ItemArr = [...alarm2ItemArrSet];
+
+                if (uniquealarm2ItemArr.length > 0) {
+                    for (let i = 0; i < uniquealarm2ItemArr.length; i++) {
+                        $('#alarmItemSel').append(
+                            `<option value="${uniquealarm2ItemArr[i]}">${uniquealarm2ItemArr[i]}</option>`
+                        );
+                    }
+                }
+
+                //세부항목1 select 출력
+                alarm2Param1Arr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2Param1 = json[i].param1;
+                        alarm2Param1Arr.push(alarm2Param1);
+                    }
+                }
+                //중복제거 후 배열출력
+                alarm2Param1ArrSet = new Set(alarm2Param1Arr);
+                const uniquealarm2Param1Arr = [...alarm2Param1ArrSet];
+
+                if (uniquealarm2Param1Arr.length > 0) {
+                    for (let i = 0; i < uniquealarm2Param1Arr.length; i++) {
+                        $('#alarmParam1Sel').append(
+                            `<option value="${uniquealarm2Param1Arr[i]}">${uniquealarm2Param1Arr[i]}</option>`
+                        );
+                    }
+                }
+
+                //세부항목2 disable -> able 이벤트
+                alarm2Param2Arr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2Param2 = json[i].param2;
+                        alarm2Param2Arr.push(alarm2Param2);
+                    }
+                }
+
+                let alarm2Param1Default = $('#alarmParam1').val();
+                if (alarm2Param1Default == "cpu") {
+                    $('#alarmParam2Sel').attr('disabled', true);
+                    $('#alarmParam2').attr('disabled', true);
+                } else if (alarm2Param1 == "memory") {
+                    $('#alarmParam2Sel').attr('disabled', true);
+                    $('#alarmParam2').attr('disabled', true);
+                }
+
+                //중복제거 후 배열출력
+                alarm2Param2ArrSet = new Set(alarm2Param2Arr);
+                const uniquealarm2Param2Arr = [...alarm2Param2ArrSet];
+
+                $('#alarmParam1Sel').on('click', function () {
+                    let alarm2Param1 = $('#alarmParam1Sel').val();
+                    //console.log(alarm2Param12);
+                    if (alarm2Param1 == "cpu") {
+                        $('#alarmParam2Sel').empty();
+                        $('#alarmParam2').val("");
+                        $('#alarmParam2Sel').attr('disabled', true);
+                        $('#alarmParam2').attr('disabled', true);
+                    }
+                    else if (alarm2Param1 == "memory") {
+                        $('#alarmParam2Sel').empty();
+                        $('#alarmParam2').val("");
+                        $('#alarmParam2Sel').attr('disabled', true);
+                        $('#alarmParam2').attr('disabled', true);
+                    }
+                    else if (alarm2Param1 == "disk") {
+                        $('#alarmParam2Sel, #alarmParam2').attr('disabled', false);
+                        //disk 중 세부항목2 배열
+                        const diskParm2Arr = [];
+                        if (json.length > 0) {
+                            for (let i = 0; i < json.length; i++) {
+                                if (json[i].param1 == "disk") {
+                                    const diskParam2 = json[i].param2;
+                                    diskParm2Arr.push(diskParam2);
+                                }
+                            }
+                        }
+                        //중복제거 후 배열출력
+                        diskParam2ArrSet = new Set(diskParm2Arr);
+                        const uniquediskParm2Arr = [...diskParam2ArrSet];
+
+                        if (uniquediskParm2Arr.length > 0) {
+                            $('#alarmParam2').val("");
+                            $('#alarmParam2Sel, #alarmParam2').empty();
+                            for (let i = 0; i < uniquediskParm2Arr.length; i++) {
+                                $('#alarmParam2Sel').append(
+                                    `<option value="${uniquediskParm2Arr[i]}">${uniquediskParm2Arr[i]}</option>`
+                                );
+                            }
+                        }
+                    }
+                    else if (alarm2Param1 == "network") {
+                        $('#alarmParam2Sel, #alarmParam2').attr('disabled', false);
+                        //disk 중 세부항목2 배열
+                        const networkParm2Arr = [];
+                        if (json.length > 0) {
+                            for (let i = 0; i < json.length; i++) {
+                                if (json[i].param1 == "network") {
+                                    const networkParam2 = json[i].param2;
+                                    networkParm2Arr.push(networkParam2);
+                                }
+                            }
+                        }
+                        //중복제거 후 배열출력
+                        networkParam2ArrSet = new Set(networkParm2Arr);
+                        const uniquenetworkParm2Arr = [...networkParam2ArrSet];
+
+                        if (uniquenetworkParm2Arr.length > 0) {
+                            $('#alarmParam2').val("");
+                            $('#alarmParam2Sel, #alarmParam2').empty();
+                            for (let i = 0; i < uniquenetworkParm2Arr.length; i++) {
+                                $('#alarmParam2Sel').append(
+                                    `<option value="${uniquenetworkParm2Arr[i]}">${uniquenetworkParm2Arr[i]}</option>`
+                                );
+                            }
+                        }
+                    }
+                });
+
+                //조건 select 출력
+                alarm2bigyoArr = [];
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const alarm2bigyo = json[i].comparision;
+                        alarm2bigyoArr.push(alarm2bigyo);
+                    }
+                }
+                //중복제거 후 배열출력
+                alarm2bigyoArrSet = new Set(alarm2bigyoArr);
+                const uniquealarm2bigyoArr = [...alarm2bigyoArrSet];
+
+                if (uniquealarm2bigyoArr.length > 0) {
+                    for (let i = 0; i < uniquealarm2bigyoArr.length; i++) {
+                        $('#alarmBigyoSel').append(
+                            `<option value="${uniquealarm2bigyoArr[i]}">${uniquealarm2bigyoArr[i]}</option>`
+                        );
+                    }
+                }
+
+            },
+            error: function (request, status, error) {
+                console.log(request.status);
+                if (request.status == '403') {
+                    //console.log('로그아웃 성공');
+                    sessionStorage.removeItem('Bearer'); //삭제
+                    //sessionStorage.clear(); // 전체삭제
+                    location.href = "../../login.html"
+                }
+            }
+        });
+
+
         //변경 버튼 클릭 시 이벤트
         $('.add-area .add-btn-area .change-btn').on('click', function () {
             let alarmId = document.getElementById("alarmId").value;
@@ -806,9 +838,6 @@ $(function () {
                 }
             });
         });
-
-        //페이지 전환 안되게..
-        $('.ui-pg-input').attr('disabled', true);
     });
 
 });

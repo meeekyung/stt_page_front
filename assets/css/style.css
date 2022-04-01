@@ -2781,7 +2781,7 @@ select {
   white-space: nowrap;
 }
 .serverB-table .statusBox {
-  width: 60%;
+  width: 100px;
   height: 30px;
   line-height: 30px;
   color: #fff;

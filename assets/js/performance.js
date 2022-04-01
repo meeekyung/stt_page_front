@@ -30,6 +30,14 @@ function startSocket() {
           ],
         },
       },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem, data) {
+            let label = data.labels[tooltipItem.index];
+            return label;
+          }
+        }
+      },
       animation: {
         duration: 0,
       },
@@ -93,6 +101,14 @@ function startSocket() {
             },
           ],
         },
+      },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem, data) {
+            let label = data.labels[tooltipItem.index];
+            return label;
+          }
+        }
       },
       animation: {
         duration: 0,
@@ -393,8 +409,13 @@ function startSocket() {
 
       console.log(successNum, failPerNum);
 
-      mySuceessChart.data.datasets[0].data = [failPer, successPer];
-      mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
+      if (failPer == 0 && successNum == 0) {
+        mySuceessChart.data.datasets[0].data = [100, 0];
+        mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
+      } else {
+        mySuceessChart.data.datasets[0].data = [failPer, successPer];
+        mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
+      }
 
       mySuceessChart.update();
 
