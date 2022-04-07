@@ -5,7 +5,7 @@ $(function () {
     let outerwidth = $("#alarmGrid").width();
 
     $("#alarmGrid").jqGrid({
-        url: "http://192.168.21.23:55532/monitor/alarm",
+        url: "http://192.168.20.203:55532/monitor/alarm",
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
@@ -159,7 +159,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.21.23:55532/monitor/alarm/delete?ids=" + selRowIdsJoin,
+            url: "http://192.168.20.203:55532/monitor/alarm/delete?ids=" + selRowIdsJoin,
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
@@ -173,7 +173,7 @@ $(function () {
                     sessionStorage.removeItem('Bearer'); //삭제
                     //sessionStorage.clear(); // 전체삭제
                     console.log(request.responseText);
-                    location.href = "../../login.html"
+                    //location.href = "../../login.html"
                 }
             }
         });
@@ -186,7 +186,7 @@ $(function () {
         $("#alarmValue2").val("");
 
         $.ajax({
-            url: "http://192.168.21.23:55532/monitor/alarm",
+            url: "http://192.168.20.203:55532/monitor/alarm",
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             contentType: "application/json; charset=UTF-8",
             method: "GET",
@@ -395,7 +395,7 @@ $(function () {
                     sessionStorage.removeItem('Bearer'); //삭제
                     //sessionStorage.clear(); // 전체삭제
                     console.log(request.responseText);
-                    location.href = "../../login.html"
+                    //location.href = "../../login.html"
                 }
             }
         });
@@ -418,7 +418,7 @@ $(function () {
         if (booleanValue) { console.log('추가 retrun값 : ' + { level: alarmLevel2, hostname: alarmHostname2, type: alarmType2, item: alarmItem2, param1: alarmParam12, param2: alarmParam22, comparision: alarmBigyo2, value: alarmValue2, sms_noti: radioSms, message: '' }); }
 
         $.ajax({
-            url: "http://192.168.21.23:55532/monitor/alarm",
+            url: "http://192.168.20.203:55532/monitor/alarm",
             contentType: "application/json; charset=UTF-8",
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "POST",
@@ -439,7 +439,7 @@ $(function () {
                     sessionStorage.removeItem('Bearer'); //삭제
                     //sessionStorage.clear(); // 전체삭제
                     console.log(request.responseText);
-                    location.href = "../../login.html"
+                    //location.href = "../../login.html"
                 }
             }
         });
@@ -565,7 +565,7 @@ $(function () {
 
         //변경 select 출력
         $.ajax({
-            url: "http://192.168.21.23:55532/monitor/alarm",
+            url: "http://192.168.20.203:55532/monitor/alarm",
             contentType: "application/json; charset=UTF-8",
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "GET",
@@ -791,7 +791,7 @@ $(function () {
                     sessionStorage.removeItem('Bearer'); //삭제
                     //sessionStorage.clear(); // 전체삭제
                     console.log(request.responseText);
-                    location.href = "../../login.html"
+                    //location.href = "../../login.html"
                 }
             }
         });
@@ -816,7 +816,7 @@ $(function () {
             }
 
             $.ajax({
-                url: "http://192.168.21.23:55532/monitor/alarm/" + setAlarmArr[0],
+                url: "http://192.168.20.203:55532/monitor/alarm/" + setAlarmArr[0],
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
                 headers: { Authorization: "bearer " + sessionStorage.getItem("Bearer") },
@@ -838,7 +838,7 @@ $(function () {
                         sessionStorage.removeItem('Bearer'); //삭제
                         //sessionStorage.clear(); // 전체삭제
                         console.log(request.responseText);
-                        location.href = "../../login.html";
+                        //location.href = "../../login.html";
                     }
                 }
             });

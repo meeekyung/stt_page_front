@@ -3,7 +3,7 @@ let booleanValue = false;
 $(function () {
     //서버 호출
     $.ajax({
-        url: "http://192.168.21.23:55532/monitor/server-config",
+        url: "http://192.168.20.203:55532/monitor/server-config",
         method: "GET",
         dataType: "JSON",
         headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
@@ -24,7 +24,7 @@ $(function () {
                 sessionStorage.removeItem('Bearer'); //삭제
                 //sessionStorage.clear(); // 전체삭제
                 console.log(request.responseText);
-                location.href = "../../login.html"
+                //location.href = "../../login.html"
             }
         }
     });
@@ -62,7 +62,7 @@ $(function () {
         let endDayLimit = endDateValue.substr(8);
 
         $.ajax({
-            url: `http://192.168.21.23:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+            url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "GET",
             dataType: "JSON",
@@ -92,7 +92,7 @@ $(function () {
         function serviceGrid(cnamesData) {
 
             $("#serviceGrid").jqGrid({
-                url: `http://192.168.21.23:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+                url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
                 datatype: "json",
                 mtype: "get",
                 loadBeforeSend: function (jqXHR) {
@@ -210,7 +210,7 @@ $('.execl-btn').on('click', function () {
     let timeType = document.getElementById("timeType").value;
 
     $.ajax({
-        url: `http://192.168.21.23:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
+        url: `http://192.168.20.203:55532/monitor/static/service?time=${timeType}&tenant=${tenantName}&hostname=${serverName}&start_date=${startDate}&end_date=${endDate}`,
         contentType: "application/json; charset=UTF-8",
         headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
         type: "GET",

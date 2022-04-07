@@ -253,7 +253,7 @@ function startSocket2() {
     };
     let myNetworkChart = new Chart(networkChart, networkChartData);
 
-    let socket2 = new WebSocket("ws://192.168.21.23:55532/ws/hardware-status");
+    let socket2 = new WebSocket("ws://192.168.20.203:55532/ws/hardware-status");
 
     let hardwareData;
 

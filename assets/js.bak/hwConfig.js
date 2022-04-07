@@ -11,7 +11,7 @@ function hwSetinterval(fn, delay) {
 //ajax 호출
 //hwSetinterval(function () {
 $.ajax({
-    url: "http://192.168.21.23:55532/monitor/server-config",
+    url: "http://192.168.20.203:55532/monitor/server-config",
     method: "GET",
     dataType: "JSON",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
@@ -60,7 +60,7 @@ $.ajax({
             sessionStorage.removeItem('Bearer'); //삭제
             //sessionStorage.clear(); // 전체삭제
             console.log(request.responseText);
-            location.href = "../../login.html"
+            //location.href = "../../login.html"
         }
     }
 });

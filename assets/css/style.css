@@ -2764,6 +2764,10 @@ select {
 .serverB-date {
   width: 20%;
 }
+#serverB-area {
+  height: 480px;
+  overflow: auto;
+}
 .serverB-table {
   height: 40px;
   line-height: 40px;

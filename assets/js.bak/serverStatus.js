@@ -2,16 +2,17 @@ let booleanValue = false;
 
 // 서비스 상태정보 데이터 출력
 $.ajax({
-  url: "http://192.168.21.23:55532/containers",
+  url: "http://192.168.20.203:55532/containers",
   method: "GET",
   dataType: "JSON",
   headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
   success: function (json) {
-    //$("#serverB-area").empty();
-    //function serverData(json) {
-    for (let i = 0; i < json.length; i++) {
-      if (json.length >= 0) {
-        $("#serverB-area").append(`<ul class="serverB-table">
+    $("#serverB-area").empty();
+
+    function serverData(json) {
+      for (let i = 0; i < json.length; i++) {
+        if (json.length >= 0) {
+          $("#serverB-area").append(`<ul class="serverB-table">
         <li class="serverB-check"><input type="checkbox" name="server-check" id="server-check${i}" value=${i}></li>
         <li class="serverB-name" title="${json[i].container_name}">${json[i].container_name}</li>
         <li class="serverB-status">
@@ -21,19 +22,19 @@ $.ajax({
         <li class="serverB-date" title="${json[i].container_start_time}">${json[i].container_start_time}</li>        
         <li class="serverB-porte" title="${json[i].container_port}">${json[i].container_port}</li>
     </ul>`);
+        }
       }
     }
-    //}
 
     // pagination.js
-    // $("#pagination").pagination({
-    //   dataSource: json,
-    //   callback: function (data, pagination) {
-    //     $("#serverB-area").empty();
-    //     let dataHtml = serverData(data);
-    //     $("#serverB-area").html(dataHtml);
-    //   },
-    // });
+    $("#pagination").pagination({
+      dataSource: json,
+      callback: function (data, pagination) {
+        $("#serverB-area").empty();
+        let dataHtml = serverData(data);
+        $("#serverB-area").html(dataHtml);
+      },
+    });
   },
   error: function (request, status, error) {
     console.log(request.status);
@@ -42,7 +43,7 @@ $.ajax({
       sessionStorage.removeItem('Bearer'); //삭제
       //sessionStorage.clear(); // 전체삭제
       console.log(request.responseText);
-      location.href = "../../login.html"
+      //location.href = "../../login.html"
     }
   },
 });
@@ -69,7 +70,7 @@ function selectAll(selectAll) {
 
 function statusRestart() {
   $.ajax({
-    url: "http://192.168.21.23:55532/containers",
+    url: "http://192.168.20.203:55532/containers",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "GET",
@@ -97,7 +98,7 @@ $(".start-btn").on("click", function () {
   });
 
   $.ajax({
-    url: "http://192.168.21.23:55532/containers/start",
+    url: "http://192.168.20.203:55532/containers/start",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
@@ -127,7 +128,7 @@ $(".stop-btn").on("click", function () {
   });
 
   $.ajax({
-    url: "http://192.168.21.23:55532/containers/stop",
+    url: "http://192.168.20.203:55532/containers/stop",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
@@ -157,7 +158,7 @@ $(".kil-btn").on("click", function () {
   });
 
   $.ajax({
-    url: "http://192.168.21.23:55532/containers/kill",
+    url: "http://192.168.20.203:55532/containers/kill",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
@@ -187,7 +188,7 @@ $(".restart-btn").on("click", function () {
   });
 
   $.ajax({
-    url: "http://192.168.21.23:55532/containers/restart",
+    url: "http://192.168.20.203:55532/containers/restart",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
@@ -217,7 +218,7 @@ $(".pause-btn").on("click", function () {
   });
 
   $.ajax({
-    url: "http://192.168.21.23:55532/containers/pause",
+    url: "http://192.168.20.203:55532/containers/pause",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",
@@ -247,7 +248,7 @@ $(".remove-btn").on("click", function () {
   });
 
   $.ajax({
-    url: "http://192.168.21.23:55532/containers/remove",
+    url: "http://192.168.20.203:55532/containers/remove",
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     method: "PUT",

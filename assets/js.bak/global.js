@@ -192,11 +192,11 @@ let tokenIs = sessionStorage.getItem("Bearer");
 let flag = true;
 if (window.sessionStorage.Bearer === tokenIs) {
   if (!flag) {
-    location.href = "http://192.168.21.23";
-    console.log('토큰이 존재함');
+    //location.href = "http://192.168.20.203";
+    console.log('토큰이 존재하지 않음');
   }
 } else if (window.sessionStorage.Bearer !== tokenIs && tokenIs == null) {
   flag = false;
-  location.href = "http://192.168.21.23/login";
-  console.log('토큰이 존재하지 않음');
+  //location.href = "http://192.168.20.203/login";
+  console.log('토큰이 존재함');
 }

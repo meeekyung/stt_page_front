@@ -1,6 +1,6 @@
 const url123 = "192.168.20.123:55532";
 const url124 = "192.168.20.124:55532";
-const url194 = "192.168.21.23:55532";
+const url194 = "192.168.20.203:55532";
 
 //첫화면 로딩시 변환하기 버튼 비활성화 및 audio ui 비활성화
 $('#uploadBtn').addClass('file-btn_off');
@@ -32,7 +32,7 @@ function checkFile(f) {
 
   $.ajax({
     type: "POST",
-    url: "http://192.168.21.23:55532/audio/validation",
+    url: "http://192.168.20.203:55532/audio/validation",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
     data: formData,
     processData: false,
@@ -47,7 +47,7 @@ function checkFile(f) {
         sessionStorage.removeItem('Bearer'); //삭제
         //sessionStorage.clear(); // 전체삭제
         console.log(request.responseText);
-        location.href = "../../login.html";
+        //location.href = "../../login.html";
       }
     }
   });
@@ -78,7 +78,7 @@ $(function () {
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.21.23:55532/audio",
+      url: "http://192.168.20.203:55532/audio",
       headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
       data: formData,
       processData: false,
@@ -150,7 +150,7 @@ $("#introBtn").on("click", function () {
   var user_pw = document.getElementById("userPw").value;
 
   $.ajax({
-    url: "http://192.168.21.23:55532/users/login",
+    url: "http://192.168.20.203:55532/users/login",
     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
     type: "POST",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },

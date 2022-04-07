@@ -221,7 +221,7 @@ function startSocket() {
   };
   let myServerChChart = new Chart(serverChChart, serverChChartData);
 
-  let socket = new WebSocket("ws://192.168.21.23:55532/ws/performance");
+  let socket = new WebSocket("ws://192.168.20.203:55532/ws/performance");
 
   let performanceData;
 

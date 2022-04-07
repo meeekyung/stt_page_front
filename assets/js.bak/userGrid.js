@@ -5,7 +5,7 @@ $(function () {
     let outerwidth = $("#userGrid").width();
 
     $("#userGrid").jqGrid({
-        url: "http://192.168.21.23:55532/users/list",
+        url: "http://192.168.20.203:55532/users/list",
         datatype: "json",
         mtype: "get",
         loadBeforeSend: function (jqXHR) {
@@ -145,7 +145,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.21.23:55532/users?ids=" + selRowIdsJoin,
+            url: "http://192.168.20.203:55532/users?ids=" + selRowIdsJoin,
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
             method: "DELETE",
             dataType: "JSON",
@@ -159,7 +159,7 @@ $(function () {
                     sessionStorage.removeItem('Bearer'); //삭제
                     //sessionStorage.clear(); // 전체삭제
                     console.log(request.responseText);
-                    location.href = "../../login.html"
+                    //location.href = "../../login.html"
                 }
             }
         });
@@ -185,7 +185,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://192.168.21.23:55532/users/signup",
+            url: "http://192.168.20.203:55532/users/signup",
             contentType: "application/json; charset=UTF-8",
             method: "POST",
             headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
@@ -257,7 +257,7 @@ $(function () {
             $('#userChPopup').show();
 
             $.ajax({
-                url: "http://192.168.21.23:55532/users/" + selRowIds + "/update",
+                url: "http://192.168.20.203:55532/users/" + selRowIds + "/update",
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                 contentType: "application/json; charset=UTF-8",
                 method: "PUT",
