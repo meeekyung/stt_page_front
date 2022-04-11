@@ -602,24 +602,23 @@ $(function () {
         //시작일
         $("#startDate").datepicker().datepicker("setDate", new Date());
         $("#startDate").datepicker("option", "dateFormat", "yy-mm-dd");
-        $("#startDate").datepicker({ minDate: 0 });
+        //최소 6개월까지만 선택가능하도록 
+        $("#startDate").datepicker("option", "minDate", new Date(MonthAgo));
 
         //종료일
         $("#endDate").datepicker().datepicker("setDate", new Date());
         $("#endDate").datepicker("option", "dateFormat", "yy-mm-dd");
-        //최소 6개월까지만 선택가능하도록 
-        $("#endDate").datepicker("option", "maxDate", new Date(MonthAgo));
     });
 
     //6개월 초과 시 데이터 조회 불가 에러메시지 출력
     const now = new Date();	// 현재 날짜 및 시간
-    const MonthAgo = new Date(now.setMonth(now.getMonth() + 7));	// 6개월 초과
+    const MonthAgo = new Date(now.setMonth(now.getMonth() - 6));	// 6개월 초과
     const sixMontAgo = MonthAgo.toLocaleDateString();
     const montAgoDel = sixMontAgo.replace(/\./g, '');
     const montAgoDelTrim = montAgoDel.replace(/\s/g, '');
 
-    $('#endDate').on('click', function () {
-        const today = document.getElementById('endDate').value;
+    $('#startTime').on('click', function () {
+        const today = document.getElementById('startDate').value;
         const todayTrim = today.replace(/\-/g, '');
 
         if (todayTrim === montAgoDelTrim) {
@@ -681,7 +680,7 @@ $(function () {
                             valArr.push(val);
                         }
                         // 이중 배열 형태로 데이터가 들어간다.
-                        let wsDataArr = ['시간', '파티션', '디스트 사용률'];
+                        let wsDataArr = ['시간', '파티션', '디스크 사용률'];
                         // var wsData2 = [['가1' , '가2', '가3'],['나1','나2','나3']];	// 시트가 여러개인 경우
                         wsData.push(wsDataArr);
                     }

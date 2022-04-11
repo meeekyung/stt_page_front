@@ -145,11 +145,12 @@ $(function () {
             let selRowIds = $("#serverGrid").jqGrid("getDataIDs");
             if (selRowIds.length > 0) {
                 for (let i = 0; i < selRowIds.length; i++) {
-                    console.log(selRowIds[i]);
-                    const rowStaus = $("#serverGrid").getRowData(selRowIds);
-                    console.log(rowStaus[i].status);
-                    if (rowStaus === '0') {
+                    const rowStaus = $("#serverGrid").getRowData(selRowIds[0].status);
+                    const serverSataus = rowStaus[i].status;
+                    if (serverSataus == '0') {
                         $('#serverGrid').jqGrid('setCell', selRowIds[i], 'status', 'inactive');
+                    } else if (serverSataus == '1') {
+                        $('#serverGrid').jqGrid('setCell', selRowIds[i], 'status', 'active');
                     }
                 }
             }
@@ -271,10 +272,88 @@ $(function () {
         }
         $('.userT-add').on('click', function () {
             addReset();
+
+            $.ajax({
+                url: "http://" + json.urls + "/monitor/server-config",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+                contentType: "application/json; charset=UTF-8",
+                method: "GET",
+                dataType: "JSON",
+                success: function (json) {
+                    //서버정보 역할 select 출력
+                    severLoleArr = [];
+                    if (json.length > 0) {
+                        for (let i = 0; i < json.length; i++) {
+                            const severLole = json[i].role;
+                            severLoleArr.push(severLole);
+                        }
+                    }
+                    //중복제거 후 배열출력
+                    severLoleArrSet = new Set(severLoleArr);
+                    const uniqueseverLoleArr = [...severLoleArrSet];
+
+                    if (uniqueseverLoleArr.length > 0) {
+                        for (let i = 0; i < uniqueseverLoleArr.length; i++) {
+                            $('#severRole').append(
+                                `<option value="${uniqueseverLoleArr[i]}">${uniqueseverLoleArr[i]}</option>`
+                            );
+                        }
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log(request.status);
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        console.log(request.responseText);
+                        location.href = "../../login.html"
+                    }
+                }
+            });
         });
 
         //변경
         $('.userT-change').on('click', function () {
+            //변경 select 출력
+            $.ajax({
+                url: "http://" + json.urls + "/monitor/server-config",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+                contentType: "application/json; charset=UTF-8",
+                method: "GET",
+                dataType: "JSON",
+                success: function (json) {
+                    //서버정보 역할 select 출력
+                    severLoleArr = [];
+                    if (json.length > 0) {
+                        for (let i = 0; i < json.length; i++) {
+                            const severLole = json[i].role;
+                            severLoleArr.push(severLole);
+                        }
+                    }
+                    //중복제거 후 배열출력
+                    severLoleArrSet = new Set(severLoleArr);
+                    const uniqueseverLoleArr = [...severLoleArrSet];
+
+                    if (uniqueseverLoleArr.length > 0) {
+                        for (let i = 0; i < uniqueseverLoleArr.length; i++) {
+                            $('#severRole2').append(
+                                `<option value="${uniqueseverLoleArr[i]}">${uniqueseverLoleArr[i]}</option>`
+                            );
+                        }
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log(request.status);
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        console.log(request.responseText);
+                        location.href = "../../login.html"
+                    }
+                }
+            });
 
             // 선택된 row rowId를 구한다.
             let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');

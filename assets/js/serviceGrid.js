@@ -232,11 +232,9 @@ const sixMontAgo = MonthAgo.toLocaleDateString();
 const montAgoDel = sixMontAgo.replace(/\./g, '');
 const montAgoDelTrim = montAgoDel.replace(/\s/g, '');
 
-$('#ui-datepicker-div').on('click', function () {
+$('#startTime').on('click', function () {
     const today = document.getElementById('startDate').value;
     const todayTrim = today.replace(/\-/g, '');
-
-    console.log(todayTrim);
 
     if (todayTrim === montAgoDelTrim) {
         $('.alert-cont').append(`<p class="alert-cont-txt">조회기간이 6개월을 초과하였습니다.</p>`);

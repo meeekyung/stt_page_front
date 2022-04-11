@@ -1020,12 +1020,14 @@ select {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
 }
 .alert-area {
   background: #fff;
   border-radius: 5px;
   position: relative;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 99999;
 }
 .alert-area .alertH {
   width: 100%;
@@ -2613,6 +2615,11 @@ select {
   border: 1px solid #7fd1ae;
   color: #fff;
   border-radius: 3px;
+}
+.execl-btn:disabled:hover {
+  background: #eee;
+  border: 1px solid #ccc;
+  color: #ecece;
 }
 .form-control {
   display: inline-block;
