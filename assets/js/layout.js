@@ -102,6 +102,11 @@ $('#userChPopup .add-area .addH i, .add-btn-area .close-btn, #userChPopup .add-a
   $('#userChPopup').hide();
 });
 
+//운영자관리 삭제팝업
+$('#userDelPopup .add-area .addH i, .add-btn-area .close-btn, #userDelPopup .add-area .addH i, .add-btn-area .change-btn').on('click', function () {
+  $('#userDelPopup').hide();
+});
+
 //서버정보, 알람설정 탭 이동
 $('.servertab1').on('click', function (e) {
   e.preventDefault();

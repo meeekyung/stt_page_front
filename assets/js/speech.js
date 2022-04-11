@@ -1,7 +1,3 @@
-const url123 = "192.168.20.123:55532";
-const url124 = "192.168.20.124:55532";
-const url194 = "192.168.21.23:55532";
-
 //첫화면 로딩시 변환하기 버튼 비활성화 및 audio ui 비활성화
 $('#uploadBtn').addClass('file-btn_off');
 $('#uploadBtn').attr('disabled', true);
@@ -30,26 +26,32 @@ function checkFile(f) {
   var formData = new FormData(form);
   formData.append("file", $("input[name=uploadFile]")[0].files[0]);
 
-  $.ajax({
-    type: "POST",
-    url: "http://192.168.21.23:55532/audio/validation",
-    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-    data: formData,
-    processData: false,
-    contentType: false,
-    dataType: 'json',
-    success: function (json) {
-    },
-    error: function (request, status, error) {
-      console.log(request.status);
-      if (request.status == '403') {
-        //console.log('로그아웃 성공');
-        sessionStorage.removeItem('Bearer'); //삭제
-        //sessionStorage.clear(); // 전체삭제
-        console.log(request.responseText);
-        location.href = "../../login.html";
+  $.getJSON("../../config/config.json", function (json) {
+    // console.log(json);
+    // console.log(json.urls);
+
+    $.ajax({
+      type: "POST",
+      url: "http://" + json.urls + "/audio/validation",
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: function (json) {
+      },
+      error: function (request, status, error) {
+        console.log(request.status);
+        if (request.status == '403') {
+          //console.log('로그아웃 성공');
+          sessionStorage.removeItem('Bearer'); //삭제
+          //sessionStorage.clear(); // 전체삭제
+          console.log(request.responseText);
+          location.href = "../../login.html";
+        }
       }
-    }
+    });
+
   });
 
   // file[0].name 은 파일명 입니다.
@@ -76,32 +78,38 @@ $(function () {
     var formData = new FormData(form);
     formData.append("file", $("input[name=uploadFile]")[0].files[0]);
 
-    $.ajax({
-      type: "POST",
-      url: "http://192.168.21.23:55532/audio",
-      headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-      data: formData,
-      processData: false,
-      contentType: false,
-      dataType: 'json',
-      beforeSend: function () {
-        $('.black_bg, .loading-box').show();
-      },
-      complete: function () {
-        $('.black_bg, .loading-box').hide();
-      },
-      success: function (json) {
-        $('#uploadBtn').text('변환완료');
-        $('.progressContaine').hide();
-        handleFiles(json);
-        document.getElementById("uploadBtn").addEventListener("change", handleFiles, false);
+    $.getJSON("../../config/config.json", function (json) {
+      // console.log(json);
+      // console.log(json.urls);
 
-        //음성인식 변환 결과 출력
-        sttTextPrint(json);
-      },
-      error: function (json) {
+      $.ajax({
+        type: "POST",
+        url: "http://" + json.urls + "/audio",
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        beforeSend: function () {
+          $('.black_bg, .loading-box').show();
+        },
+        complete: function () {
+          $('.black_bg, .loading-box').hide();
+        },
+        success: function (json) {
+          $('#uploadBtn').text('변환완료');
+          $('.progressContaine').hide();
+          handleFiles(json);
+          document.getElementById("uploadBtn").addEventListener("change", handleFiles, false);
 
-      }
+          //음성인식 변환 결과 출력
+          sttTextPrint(json);
+        },
+        error: function (json) {
+
+        }
+      });
+
     });
 
     $(".sttTimeTxt, .sttTimeCont").remove();
@@ -149,19 +157,24 @@ $("#introBtn").on("click", function () {
   var user_name = document.getElementById("userName").value;
   var user_pw = document.getElementById("userPw").value;
 
-  $.ajax({
-    url: "http://192.168.21.23:55532/users/login",
-    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-    type: "POST",
-    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-    data: JSON.stringify({ username: user_name, password: user_pw }),
-    success: function (data) {
-      $("#loginArea").hide();
-      $("#sttArea").show();
-    },
-    error: function (data) {
-      alert("아이디 또는 비밀번호 오류입니다.")
-    },
+  $.getJSON("../../config/config.json", function (json) {
+    // console.log(json);
+    // console.log(json.urls);
+
+    $.ajax({
+      url: "http://" + json.urls + "/users/login",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      type: "POST",
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+      data: JSON.stringify({ username: user_name, password: user_pw }),
+      success: function (data) {
+        $("#loginArea").hide();
+        $("#sttArea").show();
+      },
+      error: function (data) {
+        alert("아이디 또는 비밀번호 오류입니다.")
+      },
+    });
   });
 });
 

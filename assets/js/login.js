@@ -1,31 +1,36 @@
 //로그인 버튼 클릭 시 화면전환
 $("#introBtn").on("click", function () {
 
-    var user_name = document.getElementById("userName").value;
-    var user_pw = document.getElementById("userPw").value;
+    let user_name = document.getElementById("userName").value;
+    let user_pw = document.getElementById("userPw").value;
 
-    $.ajax({
-        url: "http://192.168.21.23:55532/users/login",
-        contentType: "application/json; charset=UTF-8",
-        type: "POST",
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-        data: JSON.stringify({ id: user_name, password: user_pw }),
-        success: function (data) {
-            //console.log('로그인 성공');
-            let jwtToken = data.token;
-            let localToken = sessionStorage.getItem('Bearer');
-            const dT = sessionStorage.setItem("Bearer", data.token);
-            //if(jwtToken = localToken){
-            location.href = "../../index.html"; //페이지 이동
-            //}else{
-            //  alert('이미 로그인되어 있는 계정입니다.');
-            //}
+    $.getJSON("../../config/config.json", function (json) {
+        // console.log(json);
+        // console.log(json.urls);
 
-        },
-        error: function (data) {
-            alert("아이디 또는 비밀번호 오류입니다.");
-            $('#userName').focuse();
-        },
+        $.ajax({
+            url: "http://" + json.urls + "/users/login",
+            contentType: "application/json; charset=UTF-8",
+            type: "POST",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+            data: JSON.stringify({ id: user_name, password: user_pw }),
+            success: function (data) {
+                //console.log('로그인 성공');
+                let jwtToken = data.token;
+                let localToken = sessionStorage.getItem('Bearer');
+                const dT = sessionStorage.setItem("Bearer", data.token);
+                //if(jwtToken = localToken){
+                location.href = "../../index.html"; //페이지 이동
+                //}else{
+                //  alert('이미 로그인되어 있는 계정입니다.');
+                //}
+
+            },
+            error: function (data) {
+                alert("아이디 또는 비밀번호 오류입니다.");
+                $('#userName').focuse();
+            },
+        });
     });
 });
 

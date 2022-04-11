@@ -47,7 +47,7 @@
                             <h5 class="search-cont-tit">기간</h5>
                             <div class="date-input">
                                 <input type="text" name="startDate" id="startDate" class="w120 text_in in_calendar">                                
-                                <select id="startTime" name="startTime" onchange="s_time_select(this)"
+                                <select id="startTime" name="startTime" onchange="s_time_select()"
                                     class="form-control w70">
                                     <script>
                                         for (i = 0; i < 24; i++) {
@@ -67,9 +67,9 @@
                                 <input type="text" name="endDate" id="endDate" class="w120 text_in in_calendar">
                             </div>
                             <!-- 기간 24시간 설정 -->
-                            <select id="endTime" name="endTime" onchange="s_time_select(this)" class="form-control w70">
+                            <select id="endTime" name="endTime" onchange="s_time_select()" class="form-control w70">
                                 <script>
-                                    for (i = 0; i < 24; i++) {
+                                    for (i = 23; i > 0; i--) {
                                         let hour = '';
 
                                         if (i < 24) {
@@ -159,6 +159,9 @@
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>
+
+    <!-- alarm.js -->
+    <script src="assets/js/alarm.js?v=20211227"></script>
 </body>
 
 </html>
