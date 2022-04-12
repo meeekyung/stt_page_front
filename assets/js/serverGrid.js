@@ -36,6 +36,21 @@ $(function () {
             pager: '#serverGridpager',
             rownumbers: true,
             loadonce: true,
+            loadComplete: function (data) {
+                //서버상태 값 변경
+                let selRowIds = $("#serverGrid").jqGrid("getDataIDs");
+                if (selRowIds.length > 0) {
+                    for (let i = 0; i < selRowIds.length; i++) {
+                        const rowStaus = $("#serverGrid").getRowData(selRowIds[0].status);
+                        const serverSataus = rowStaus[i].status;
+                        if (serverSataus == '0') {
+                            $('#serverGrid').jqGrid('setCell', selRowIds[i], 'status', 'inactive');
+                        } else if (serverSataus == '1') {
+                            $('#serverGrid').jqGrid('setCell', selRowIds[i], 'status', 'active');
+                        }
+                    }
+                }
+            },
             onSelectRow: function (rowid, status) {
                 //로우 선택시 처리하는 부분
                 let isHighlight = document.getElementsByClassName('ui-state-highlight');
@@ -139,22 +154,6 @@ $(function () {
         $(window).on('resize.jqGrid', function () {
             $("#serverGrid").jqGrid('setGridWidth', $('.set-box').width() - 150);
         });
-
-        //서버상태 값 변경
-        window.onload = function () {
-            let selRowIds = $("#serverGrid").jqGrid("getDataIDs");
-            if (selRowIds.length > 0) {
-                for (let i = 0; i < selRowIds.length; i++) {
-                    const rowStaus = $("#serverGrid").getRowData(selRowIds[0].status);
-                    const serverSataus = rowStaus[i].status;
-                    if (serverSataus == '0') {
-                        $('#serverGrid').jqGrid('setCell', selRowIds[i], 'status', 'inactive');
-                    } else if (serverSataus == '1') {
-                        $('#serverGrid').jqGrid('setCell', selRowIds[i], 'status', 'active');
-                    }
-                }
-            }
-        }
 
         //조회
         $('.userT-look').on('click', function () {

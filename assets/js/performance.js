@@ -245,219 +245,223 @@ function startSocket() {
       let stt2 = dataKey[0];
       let total = dataKey[1];
 
-      if (performanceData == stt2) {
-        //earlySet();
-        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
+      let systemTabsLi = document.querySelector('#systemTabs li');
 
-        //stt2 데이터 출력
-        const boardData2 = JSON.parse(json.data);
+      if (systemTabsLi != null) {
+        if (performanceData == stt2) {
+          //earlySet();
+          // $(this).addClass('tab-on').siblings().removeClass('tab-on');
 
-        //요청건수 출력
-        const requestTotalStt2 = boardData2["bona-stt2"].request_number;
-        document.querySelector(".request-data").innerHTML = requestTotalStt2;
+          //stt2 데이터 출력
+          const boardData2 = JSON.parse(json.data);
 
-        //성공률 출력 - 도넛형 차트
-        const successNumStt2 = boardData2["bona-stt2"].success;
-        const failPerNumStt2 = boardData2["bona-stt2"].fail;
-        let bunmo = successNumStt2 + failPerNumStt2 ? successNumStt2 + failPerNumStt2 : 1;
+          //요청건수 출력
+          const requestTotalStt2 = boardData2["bona-stt2"].request_number;
+          document.querySelector(".request-data").innerHTML = requestTotalStt2;
 
-        const successPerStt2 = Math.floor(
-          (boardData["bona-stt2"].success / bunmo) * 100
-        );
-        const failPerStt2 = (
-          (boardData2["bona-stt2"].fail / bunmo) *
-          100
-        ).toFixed(0);
+          //성공률 출력 - 도넛형 차트
+          const successNumStt2 = boardData2["bona-stt2"].success;
+          const failPerNumStt2 = boardData2["bona-stt2"].fail;
+          let bunmo = successNumStt2 + failPerNumStt2 ? successNumStt2 + failPerNumStt2 : 1;
 
-        document.querySelector("#legendNum1").innerHTML = successNumStt2;
-        document.querySelector("#legendNum2").innerHTML = failPerNumStt2;
+          const successPerStt2 = Math.floor(
+            (boardData["bona-stt2"].success / bunmo) * 100
+          );
+          const failPerStt2 = (
+            (boardData2["bona-stt2"].fail / bunmo) *
+            100
+          ).toFixed(0);
 
-        mySuceessChart.data.datasets[0].data = [failPerNumStt2, successNumStt2];
-        mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successNumStt2 + ' %';
+          document.querySelector("#legendNum1").innerHTML = successNumStt2;
+          document.querySelector("#legendNum2").innerHTML = failPerNumStt2;
 
-        mySuceessChart.update();
+          mySuceessChart.data.datasets[0].data = [failPerNumStt2, successNumStt2];
+          mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successNumStt2 + ' %';
 
-        //총 음성길이 출력
-        const audioLengthStt2 = boardData2["bona-stt2"].audio_len / 60;
-        document.querySelector(".length-data").innerHTML =
-          audioLengthStt2.toFixed(1);
+          mySuceessChart.update();
 
-        //평균처리 속도 출력
-        const averageSpeedStt2 = boardData2["bona-stt2"].average_speed;
-        document.querySelector(".speed-data").innerHTML =
-          averageSpeedStt2.toFixed(1); //소수점 첫째자리까지
+          //총 음성길이 출력
+          const audioLengthStt2 = boardData2["bona-stt2"].audio_len / 60;
+          document.querySelector(".length-data").innerHTML =
+            audioLengthStt2.toFixed(1);
 
-        //채널상태 - 전체(도넛형 차트)
-        const totalCh = boardData2["bona-stt2"].channels.total;
-        const useCh = boardData2["bona-stt2"].channels.running;
-        const useChPer = (
-          (boardData["bona-stt2"].channels.running / totalCh) *
-          100
-        ).toFixed(0);
+          //평균처리 속도 출력
+          const averageSpeedStt2 = boardData2["bona-stt2"].average_speed;
+          document.querySelector(".speed-data").innerHTML =
+            averageSpeedStt2.toFixed(1); //소수점 첫째자리까지
 
-        document.querySelector("#legendNum3").innerHTML = totalCh;
-        document.querySelector("#legendNum4").innerHTML = useCh;
+          //채널상태 - 전체(도넛형 차트)
+          const totalCh = boardData2["bona-stt2"].channels.total;
+          const useCh = boardData2["bona-stt2"].channels.running;
+          const useChPer = (
+            (boardData["bona-stt2"].channels.running / totalCh) *
+            100
+          ).toFixed(0);
 
-        myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
-        myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
+          document.querySelector("#legendNum3").innerHTML = totalCh;
+          document.querySelector("#legendNum4").innerHTML = useCh;
 
-        myStatusChart.update();
+          myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
+          myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
 
-        //채널상태 - 서버별(누적형 막대차트)
-        const restTotalStt2 = boardData2["bona-stt2"].channels.rest.total;
-        const grpcTotalStt2 = boardData2["bona-stt2"].channels.grpc.total;
-        const grpcStreamTotalStt2 = boardData2["bona-stt2"].channels.grpc_stream.total;
+          myStatusChart.update();
 
-        const restRunningStt2 = boardData2["bona-stt2"].channels.rest.running;
-        const grpcRunningStt2 = boardData2["bona-stt2"].channels.grpc.running;
-        const grpcStreamRunningStt2 = boardData2["bona-stt2"].channels.grpc_stream.running;
+          //채널상태 - 서버별(누적형 막대차트)
+          const restTotalStt2 = boardData2["bona-stt2"].channels.rest.total;
+          const grpcTotalStt2 = boardData2["bona-stt2"].channels.grpc.total;
+          const grpcStreamTotalStt2 = boardData2["bona-stt2"].channels.grpc_stream.total;
 
-        myServerChChart.data.datasets[0].data = [restRunningStt2, grpcRunningStt2, grpcStreamRunningStt2];
-        myServerChChart.data.datasets[1].data = [restTotalStt2 - restRunningStt2, grpcTotalStt2 - grpcRunningStt2, grpcStreamTotalStt2 - grpcStreamRunningStt2];
+          const restRunningStt2 = boardData2["bona-stt2"].channels.rest.running;
+          const grpcRunningStt2 = boardData2["bona-stt2"].channels.grpc.running;
+          const grpcStreamRunningStt2 = boardData2["bona-stt2"].channels.grpc_stream.running;
 
-        myServerChChart.update();
+          myServerChChart.data.datasets[0].data = [restRunningStt2, grpcRunningStt2, grpcStreamRunningStt2];
+          myServerChChart.data.datasets[1].data = [restTotalStt2 - restRunningStt2, grpcTotalStt2 - grpcRunningStt2, grpcStreamTotalStt2 - grpcStreamRunningStt2];
+
+          myServerChChart.update();
 
 
-      }
-      else if (performanceData == total) {
-        //earlySet();
-        // $(this).addClass('tab-on').siblings().removeClass('tab-on');
-        //전체 데이터 출력
-        const boardData = JSON.parse(json.data);
+        }
+        else if (performanceData == total) {
+          //earlySet();
+          // $(this).addClass('tab-on').siblings().removeClass('tab-on');
+          //전체 데이터 출력
+          const boardData = JSON.parse(json.data);
 
-        //요청건수 출력
-        const requestTotal = boardData["bona-total-stt"].request_number;
-        document.querySelector(".request-data").innerHTML = requestTotal;
+          //요청건수 출력
+          const requestTotal = boardData["bona-total-stt"].request_number;
+          document.querySelector(".request-data").innerHTML = requestTotal;
 
-        //성공률 출력 - 도넛형 차트
-        const successNum = boardData["bona-total-stt"].success;
-        const failPerNum = boardData["bona-total-stt"].fail;
-        let bunmo = successNum + failPerNum ? successNum + failPerNum : 1;
+          //성공률 출력 - 도넛형 차트
+          const successNum = boardData["bona-total-stt"].success;
+          const failPerNum = boardData["bona-total-stt"].fail;
+          let bunmo = successNum + failPerNum ? successNum + failPerNum : 1;
 
-        const successPer = Math.floor(
-          (boardData["bona-total-stt"].success / bunmo) * 100
-        );
-        const failPer = (
-          (boardData["bona-total-stt"].fail / bunmo) *
-          100
-        ).toFixed(0);
+          const successPer = Math.floor(
+            (boardData["bona-total-stt"].success / bunmo) * 100
+          );
+          const failPer = (
+            (boardData["bona-total-stt"].fail / bunmo) *
+            100
+          ).toFixed(0);
 
-        document.querySelector("#legendNum1").innerHTML = successNum;
-        document.querySelector("#legendNum2").innerHTML = failPerNum;
+          document.querySelector("#legendNum1").innerHTML = successNum;
+          document.querySelector("#legendNum2").innerHTML = failPerNum;
 
-        mySuceessChart.data.datasets[0].data = [failPer, successPer];
-        mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
-
-        mySuceessChart.update();
-
-        //총 음성길이 출력
-        const audioLength = boardData["bona-total-stt"].audio_len / 60;
-        document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
-
-        //평균처리 속도 출력
-        const averageSpeed = boardData["bona-total-stt"].average_speed;
-        document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
-
-        //채널상태 - 전체(도넛형 차트)
-        const totalCh = boardData["bona-total-stt"].channels.total;
-        const useCh = boardData["bona-total-stt"].channels.running;
-        const useChPer = (
-          (boardData["bona-total-stt"].channels.running / totalCh) *
-          100
-        ).toFixed(0);
-
-        document.querySelector("#legendNum3").innerHTML = totalCh;
-        document.querySelector("#legendNum4").innerHTML = useCh;
-
-        myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
-        myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
-
-        myStatusChart.update();
-
-        //채널상태 - 서버별(누적형 막대차트)
-        const restTotal = boardData["bona-total-stt"].channels.rest.total;
-        const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
-        const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
-
-        const restRunning = boardData["bona-total-stt"].channels.rest.running;
-        const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
-        const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
-
-        myServerChChart.data.datasets[0].data = [restRunning, grpcRunning, grpcStreamRunning];
-        myServerChChart.data.datasets[1].data = [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning];
-
-        myServerChChart.update();
-      }
-      else {
-        const boardData = JSON.parse(json.data);
-
-        //요청건수 출력
-        const requestTotal = boardData["bona-total-stt"].request_number;
-        document.querySelector(".request-data").innerHTML = requestTotal;
-
-        //성공률 출력 - 도넛형 차트
-        const successNum = boardData["bona-total-stt"].success;
-        const failPerNum = boardData["bona-total-stt"].fail;
-        let bunmo = successNum + failPerNum ? successNum + failPerNum : 1;
-
-        const successPer = Math.floor(
-          (boardData["bona-total-stt"].success / bunmo) * 100
-        );
-        const failPer = (
-          (boardData["bona-total-stt"].fail / bunmo) *
-          100
-        ).toFixed(0);
-
-        document.querySelector("#legendNum1").innerHTML = successNum;
-        document.querySelector("#legendNum2").innerHTML = failPerNum;
-
-        if (failPer == 0 && successNum == 0) {
-          mySuceessChart.data.datasets[0].data = [100, 0];
-          mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
-        } else {
           mySuceessChart.data.datasets[0].data = [failPer, successPer];
           mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
+
+          mySuceessChart.update();
+
+          //총 음성길이 출력
+          const audioLength = boardData["bona-total-stt"].audio_len / 60;
+          document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
+
+          //평균처리 속도 출력
+          const averageSpeed = boardData["bona-total-stt"].average_speed;
+          document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
+
+          //채널상태 - 전체(도넛형 차트)
+          const totalCh = boardData["bona-total-stt"].channels.total;
+          const useCh = boardData["bona-total-stt"].channels.running;
+          const useChPer = (
+            (boardData["bona-total-stt"].channels.running / totalCh) *
+            100
+          ).toFixed(0);
+
+          document.querySelector("#legendNum3").innerHTML = totalCh;
+          document.querySelector("#legendNum4").innerHTML = useCh;
+
+          myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
+          myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
+
+          myStatusChart.update();
+
+          //채널상태 - 서버별(누적형 막대차트)
+          const restTotal = boardData["bona-total-stt"].channels.rest.total;
+          const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
+          const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
+
+          const restRunning = boardData["bona-total-stt"].channels.rest.running;
+          const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
+          const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
+
+          myServerChChart.data.datasets[0].data = [restRunning, grpcRunning, grpcStreamRunning];
+          myServerChChart.data.datasets[1].data = [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning];
+
+          myServerChChart.update();
         }
+        else {
+          const boardData = JSON.parse(json.data);
 
-        mySuceessChart.update();
+          //요청건수 출력
+          const requestTotal = boardData["bona-total-stt"].request_number;
+          document.querySelector(".request-data").innerHTML = requestTotal;
 
-        //총 음성길이 출력
-        const audioLength = boardData["bona-total-stt"].audio_len / 60;
-        document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
+          //성공률 출력 - 도넛형 차트
+          const successNum = boardData["bona-total-stt"].success;
+          const failPerNum = boardData["bona-total-stt"].fail;
+          let bunmo = successNum + failPerNum ? successNum + failPerNum : 1;
 
-        //평균처리 속도 출력
-        const averageSpeed = boardData["bona-total-stt"].average_speed;
-        document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
+          const successPer = Math.floor(
+            (boardData["bona-total-stt"].success / bunmo) * 100
+          );
+          const failPer = (
+            (boardData["bona-total-stt"].fail / bunmo) *
+            100
+          ).toFixed(0);
 
-        //채널상태 - 전체(도넛형 차트)
-        const totalCh = boardData["bona-total-stt"].channels.total;
-        const useCh = boardData["bona-total-stt"].channels.running;
-        const useChPer = (
-          (boardData["bona-total-stt"].channels.running / totalCh) *
-          100
-        ).toFixed(0);
+          document.querySelector("#legendNum1").innerHTML = successNum;
+          document.querySelector("#legendNum2").innerHTML = failPerNum;
 
-        document.querySelector("#legendNum3").innerHTML = totalCh;
-        document.querySelector("#legendNum4").innerHTML = useCh;
+          if (failPer == 0 && successNum == 0) {
+            mySuceessChart.data.datasets[0].data = [100, 0];
+            mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
+          } else {
+            mySuceessChart.data.datasets[0].data = [failPer, successPer];
+            mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPer + ' %';
+          }
 
-        myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
-        myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
+          mySuceessChart.update();
 
-        myStatusChart.update();
+          //총 음성길이 출력
+          const audioLength = boardData["bona-total-stt"].audio_len / 60;
+          document.querySelector(".length-data").innerHTML = audioLength.toFixed(1);
 
-        //채널상태 - 서버별(누적형 막대차트)
-        const restTotal = boardData["bona-total-stt"].channels.rest.total;
-        const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
-        const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
+          //평균처리 속도 출력
+          const averageSpeed = boardData["bona-total-stt"].average_speed;
+          document.querySelector(".speed-data").innerHTML = averageSpeed.toFixed(1); //소수점 첫째자리까지
 
-        const restRunning = boardData["bona-total-stt"].channels.rest.running;
-        const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
-        const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
+          //채널상태 - 전체(도넛형 차트)
+          const totalCh = boardData["bona-total-stt"].channels.total;
+          const useCh = boardData["bona-total-stt"].channels.running;
+          const useChPer = (
+            (boardData["bona-total-stt"].channels.running / totalCh) *
+            100
+          ).toFixed(0);
 
-        myServerChChart.data.datasets[0].data = [restRunning, grpcRunning, grpcStreamRunning];
-        myServerChChart.data.datasets[1].data = [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning];
+          document.querySelector("#legendNum3").innerHTML = totalCh;
+          document.querySelector("#legendNum4").innerHTML = useCh;
 
-        myServerChChart.update();
+          myStatusChart.data.datasets[0].data = [100 - useChPer, useChPer];
+          myStatusChart.options.plugins.doughnutlabel.labels[0].text = useChPer + ' %';
+
+          myStatusChart.update();
+
+          //채널상태 - 서버별(누적형 막대차트)
+          const restTotal = boardData["bona-total-stt"].channels.rest.total;
+          const grpcTotal = boardData["bona-total-stt"].channels.grpc.total;
+          const grpcStreamTotal = boardData["bona-total-stt"].channels.grpc_stream.total;
+
+          const restRunning = boardData["bona-total-stt"].channels.rest.running;
+          const grpcRunning = boardData["bona-total-stt"].channels.grpc.running;
+          const grpcStreamRunning = boardData["bona-total-stt"].channels.grpc_stream.running;
+
+          myServerChChart.data.datasets[0].data = [restRunning, grpcRunning, grpcStreamRunning];
+          myServerChChart.data.datasets[1].data = [restTotal - restRunning, grpcTotal - grpcRunning, grpcStreamTotal - grpcStreamRunning];
+
+          myServerChChart.update();
+        }
       }
     };
 

@@ -1136,12 +1136,19 @@ select {
   right: 30px;
   bottom: 10px;
   z-index: 99999;
+  color: #ccc;
 }
 .execl-btn:hover {
   background: #00c5a7;
   border: 1px solid #7fd1ae;
   color: #fff;
   border-radius: 3px;
+}
+.execl-btn:disabled:hover {
+  background: ececec;
+  border: 1px solid #ccc;
+  color: #ccc;
+  cursor: auto;
 }
 .form-control {
   display: inline-block;

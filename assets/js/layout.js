@@ -126,7 +126,3 @@ $('#alert .alert-area .alertH i, .alert-btn-area .okay-btn').on('click', functio
   $('#alert').hide();
   $('.alert-cont-txt').empty();
 });
-
-//excel 저장 비활성화
-const execlBtn = document.querySelector('.execl-btn');
-execlBtn.disabled = true

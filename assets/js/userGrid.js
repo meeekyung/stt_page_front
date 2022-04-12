@@ -48,6 +48,7 @@ $(function () {
                         $('.ui-state-highlight').addClass('selbg');
                     }
                 });
+                //});
             }, onPaging: function (pgButton) {
                 let gridPage = $('#userGrid').getGridParam('page');
                 let totalPage = $('#sp_1_gridpager').text();
@@ -104,11 +105,13 @@ $(function () {
         // 체크박스 전체 선택 및 해제
         let userOnOff = true;
         $('#jqgh_userGrid_cb').on('click', function () {
-
+            console.log(userOnOff);
             userOnOff = !userOnOff;
             if (!userOnOff) {
                 $('tr[aria-selected="false"]').each(function () {
                     const id = $(this).attr('id');
+                    console.log(id);
+                    console.log($('tr[aria-selected="false"]'));
 
                     $("#jqg_userGrid_" + id).parent().parent('tr').attr("aria-selected", true);
                     $("#jqg_userGrid_" + id).prop("checked", true);
@@ -123,7 +126,18 @@ $(function () {
                     $("#jqg_userGrid_" + id).parent().parent('tr').removeClass('ui-state-highlight');
                 });
             }
+        });
 
+        $(this).on('click', '.jqgrid-multibox', function () {
+            const id = $(this).attr('id');
+            console.log(id);
+            userOnOff = !userOnOff
+            if (!userOnOff) {
+                console.log('클릭값이 true');
+            }
+            else {
+                console.log('클릭값이 false');
+            }
         });
 
         //화면 리사이즈
@@ -153,12 +167,20 @@ $(function () {
             if (selRowIds.length == 0) {
                 alert("삭제할 행을 선택하세요.");
                 return;
+            } else if (selRowIds.length > 1) {
+                alert('삭제할 1개의 행만 선택하세요');
+                $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+                window.location.reload();
+            } else if (selRowIds.length == 1) {
+                $('#userDelPopup').show();
             }
 
             // 선택된 row의 개수만큼 반복하면서 해당 id를 삭제한다.​
-            for (let i = 0; i < selRowIdsLength; i++) {
-                $('#userDelPopup').show();
-            }
+            // for (let i = 0; i < selRowIdsLength; i++) {
+            //     if (selRowIds.length == 1) {
+            //         $('#userDelPopup').show();
+            //     }
+            // }
 
             //선택한 rowId의 아이디명
             let selName = $("#" + selRowIds).children('td[aria-describedby="userGrid_id"]').text();
