@@ -38,7 +38,7 @@ $(function () {
     $("#startDate").datepicker().datepicker("setDate", new Date());
     $("#startDate").datepicker("option", "dateFormat", "yy-mm-dd");
     //최소 6개월까지만 선택가능하도록 
-    $("#startDate").datepicker("option", "minDate", new Date(MonthAgo));
+    //$("#startDate").datepicker("option", "minDate", new Date(MonthAgo));
 
     //종료일
     $("#endDate").datepicker().datepicker("setDate", new Date());
@@ -46,21 +46,22 @@ $(function () {
 });
 
 //6개월 초과 시 데이터 조회 불가 에러메시지 출력
-const now = new Date();	// 현재 날짜 및 시간
-const MonthAgo = new Date(now.setMonth(now.getMonth() - 6));	// 6개월 초과
-const sixMontAgo = MonthAgo.toLocaleDateString();
-const montAgoDel = sixMontAgo.replace(/\./g, '');
-const montAgoDelTrim = montAgoDel.replace(/\s/g, '');
+//시작일 날짜 출력
+const sDate = document.getElementById('startDate').value;
+const sDateYear = sDate.substr(0, 4);
+const sDateMon = sDate.substr(5, 2);
+const sDateDay = sDate.substr(8, 2);
 
-// $('#startTime').on('click', function () {
-//     const today = document.getElementById('startDate').value;
-//     const todayTrim = today.replace(/\-/g, '');
+//시작일 기준 6개월 초과 날짜 출력
+const now = new Date(sDateYear, sDateMon, sDateDay);	// 시작일 날짜 및 시간
+const MonthAgo = new Date(now.setMonth(now.getMonth() + 6));	// 6개월 초과
+const agoYear = MonthAgo.getFullYear();
+const agoMonth = MonthAgo.getMonth() - 1;
+const agoDay = MonthAgo.getDate();
+const sixAgoDate = `${String(agoYear)}${String(agoMonth).padStart(2, '0')}${String(agoDay)}`;
 
-//     if (todayTrim === montAgoDelTrim) {
-//         $('.alert-cont').append(`<p class="alert-cont-txt">조회기간이 6개월을 초과하였습니다.</p>`);
-//         $('#alert').show();
-//     }
-// });
+const eData = document.getElementById('endDate').value;
+const eDataTrim = eData.replace(/\-/g, '');
 
 $(function () {
     $.getJSON("../../config/config.json", function (json) {
@@ -125,11 +126,8 @@ $(function () {
             let endMonLimit = endDateValue.substr(6, 2);
             let endDayLimit = endDateValue.substr(8);
 
-            const today = document.getElementById('startDate').value;
-            const todayTrim = today.replace(/\-/g, '');
-
             //사용률 조회
-            if (todayTrim === montAgoDelTrim) {
+            if (sixAgoDate <= eDataTrim) {
                 $('.alert-cont').append(`<p class="alert-cont-txt">조회기간이 6개월을 초과하였습니다.</p>`);
                 $('#alert').show();
                 execlBtn.disabled = true;

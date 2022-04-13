@@ -212,6 +212,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
+                    $('#alarmLevel2, #alarmHostname2, #alarmType2, #alarmItem2, #alarmParam12, #alarmParam22').empty();
                     //console.log('알람발생조건 select 데이터 출력 성공');
                     //알람레벨 select 출력
                     alarmLevelArr = [];
@@ -591,6 +592,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
+                    $('#alarmLevelSel, #alarmHostnameSel, #alarmTypeSel, #alarmItemSel, #alarmParam1Sel, #alarmParam2Sel').empty();
                     //console.log('알람발생조건 변경 select 데이터 출력 성공');
                     //알람레벨 select 출력
                     alarm2LevelArr = [];

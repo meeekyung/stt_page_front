@@ -279,6 +279,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
+                    $('#severRole').empty();
                     //서버정보 역할 select 출력
                     severLoleArr = [];
                     if (json.length > 0) {
@@ -322,6 +323,7 @@ $(function () {
                 method: "GET",
                 dataType: "JSON",
                 success: function (json) {
+                    $('#severRole2').empty();
                     //서버정보 역할 select 출력
                     severLoleArr = [];
                     if (json.length > 0) {
