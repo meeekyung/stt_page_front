@@ -2538,14 +2538,6 @@ select {
   background: #97b8e3 !important;
   color: #fff !important;
 }
-.alarmchText {
-  width: 50% !important;
-  display: inline-block;
-}
-.alarmchSel {
-  width: 48%;
-  display: inline-block;
-}
 /* .serverTab-area{display: inline-block;vertical-align: bottom;}
 .serverTab-area>ul{width: 100%;}
 .serverTab-area>ul::before{content: '';display: block;clear: both;}
@@ -2795,7 +2787,6 @@ select {
 }
 .serverB-table:hover {
   background: #f7f9ff;
-  cursor: pointer;
 }
 .serverB-table > li {
   display: inline-block;
@@ -2817,6 +2808,9 @@ select {
 }
 .state-exited {
   background: #ea6065;
+}
+.serverB-check > input {
+  cursor: pointer;
 }
 /* pagination */
 #pagination {

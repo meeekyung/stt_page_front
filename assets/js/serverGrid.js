@@ -224,8 +224,9 @@ $(function () {
             let hostName = document.getElementById("hostName").value;
             let severRole = document.getElementById("severRole").value;
             let ipAddr = document.getElementById("ipAddr").value;
+            let serverStatus = $('input:radio[name="serverStatus"]:checked').val();
 
-            let addData = { name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr }
+            let addData = { name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: serverStatus }
 
             rowId = $("#serverGrid").getGridParam("reccount"); // 페이징 처리 시 현 페이지의 Max RowId 값
 
@@ -243,7 +244,7 @@ $(function () {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                 method: "POST",
                 dataType: "JSON",
-                data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
+                data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: serverStatus, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
                 success: function (json) {
                     //console.log('서버정보목록 추가 성공');
                     $("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first');
@@ -276,7 +277,8 @@ $(function () {
                 url: "http://" + json.urls + "/monitor/server-config",
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                 contentType: "application/json; charset=UTF-8",
-                method: "GET",
+                method: "PUT",
+                data: { 'status': 0 },
                 dataType: "JSON",
                 success: function (json) {
                     $('#severRole').empty();
@@ -398,6 +400,7 @@ $(function () {
                 let hostName2 = document.getElementById("hostName2").value;
                 let severRole2 = document.getElementById("severRole2").value;
                 let ipAddr2 = document.getElementById("ipAddr2").value;
+                let serverStatus2 = $('input:radio[name="serverStatus2"]:checked').val();
 
                 $('#userChPopup').show();
 
@@ -407,7 +410,7 @@ $(function () {
                     headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                     method: "PUT",
                     dataType: "JSON",
-                    data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: 0, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
+                    data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: serverStatus2, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
                     success: function (json) {
                         //console.log('운영자목록 변경 성공');
                         alert('서버정보가 변경되었습니다');

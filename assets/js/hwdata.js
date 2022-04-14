@@ -492,6 +492,93 @@ function startSocket2() {
                         myNetworkChart.update();	//차트 업데이트
                     }
                 }
+                else {
+                    if (!flag) {
+                        //onSet();   
+
+                        //cpu 사용률 - 도넛형 차트
+                        //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
+                        const cpuUseData1 = hwData.message.cpu;
+                        const cpuUseData2 = 100 - cpuUseData1;
+                        const cpuUseDataText = cpuUseData1 + ' %';
+
+                        myCpuChart.data.datasets[0].data = [0, 0];
+                        myCpuChart.options.plugins.doughnutlabel.labels[0].text = 0 + ' %';
+
+                        if (booleanValue) {
+                            console.log(myCpuChart.data.datasets[0].data);
+                            console.log(myCpuChart.options.plugins.doughnutlabel.labels[0].text);
+                        }
+
+                        myCpuChart.update();
+
+                        //메모리 사용률 - 도넛형 차트
+                        //마우스오버시 이전 데이터가 보이는 현상 제거(성공률)
+                        const memoryUseData = hwData.message.memory;
+                        myMemoryChart.data.datasets[0].data = [0, 0];
+                        myMemoryChart.options.plugins.doughnutlabel.labels[0].text = 0 + ' %';
+
+                        myMemoryChart.update();
+
+
+                        //디스크 사용률 - 가로형 막대 차트            
+                        //디스트 사용률 key        
+                        const diskNames = hwData.disk_keys;
+                        let diskNameArr = Object.values(diskNames);
+
+                        //디스크 사용률 value
+                        let diskValueArr = [];
+                        let diskValue = hwData.message.disk;
+                        diskValue.forEach((item, idx) => {
+                            diskValueArr.push(parseInt(item.unit).toFixed(2));
+                        });
+
+                        //backgroundColor 갯수만큼 배열
+                        const diskBgN = diskNames.length;
+                        let diskBgArray = [];
+                        for (let i = 0; i < diskBgN; i++) {
+                            diskBgArray.push("#5d6778");
+                        }
+
+                        if (booleanValue) {
+                            console.log(diskChartData.data.datasets[0].data = diskValueArr);
+                        }
+                        diskChartData.data.datasets[0].data = 0;
+                        diskChartData.data.datasets[0].backgroundColor = 0;
+                        diskChartData.data.labels = 0
+
+                        myDiskChart.update();	//차트 업데이트
+
+                        //네트워크 사용률 - 가로형 막대 차트
+                        //네트워크 사용률 key  
+                        const networkNames = hwData.network_keys;
+                        let networkNameArr = Object.values(networkNames);
+
+                        //네트워크 사용률 value
+                        let networkValueArr = [];
+                        let networkValue = hwData.message.network;
+                        networkValue.forEach((item, idx) => {
+                            networkValueArr.push((parseInt(item.unit).toFixed(2)));
+                        });
+                        let networkValueArrMax = Math.max.apply(null, networkValueArr);
+
+                        //backgroundColor 갯수만큼 배열
+                        const networkBgN = diskNames.length;
+                        let networkBgArray = [];
+                        for (let i = 0; i < networkBgN; i++) {
+                            networkBgArray.push("#5d6778");
+                        }
+
+                        if (booleanValue) {
+                            console.log(diskChartData.data.datasets[0].data = networkValueArr);
+                        }
+                        networkChartData.data.datasets[0].data = 0;
+                        networkChartData.data.datasets[0].backgroundColor = 0;
+                        networkChartData.data.labels = 0
+
+                        myNetworkChart.update();	//차트 업데이트
+                    }
+                }
             }
         };
 

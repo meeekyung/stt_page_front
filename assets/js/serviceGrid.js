@@ -44,24 +44,6 @@ $(function () {
     $("#endDate").datepicker("option", "dateFormat", "yy-mm-dd");
 });
 
-//6개월 초과 시 데이터 조회 불가 에러메시지 출력
-//시작일 날짜 출력
-const sDate = document.getElementById('startDate').value;
-const sDateYear = sDate.substr(0, 4);
-const sDateMon = sDate.substr(5, 2);
-const sDateDay = sDate.substr(8, 2);
-
-//시작일 기준 6개월 초과 날짜 출력
-const now = new Date(sDateYear, sDateMon, sDateDay);	// 시작일 날짜 및 시간
-const MonthAgo = new Date(now.setMonth(now.getMonth() + 6));	// 6개월 초과
-const agoYear = MonthAgo.getFullYear();
-const agoMonth = MonthAgo.getMonth() - 1;
-const agoDay = MonthAgo.getDate();
-const sixAgoDate = `${String(agoYear)}${String(agoMonth).padStart(2, '0')}${String(agoDay)}`;
-
-const eData = document.getElementById('endDate').value;
-const eDataTrim = eData.replace(/\-/g, '');
-
 $(function () {
     $.getJSON("../../config/config.json", function (json) {
         // console.log(json);
@@ -127,6 +109,24 @@ $(function () {
             let endYearLimit = endDateValue.substr(0, 4);
             let endMonLimit = endDateValue.substr(5, 2);
             let endDayLimit = endDateValue.substr(8);
+
+            //6개월 초과 시 데이터 조회 불가 에러메시지 출력
+            //시작일 날짜 출력
+            const sDate = document.getElementById('startDate').value;
+            const sDateYear = sDate.substr(0, 4);
+            const sDateMon = sDate.substr(5, 2);
+            const sDateDay = sDate.substr(8, 2);
+
+            //시작일 기준 6개월 초과 날짜 출력
+            const now = new Date(sDateYear, sDateMon, sDateDay);	// 시작일 날짜 및 시간
+            const MonthAgo = new Date(now.setMonth(now.getMonth() + 6));	// 6개월 초과
+            const agoYear = MonthAgo.getFullYear();
+            const agoMonth = MonthAgo.getMonth() - 1;
+            const agoDay = MonthAgo.getDate();
+            const sixAgoDate = `${String(agoYear)}${String(agoMonth).padStart(2, '0')}${String(agoDay)}`;
+
+            const eData = document.getElementById('endDate').value;
+            const eDataTrim = eData.replace(/\-/g, '');
 
             if (sixAgoDate <= eDataTrim) {
                 $('.alert-cont').append(`<p class="alert-cont-txt">조회기간이 6개월을 초과하였습니다.</p>`);
