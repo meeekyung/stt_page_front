@@ -1,91 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>STT 관리자페이지</title>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
-    <meta http-equiv="Expires" content="-1">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
 
-    <link rel="shortcut icon" href="assets/images/logo.ico">
+    <link rel="shortcut icon" href="assets/images/logo.ico" />
     <!-- FontAwesome JS-->
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
-    <script src="https://kit.fontawesome.com/bc60315972.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/bc60315972.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/speech.css?v=20211227">
-    <link rel="stylesheet" href="assets/css/style.css?v=20211227">
-</head>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/green-audio-player.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/speech.css?v=20211227"
+    />
+    <link rel="stylesheet" href="assets/css/style.css?v=20211227" />
+  </head>
 
-<body>
-    <header data-include-path="header.html">
-    </header>
+  <body>
+    <header data-include-path="header.html"></header>
 
     <div class="container">
-        <div id="speech-cont" class="rounded-lg p1rem">
-            <div class="cont-tit-area">
-                <h3 class="cont-subtit">BONAx Speech STT</h3>
-                <p class="cont-subtxt">녹취파일 재생, 텍스트를 확인할 수 있습니다.</p>
-            </div>
-
-            <div id="speechArea">
-                <div class="upload-area">
-                    <h3 class="speech-subtit">파일 업로드 및 재생</h3>
-                    <p class="speech-subtxt">16 비트 8 kHz PCM 인코딩된 음성 파일만 지원합니다.<span class="notice">※ 3분 이내 음성파일
-                            권장</span>
-                    </p>
-                    <form id="myForm" action="http://192.168.21.23:55532/audio" enctype="multipart/form-data"
-                        method="POST">
-                        <div class="browse-Area">
-                            <input class="file-name" id="inpFile" value="파일선택" name="uploadFileName"
-                                disabled="disabled">
-                            <label for="fileIn" id="browse" class="btn-sm borwse-btn">파일찾기</label>
-                        </div>
-
-                        <button type="button" value="업로드" id="uploadBtn" class="btn-large file-btn">변환하기</button>
-                        <input type="file" id="fileIn" name="uploadFile" class="file_in upload-hidden" value="fileIn"
-                            onchange="checkFile(this)">
-                    </form>
-                </div>
-
-                <div class="ready-player-1">
-                    <audio id="audio" crossorigin preload="none">
-                        <source src="" type="audio/mpeg" id="src">
-                    </audio>
-                </div>
-
-                <div class="stt-area">
-                    <h3 class="speech-subtit stt-sont-subtit">음성인식 변환 결과</h3>
-                    <!-- <button class="btn-large stt-btn">결과보기</button> -->
-                    <div class="stt-txt-area">
-                        <ul class="stt-tit">
-                            <li>시간</li>
-                            <li>내용</li>
-                        </ul>
-                        <ul class="stt-cont"></ul>
-                    </div>
-                </div>
-            </div>
+      <div id="speech-cont" class="rounded-lg p1rem">
+        <div class="cont-tit-area">
+          <h3 class="cont-subtit">BONAx Speech STT</h3>
+          <p class="cont-subtxt">녹취파일 재생, 텍스트를 확인할 수 있습니다.</p>
         </div>
+
+        <div id="speechArea">
+          <div class="upload-area">
+            <h3 class="speech-subtit">파일 업로드 및 재생</h3>
+            <p class="speech-subtxt">
+              16 비트 8 kHz PCM 인코딩된 음성 파일만 지원합니다.<span
+                class="notice"
+                >※ 3분 이내 음성파일 권장</span
+              >
+            </p>
+            <form id="myForm" enctype="multipart/form-data" method="POST">
+              <div class="browse-Area">
+                <input
+                  class="file-name"
+                  id="inpFile"
+                  value="파일선택"
+                  name="uploadFileName"
+                  disabled="disabled"
+                />
+                <label for="fileIn" id="browse" class="btn-sm borwse-btn"
+                  >파일찾기</label
+                >
+              </div>
+
+              <button
+                type="button"
+                value="업로드"
+                id="uploadBtn"
+                class="btn-large file-btn"
+              >
+                변환하기
+              </button>
+              <input
+                type="file"
+                id="fileIn"
+                name="uploadFile"
+                class="file_in upload-hidden"
+                value="fileIn"
+                onchange="checkFile(this)"
+              />
+            </form>
+          </div>
+
+          <div class="ready-player-1">
+            <audio id="audio" crossorigin preload="none">
+              <source src="" type="audio/mpeg" id="src" />
+            </audio>
+          </div>
+
+          <div class="stt-area">
+            <h3 class="speech-subtit stt-sont-subtit">음성인식 변환 결과</h3>
+            <!-- <button class="btn-large stt-btn">결과보기</button> -->
+            <div class="stt-txt-area">
+              <ul class="stt-tit">
+                <li>시간</li>
+                <li>내용</li>
+              </ul>
+              <ul class="stt-cont"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="lodingArea">
-        <div class="black_bg"></div>
-        <div class="loading-box">
-            <div class="circles">
-                <i></i>
-                <i></i>
-                <i></i>
-            </div>
-            <p>Loading...</p>
+      <div class="black_bg"></div>
+      <div class="loading-box">
+        <div class="circles">
+          <i></i>
+          <i></i>
+          <i></i>
         </div>
+        <p>Loading...</p>
+      </div>
     </div>
 
     <div class="notice-error-popup-wrap"></div>
@@ -96,9 +127,13 @@
     <script src="assets/js/speech.js?v=20211227"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            new GreenAudioPlayer('.ready-player-1', { showTooltips: true, showDownloadButton: false, enableKeystrokes: true });
+      document.addEventListener("DOMContentLoaded", function () {
+        new GreenAudioPlayer(".ready-player-1", {
+          showTooltips: true,
+          showDownloadButton: false,
+          enableKeystrokes: true,
         });
+      });
     </script>
 
     <!-- header -->
@@ -109,6 +144,5 @@
 
     <!-- alarm.js -->
     <script src="assets/js/alarm.js?v=20211227"></script>
-</body>
-
+  </body>
 </html>

@@ -2,7 +2,7 @@ let lastSeleted;
 
 //server 데이터 출력    
 $('#systemTab').append(
-    '<li id="allTab" class="tab tab-on bdb">전체</li>'
+    '<li id="total" class="tab tab-on bdb">total</li>'
 );
 
 function sttSetinterval(fn, delay) {

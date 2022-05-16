@@ -17,9 +17,9 @@ $(function () {
       setTimeout(function () {
         $(".logo-area")
           .attr("src", "assets/images/nav_logo_action.png")
-          .css({ width: "30px" });
+          .css({ width: "32px" });
         $(".container").css({ width: "calc(100% - 60px)" });
-      }, 400);
+      }, 300);
     } else {
       $(".logo-area")
         .attr("src", "assets/images/nav_logo.png")
@@ -52,7 +52,7 @@ $(window).resize(function () {
   if (w <= 800) {
     $('.nav-bar').hide();
     $('.side-menu-inner').css({ width: "57px" });
-    $(".logo-area").attr("src", "assets/images/nav_logo_action.png").css({ width: "30px" });
+    $(".logo-area").attr("src", "assets/images/nav_logo_action.png").css({ width: "32px" });
     $(".container").css({ width: "calc(100% - 60px)" });
   } else {
     $('.nav-bar').show();
@@ -125,4 +125,15 @@ $('.servertab2').on('click', function (e) {
 $('#alert .alert-area .alertH i, .alert-btn-area .okay-btn').on('click', function () {
   $('#alert').hide();
   $('.alert-cont-txt').empty();
+});
+
+//사용자정보 비밀번호 텍스트 보임 유무
+$('#userpwView').on('click', function () {
+  const userView = document.getElementById('userpwView');
+  const is_userView = userView.checked;
+  if (is_userView) {
+    $('#userPw3').attr('type', 'text');
+  } else {
+    $('#userPw3').attr('type', 'password')
+  }
 });

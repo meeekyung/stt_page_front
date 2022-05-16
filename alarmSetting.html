@@ -75,6 +75,7 @@
                     <div id="alarmGridpager"></div>
                 </div>
             </div>
+
             <!-- 추가 버튼 클릭 시 팝업 -->
             <div id="userAddPopup">
                 <div class="bg_black"></div>
@@ -86,36 +87,40 @@
                     <div class="add-cont">
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmLevel2">등급</label>
-                            <select name="alarmlevel2" id="alarmLevel2"></select>
+                            <input type="text" name="alarmlevel2" id="alarmLevel2" placeholder="등급">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmHostname2">호스트명</label>
-                            <select name="alarmHostname2" id="alarmHostname2"></select>
+                            <input type="text" name="alarmHostname2" id="alarmHostname2" placeholder="호스트명">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmType2">구분</label>
-                            <select name="alarmtype2" id="alarmType2"></select>
+                            <input type="text" name="alarmtype2" id="alarmType2" placeholder="구분">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmItem2">대상</label>
-                            <select name="alarmitem2" id="alarmItem2"></select>
+                            <input type="text" name="alarmitem2" id="alarmItem2" placeholder="대상">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmParam12">항목</label>
-                            <select name="alarmparam12" id="alarmParam12"></select>
+                            <input type="text" name="alarmparam12" id="alarmParam12" placeholder="항목">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmParam22">세부항목</label>
-                            <select name="alarmparam22" id="alarmParam22"></select>
+                            <input type="text" name="alarmparam22" id="alarmParam22" placeholder="세부항목">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmBigyo2">조건</label>
-                            <select name="alarmbigyo2" id="alarmBigyo2">
-                            </select>
+                            <input type="text" name="alarmbigyo2" id="alarmBigyo2" placeholder="조건">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmValue2">임계치</label>
-                            <input type="text" name="alarmvalue2" id="alarmValue2" placeholder="수치">
+                            <input type="text" name="alarmvalue2" id="alarmValue2" placeholder="임계치 (16자리까지 입력가능)"
+                                maxlength='16'>
+                        </div>
+                        <div class="add_in">
+                            <label class="add_in_tit" for="alarmMsg2">메세지</label>
+                            <input type="text" name="alarmMsg2" id="alarmMsg2" placeholder="메세지">
                         </div>
                         <div class="add_in">
                             <p class="sms-txt">sms 알림설정</p>
@@ -130,6 +135,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 변경 버튼 클릭 시 팝업 -->
             <div id="userChPopup">
                 <div class="bg_black"></div>
@@ -145,36 +151,39 @@
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmLevel">등급</label>
-                            <select name="alarmLevelSel" id="alarmLevelSel" class="alarmchSel"></select>
+                            <input type="text" name="alarmLevelSel" id="alarmLevelSel" placeholder="조건">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmHostname">호스트명</label>
-                            <select name="alarmHostnameSel" id="alarmHostnameSel" class="alarmchSel"></select>
+                            <input type="text" name="alarmHostnameSel" id="alarmHostnameSel" placeholder="호스트명">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmType">구분</label>
-                            <select name="alarmtypeSel" id="alarmTypeSel" class="alarmchSel"></select>
+                            <input type="text" name="alarmtypeSel" id="alarmTypeSel" placeholder="구분">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmItem">대상</label>
-                            <select name="alarmitemSel" id="alarmItemSel" class="alarmchSel"></select>
+                            <input type="text" name="alarmitemSel" id="alarmItemSel" placeholder="대상">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmParam1">항목</label>
-                            <select name="alarmparam1Sel" id="alarmParam1Sel" class="alarmchSel"></select>
+                            <input type="text" name="alarmparam1Sel" id="alarmParam1Sel" placeholder="항목">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="alarmParam2">세부항목</label>
-                            <select name="alarmparam2Sel" id="alarmParam2Sel" class="alarmchSel"></select>
+                            <input type="text" name="alarmparam2Sel" id="alarmParam2Sel" placeholder="세부항목">
                         </div>
                         <div class="add_in">
-                            <label class="add_in_tit" for="alarmBigyo">임계치</label>
-                            <select name="alarmbigyoSel" id="alarmBigyoSel" class="alarmchSel">
-                            </select>
+                            <label class="add_in_tit" for="alarmBigyo">조건</label>
+                            <input type="text" name="alarmbigyoSel" id="alarmBigyoSel" placeholder="조건">
                         </div>
                         <div class="add_in">
-                            <label class="add_in_tit" for="alarmValue">수치</label>
-                            <input type="text" name="alarmvalue2" id="alarmValue2" placeholder="수치">
+                            <label class="add_in_tit" for="alarmValue">임계치</label>
+                            <input type="text" name="alarmvalue" id="alarmValue" placeholder="0" maxlength='16'>
+                        </div>
+                        <div class="add_in">
+                            <label class="add_in_tit" for="alarmMsg">메세지</label>
+                            <input type="text" name="alarmMsg" id="alarmMsg" placeholder="메세지">
                         </div>
                         <div class="add_in">
                             <p class="sms-txt">sms 알림설정</p>
@@ -225,6 +234,9 @@
 
     <!-- layout.js -->
     <script src="assets/js/layout.js?v=20211227"></script>
+
+    <!-- alarm -->
+    <script src="assets/js/alarm.js?v=20211227"></script>
 </body>
 
 </html>

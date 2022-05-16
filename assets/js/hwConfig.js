@@ -29,12 +29,13 @@ $.getJSON("../../config/config.json", function (json) {
                     for (let i = 0; i < json.length; i++) {
                         if (json.length >= 0 && json[i].status == 1) {
                             $('#hwTabs').append(
-                                '<li id="hw' + i + '" class="tab bdb">' + json[i].hostname + '</li>'
+                                '<li id="hw' + i + '" class="hwtab tab bdb">' + json[i].hostname + '</li>'
                             );
                         }
                     }
 
-                    $('#hw0').addClass('tab-on');
+                    const hwOn = document.querySelector('.hwtab:first-child');
+                    hwOn.classList.add('tab-on');
                 }
 
                 $('#severStausArea').empty();

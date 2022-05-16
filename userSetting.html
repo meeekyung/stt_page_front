@@ -75,7 +75,7 @@
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="userPw">비밀번호</label>
-                            <input type="text" name="userpw" id="userPw" placeholder="8 ~ 21자리(대소문자, 특수문자 포함)">
+                            <input type="text" name="userpw" id="userPw" placeholder="8 ~ 21자리(대소문자, 특수문자, 숫자 포함)">
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="userPhone">전화번호</label>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="add_in">
                             <label class="add_in_tit" for="userPw2">비밀번호</label>
-                            <input type="text" name="userpw2" id="userPw2" placeholder="8 ~ 21자리(대소문자, 특수문자 포함)">
+                            <input type="text" name="userpw2" id="userPw2" placeholder="8 ~ 21자리(대소문자, 특수문자, 숫자 포함)">
                         </div>
                         <div class="add_in">
                             <p class="sms-txt">sms 알림설정</p>
@@ -134,7 +134,7 @@
             </div>
 
             <!-- 삭제 버튼 클릭 시 팝업 -->
-            <div id="userDelPopup">
+            <!-- <div id="userDelPopup">
                 <div class="bg_black"></div>
                 <div class="add-area">
                     <div class="addH">
@@ -144,7 +144,11 @@
                     <div class="add-cont">
                         <div class="add_in">
                             <label class="add_in_tit" for="userPw3">비밀번호</label>
-                            <input type="text" name="userpw3" id="userPw3" placeholder="비밀번호를 입력하세요">
+                            <input type="password" name="userpw3" id="userPw3" placeholder="비밀번호를 입력하세요">
+                            <div class="userView-area">
+                                <input type="checkbox" name="userpwView" id="userpwView">
+                                <label for="userpwView">비밀번호 보이기</label>
+                            </div>
                         </div>
                     </div>
                     <div class="add-btn-area">
@@ -152,7 +156,7 @@
                         <input type="button" value="삭제" class="btn delete-btn">
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- alert -->
             <div id="alert">

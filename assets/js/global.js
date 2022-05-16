@@ -17,82 +17,10 @@ window.addEventListener("load", function () {
             location.href = "../../login.html"
           });
 
-          let activeId;
-          //let getActive;
-
-          //nav 클릭시 배경색, 글자색 변경 이벤트
-          $(document).on("click", ".nav-link", function () {
-            //$(this).addClass("active");
-            //$(this).parents().siblings().children().removeClass("active");
-
-            //쿠키값에 저장한 후 불러오기
-            function setCookie(name, cvalue, exdays) {
-              let d = new Date();
-              d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-              let expires = "expires=" + d.toUTCString();
-              document.cookie = name + "=" + cvalue + ";" + expires + ";path=/";
-            }
-
-            const getCookieValue = (key) => {
-              let cookieKey = key + "=";
-              let result = "";
-              const cookieArr = document.cookie.split(";");
-
-              for (let i = 0; i < cookieArr.length; i++) {
-                if (cookieArr[i][0] === " ") {
-                  cookieArr[i] = cookieArr[i].substring(1);
-                }
-
-                if (cookieArr[i].indexOf(cookieKey) === 0) {
-                  result = cookieArr[i].slice(
-                    cookieKey.length,
-                    cookieArr[i].length
-                  );
-                  return result;
-                }
-              }
-              return result;
-            };
-
-            let activeId = $(this).attr("id");
-            let setActive = setCookie("activeId", activeId, 1);
-
-            let getActive = getCookieValue("activeId");
+          //img src 주소 캐시방지
+          $(document).ready(function () {
+            $('img').attr('src', function () { return $(this).attr('src') + "?a=" + Math.random() });
           });
-
-          const getCookieValue1 = (key) => {
-            let cookieKey = key + "=";
-            let result = "";
-            const cookieArr = document.cookie.split(";");
-
-            for (let i = 0; i < cookieArr.length; i++) {
-              if (cookieArr[i][0] === " ") {
-                cookieArr[i] = cookieArr[i].substring(1);
-              }
-
-              if (cookieArr[i].indexOf(cookieKey) === 0) {
-                result = cookieArr[i].slice(
-                  cookieKey.length,
-                  cookieArr[i].length
-                );
-                return result;
-              }
-            }
-            return result;
-          };
-
-          getActive = getCookieValue1("activeId");
-
-          // if (activeId == getActive) {
-          //   console.log(getActive);
-          //   $("#" + getActive).addClass("active");
-          // }
-
-          // $("#" + getActive)
-          //   .parents()
-          //   .siblings()
-          //   .children()
-          //   .removeClass("active");
 
           //nav 메뉴 동적이벤트
           let onOff = true;
@@ -106,9 +34,9 @@ window.addEventListener("load", function () {
               setTimeout(function () {
                 $(".logo-area")
                   .attr("src", "assets/images/nav_logo_action.png")
-                  .css({ width: "30px" });
+                  .css({ width: "32px" });
                 $(".container").css({ width: "calc(100% - 60px)" });
-              }, 400);
+              }, 300);
             } else {
               $(".logo-area")
                 .attr("src", "assets/images/nav_logo.png")
@@ -187,16 +115,24 @@ window.addEventListener("load", function () {
   });
 });
 
-//token 유무로 링크 이동
-let tokenIs = sessionStorage.getItem("Bearer");
-let flag = true;
-if (window.sessionStorage.Bearer === tokenIs) {
-  if (!flag) {
-    location.href = "http://192.168.21.23";
-    console.log('토큰이 존재함');
+$.getJSON("../../config/config.json", function (json) {
+
+  //token 유무로 링크 이동
+  let tokenIs = sessionStorage.getItem("Bearer");
+  let flag = true;
+  if (window.sessionStorage.Bearer === tokenIs) {
+    if (!flag) {
+      location.href = "http://" + json.startUrl + "";
+      console.log('토큰이 존재함');
+    }
+  } else if (window.sessionStorage.Bearer !== tokenIs && tokenIs == null) {
+    flag = false;
+    location.href = "http://" + json.startUrl + "/login";
+    console.log('토큰이 존재하지 않음');
   }
-} else if (window.sessionStorage.Bearer !== tokenIs && tokenIs == null) {
-  flag = false;
-  location.href = "http://192.168.21.23/login";
-  console.log('토큰이 존재하지 않음');
-}
+});
+
+//img src 주소 캐시방지
+$(document).ready(function () {
+  $('img').attr('src', function () { return $(this).attr('src') + "?a=" + Math.random() });
+});

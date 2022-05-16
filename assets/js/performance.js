@@ -245,9 +245,21 @@ function startSocket() {
       //console.log(dataKey.includes(performanceData)); 클릭한 탭의 문자열과 json key네임 일치하면 true를 추출함
 
       //let stt2 = dataKey[0];
-      let total = dataKey.find(v => v === "bona-total-stt"); //"bona-total-stt"의 문자열을 json key 배열에서 찾아줌
+      let total = dataKey.find(v => v === "total"); //"bona-total-stt"의 문자열을 json key 배열에서 찾아줌
 
       let systemTabsLi = document.querySelector('#systemTabs li');
+
+      //json key 배열 중 일치하는지 참/거짓 판별
+      function isdataKey(dataKeyName) {
+        let dataKeyNames = Object.keys(boardData);
+        if (dataKeyNames.indexOf(dataKeyNames) > -1) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      const isData = isdataKey(performanceData);
+      const allTab = document.getElementById('total');
 
       if (systemTabsLi != null) {
         if (dataKey.includes(performanceData)) {
@@ -277,8 +289,8 @@ function startSocket() {
           document.querySelector("#legendNum1").innerHTML = successNumStt2;
           document.querySelector("#legendNum2").innerHTML = failPerNumStt2;
 
-          mySuceessChart.data.datasets[0].data = [failPerNumStt2, successNumStt2];
-          mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successNumStt2 + ' %';
+          mySuceessChart.data.datasets[0].data = [failPerStt2, successPerStt2];
+          mySuceessChart.options.plugins.doughnutlabel.labels[0].text = successPerStt2 + ' %';
 
           mySuceessChart.update();
 
@@ -299,6 +311,12 @@ function startSocket() {
             (boardData[performanceData].channels.running / totalCh) *
             100
           ).toFixed(0);
+
+          if (isNaN(useChPer)) { // 값이 없어서 NaN값이 나올 경우
+
+            useChPer = 0;
+
+          }
 
           document.querySelector("#legendNum3").innerHTML = totalCh;
           document.querySelector("#legendNum4").innerHTML = useCh;
@@ -393,7 +411,8 @@ function startSocket() {
 
           myServerChChart.update();
         }
-        else {
+        else if (allTab.textContent == total) {
+          console.log('첫 로딩시 출력');
           const boardData = JSON.parse(json.data);
 
           //요청건수 출력
@@ -464,14 +483,70 @@ function startSocket() {
 
           myServerChChart.update();
         }
+        else if (!isData) {
+          console.log('데이터값이 유효하지 않음');
+          const boardData = JSON.parse(json.data);
+
+          //요청건수 출력
+          const requestTotal = 0;
+          document.querySelector(".request-data").innerHTML = requestTotal;
+
+          //성공률 출력 - 도넛형 차트
+          const successNum = 0;
+          const failPerNum = 0;
+          let bunmo = successNum + failPerNum ? successNum + failPerNum : 1;
+
+          const successPer = 0;
+          const failPer = 0;
+
+          document.querySelector("#legendNum1").innerHTML = 0;
+          document.querySelector("#legendNum2").innerHTML = 0;
+
+          if (failPer == 0 && successNum == 0) {
+            mySuceessChart.data.datasets[0].data = [100, 0];
+            mySuceessChart.options.plugins.doughnutlabel.labels[0].text = 0 + ' %';
+          } else {
+            mySuceessChart.data.datasets[0].data = [failPer, successPer];
+            mySuceessChart.options.plugins.doughnutlabel.labels[0].text = 0 + ' %';
+          }
+
+          mySuceessChart.update();
+
+          //총 음성길이 출력
+          const audioLength = 0;
+          document.querySelector(".length-data").innerHTML = audioLength;
+
+          //평균처리 속도 출력
+          const averageSpeed = 0;
+          document.querySelector(".speed-data").innerHTML = averageSpeed; //소수점 첫째자리까지
+
+          //채널상태 - 전체(도넛형 차트)
+          const totalCh = 0;
+          const useCh = 0;
+          const useChPer = 0;
+
+          document.querySelector("#legendNum3").innerHTML = totalCh;
+          document.querySelector("#legendNum4").innerHTML = useCh;
+
+          myStatusChart.data.datasets[0].data = [0, 0];
+          myStatusChart.options.plugins.doughnutlabel.labels[0].text = 0 + ' %';
+
+          myStatusChart.update();
+
+          //채널상태 - 서버별(누적형 막대차트)
+          myServerChChart.data.datasets[0].data = [0, 0, 0];
+          myServerChChart.data.datasets[1].data = [0, 0, 0];
+
+          myServerChChart.update();
+        }
       }
     };
 
     //전체탭 클릭 시 total 데이터가 출력되야함
-    $(document).on("click", "#allTab", function (e) {
+    $(document).on("click", "#total", function (e) {
       e.preventDefault();
 
-      performanceData = "bona-total-stt";
+      performanceData = "total";
     });
 
     //#stt0탭 클릭 시 stt1 데이터가 출력되야함

@@ -89,8 +89,8 @@ $(function () {
                     $('#alert').show();
                     gridPage = 1;
                 } else if (pgButton == 'last') {
-                    $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
-                    $('#alert').show();
+                    // $('.alert-cont').append(`<p class="alert-cont-txt">마지막 페이지입니다!</p>`);
+                    // $('#alert').show();
                     gridPage = totalPage;
                 } else if (pgButton == 'user') {
                     let nowPage = Number($('#input_serverGridpager .ui-pg-input').val());
@@ -160,8 +160,68 @@ $(function () {
             $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
         });
 
-        //삭제       
+        //데이터값 다시 설정(새로고침)
+        function reloadData() {
+            $.ajax({
+                url: "http://" + json.urls + "/monitor/channel-init",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+                method: "GET",
+                dataType: "JSON",
+                success: function (json) {
+                    console.log('데이터값이 리셋되었습니다.');
+                },
+                error: function (request, status, error) {
+                    console.log(request.status);
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        console.log(request.responseText);
+                        location.href = "../../login.html"
+                    }
+                }
+            });
+        }
+
+        //삭제버튼 클릭 시 팝업 이벤트
         $('.userT-delete').on('click', function () {
+            // 선택된 row rowId를 구한다.
+            let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');
+
+            //배열을 텍스트로 추출
+            var setDarr = [];
+            for (let i = 0; i < selRowIds.length; i++) {
+                let selHostname = $('#' + selRowIds[i]).children('td[aria-describedby="serverGrid_hostname"]').text();
+                if (booleanValue) {
+                    console.log('삭제할 리스트 : ' + selHostname);
+                }
+                setDarr.push(selHostname);
+            }
+
+            //​ 선택된 row가 없다면 리턴
+            if (selRowIds.length == 0) {
+                alert("삭제할 행을 선택하세요.");
+                return;
+            }
+            // 선택한 row가 있다면 모달창
+            else if (selRowIds.length > 0) {
+                $('.alert-cont, .alert-btn-area').empty();
+                $('.alert-cont').append(`<p class="alert-cont-txt">선택한 행을 삭제하시겠습니까?</p>`);
+                $('.alert-btn-area').append(`<input type="button" value="확인" id="serverDeleteOk" class="btn okay-btn">`);
+                $('.alert-btn-area').append(`<input type="button" value="취소" id="severDeleteCancel" class="btn cancel-btn" style="margin-left: 10px">`);
+                $('#alert').show();
+            }
+        });
+
+        //삭제 취소
+        $(document).on('click', '#severDeleteCancel', function () {
+            $('#alert').hide();
+        });
+
+        //삭제
+        $(document).on('click', '#serverDeleteOk', function () {
+            $('#alert').hide();
+
             // 선택된 row rowId를 구한다.
             let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');
 
@@ -204,6 +264,7 @@ $(function () {
                 dataType: "JSON",
                 success: function (json) {
                     //console.log('서버정보목록 삭제 성공');
+                    reloadData();
                 },
                 error: function (request, status, error) {
                     console.log(request.status);
@@ -224,9 +285,13 @@ $(function () {
             let hostName = document.getElementById("hostName").value;
             let severRole = document.getElementById("severRole").value;
             let ipAddr = document.getElementById("ipAddr").value;
+            let REST = document.getElementById("REST").value;
+            let gRPC = document.getElementById("gRPC").value;
+            let Streaming = document.getElementById("Streaming").value;
             let serverStatus = $('input:radio[name="serverStatus"]:checked').val();
 
-            let addData = { name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: serverStatus }
+            let addData = { name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: serverStatus, ch_rest: REST, ch_grpc: gRPC, ch_stream: Streaming }
+            console.log(addData);
 
             rowId = $("#serverGrid").getGridParam("reccount"); // 페이징 처리 시 현 페이지의 Max RowId 값
 
@@ -236,6 +301,16 @@ $(function () {
                 document.getElementById("serverName").focus();
                 $("#mainGrid").jqGrid("delRowData", rowId);
             }
+
+            if (REST == "") {
+                REST = 0;
+            }
+            if (gRPC == "") {
+                gRPC = 0;
+            }
+            if (Streaming == "") {
+                Streaming = 0;
+            }
             //$("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first'); // 마지막 행에 Row 추가
 
             $.ajax({
@@ -244,16 +319,21 @@ $(function () {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
                 method: "POST",
                 dataType: "JSON",
-                data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: serverStatus, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
+                data: JSON.stringify({ name: serverName, hostname: hostName, role: severRole, ipaddr: ipAddr, status: serverStatus, ch_rest: REST, ch_grpc: gRPC, ch_stream: Streaming }),
                 success: function (json) {
                     //console.log('서버정보목록 추가 성공');
+                    $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
                     $("#serverGrid").jqGrid("addRowData", rowId + 1, addData, 'first');
+                    reloadData();
                 },
                 error: function (request, status, error) {
+                    $('.alert-cont').empty();
                     //console.log('서버정보목록 추가 실패');
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
+
+                    $('#userAddPopup').show();
 
                     if (request.status == '403') {
                         //console.log('로그아웃 성공');
@@ -268,95 +348,14 @@ $(function () {
 
         //추가 시 input 입력값 reset
         function addReset() {
-            $("#serverName, #hostName, #severRole, #ipAddr").val("");
+            $("#userAddPopup input[type='text']").val("");
         }
         $('.userT-add').on('click', function () {
             addReset();
-
-            $.ajax({
-                url: "http://" + json.urls + "/monitor/server-config",
-                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-                contentType: "application/json; charset=UTF-8",
-                method: "PUT",
-                data: { 'status': 0 },
-                dataType: "JSON",
-                success: function (json) {
-                    $('#severRole').empty();
-                    //서버정보 역할 select 출력
-                    severLoleArr = [];
-                    if (json.length > 0) {
-                        for (let i = 0; i < json.length; i++) {
-                            const severLole = json[i].role;
-                            severLoleArr.push(severLole);
-                        }
-                    }
-                    //중복제거 후 배열출력
-                    severLoleArrSet = new Set(severLoleArr);
-                    const uniqueseverLoleArr = [...severLoleArrSet];
-
-                    if (uniqueseverLoleArr.length > 0) {
-                        for (let i = 0; i < uniqueseverLoleArr.length; i++) {
-                            $('#severRole').append(
-                                `<option value="${uniqueseverLoleArr[i]}">${uniqueseverLoleArr[i]}</option>`
-                            );
-                        }
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log(request.status);
-                    if (request.status == '403') {
-                        //console.log('로그아웃 성공');
-                        sessionStorage.removeItem('Bearer'); //삭제
-                        //sessionStorage.clear(); // 전체삭제
-                        console.log(request.responseText);
-                        location.href = "../../login.html"
-                    }
-                }
-            });
         });
 
         //변경
         $('.userT-change').on('click', function () {
-            //변경 select 출력
-            $.ajax({
-                url: "http://" + json.urls + "/monitor/server-config",
-                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-                contentType: "application/json; charset=UTF-8",
-                method: "GET",
-                dataType: "JSON",
-                success: function (json) {
-                    $('#severRole2').empty();
-                    //서버정보 역할 select 출력
-                    severLoleArr = [];
-                    if (json.length > 0) {
-                        for (let i = 0; i < json.length; i++) {
-                            const severLole = json[i].role;
-                            severLoleArr.push(severLole);
-                        }
-                    }
-                    //중복제거 후 배열출력
-                    severLoleArrSet = new Set(severLoleArr);
-                    const uniqueseverLoleArr = [...severLoleArrSet];
-
-                    if (uniqueseverLoleArr.length > 0) {
-                        for (let i = 0; i < uniqueseverLoleArr.length; i++) {
-                            $('#severRole2').append(
-                                `<option value="${uniqueseverLoleArr[i]}">${uniqueseverLoleArr[i]}</option>`
-                            );
-                        }
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log(request.status);
-                    if (request.status == '403') {
-                        //console.log('로그아웃 성공');
-                        sessionStorage.removeItem('Bearer'); //삭제
-                        //sessionStorage.clear(); // 전체삭제
-                        console.log(request.responseText);
-                        location.href = "../../login.html"
-                    }
-                }
-            });
 
             // 선택된 row rowId를 구한다.
             let selRowIds = jQuery('#serverGrid').jqGrid('getGridParam', 'selarrrow');
@@ -378,7 +377,11 @@ $(function () {
                 let selHostname = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_hostname"]').text();
                 let selRole = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_role"]').text();
                 let selIpaddr = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_ipaddr"]').text();
-                setCharr.push(selName, selHostname, selRole, selIpaddr);
+                let selRest = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_ch_rest"]').text();
+                let selGrpc = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_ch_grpc"]').text();
+                let selStream = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_ch_stream"]').text();
+                let selSms = $("#" + selRowIds[i]).children('td[aria-describedby="serverGrid_status"]').text();
+                setCharr.push(selName, selHostname, selRole, selIpaddr, selRest, selGrpc, selStream, selSms);
             }
 
             //운영자관리 변경팝업 생성
@@ -389,48 +392,66 @@ $(function () {
                 $("input[name='hostname2']").attr('disabled', true);
                 $("input[name='severrole2']").attr("placeholder", $("input[name='severrole2']").val()).val(setCharr[2]).focus().blur();
                 $("input[name='ipaddr2']").attr("placeholder", $("input[name='ipaddr2']").val()).val(setCharr[3]).focus().blur();
+                $("input[name='REST2']").attr("placeholder", $("input[name='REST2']").val()).val(setCharr[4]).focus().blur();
+                $("input[name='gRPC2']").attr("placeholder", $("input[name='gRPC2']").val()).val(setCharr[5]).focus().blur();
+                $("input[name='Streaming2']").attr("placeholder", $("input[name='Streaming2']").val()).val(setCharr[6]).focus().blur();
+                //$("input[name='serverStatus2']").attr("placeholder", $("input[name='serverStatus2']").val()).val(setCharr[7]).focus().blur();
+                if (setCharr[7] == "active") {
+                    $("#active2").prop("checked", true);
+                } else if (setCharr[7] == "inactive") {
+                    $("#inactive2").prop("checked", true);
+                }
+
                 $('#userChPopup').show();
             } else {
                 $('#userChPopup').hide();
             }
+        });
+        //변경 버튼 클릭 시 이벤트
+        $('.add-area .add-btn-area .change-btn').on('click', function () {
+            let serverName2 = document.getElementById("serverName2").value;
+            let hostName2 = document.getElementById("hostName2").value;
+            let severRole2 = document.getElementById("severRole2").value;
+            let ipAddr2 = document.getElementById("ipAddr2").value;
+            let REST2 = document.getElementById("REST2").value;
+            let gRPC2 = document.getElementById("gRPC2").value;
+            let Streaming2 = document.getElementById("Streaming2").value;
+            let serverStatus2 = $('input:radio[name="serverStatus2"]:checked').val();
 
-            //변경 버튼 클릭 시 이벤트
-            $('.add-area .add-btn-area .change-btn').on('click', function () {
-                let serverName2 = document.getElementById("serverName2").value;
-                let hostName2 = document.getElementById("hostName2").value;
-                let severRole2 = document.getElementById("severRole2").value;
-                let ipAddr2 = document.getElementById("ipAddr2").value;
-                let serverStatus2 = $('input:radio[name="serverStatus2"]:checked').val();
+            $('#userChPopup').show();
 
-                $('#userChPopup').show();
+            $.ajax({
+                url: "http://" + json.urls + "/monitor/server-config/" + hostName2,
+                contentType: "application/json; charset=UTF-8",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+                method: "PUT",
+                dataType: "JSON",
+                data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: serverStatus2, ch_rest: REST2, ch_grpc: gRPC2, ch_stream: Streaming2 }),
+                success: function (json) {
+                    $('.alert-cont').empty();
+                    $('.alert-cont').append(`<p class="alert-cont-txt">서버정보가 변경되었습니다.</p>`);
+                    $('#alert').show();
 
-                $.ajax({
-                    url: "http://" + json.urls + "/monitor/server-config/" + setCharr[1],
-                    contentType: "application/json; charset=UTF-8",
-                    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-                    method: "PUT",
-                    dataType: "JSON",
-                    data: JSON.stringify({ name: serverName2, hostname: hostName2, role: severRole2, ipaddr: ipAddr2, status: serverStatus2, ch_rest: 0, ch_grpc: 0, ch_stream: 0 }),
-                    success: function (json) {
-                        //console.log('운영자목록 변경 성공');
-                        alert('서버정보가 변경되었습니다');
-                        $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
-                    },
-                    error: function (request, status, error) {
-                        //console.log('운영자목록 변경 실패');
-                        let err = eval("(" + request.responseText + ")");
-                        $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
-                        $('#alert').show();
+                    $('#userChPopup').hide();
+                    $("#serverGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
 
-                        if (request.status == '403') {
-                            //console.log('로그아웃 성공');
-                            sessionStorage.removeItem('Bearer'); //삭제
-                            //sessionStorage.clear(); // 전체삭제
-                            console.log(request.responseText);
-                            location.href = "../../login.html"
-                        }
+                    reloadData();
+                },
+                error: function (request, status, error) {
+                    $('.alert-cont').empty();
+                    //console.log('운영자목록 변경 실패');
+                    let err = eval("(" + request.responseText + ")");
+                    $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
+                    $('#alert').show();
+
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        console.log(request.responseText);
+                        location.href = "../../login.html"
                     }
-                });
+                }
             });
         });
     });

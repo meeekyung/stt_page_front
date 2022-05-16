@@ -152,8 +152,34 @@ $(function () {
             //console.log('운영자 목록이 조회되었습니다.');
         });
 
-        //삭제       
+        //삭제버튼 클릭 시 팝업 이벤트
         $('.userT-delete').on('click', function () {
+            // 선택된 row rowId를 구한다.
+            let selRowIds = jQuery('#userGrid').jqGrid('getGridParam', 'selarrrow');
+
+            //​ 선택된 row가 없다면 리턴
+            if (selRowIds.length == 0) {
+                alert("삭제할 행을 선택하세요.");
+                return;
+            }
+            // 선택한 row가 있다면 모달창
+            else if (selRowIds.length > 0) {
+                $('.alert-cont, .alert-btn-area').empty();
+                $('.alert-cont').append(`<p class="alert-cont-txt">선택한 행을 삭제하시겠습니까?</p>`);
+                $('.alert-btn-area').append(`<input type="button" value="확인" id="userDeleteOk" class="btn okay-btn">`);
+                $('.alert-btn-area').append(`<input type="button" value="취소" id="userDeleteCancel" class="btn cancel-btn" style="margin-left: 10px">`);
+                $('#alert').show();
+            }
+        });
+
+        //삭제 취소
+        $(document).on('click', '#userDeleteCancel', function () {
+            $('#alert').hide();
+        });
+
+        //삭제
+        $(document).on('click', '#userDeleteOk', function () {
+            $('#alert').hide();
             // 선택된 row rowId를 구한다.
             let selRowIds = jQuery('#userGrid').jqGrid('getGridParam', 'selarrrow');
 
@@ -167,76 +193,36 @@ $(function () {
             if (selRowIds.length == 0) {
                 alert("삭제할 행을 선택하세요.");
                 return;
-            } else if (selRowIds.length > 1) {
-                alert('삭제할 1개의 행만 선택하세요');
-                $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
-                window.location.reload();
-            } else if (selRowIds.length == 1) {
-                $('#userDelPopup').show();
             }
 
             // 선택된 row의 개수만큼 반복하면서 해당 id를 삭제한다.​
-            // for (let i = 0; i < selRowIdsLength; i++) {
-            //     if (selRowIds.length == 1) {
-            //         $('#userDelPopup').show();
-            //     }
-            // }
+            for (let i = 0; i < selRowIdsLength; i++) {
+                $('#userGrid').jqGrid('delRowData', selRowIds[0]);
+                // if (selRowIds.length == 1) {
+                //     $('#userDelPopup').show();
+                // }
+            }
 
             //선택한 rowId의 아이디명
-            let selName = $("#" + selRowIds).children('td[aria-describedby="userGrid_id"]').text();
-
-            $('.delete-btn').on('click', function () {
-                let userPw = document.getElementById("userPw3").value;
-                console.log(selName, userPw);
-
-                //삭제된 정보 계정 확인
-                $.ajax({
-                    url: "http://" + json.urls + "/users/login",
-                    contentType: "application/json; charset=UTF-8",
-                    type: "POST",
-                    headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-                    data: JSON.stringify({ id: selName, password: userPw }),
-                    success: function (data) {
-                        confirmDel();
-                        $('#userDelPopup').hide();
-                    },
-                    error: function (request, status, error) {
-                        let err = eval("(" + request.responseText + ")");
-                        $('.alert-cont').append(`<p class="alert-cont-txt">비밀번호가 일치하지 않습니다.</p>`);
-                        $('#alert').show();
-
-                        if (request.status == '403') {
-                            //console.log('로그아웃 성공');
-                            sessionStorage.removeItem('Bearer'); //삭제
-                            //sessionStorage.clear(); // 전체삭제
-                            console.log(request.responseText);
-                            location.href = "../../login.html"
-                        }
-                    },
-                });
-
-                function confirmDel() {
-                    $.ajax({
-                        url: "http://" + json.urls + "/users?ids=" + selRowIdsJoin,
-                        headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
-                        method: "DELETE",
-                        dataType: "JSON",
-                        success: function (json) {
-                            //console.log('운영자목록 삭제 성공');
-                            $('#userGrid').jqGrid('delRowData', selRowIds[0]);
-                            $("#userGrid").trigger("reloadGrid");
-                        },
-                        error: function (request, status, error) {
-                            console.log(request.status);
-                            if (request.status == '403') {
-                                //console.log('로그아웃 성공');
-                                sessionStorage.removeItem('Bearer'); //삭제
-                                //sessionStorage.clear(); // 전체삭제
-                                console.log(request.responseText);
-                                location.href = "../../login.html"
-                            }
-                        }
-                    });
+            $.ajax({
+                url: "http://" + json.urls + "/users?ids=" + selRowIdsJoin,
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("Bearer") },
+                method: "DELETE",
+                dataType: "JSON",
+                success: function (json) {
+                    //console.log('운영자목록 삭제 성공');
+                    $('#userGrid').jqGrid('delRowData', selRowIds[0]);
+                    $("#userGrid").setGridParam({ page: 1, datatype: "json" }).trigger("reloadGrid");
+                },
+                error: function (request, status, error) {
+                    console.log(request.status);
+                    if (request.status == '403') {
+                        //console.log('로그아웃 성공');
+                        sessionStorage.removeItem('Bearer'); //삭제
+                        //sessionStorage.clear(); // 전체삭제
+                        console.log(request.responseText);
+                        location.href = "../../login.html"
+                    }
                 }
             });
         });
@@ -277,6 +263,8 @@ $(function () {
                     let err = eval("(" + request.responseText + ")");
                     $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                     $('#alert').show();
+
+                    $('#userAddPopup').show();
 
                     if (request.status == '403') {
                         //console.log('로그아웃 성공');
@@ -356,7 +344,7 @@ $(function () {
                         $('#userChPopup').hide();
                     },
                     error: function (request, status, error) {
-                        //console.log('운영자목록 변경 실패');
+                        $('.alert-cont').empty();
                         let err = eval("(" + request.responseText + ")");
                         $('.alert-cont').append(`<p class="alert-cont-txt">${err.detail}</p>`);
                         $('#alert').show();

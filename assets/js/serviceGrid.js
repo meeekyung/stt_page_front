@@ -9,6 +9,13 @@ if (listContent == null) {
 } else {
     execlBtn.disabled = false;
 }
+
+//기간 select 기본값 설정
+$("#endTime").val("23").attr("selected", "selected");
+$("#endTime").on('focus', function () {
+    $("#endTime").val("00").attr("selected", "selected");
+});
+
 //jquery-ui calendar
 $(function () {
     //달력 환글로 변경
@@ -147,6 +154,7 @@ $(function () {
                         execlBtn.disabled = false;
                     },
                     error: function (request, status, error) {
+                        execlBtn.disabled = true;
                         //console.log('service 통계 조회 실패');
                         if (startDayLimit > endDayLimit && startMonLimit > endMonLimit && startYearLimit > endYearLimit) {
                             $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
@@ -154,7 +162,7 @@ $(function () {
                             $(".serviceStatics-area").remove().empty();
                         }
                         else if (startTimeValue > endTimeValue) {
-                            $('.alert-cont').append(`<p class="alert-cont-txt">기간설정이 잘못되었습니다.</p>`);
+                            $('.alert-cont').append(`<p class="alert-cont-txt">시간설정이 잘못되었습니다.</p>`);
                             $('#alert').show();
                             $(".serviceStatics-area").remove().empty();
                         }
@@ -306,7 +314,7 @@ $('.execl-btn').on('click', function () {
 
                 let valArr = [];
                 for (let i = 0; i < json.length; i++) {
-                    let val = [json[i].time, json[i].request__sum, json[i].success__sum, json[i].fail__sum, json[i].tot_audio_len__sum, json[i].tot_proc_time__sum, json[i].avg_rtf__sum,];
+                    let val = [json[i].time, json[i].request__sum, json[i].success__sum, json[i].fail__sum, json[i].tot_audio_len__sum, json[i].tot_proc_time__sum, json[i].avg_rtf__avg,];
                     valArr.push(val);
                 }
 

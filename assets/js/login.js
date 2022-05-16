@@ -1,12 +1,12 @@
 //로그인 버튼 클릭 시 화면전환
 $("#introBtn").on("click", function () {
 
-    let user_name = document.getElementById("userName").value;
-    let user_pw = document.getElementById("userPw").value;
+    let user_name = document.getElementById("userNames").value;
+    let user_pw = document.getElementById("userPws").value;
 
     $.getJSON("../../config/config.json", function (json) {
         // console.log(json);
-        // console.log(json.urls);
+        console.log(json.urls);
 
         $.ajax({
             url: "http://" + json.urls + "/users/login",
@@ -28,14 +28,14 @@ $("#introBtn").on("click", function () {
             },
             error: function (data) {
                 alert("아이디 또는 비밀번호 오류입니다.");
-                $('#userName').focuse();
+                $('#userNames').focuse();
             },
         });
     });
 });
 
 //#okBtn 엔터키에도 적용
-$("#userPw").keypress(function (e) {
+$("#userPws").keypress(function (e) {
     if (e.which == 13) {
         $("#introBtn").click();
     }

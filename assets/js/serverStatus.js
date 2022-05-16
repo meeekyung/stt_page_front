@@ -100,14 +100,20 @@ $.getJSON("../../config/config.json", function (json) {
       data: JSON.stringify({
         names: checkedArr,
       }),
+      beforeSend: function () {
+        $('.black_bg, .loading-box').show();
+      },
+      complete: function () {
+        $('.black_bg, .loading-box').hide();
+      },
       success: function (json) {
         //console.log("서버정보 Start 성공");
+        statusRestart();
       },
       error: function (request, status, error) {
         //console.log("서버정보 Start 실패");
       },
     });
-    statusRestart();
   });
 
   //stop 버튼 클릭 이벤트
@@ -130,14 +136,20 @@ $.getJSON("../../config/config.json", function (json) {
       data: JSON.stringify({
         names: checkedArr,
       }),
+      beforeSend: function () {
+        $('.black_bg, .loading-box').show();
+      },
+      complete: function () {
+        $('.black_bg, .loading-box').hide();
+      },
       success: function (json) {
         //console.log("서버정보 Stop 성공");
+        statusRestart();
       },
       error: function (request, status, error) {
         //console.log("서버정보 Stop 실패");
       },
     });
-    statusRestart();
   });
 
   //kill 버튼 클릭 이벤트
@@ -160,14 +172,20 @@ $.getJSON("../../config/config.json", function (json) {
       data: JSON.stringify({
         names: checkedArr,
       }),
+      beforeSend: function () {
+        $('.black_bg, .loading-box').show();
+      },
+      complete: function () {
+        $('.black_bg, .loading-box').hide();
+      },
       success: function (json) {
         //console.log("서버정보 kill 성공");
+        statusRestart();
       },
       error: function (request, status, error) {
         //console.log("서버정보 kill 실패");
       },
     });
-    statusRestart();
   });
 
   //restart 버튼 클릭 이벤트
@@ -190,14 +208,20 @@ $.getJSON("../../config/config.json", function (json) {
       data: JSON.stringify({
         names: checkedArr,
       }),
+      beforeSend: function () {
+        $('.black_bg, .loading-box').show();
+      },
+      complete: function () {
+        $('.black_bg, .loading-box').hide();
+      },
       success: function (json) {
         //console.log("서버정보 restart 성공");
+        statusRestart();
       },
       error: function (request, status, error) {
         //console.log("서버정보 restart 실패");
       },
     });
-    statusRestart();
   });
 
   //pause 버튼 클릭 이벤트
@@ -220,14 +244,20 @@ $.getJSON("../../config/config.json", function (json) {
       data: JSON.stringify({
         names: checkedArr,
       }),
+      beforeSend: function () {
+        $('.black_bg, .loading-box').show();
+      },
+      complete: function () {
+        $('.black_bg, .loading-box').hide();
+      },
       success: function (json) {
-        console.log("서버정보 pause 성공");
+        // console.log("서버정보 pause 성공");
+        statusRestart();
       },
       error: function (request, status, error) {
-        console.log("서버정보 pause 실패");
+        // console.log("서버정보 pause 실패");
       },
     });
-    statusRestart();
   });
 
   //remove 버튼 클릭 이벤트
@@ -252,12 +282,19 @@ $.getJSON("../../config/config.json", function (json) {
       }),
       success: function (json) {
         //console.log("서버정보 remove 성공");
+        statusRestart();
       },
       error: function (request, status, error) {
         //console.log("서버정보 remove 실패");
+        const noneRemove = document.querySelector('.state-running').textContent;
+        //console.log(noneRemove);
+        if (noneRemove == 'running') {
+          $('.alert-cont').empty();
+          $('.alert-cont').append(`<p class="alert-cont-txt">컨테이너 정지 후 삭제해주세요.</p>`);
+          $('#alert').show();
+        }
       },
     });
-    statusRestart();
   });
 });
 
